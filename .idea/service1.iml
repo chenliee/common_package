@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/goods/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/goods/build" />
+      <excludeFolder url="file://$MODULE_DIR$/goods/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/push/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/push/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/push/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/iam/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/iam/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/iam/build" />
+      <excludeFolder url="file://$MODULE_DIR$/order/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/order/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/order/build" />
+      <excludeFolder url="file://$MODULE_DIR$/marketing/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/marketing/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/marketing/build" />
+      <excludeFolder url="file://$MODULE_DIR$/service_package/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/service_package/build" />
+      <excludeFolder url="file://$MODULE_DIR$/service_package/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/rating/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/rating/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/rating/build" />
+      <excludeFolder url="file://$MODULE_DIR$/push/build" />
+      <excludeFolder url="file://$MODULE_DIR$/push/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/push/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/gold/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/gold/build" />
+      <excludeFolder url="file://$MODULE_DIR$/gold/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/member/build" />
+      <excludeFolder url="file://$MODULE_DIR$/member/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/member/.pub" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

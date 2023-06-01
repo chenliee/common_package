@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.push">
+    <application tools:node="merge"
+        android:process=":pushService">
+        <receiver
+            android:name=".MyTPNSMessageReceiver"
+            android:exported="true"
+            android:process=":pushService">
+            <intent-filter>
+                <action android:name="com.tencent.android.xg.vip.action.PUSH_MESSAGE" />
+                <action android:name="com.tencent.android.xg.vip.action.FEEDBACK" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

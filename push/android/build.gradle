@@ -1,0 +1,73 @@
+group 'com.example.push'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext.kotlin_version = '1.6.10'
+    repositories {
+        google()
+        mavenCentral()
+
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.1.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlinx-serialization'
+
+android {
+    compileSdkVersion 31
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        minSdkVersion 16
+        flavorDimensions "version"
+    }
+
+    productFlavors {
+        fcmPush {
+            dimension "version"
+        }
+        hmsPush {
+            dimension "version"
+        }
+        tpnsPush {
+            dimension "version"
+        }
+    }
+
+    dependencies {
+        implementation 'androidx.core:core:1.3.2'
+        implementation 'androidx.appcompat:appcompat:1.3.0'
+        implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0'
+        fcmPushImplementation 'com.google.android.gms:play-services-basement:18.0.1'
+        fcmPushImplementation 'com.google.firebase:firebase-messaging:21.0.1'
+        hmsPushImplementation 'com.huawei.hms:push:6.7.0.300'
+        tpnsPushImplementation 'com.tencent.tpns:tpns:1.3.9.0-release'
+
+    }
+}
