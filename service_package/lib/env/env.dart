@@ -6,7 +6,7 @@ class Env {
   static final EnvConfig _devConfig = EnvConfig(
     appTitle: "devTitle",
    // appDomain: "http://10.100.202.100:7001",
-    appDomain: "https://gateway.dev.heyday-catering.com",
+    appDomain: "https://gateway.dev.heyday-catering.com:20443",
   );
   // 测试环境
   static final EnvConfig _uatConfig = EnvConfig(

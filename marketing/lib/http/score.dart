@@ -8,8 +8,12 @@ class ScoreResponse {
       '/marketing/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/score/record';
   static String scoreSwapUrl =
       '/marketing/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/score/swap';
-  static String scoreList =
+  static String scoreListUrl =
       '/marketing/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/score/list';
+  static String scoreDesUrl =
+      '/marketing/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/score/describe';
+
+  static a() {}
 
   static Future getScore() async {
     Statistical? score;
@@ -83,7 +87,7 @@ class ScoreResponse {
     List<ScoreItem> list = [];
     try {
       Map<String, dynamic> res =
-          await BaseDio.getInstance().get(url: scoreList);
+          await BaseDio.getInstance().get(url: scoreListUrl);
       if (res.containsKey('success') && !res['success']) {
         ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
@@ -112,5 +116,19 @@ class ScoreResponse {
       Debug.printMsg(e, StackTrace.current);
     }
     return scoreItem;
+  }
+
+  static Future<dynamic> getScoreDesc() async {
+    try {
+      Map<String, dynamic> res =
+          await BaseDio.getInstance().get(url: scoreDesUrl);
+      if (res.containsKey('success') && !res['success']) {
+        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        return;
+      }
+      return res['data']['describe'];
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+    }
   }
 }

@@ -1,3 +1,5 @@
+import 'ext_attr_value_item.dart';
+
 /// id : 1
 /// targetType : "good"
 /// targetId : 38
@@ -87,61 +89,6 @@ class GoodExtAttrItem {
     if (_key != null) {
       map['key'] = _key?.toJson();
     }
-    return map;
-  }
-}
-
-/// id : 1
-/// name : null
-/// title : "冰"
-/// remark : null
-
-class Key {
-  Key({
-    num? id,
-    dynamic name,
-    String? title,
-    dynamic remark,
-  }) {
-    _id = id;
-    _name = name;
-    _title = title;
-    _remark = remark;
-  }
-
-  Key.fromJson(dynamic json) {
-    _id = json['id'];
-    _name = json['name'];
-    _title = json['title'];
-    _remark = json['remark'];
-  }
-  num? _id;
-  dynamic _name;
-  String? _title;
-  dynamic _remark;
-  Key copyWith({
-    num? id,
-    dynamic name,
-    String? title,
-    dynamic remark,
-  }) =>
-      Key(
-        id: id ?? _id,
-        name: name ?? _name,
-        title: title ?? _title,
-        remark: remark ?? _remark,
-      );
-  num? get id => _id;
-  dynamic get name => _name;
-  String? get title => _title;
-  dynamic get remark => _remark;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = _id;
-    map['name'] = _name;
-    map['title'] = _title;
-    map['remark'] = _remark;
     return map;
   }
 }

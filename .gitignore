@@ -1,0 +1,6 @@
+.idea/
+*/.flutter-plugins
+*/.flutter-plugins-dependencies
+*.iml
+*.lock
+**/test/

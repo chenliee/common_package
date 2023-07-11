@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:marketing/model/group_item.dart';
 import 'package:marketing/model/user_group_item.dart';
 import 'package:service_package/service_package.dart';
 
+@immutable
 class GroupActResponse {
   static String groupActListUrl =
       '/marketing/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/groupAct';

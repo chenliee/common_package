@@ -19,6 +19,8 @@ class ServiceGlobal {
   static String shopId = '';
   static num pageSize = 10;
 
+  static bool paymentCustomize = false;
+
   static ServiceGlobal getInstance() {
     _instance ??= ServiceGlobal();
     return _instance!;
@@ -41,6 +43,12 @@ class ServiceGlobal {
   }) async {
     ServiceGlobal.token = token;
     ServiceGlobal.uid = uid;
+    ServiceGlobal.getInstance();
+  }
+
+  static clearToken() {
+    ServiceGlobal.token = '';
+    ServiceGlobal.uid = '';
     ServiceGlobal.getInstance();
   }
 
