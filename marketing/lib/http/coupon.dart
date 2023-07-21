@@ -11,28 +11,35 @@ class CouponResponse {
 
   static Future receiveCoupon({required String cid}) async {
     try {
+      bool isSuccess = false;
       Map<String, dynamic> res = await BaseDio.getInstance()
           .post(url: receiveCouponUrl, params: {'cid': cid});
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
       } else {
+        isSuccess = true;
         ToastInfo.toastInfo(msg: '領取成功');
       }
+      return isSuccess;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 
   static Future<List<UserCouponItem>> getUserCoupon(
-      {List<Map>? items, int? status, required num page}) async {
+      {List<Map>? items, int? status, num? page}) async {
     List<UserCouponItem> canList = [];
     List<UserCouponItem> notList = [];
     String usable = '';
     try {
-      Map<String, dynamic> params = {
-        'page': page,
-        'pageSize': ServiceGlobal.pageSize,
-      };
+      Map<String, dynamic> params = {};
+      if (page != null) {
+        params = {
+          'page': page,
+          'pageSize': ServiceGlobal.pageSize,
+        };
+      }
       if (ServiceGlobal.shopId.isNotEmpty) {
         params['shopId'] = ServiceGlobal.shopId;
       }
@@ -45,22 +52,24 @@ class CouponResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: userCouponUrl, params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return [];
       }
-      usable = res['data']['usable'];
-      List<dynamic> a = res['data']['canList'];
+      usable = res['data']['list']['usable'];
+      List<dynamic> a = res['data']['list']['canList'];
+
       for (dynamic item in a) {
         item['valid'] = true;
         canList.add(UserCouponItem.fromJson(item));
       }
-      List<dynamic> b = res['data']['notList'];
+      List<dynamic> b = res['data']['list']['notList'];
       for (Map<String, dynamic> item in b) {
         item['valid'] = false;
         notList.add(UserCouponItem.fromJson(item));
       }
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return [...canList, ...notList];
   }
@@ -80,7 +89,7 @@ class CouponResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: couponListUrl, params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return [];
       }
       List<dynamic> a = res['data'];
@@ -89,6 +98,7 @@ class CouponResponse {
       }
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return list;
   }

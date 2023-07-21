@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 
+import '../http/base_dio.dart';
+
 class ServiceGlobal {
   static ServiceGlobal? _instance;
 
@@ -19,7 +21,7 @@ class ServiceGlobal {
   static String shopId = '';
   static num pageSize = 10;
 
-  static bool paymentCustomize = false;
+  static bool toastCustomize = false;
 
   static ServiceGlobal getInstance() {
     _instance ??= ServiceGlobal();
@@ -29,11 +31,13 @@ class ServiceGlobal {
   static Future<void> initDistributor({
     required String mid,
     required String pid,
+    bool toastCustomize = false,
     String? shopId,
   }) async {
     ServiceGlobal.pid = pid;
     ServiceGlobal.mid = mid;
     ServiceGlobal.shopId = shopId ?? '';
+    ServiceGlobal.toastCustomize = toastCustomize;
     ServiceGlobal.getInstance();
   }
 
@@ -43,12 +47,19 @@ class ServiceGlobal {
   }) async {
     ServiceGlobal.token = token;
     ServiceGlobal.uid = uid;
+    BaseDio.getInstance().options.headers = {
+      'content-type': 'application/json',
+      'Authorization': ' Bearer ${ServiceGlobal.token}'
+    };
     ServiceGlobal.getInstance();
   }
 
   static clearToken() {
     ServiceGlobal.token = '';
     ServiceGlobal.uid = '';
+    BaseDio.getInstance().options.headers = {
+      'content-type': 'application/json'
+    };
     ServiceGlobal.getInstance();
   }
 

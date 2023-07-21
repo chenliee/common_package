@@ -51,7 +51,6 @@ class Push {
         print('error:$error');
       }
     }
-    print(token);
     return token;
   }
 

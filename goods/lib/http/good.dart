@@ -19,7 +19,7 @@ class GoodResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: categoryUrl, params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       List<dynamic> jsonList = res['data'];
@@ -29,6 +29,7 @@ class GoodResponse {
       return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 
@@ -38,7 +39,7 @@ class GoodResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: goodCustomAttrUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       List<dynamic> jsonList = res['data'];
@@ -48,6 +49,7 @@ class GoodResponse {
       return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 
@@ -57,7 +59,7 @@ class GoodResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: goodExtAttrUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       List<dynamic> jsonList = res['data'];
@@ -67,6 +69,7 @@ class GoodResponse {
       return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 
@@ -76,7 +79,7 @@ class GoodResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: extAttrValueUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       List<dynamic> jsonList = res['data'];
@@ -86,6 +89,7 @@ class GoodResponse {
       return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 

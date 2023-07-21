@@ -69,38 +69,36 @@ class CouponItem {
   bool? _receive;
   bool? _isVip;
   String? _description;
-  CouponItem copyWith({
-    num? id,
-    String? name,
-    String? shopId,
-    String? img,
-    String? goodsIds,
-    num? cost,
-    num? percent,
-    num? doorsill,
-    String? endTime,
-    String? typename,
-    String? hint,
-    bool? receive,
-    bool? isVip,
-    String? description,
-  }) =>
+  CouponItem copyWith(
+          {num? id,
+          String? name,
+          String? shopId,
+          String? img,
+          String? goodsIds,
+          num? cost,
+          num? percent,
+          num? doorsill,
+          String? endTime,
+          String? typename,
+          String? hint,
+          bool? receive,
+          bool? isVip,
+          String? description}) =>
       CouponItem(
-        id: id ?? _id,
-        name: name ?? _name,
-        shopId: shopId ?? _shopId,
-        img: img ?? _img,
-        goodsIds: goodsIds ?? _goodsIds,
-        cost: cost ?? _cost,
-        percent: percent ?? _percent,
-        doorsill: doorsill ?? _doorsill,
-        endTime: endTime ?? _endTime,
-        typename: typename ?? _typename,
-        hint: hint ?? _hint,
-        receive: receive ?? _receive,
-        isVip: isVip ?? _isVip,
-        description: description ?? _description,
-      );
+          id: id ?? _id,
+          name: name ?? _name,
+          shopId: shopId ?? _shopId,
+          img: img ?? _img,
+          goodsIds: goodsIds ?? _goodsIds,
+          cost: cost ?? _cost,
+          percent: percent ?? _percent,
+          doorsill: doorsill ?? _doorsill,
+          endTime: endTime ?? _endTime,
+          typename: typename ?? _typename,
+          hint: hint ?? _hint,
+          receive: receive ?? _receive,
+          isVip: isVip ?? _isVip,
+          description: description ?? _description);
   num? get id => _id;
   String? get name => _name;
   String? get shopId => _shopId;
@@ -135,3 +133,18 @@ class CouponItem {
     return map;
   }
 }
+
+/// id : 26
+/// name : "9月"
+/// shopId : null
+/// projectId : 1
+/// sourceId : 1
+/// imgUrl : null
+/// status : true
+/// share : false
+/// rule : {"cost":10,"endDate":"2023-10-1T00:00:00.000Z","percent":0,"doorsill":0,"upCoupon":false,"beginDate":"2023-09-1T00:00:00.000Z","goodsIds":"1,2"}
+/// description : "string"
+/// quantity : 97
+/// addTime : "2023-07-18T08:23:00.918Z"
+/// deletedAt : null
+/// brandCoupon : []

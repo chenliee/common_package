@@ -14,7 +14,7 @@ class PositionResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: positionUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       List<dynamic> jsonLists = res['data'];
@@ -24,6 +24,7 @@ class PositionResponse {
       return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 
@@ -33,7 +34,7 @@ class PositionResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$advertUrl/$position');
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       List<dynamic> jsonLists = res['data'];
@@ -43,6 +44,7 @@ class PositionResponse {
       return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 }

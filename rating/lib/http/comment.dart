@@ -25,7 +25,7 @@ class CommentResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: url, params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       List<dynamic> jsonLists = res['data'];
@@ -35,6 +35,7 @@ class CommentResponse {
       return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 
@@ -67,14 +68,15 @@ class CommentResponse {
       Map<String, dynamic> res = await BaseDio.getInstance()
           .post(url: '$relatedUrl/$bCode', params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return false;
       } else {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "評論成功"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "評論成功"}');
         return true;
       }
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 }

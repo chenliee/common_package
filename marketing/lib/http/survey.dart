@@ -15,6 +15,7 @@ class SurveyResponse {
       };
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: surveyListUrl, params: params);
+      print(res);
       List<SurveyList> list = [];
       List<dynamic> jsonList = res['data'];
       for (var json in jsonList) {
@@ -23,6 +24,7 @@ class SurveyResponse {
       return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 
@@ -30,30 +32,30 @@ class SurveyResponse {
     try {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$surveyUrl/$id');
-      SurveyItem item = SurveyItem.fromJson(res['data']['survey']);
+      SurveyItem item = SurveyItem.fromJson(res['data']);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 
   static Future submitSurvey(
-      {required String id, Map? meta, required List question}) async {
+      {required String id, required Map<String, dynamic> params}) async {
     try {
-      Map<String, dynamic> params = {
-        "question": question,
-        "project": ServiceGlobal.pid,
-        "meta": meta ?? {}
-      };
+      bool isSuccess = false;
       Map<String, dynamic> res = await BaseDio.getInstance()
           .post(url: '$surveyUrl/$id', params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
       } else {
+        isSuccess = true;
         ToastInfo.toastInfo(msg: '提交成功');
       }
+      return isSuccess;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 }

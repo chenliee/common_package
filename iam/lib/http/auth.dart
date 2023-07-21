@@ -10,13 +10,14 @@ class MyResponse {
       Map<String, dynamic> res = await BaseDio.getInstance()
           .post(url: '$authUrl?code=$code', params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       AuthModel authModel = AuthModel.fromJson(res['data']);
       return authModel;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 }

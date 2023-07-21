@@ -22,7 +22,7 @@ class UserDio {
     try {
       Map<String, dynamic> res = await BaseDio.getInstance().get(url: userUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       UserInfo userInfo = UserInfo.fromJson(res['data']);
@@ -50,7 +50,7 @@ class UserDio {
       Map<String, dynamic> res =
           await BaseDio.getInstance().put(url: userUrl, params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return false;
       } else {
         UserInfo userInfo = UserInfo.fromJson(res['data']);
@@ -67,7 +67,7 @@ class UserDio {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: vipInfoUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       UserVipInfo userVipInfo = UserVipInfo.fromJson(res['data']);
@@ -83,7 +83,7 @@ class UserDio {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: gradeInfoUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       UserVipGradeInfo userVipGradeInfo =
@@ -106,7 +106,7 @@ class UserDio {
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: vipBuyUrl, params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       return res['data'];
@@ -121,7 +121,7 @@ class UserDio {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: vipListUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return list;
       }
       List jsonList = res['data'];
@@ -140,7 +140,7 @@ class UserDio {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: vipListUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return list;
       }
       List jsonList = res['data'];

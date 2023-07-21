@@ -21,12 +21,13 @@ class VipRightResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: payCardUrl, params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       return res['data'];
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 
@@ -36,12 +37,13 @@ class VipRightResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$vipCardUrl/$vipCardId');
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       vipCardRight = VipCardRight.fromJson(res['data']);
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return vipCardRight;
   }

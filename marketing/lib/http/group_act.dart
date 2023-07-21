@@ -22,7 +22,7 @@ class GroupActResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: groupActListUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       List<dynamic> jsonList = res['data'];
@@ -31,6 +31,7 @@ class GroupActResponse {
       }
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return list;
   }
@@ -41,12 +42,13 @@ class GroupActResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$groupActListUrl/$gid');
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       item = GroupItem.fromJson(res['data']);
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return item;
   }
@@ -64,12 +66,13 @@ class GroupActResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: payGroupUrl, params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       url = res['data']['url'];
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return url;
   }
@@ -81,6 +84,7 @@ class GroupActResponse {
           await BaseDio.getInstance().post(url: '$refundGroupActUrl/$code');
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 
@@ -90,7 +94,7 @@ class GroupActResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: userGroupActListUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       List<dynamic> jsonList = res['data'];
@@ -99,6 +103,7 @@ class GroupActResponse {
       }
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return list;
   }
@@ -109,12 +114,13 @@ class GroupActResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$userGroupActListUrl/$gid');
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       item = UserGroupItem.fromJson(res['data']);
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return item;
   }

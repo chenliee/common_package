@@ -22,13 +22,14 @@ class MemberOrderResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$orderUrl/$id');
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       OrderItem item = OrderItem.fromJson(res['data']);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 
@@ -46,7 +47,7 @@ class MemberOrderResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: orderUrl, params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       List<dynamic> jsonList = res['data'];
@@ -56,6 +57,7 @@ class MemberOrderResponse {
       return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 
@@ -74,12 +76,13 @@ class MemberOrderResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: payUrl, params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       return res['data'];
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 
@@ -93,7 +96,7 @@ class MemberOrderResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: cancelUrl, params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return false;
       } else {
         ToastInfo.toastInfo(msg: '取消成功');
@@ -111,7 +114,7 @@ class MemberOrderResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: completeUrl, params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return false;
       } else {
         return true;
@@ -132,7 +135,7 @@ class MemberOrderResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: refundUrl, params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return false;
       } else {
         ToastInfo.toastInfo(msg: '申请成功');

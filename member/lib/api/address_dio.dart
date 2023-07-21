@@ -34,7 +34,7 @@ class AddressDio {
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: addressListUrl, params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return false;
       } else {
         ToastInfo.toastInfo(msg: '添加成功');
@@ -59,7 +59,7 @@ class AddressDio {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: addressListUrl, params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return [];
       }
       List<dynamic> jsonList = res['data'];
@@ -78,7 +78,7 @@ class AddressDio {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$addressListUrl/$id');
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return null;
       }
       AddressInfo addressInfo = AddressInfo.fromJson(res['data']);
@@ -117,11 +117,11 @@ class AddressDio {
       Map<String, dynamic> res = await BaseDio.getInstance()
           .put(url: '$addressListUrl/$id', params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return false;
       }
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return false;
       } else {
         ToastInfo.toastInfo(msg: '添加成功');
@@ -138,7 +138,7 @@ class AddressDio {
       Map<String, dynamic> res =
           await BaseDio.getInstance().delete(url: '$addressListUrl/$id');
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return false;
       } else {
         ToastInfo.toastInfo(msg: '删除成功');

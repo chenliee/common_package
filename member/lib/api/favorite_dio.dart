@@ -15,7 +15,7 @@ class FavoriteDio {
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: favoriteUrl, params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return false;
       } else {
         ToastInfo.toastInfo(msg: '已加入收藏');
@@ -52,7 +52,7 @@ class FavoriteDio {
       Map<String, dynamic> res =
           await BaseDio.getInstance().put(url: '$favoriteUrl/$id');
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return false;
       } else {
         ToastInfo.toastInfo(msg: '已移除收藏');

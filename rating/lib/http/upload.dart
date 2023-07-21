@@ -6,6 +6,7 @@ class UploadResponse {
 
   static Future upload({required String path}) async {
     try {
+      bool isSuccess = false;
       FormData formData = FormData();
       formData.files.add(MapEntry(
         'file',
@@ -14,12 +15,15 @@ class UploadResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().upload(url: uploadUrl, data: formData);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
       } else {
         ToastInfo.toastInfo(msg: '上傳成功');
+        isSuccess = true;
       }
+      return isSuccess;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 }

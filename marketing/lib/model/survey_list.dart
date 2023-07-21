@@ -16,21 +16,22 @@
 
 class SurveyList {
   SurveyList({
-      num? id, 
-      num? merchantId, 
-      String? name, 
-      dynamic description, 
-      String? startAt, 
-      String? endAt, 
-      String? status, 
-      num? sort, 
-      bool? top, 
-      String? createdAt, 
-      String? updatedAt, 
-      dynamic creatorId, 
-      dynamic updatorId, 
-      dynamic imgUrl, 
-      dynamic deletedAt,}){
+    num? id,
+    num? merchantId,
+    String? name,
+    dynamic description,
+    String? startAt,
+    String? endAt,
+    String? status,
+    num? sort,
+    bool? top,
+    String? createdAt,
+    String? updatedAt,
+    dynamic creatorId,
+    dynamic updatorId,
+    dynamic imgUrl,
+    dynamic deletedAt,
+  }) {
     _id = id;
     _merchantId = merchantId;
     _name = name;
@@ -46,7 +47,7 @@ class SurveyList {
     _updatorId = updatorId;
     _imgUrl = imgUrl;
     _deletedAt = deletedAt;
-}
+  }
 
   SurveyList.fromJson(dynamic json) {
     _id = json['id'];
@@ -80,37 +81,40 @@ class SurveyList {
   dynamic _updatorId;
   dynamic _imgUrl;
   dynamic _deletedAt;
-SurveyList copyWith({  num? id,
-  num? merchantId,
-  String? name,
-  dynamic description,
-  String? startAt,
-  String? endAt,
-  String? status,
-  num? sort,
-  bool? top,
-  String? createdAt,
-  String? updatedAt,
-  dynamic creatorId,
-  dynamic updatorId,
-  dynamic imgUrl,
-  dynamic deletedAt,
-}) => SurveyList(  id: id ?? _id,
-  merchantId: merchantId ?? _merchantId,
-  name: name ?? _name,
-  description: description ?? _description,
-  startAt: startAt ?? _startAt,
-  endAt: endAt ?? _endAt,
-  status: status ?? _status,
-  sort: sort ?? _sort,
-  top: top ?? _top,
-  createdAt: createdAt ?? _createdAt,
-  updatedAt: updatedAt ?? _updatedAt,
-  creatorId: creatorId ?? _creatorId,
-  updatorId: updatorId ?? _updatorId,
-  imgUrl: imgUrl ?? _imgUrl,
-  deletedAt: deletedAt ?? _deletedAt,
-);
+  SurveyList copyWith({
+    num? id,
+    num? merchantId,
+    String? name,
+    dynamic description,
+    String? startAt,
+    String? endAt,
+    String? status,
+    num? sort,
+    bool? top,
+    String? createdAt,
+    String? updatedAt,
+    dynamic creatorId,
+    dynamic updatorId,
+    dynamic imgUrl,
+    dynamic deletedAt,
+  }) =>
+      SurveyList(
+        id: id ?? _id,
+        merchantId: merchantId ?? _merchantId,
+        name: name ?? _name,
+        description: description ?? _description,
+        startAt: startAt ?? _startAt,
+        endAt: endAt ?? _endAt,
+        status: status ?? _status,
+        sort: sort ?? _sort,
+        top: top ?? _top,
+        createdAt: createdAt ?? _createdAt,
+        updatedAt: updatedAt ?? _updatedAt,
+        creatorId: creatorId ?? _creatorId,
+        updatorId: updatorId ?? _updatorId,
+        imgUrl: imgUrl ?? _imgUrl,
+        deletedAt: deletedAt ?? _deletedAt,
+      );
   num? get id => _id;
   num? get merchantId => _merchantId;
   String? get name => _name;
@@ -146,5 +150,4 @@ SurveyList copyWith({  num? id,
     map['deletedAt'] = _deletedAt;
     return map;
   }
-
 }

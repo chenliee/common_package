@@ -19,7 +19,7 @@ class SpikeActResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: seckillActUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       List<dynamic> jsonList = res['data'];
@@ -28,6 +28,7 @@ class SpikeActResponse {
       }
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return list;
   }
@@ -38,7 +39,7 @@ class SpikeActResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$seckillUrl/$id');
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       List<dynamic> jsonList = res['data'];
@@ -47,6 +48,7 @@ class SpikeActResponse {
       }
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return list;
   }
@@ -57,12 +59,13 @@ class SpikeActResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$seckillGoodsUrl/$goodId');
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       item = SpikeItem.fromJson(res['data']);
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return item;
   }
@@ -77,12 +80,13 @@ class SpikeActResponse {
       Map<String, dynamic> res = await BaseDio.getInstance()
           .post(url: orderDiscountUrl, params: params);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       orderPoint = OrderScore.fromJson(res);
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return orderPoint;
   }
@@ -93,12 +97,13 @@ class SpikeActResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: newBieUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return false;
       }
       isNewBie = res['data']['isOpen'];
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return isNewBie;
   }

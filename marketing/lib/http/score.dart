@@ -20,12 +20,13 @@ class ScoreResponse {
     try {
       Map<String, dynamic> res = await BaseDio.getInstance().get(url: scoreUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return res['message'];
       }
       score = Statistical.fromJson(res['data']);
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return score;
   }
@@ -36,7 +37,7 @@ class ScoreResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: scoreRecordUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       List<dynamic> jsonList = res['data'];
@@ -45,6 +46,7 @@ class ScoreResponse {
       }
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return list;
   }
@@ -55,7 +57,7 @@ class ScoreResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: scoreSwapUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       List<dynamic> jsonList = res['data'];
@@ -64,6 +66,7 @@ class ScoreResponse {
       }
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return list;
   }
@@ -73,13 +76,18 @@ class ScoreResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$scoreSwapUrl/$sid');
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        if (!ServiceGlobal.toastCustomize) {
+          ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        }
         return;
       }
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
-    ToastInfo.toastInfo(msg: '兌換成功');
+    if (!ServiceGlobal.toastCustomize) {
+      ToastInfo.toastInfo(msg: '兌換成功');
+    }
     return true;
   }
 
@@ -89,7 +97,7 @@ class ScoreResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: scoreListUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       List<dynamic> jsonList = res['data'];
@@ -98,6 +106,7 @@ class ScoreResponse {
       }
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return list;
   }
@@ -108,12 +117,13 @@ class ScoreResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$scoreUrl/$sid');
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       scoreItem = ScoreItem.fromJson(res);
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
     return scoreItem;
   }
@@ -123,12 +133,13 @@ class ScoreResponse {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: scoreDesUrl);
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}');
+        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
         return;
       }
       return res['data']['describe'];
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 }

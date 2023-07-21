@@ -1,5 +1,4 @@
 import 'package:dio/adapter.dart';
-import 'package:dio/dio.dart';
 import 'package:service_package/service_package.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

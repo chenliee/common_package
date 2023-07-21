@@ -29,20 +29,20 @@ class SurveyItem {
   }
 
   SurveyItem.fromJson(dynamic json) {
-    _id = json['id'];
-    if (json['imgUrl'] != null) {
+    _id = json['survey']['id'];
+    if (json['survey']['imgUrl'] != null) {
       _imgUrl = [];
-      json['imgUrl'].forEach((v) {
+      json['survey']['imgUrl'].forEach((v) {
         _imgUrl?.add(ImgUrl.fromJson(v));
       });
     }
-    _name = json['name'];
-    _startAt = json['startAt'];
-    _endAt = json['endAt'];
-    _status = json['status'];
-    if (json['question'] != null) {
+    _name = json['survey']['name'];
+    _startAt = json['survey']['startAt'];
+    _endAt = json['survey']['endAt'];
+    _status = json['survey']['status'];
+    if (json['survey']['question'] != null) {
       _questionInfo = [];
-      json['question'].forEach((v) {
+      json['survey']['question'].forEach((v) {
         _questionInfo?.add(QuestionInfo.fromJson(v));
       });
     }
@@ -368,6 +368,7 @@ class QuestionInfo {
     String? description,
     num? sort,
     bool? required,
+    Map? format,
     List<OptionInfo>? optionInfo,
   }) {
     _id = id;
@@ -377,6 +378,7 @@ class QuestionInfo {
     _description = description;
     _sort = sort;
     _required = required;
+    _format = format;
     _optionInfo = optionInfo;
   }
 
@@ -393,6 +395,7 @@ class QuestionInfo {
     _description = json['description'];
     _sort = json['sort'];
     _required = json['required'];
+    _format = json['format'];
     if (json['option'] != null) {
       _optionInfo = [];
       json['option'].forEach((v) {
@@ -407,6 +410,7 @@ class QuestionInfo {
   String? _description;
   num? _sort;
   bool? _required;
+  Map? _format;
   List<OptionInfo>? _optionInfo;
   QuestionInfo copyWith({
     num? id,
@@ -416,6 +420,7 @@ class QuestionInfo {
     String? description,
     num? sort,
     bool? required,
+    Map? format,
     List<OptionInfo>? optionInfo,
   }) =>
       QuestionInfo(
@@ -426,6 +431,7 @@ class QuestionInfo {
         description: description ?? _description,
         sort: sort ?? _sort,
         required: required ?? _required,
+        format: format ?? _format,
         optionInfo: optionInfo ?? _optionInfo,
       );
   num? get id => _id;
@@ -435,6 +441,7 @@ class QuestionInfo {
   String? get description => _description;
   num? get sort => _sort;
   bool? get required => _required;
+  Map? get format => _format;
   List<OptionInfo>? get optionInfo => _optionInfo;
 
   Map<String, dynamic> toJson() {
@@ -448,6 +455,7 @@ class QuestionInfo {
     map['description'] = _description;
     map['sort'] = _sort;
     map['required'] = _required;
+    map['format'] = _format;
     if (_optionInfo != null) {
       map['option'] = _optionInfo?.map((v) => v.toJson()).toList();
     }
@@ -462,57 +470,34 @@ class QuestionInfo {
 
 class OptionInfo {
   OptionInfo({
-    num? id,
-    List<ImgUrl>? imgUrl,
-    String? name,
-    num? sort,
+    String? label,
+    String? value,
   }) {
-    _id = id;
-    _imgUrl = imgUrl;
-    _name = name;
-    _sort = sort;
+    _label = label;
+    _value = value;
   }
 
   OptionInfo.fromJson(dynamic json) {
-    _id = json['id'];
-    if (json['imgUrl'] != null) {
-      _imgUrl = [];
-      json['imgUrl'].forEach((v) {
-        _imgUrl?.add(ImgUrl.fromJson(v));
-      });
-    }
-    _name = json['name'];
-    _sort = json['sort'];
+    _label = json['label'];
+    _value = json['value'].toString();
   }
-  num? _id;
-  List<ImgUrl>? _imgUrl;
-  String? _name;
-  num? _sort;
+  String? _label;
+  String? _value;
   OptionInfo copyWith({
-    num? id,
-    List<ImgUrl>? imgUrl,
-    String? name,
-    num? sort,
+    String? label,
+    String? value,
   }) =>
       OptionInfo(
-        id: id ?? _id,
-        imgUrl: imgUrl ?? _imgUrl,
-        name: name ?? _name,
-        sort: sort ?? _sort,
+        label: label ?? _label,
+        value: value ?? _value,
       );
-  num? get id => _id;
-  List<ImgUrl>? get imgUrl => _imgUrl;
-  String? get name => _name;
-  num? get sort => _sort;
+  String? get value => _value;
+  String? get label => _label;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['id'] = _id;
-    if (_imgUrl != null) {
-      map['imgUrl'] = _imgUrl?.map((v) => v.toJson()).toList();
-    }
-    map['name'] = _name;
-    map['sort'] = _sort;
+    map['label'] = _label;
+    map['value'] = _value;
     return map;
   }
 }

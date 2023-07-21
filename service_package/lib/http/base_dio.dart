@@ -63,16 +63,6 @@ class BaseDio {
 
   Future<dynamic> requestHttp(
       String url, String method, Map<String, dynamic>? params) async {
-    if (ServiceGlobal.token.isNotEmpty) {
-      dio.options.headers = {
-        'content-type': 'application/json',
-        'Authorization': ' Bearer ${ServiceGlobal.token}'
-      };
-    } else {
-      dio.options.headers = {
-        'content-type': 'application/json',
-      };
-    }
     Response? response;
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
         (client) {
@@ -107,7 +97,10 @@ class BaseDio {
       }
       return response!.data;
     } on DioError catch (error) {
+      ToastInfo.toastApiInfo(msg: error.message);
       Debug.printMsg(error.message, StackTrace.current);
+      throw error.response!.data;
+      return error.response!.data;
     }
   }
 
@@ -134,7 +127,9 @@ class BaseDio {
       response = await dio.post(url, data: data);
       return response.data;
     } on DioError catch (error) {
+      ToastInfo.toastApiInfo(msg: error.message);
       Debug.printMsg(error.message, StackTrace.current);
+      throw error.response!.data;
     }
   }
 }
