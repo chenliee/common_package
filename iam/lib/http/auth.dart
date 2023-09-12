@@ -4,16 +4,11 @@ import 'package:service_package/service_package.dart';
 class MyResponse {
   static Future auth({required String code, required String pid}) async {
     String authUrl =
-        '/iam/api/merchant/${ServiceGlobal.mid}/provider/$pid/auth/';
+        '/iam/api/merchant/${ServiceGlobal.instance.merchantId}/provider/$pid/auth/';
     try {
-      Map<String, dynamic> params = {};
-      Map<String, dynamic> res = await BaseDio.getInstance()
-          .post(url: '$authUrl?code=$code', params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      AuthModel authModel = AuthModel.fromJson(res['data']);
+      Map<String, dynamic> res =
+          await BaseDio.getInstance().post(url: '$authUrl?code=$code');
+      AuthModel authModel = AuthModel.fromJson(res);
       return authModel;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);

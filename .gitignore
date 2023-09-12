@@ -4,3 +4,4 @@
 *.iml
 *.lock
 **/test/
+*/.env

@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 
 class Stitching {
   List<Map<String, dynamic>> extractDataByTargetId(
-      Map<String, dynamic> res, int targetId) {
+  List<dynamic> res, int targetId) {
     List<Map<String, dynamic>> extractedData = [];
-    List<dynamic> data = res['data'];
-
-    for (var item in data) {
+    for (var item in res) {
       if (item['targetId'] == targetId) {
         extractedData.add(item);
       }

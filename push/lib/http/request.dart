@@ -15,7 +15,7 @@ class PushRequest {
       };
       final res = await PushDio.getInstance().post(
           url:
-              '/notify/api/merchant/${ServiceGlobal.mid}/channel/${Push.cid}/device-registration',
+              '/notify/api/merchant/${ServiceGlobal.instance.merchantId}/channel/${Push.cid}/device-registration',
           params: params);
       Push.uuid = res['uuid'];
     } else {
@@ -33,7 +33,7 @@ class PushRequest {
     };
     final res = await PushDio.getInstance().post(
         url:
-            '/notify/api/merchant/${ServiceGlobal.mid}/channel/$cid/device-binding',
+            '/notify/api/merchant/${ServiceGlobal.instance.merchantId}/channel/$cid/device-binding',
         params: params);
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString('sn', res['sn']);
@@ -43,7 +43,7 @@ class PushRequest {
   static Future<void> update({required String cid}) async {
     await PushDio.getInstance().post(
         url:
-            '/notify/api/merchant/${ServiceGlobal.mid}/channel/$cid/device/current/update',
+            '/notify/api/merchant/${ServiceGlobal.instance.merchantId}/channel/$cid/device/current/update',
         params: {});
   }
 }

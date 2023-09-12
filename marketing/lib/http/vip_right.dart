@@ -5,9 +5,9 @@ import 'package:service_package/service_package.dart';
 
 class VipRightResponse {
   static String payCardUrl =
-      '/marketing/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/vipRight/payCardCoupon';
+      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/vipRight/payCardCoupon';
   static String vipCardUrl =
-      '/marketing/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/vipRight';
+      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/vipRight';
 
   static Future payCardCoupon(
       {num? id, String? channel, String? redirectUrl}) async {
@@ -20,11 +20,7 @@ class VipRightResponse {
       params['redirectUrl'] = redirectUrl;
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: payCardUrl, params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      return res['data'];
+      return res;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
@@ -36,11 +32,7 @@ class VipRightResponse {
     try {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$vipCardUrl/$vipCardId');
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      vipCardRight = VipCardRight.fromJson(res['data']);
+      vipCardRight = VipCardRight.fromJson(res);
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

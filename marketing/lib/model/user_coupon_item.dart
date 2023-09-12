@@ -50,7 +50,7 @@ class UserCouponItem {
     _plus = json['plus'];
     _cost = json['cost'];
     _percent = json['percent'] ?? 0;
-    _doorsill = json['doorsill'];
+    _doorsill = json['doorsill'] ?? 0;
     _cause = json['cause'] ?? '';
     _code = json['code'];
     _typename = json['typename'];
@@ -299,6 +299,7 @@ class CouponRule {
     bool? upCoupon,
     String? beginDate,
     String? goodsIds,
+    List<String>? shopIds,
   }) {
     _cost = cost;
     _endDate = endDate;
@@ -307,6 +308,7 @@ class CouponRule {
     _upCoupon = upCoupon;
     _beginDate = beginDate;
     _goodsIds = goodsIds;
+    _shopIds = shopIds;
   }
 
   CouponRule.fromJson(dynamic json) {
@@ -317,6 +319,7 @@ class CouponRule {
     _upCoupon = json['upCoupon'];
     _beginDate = json['beginDate'];
     _goodsIds = json['goodsIds'];
+    _shopIds = json['shopIds'] != null ? json['shopIds'].cast<String>() : [];
   }
   num? _cost;
   String? _endDate;
@@ -325,6 +328,7 @@ class CouponRule {
   bool? _upCoupon;
   String? _beginDate;
   String? _goodsIds;
+  List<String>? _shopIds;
   CouponRule copyWith({
     num? cost,
     String? endDate,
@@ -333,6 +337,7 @@ class CouponRule {
     bool? upCoupon,
     String? beginDate,
     String? goodsIds,
+    List<String>? shopIds
   }) =>
       CouponRule(
         cost: cost ?? _cost,
@@ -342,6 +347,7 @@ class CouponRule {
         upCoupon: upCoupon ?? _upCoupon,
         beginDate: beginDate ?? _beginDate,
         goodsIds: goodsIds ?? _goodsIds,
+        shopIds: shopIds ?? _shopIds,
       );
   num? get cost => _cost;
   String? get endDate => _endDate;
@@ -350,7 +356,7 @@ class CouponRule {
   bool? get upCoupon => _upCoupon;
   String? get beginDate => _beginDate;
   String? get goodsIds => _goodsIds;
-
+  List<String>? get shopIds => _shopIds;
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['cost'] = _cost;

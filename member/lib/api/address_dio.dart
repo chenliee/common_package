@@ -4,7 +4,7 @@ import 'package:service_package/service_package.dart';
 // 地址接口类
 class AddressDio {
   static String addressListUrl =
-      '/member/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/address';
+      '/member/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/address';
 
   // 添加地址
   static Future<bool> addAddress(
@@ -31,15 +31,9 @@ class AddressDio {
         "lng": lng,
         "isDefault": isDefault ?? 0
       };
-      Map<String, dynamic> res =
-          await BaseDio.getInstance().post(url: addressListUrl, params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return false;
-      } else {
-        ToastInfo.toastInfo(msg: '添加成功');
+      await BaseDio.getInstance().post(url: addressListUrl, params: params);
+      ToastInfo.toastInfo(msg: '添加成功');
         return true;
-      }
     } catch (e) {
       throw Exception();
     }
@@ -53,16 +47,10 @@ class AddressDio {
       if (page != null) {
         params = {
           'page': page,
-          'pageSize': ServiceGlobal.pageSize,
+          'pageSize': ServiceGlobal.instance.pageSize,
         };
       }
-      Map<String, dynamic> res =
-          await BaseDio.getInstance().get(url: addressListUrl, params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return [];
-      }
-      List<dynamic> jsonList = res['data'];
+      List<dynamic> jsonList =  await BaseDio.getInstance().get(url: addressListUrl, params: params);
       for (dynamic item in jsonList) {
         list.add(AddressInfo.fromJson(item));
       }
@@ -77,11 +65,7 @@ class AddressDio {
     try {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$addressListUrl/$id');
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return null;
-      }
-      AddressInfo addressInfo = AddressInfo.fromJson(res['data']);
+      AddressInfo addressInfo = AddressInfo.fromJson(res);
       return addressInfo;
     } catch (e) {
       throw Exception();
@@ -114,19 +98,9 @@ class AddressDio {
         "lng": lng,
         "isDefault": isDefault
       };
-      Map<String, dynamic> res = await BaseDio.getInstance()
+      await BaseDio.getInstance()
           .put(url: '$addressListUrl/$id', params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return false;
-      }
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return false;
-      } else {
-        ToastInfo.toastInfo(msg: '添加成功');
-        return true;
-      }
+      ToastInfo.toastInfo(msg: '添加成功');return true;
     } catch (e) {
       throw Exception();
     }
@@ -135,15 +109,11 @@ class AddressDio {
   // 删除地址
   static Future<bool> delAddress({required int id}) async {
     try {
-      Map<String, dynamic> res =
-          await BaseDio.getInstance().delete(url: '$addressListUrl/$id');
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return false;
-      } else {
+     await BaseDio.getInstance().delete(url: '$addressListUrl/$id');
+
         ToastInfo.toastInfo(msg: '删除成功');
         return true;
-      }
+
     } catch (e) {
       throw Exception();
     }

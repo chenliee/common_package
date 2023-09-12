@@ -1,31 +1,34 @@
-import 'package:dio/dio.dart';
-
-import '../http/base_dio.dart';
+import 'package:service_package/service_package.dart';
 
 class ServiceGlobal {
-  static ServiceGlobal? _instance;
+  late String merchantId;
 
-  static String mid = '';
+  late String projectId;
 
-  ///商户
-  static String pid = '';
+  late String uid;
 
-  ///项目
-  static String uid = '';
+  late String token;
 
-  ///uid
-  static String token = '';
+  late String shopId;
 
-  ///token
+  late num pageSize;
 
-  static String shopId = '';
-  static num pageSize = 10;
+  late bool toastCustomize;
 
-  static bool toastCustomize = false;
+  factory ServiceGlobal() => _instance;
 
-  static ServiceGlobal getInstance() {
-    _instance ??= ServiceGlobal();
-    return _instance!;
+  static final ServiceGlobal _instance = ServiceGlobal._internal();
+
+  static ServiceGlobal get instance => _instance;
+
+  ServiceGlobal._internal() {
+    merchantId = '';
+    projectId = '';
+    uid = '';
+    token = '';
+    shopId = '';
+    pageSize = 10;
+    toastCustomize = false;
   }
 
   static Future<void> initDistributor({
@@ -34,33 +37,33 @@ class ServiceGlobal {
     bool toastCustomize = false,
     String? shopId,
   }) async {
-    ServiceGlobal.pid = pid;
-    ServiceGlobal.mid = mid;
-    ServiceGlobal.shopId = shopId ?? '';
-    ServiceGlobal.toastCustomize = toastCustomize;
-    ServiceGlobal.getInstance();
+    ServiceGlobal.instance
+      ..projectId = pid
+      ..merchantId = mid
+      ..shopId = shopId ?? ''
+      ..toastCustomize = toastCustomize;
   }
 
   static Future<void> initToken({
     required String uid,
     required String token,
   }) async {
-    ServiceGlobal.token = token;
-    ServiceGlobal.uid = uid;
+    ServiceGlobal.instance
+      ..uid = uid
+      ..token = token;
     BaseDio.getInstance().options.headers = {
       'content-type': 'application/json',
-      'Authorization': ' Bearer ${ServiceGlobal.token}'
+      'Authorization': 'Bearer $token'
     };
-    ServiceGlobal.getInstance();
   }
 
   static clearToken() {
-    ServiceGlobal.token = '';
-    ServiceGlobal.uid = '';
+    ServiceGlobal.instance
+      ..token = ''
+      ..uid = '';
     BaseDio.getInstance().options.headers = {
       'content-type': 'application/json'
     };
-    ServiceGlobal.getInstance();
   }
 
   static Future<Map<String, dynamic>> allAdData() async {

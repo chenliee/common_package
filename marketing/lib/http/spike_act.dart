@@ -3,26 +3,21 @@ import 'package:service_package/service_package.dart';
 
 class SpikeActResponse {
   static String seckillActUrl =
-      '/marketing/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/seckillAct';
+      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/seckillAct';
   static String seckillUrl =
-      '/marketing/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/seckill';
+      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/seckill';
   static String seckillGoodsUrl =
-      '/marketing/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/seckillGoods';
+      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/seckillGoods';
   static String orderDiscountUrl =
-      '/marketing/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/order';
+      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/order';
   static String newBieUrl =
-      '/marketing/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/newBie';
+      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/newBie';
 
   static Future<dynamic> getSpikeActList() async {
     List<SpikeList> list = [];
     try {
-      Map<String, dynamic> res =
+      List<dynamic> jsonList =
           await BaseDio.getInstance().get(url: seckillActUrl);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      List<dynamic> jsonList = res['data'];
       for (dynamic item in jsonList) {
         list.add(SpikeList.fromJson(item));
       }
@@ -36,13 +31,8 @@ class SpikeActResponse {
   static Future<dynamic> getSpike({required int id}) async {
     List<SpikeList> list = [];
     try {
-      Map<String, dynamic> res =
+      List<dynamic> jsonList =
           await BaseDio.getInstance().get(url: '$seckillUrl/$id');
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      List<dynamic> jsonList = res['data'];
       for (dynamic item in jsonList) {
         list.add(SpikeList.fromJson(item));
       }
@@ -58,11 +48,7 @@ class SpikeActResponse {
     try {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$seckillGoodsUrl/$goodId');
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      item = SpikeItem.fromJson(res['data']);
+      item = SpikeItem.fromJson(res);
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
@@ -74,15 +60,11 @@ class SpikeActResponse {
     late OrderScore orderPoint;
     try {
       Map<String, dynamic> params = {'total': total};
-      if (ServiceGlobal.shopId.isNotEmpty) {
-        params['shopId'] = ServiceGlobal.shopId;
+      if (ServiceGlobal.instance.shopId.isNotEmpty) {
+        params['shopId'] = ServiceGlobal.instance.shopId;
       }
       Map<String, dynamic> res = await BaseDio.getInstance()
           .post(url: orderDiscountUrl, params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
       orderPoint = OrderScore.fromJson(res);
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
@@ -96,11 +78,7 @@ class SpikeActResponse {
     try {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: newBieUrl);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return false;
-      }
-      isNewBie = res['data']['isOpen'];
+      isNewBie = res['isOpen'];
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

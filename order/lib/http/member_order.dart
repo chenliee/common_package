@@ -3,29 +3,25 @@ import 'package:service_package/service_package.dart';
 
 class MemberOrderResponse {
   static String orderUrl =
-      '/order/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/order';
+      '/order/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/order';
   static String computedUrl =
-      '/order/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/order/computed';
+      '/order/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/order/computed';
   static String createUrl =
-      '/order/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/order/create';
+      '/order/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/order/create';
   static String payUrl =
-      '/order/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/order/pay';
+      '/order/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/order/pay';
   static String cancelUrl =
-      '/order/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/order/cancel';
+      '/order/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/order/cancel';
   static String completeUrl =
-      '/order/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/complete';
+      '/order/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/complete';
   static String refundUrl =
-      '/order/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/refund';
+      '/order/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/refund';
 
   static Future getDetailOrder({required String id}) async {
     try {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$orderUrl/$id');
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      OrderItem item = OrderItem.fromJson(res['data']);
+      OrderItem item = OrderItem.fromJson(res);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
@@ -37,20 +33,14 @@ class MemberOrderResponse {
     try {
       Map<String, dynamic> params = {
         "page": page,
-        "pageSize": ServiceGlobal.pageSize,
+        "pageSize": ServiceGlobal.instance.pageSize,
         "orderBy": "desc",
       };
       if (orderStatus != null) {
         params["orderStatus"] = orderStatus;
       }
       List<OrderItem> list = [];
-      Map<String, dynamic> res =
-          await BaseDio.getInstance().get(url: orderUrl, params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      List<dynamic> jsonList = res['data'];
+      List<dynamic> jsonList = await BaseDio.getInstance().get(url: orderUrl, params: params);
       for (var item in jsonList) {
         list.add(OrderItem.fromJson(item));
       }
@@ -75,11 +65,7 @@ class MemberOrderResponse {
       }
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: payUrl, params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      return res['data'];
+      return res;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
@@ -93,15 +79,10 @@ class MemberOrderResponse {
         "orderId": orderId,
         "cancelReason": cancelReason,
       };
-      Map<String, dynamic> res =
-          await BaseDio.getInstance().post(url: cancelUrl, params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return false;
-      } else {
-        ToastInfo.toastInfo(msg: '取消成功');
+      await BaseDio.getInstance().post(url: cancelUrl, params: params);
+      ToastInfo.toastInfo(msg: '取消成功');
         return true;
-      }
+
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       return false;
@@ -111,14 +92,8 @@ class MemberOrderResponse {
   static Future<bool> completeOrder({required String orderId}) async {
     try {
       Map<String, dynamic> params = {"orderId": orderId};
-      Map<String, dynamic> res =
-          await BaseDio.getInstance().post(url: completeUrl, params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return false;
-      } else {
-        return true;
-      }
+      await BaseDio.getInstance().post(url: completeUrl, params: params);
+      return true;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       return false;
@@ -132,15 +107,10 @@ class MemberOrderResponse {
         "orderId": orderId,
         "cancelReason": cancelReason
       };
-      Map<String, dynamic> res =
-          await BaseDio.getInstance().post(url: refundUrl, params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return false;
-      } else {
-        ToastInfo.toastInfo(msg: '申请成功');
-        return true;
-      }
+     await BaseDio.getInstance().post(url: refundUrl, params: params);
+      ToastInfo.toastInfo(msg: '申请成功');
+      return true;
+
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       return false;

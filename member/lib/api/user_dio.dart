@@ -5,27 +5,24 @@ import 'package:service_package/service_package.dart';
 import '../member.dart';
 
 class UserDio {
-  static String userUrl = '/member/app/merchant/${ServiceGlobal.mid}/user';
+  static String userUrl =
+      '/member/app/merchant/${ServiceGlobal.instance.merchantId}/user';
   static String vipInfoUrl =
-      '/member/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/user/vipInfo';
+      '/member/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/user/vipInfo';
   static String gradeInfoUrl =
-      '/member/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/user/gradeInfo';
+      '/member/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/user/gradeInfo';
   static String vipBuyUrl =
-      '/member/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/vipcard/buy';
+      '/member/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/vipcard/buy';
   static String vipListUrl =
-      '/member/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/vipcard';
+      '/member/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/vipcard';
   static String gradeListUrl =
-      '/member/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/grade';
+      '/member/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/grade';
 
   // 獲取用戶信息
   static Future getUserinfo() async {
     try {
       Map<String, dynamic> res = await BaseDio.getInstance().get(url: userUrl);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      UserInfo userInfo = UserInfo.fromJson(res['data']);
+      UserInfo userInfo = UserInfo.fromJson(res);
       return userInfo;
     } catch (e) {
       throw Exception();
@@ -45,17 +42,13 @@ class UserDio {
         "email": email,
         "birthday": birthday,
         "habbit": habbit,
-        "pid": ServiceGlobal.pid
+        "pid": ServiceGlobal.instance.projectId
       };*/
       Map<String, dynamic> res =
           await BaseDio.getInstance().put(url: userUrl, params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return false;
-      } else {
-        UserInfo userInfo = UserInfo.fromJson(res['data']);
+
+        UserInfo userInfo = UserInfo.fromJson(res);
         return userInfo;
-      }
     } catch (e) {
       throw Exception();
     }
@@ -66,11 +59,7 @@ class UserDio {
     try {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: vipInfoUrl);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      UserVipInfo userVipInfo = UserVipInfo.fromJson(res['data']);
+      UserVipInfo userVipInfo = UserVipInfo.fromJson(res);
       return userVipInfo;
     } catch (e) {
       throw Exception();
@@ -82,12 +71,8 @@ class UserDio {
     try {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: gradeInfoUrl);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
       UserVipGradeInfo userVipGradeInfo =
-          UserVipGradeInfo.fromJson(res['data']);
+          UserVipGradeInfo.fromJson(res);
       return userVipGradeInfo;
     } catch (e) {
       throw Exception();
@@ -105,11 +90,7 @@ class UserDio {
       params['redirectUrl'] = redirectUrl;
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: vipBuyUrl, params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      return res['data'];
+      return res;
     } catch (e) {
       throw Exception();
     }
@@ -118,13 +99,7 @@ class UserDio {
   static Future<List<VipCard>> getVipCardList() async {
     try {
       List<VipCard> list = [];
-      Map<String, dynamic> res =
-          await BaseDio.getInstance().get(url: vipListUrl);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return list;
-      }
-      List jsonList = res['data'];
+      List jsonList = await BaseDio.getInstance().get(url: vipListUrl);
       for (var item in jsonList) {
         list.add(VipCard.fromJson(item));
       }
@@ -137,13 +112,7 @@ class UserDio {
   static Future<List<VipCard>> getVipGradeList() async {
     try {
       List<VipCard> list = [];
-      Map<String, dynamic> res =
-          await BaseDio.getInstance().get(url: vipListUrl);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return list;
-      }
-      List jsonList = res['data'];
+      List jsonList = await BaseDio.getInstance().get(url: vipListUrl);
       for (var item in jsonList) {
         list.add(VipCard.fromJson(item));
       }

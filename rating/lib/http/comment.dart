@@ -3,9 +3,9 @@ import 'package:service_package/service_package.dart';
 
 class CommentResponse {
   static String getCommentUrl =
-      '/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/branch';
+      '/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/branch';
   static String relatedUrl =
-      '/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/related';
+      '/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/related';
 
   static Future getComment(
       {required String bCode, required int page, int? id}) async {
@@ -19,16 +19,11 @@ class CommentResponse {
       }
       Map<String, dynamic> params = {
         'page': page,
-        'pageSize': ServiceGlobal.pageSize,
+        'pageSize': ServiceGlobal.instance.pageSize,
         'orderBy': 'desc',
       };
-      Map<String, dynamic> res =
-          await BaseDio.getInstance().get(url: url, params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      List<dynamic> jsonLists = res['data'];
+
+      List<dynamic> jsonLists = await BaseDio.getInstance().get(url: url, params: params);
       for (var item in jsonLists) {
         list.add(CommentItem.fromJson(item));
       }
@@ -67,13 +62,9 @@ class CommentResponse {
       };
       Map<String, dynamic> res = await BaseDio.getInstance()
           .post(url: '$relatedUrl/$bCode', params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return false;
-      } else {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "評論成功"}');
+      ToastInfo.toastInfo(msg: '${res['message'] ?? "評論成功"}');
         return true;
-      }
+
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

@@ -4,7 +4,7 @@ import 'package:service_package/service_package.dart';
 
 class FavoriteDio {
   static String favoriteUrl =
-      '/member/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/favorite';
+      '/member/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/favorite';
 
   // 添加收藏
   static Future addFavorite({required int id}) async {
@@ -12,15 +12,9 @@ class FavoriteDio {
       Map<String, dynamic> params = {
         'itemId': id,
       };
-      Map<String, dynamic> res =
-          await BaseDio.getInstance().post(url: favoriteUrl, params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return false;
-      } else {
-        ToastInfo.toastInfo(msg: '已加入收藏');
+      await BaseDio.getInstance().post(url: favoriteUrl, params: params);
+      ToastInfo.toastInfo(msg: '已加入收藏');
         return true;
-      }
     } catch (e) {
       throw Exception();
     }
@@ -32,11 +26,9 @@ class FavoriteDio {
       List<FavoriteInfo> list = [];
       Map<String, dynamic> params = {
         'page': page,
-        'pageSize': ServiceGlobal.pageSize,
+        'pageSize': ServiceGlobal.instance.pageSize,
       };
-      Map<String, dynamic> res =
-          await BaseDio.getInstance().get(url: favoriteUrl, params: params);
-      List<dynamic> jsonList = res['data'];
+      List<dynamic> jsonList = await BaseDio.getInstance().get(url: favoriteUrl, params: params);
       for (dynamic item in jsonList) {
         list.add(FavoriteInfo.fromJson(item));
       }
@@ -49,15 +41,9 @@ class FavoriteDio {
   // 取消收藏
   static Future delFavorite({required int id}) async {
     try {
-      Map<String, dynamic> res =
-          await BaseDio.getInstance().put(url: '$favoriteUrl/$id');
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return false;
-      } else {
-        ToastInfo.toastInfo(msg: '已移除收藏');
+      await BaseDio.getInstance().put(url: '$favoriteUrl/$id');
+      ToastInfo.toastInfo(msg: '已移除收藏');
         return true;
-      }
     } catch (e) {
       throw Exception();
     }

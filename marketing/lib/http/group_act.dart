@@ -8,24 +8,19 @@ import 'package:service_package/service_package.dart';
 @immutable
 class GroupActResponse {
   static String groupActListUrl =
-      '/marketing/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/groupAct';
+      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/groupAct';
   static String payGroupUrl =
-      '/marketing/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/groupAct/pay';
+      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/groupAct/pay';
   static String refundGroupActUrl =
-      '/marketing/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/groupAct/refund';
+      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/groupAct/refund';
   static String userGroupActListUrl =
-      '/marketing/app/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/groupAct/List';
+      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/groupAct/List';
 
   static Future<dynamic> getGroupActList() async {
     List<GroupItem> list = [];
     try {
-      Map<String, dynamic> res =
+      List<dynamic> jsonList =
           await BaseDio.getInstance().get(url: groupActListUrl);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      List<dynamic> jsonList = res['data'];
       for (dynamic item in jsonList) {
         list.add(GroupItem.fromJson(item));
       }
@@ -41,11 +36,7 @@ class GroupActResponse {
     try {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$groupActListUrl/$gid');
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      item = GroupItem.fromJson(res['data']);
+      item = GroupItem.fromJson(res);
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
@@ -65,11 +56,7 @@ class GroupActResponse {
       params['redirectUrl'] = redirectUrl;
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: payGroupUrl, params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      url = res['data']['url'];
+      url = res['url'];
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
@@ -91,13 +78,8 @@ class GroupActResponse {
   static Future getUserGroupActList() async {
     List<UserGroupItem> list = [];
     try {
-      Map<String, dynamic> res =
+      List<dynamic> jsonList =
           await BaseDio.getInstance().get(url: userGroupActListUrl);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      List<dynamic> jsonList = res['data'];
       for (dynamic item in jsonList) {
         list.add(UserGroupItem.fromJson(item));
       }
@@ -113,11 +95,7 @@ class GroupActResponse {
     try {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$userGroupActListUrl/$gid');
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      item = UserGroupItem.fromJson(res['data']);
+      item = UserGroupItem.fromJson(res);
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

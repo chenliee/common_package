@@ -6,7 +6,8 @@ class BaseDio {
   static BaseDio? _instance;
   //static String bashUrl = 'http://10.100.203.20:7002';
   //static String bashUrl = 'http://10.100.202.100:7002';
-  static String bashUrl = Env.envConfig.appDomain;
+  static String baseUrl = Env.envConfig.appDomain;
+  //static String baseUrl = 'https://gateway.dev.heyday-catering.com:20443';
 
   static BaseDio getInstance() {
     _instance ??= BaseDio();
@@ -14,8 +15,8 @@ class BaseDio {
   }
 
   BaseOptions options = BaseOptions(
-    baseUrl: bashUrl,
-    connectTimeout: 1000,
+    baseUrl: baseUrl,
+    connectTimeout: 5000,
     receiveTimeout: 30000,
   );
 
@@ -29,36 +30,57 @@ class BaseDio {
   }
 
   Future<dynamic> get(
-      {required String url, Map<String, dynamic>? params}) async {
-    return requestHttp(url, 'get', params);
+      {required String url,
+      Map<String, dynamic>? params,
+      bool isApi = true}) async {
+    Map<String, dynamic> res = await requestHttp(url, 'get', params);
+    throwException(res, isApi, url, params);
+    return res['data'];
   }
 
-  Future<dynamic> post({
-    required String url,
-    Map<String, dynamic>? params,
-  }) async {
-    return requestHttp(url, "post", params);
+  Future<dynamic> post(
+      {required String url,
+      Map<String, dynamic>? params,
+      bool isApi = true}) async {
+    Map<String, dynamic> res = await requestHttp(url, 'post', params);
+    throwException(res, isApi, url, params);
+    return res['data'];
   }
 
-  Future<dynamic> put({
-    required String url,
-    Map<String, dynamic>? params,
-  }) async {
-    return requestHttp(url, "put", params);
+  Future<dynamic> put(
+      {required String url,
+      Map<String, dynamic>? params,
+      bool isApi = true}) async {
+    Map<String, dynamic> res = await requestHttp(url, 'put', params);
+    throwException(res, isApi, url, params);
+    return res['data'];
   }
 
-  Future<dynamic> delete({
-    required String url,
-    Map<String, dynamic>? params,
-  }) async {
-    return requestHttp(url, "delete", params);
+  Future<dynamic> delete(
+      {required String url,
+      Map<String, dynamic>? params,
+      bool isApi = true}) async {
+    Map<String, dynamic> res = await requestHttp(url, 'delete', params);
+    throwException(res, isApi, url, params);
+    return res['data'];
   }
 
-  Future<dynamic> patch({
-    required String url,
-    Map<String, dynamic>? params,
-  }) async {
-    return requestHttp(url, "patch", params);
+  Future<dynamic> patch(
+      {required String url,
+      Map<String, dynamic>? params,
+      bool isApi = true}) async {
+    Map<String, dynamic> res = await requestHttp(url, 'patch', params);
+    throwException(res, isApi, url, params);
+    return res['data'];
+  }
+
+  throwException(Map<String, dynamic> res, bool isApi, String url,
+      Map<String, dynamic>? params) {
+    if (res.containsKey('success') && !res['success']) {
+      ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}', isApi: isApi);
+      //throw 'Url:$url,\nRequest:$params,\nMessage:${res['message']}';
+      throw res['message'];
+    }
   }
 
   Future<dynamic> requestHttp(
@@ -97,18 +119,17 @@ class BaseDio {
       }
       return response!.data;
     } on DioError catch (error) {
-      ToastInfo.toastApiInfo(msg: error.message);
+      ToastInfo.toastInfo(msg: error.message);
       Debug.printMsg(error.message, StackTrace.current);
-      throw error.response!.data;
-      return error.response!.data;
+      throw {'code': error.response!.statusCode, 'data': error.response!.data};
     }
   }
 
   Future<dynamic> upload({required String url, required FormData data}) async {
-    if (ServiceGlobal.token.isNotEmpty) {
+    if (ServiceGlobal.instance.token.isNotEmpty) {
       dio.options.headers = {
         'content-type': 'multipart/form-data',
-        'Authorization': ' Bearer ${ServiceGlobal.token}'
+        'Authorization': 'Bearer ${ServiceGlobal.instance.token}'
       };
     } else {
       dio.options.headers = {
@@ -127,7 +148,7 @@ class BaseDio {
       response = await dio.post(url, data: data);
       return response.data;
     } on DioError catch (error) {
-      ToastInfo.toastApiInfo(msg: error.message);
+      ToastInfo.toastInfo(msg: error.message);
       Debug.printMsg(error.message, StackTrace.current);
       throw error.response!.data;
     }

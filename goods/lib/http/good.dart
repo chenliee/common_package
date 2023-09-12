@@ -3,11 +3,11 @@ import 'package:service_package/service_package.dart';
 
 class GoodResponse {
   static String categoryUrl =
-      '/goods/api/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/getGoodsCategoryList';
+      '/goods/api/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/getGoodsCategoryList';
   static String goodCustomAttrUrl =
-      '/goods/api/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/getGoodsCustomAttrList';
+      '/goods/api/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/getGoodsCustomAttrList';
   static String goodExtAttrUrl =
-      '/goods/api/merchant/${ServiceGlobal.mid}/project/${ServiceGlobal.pid}/getGoodsExtAttrList';
+      '/goods/api/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/getGoodsExtAttrList';
   static String extAttrValueUrl = '/goods/api/getExtAttrValueList';
 
   static Future getGoodsCategoryList({required String code}) async {
@@ -16,13 +16,8 @@ class GoodResponse {
         "code": code,
       };
       List<GoodCategoryItem> list = [];
-      Map<String, dynamic> res =
+      List<dynamic> jsonList =
           await BaseDio.getInstance().get(url: categoryUrl, params: params);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      List<dynamic> jsonList = res['data'];
       for (var item in jsonList) {
         list.add(GoodCategoryItem.fromJson(item));
       }
@@ -36,13 +31,8 @@ class GoodResponse {
   static Future getGoodsCustomAttrList() async {
     try {
       List<GoodCustomAttrItem> list = [];
-      Map<String, dynamic> res =
+      List<dynamic> jsonList =
           await BaseDio.getInstance().get(url: goodCustomAttrUrl);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      List<dynamic> jsonList = res['data'];
       for (var item in jsonList) {
         list.add(GoodCustomAttrItem.fromJson(item));
       }
@@ -56,13 +46,8 @@ class GoodResponse {
   static Future getGoodsExtAttrList() async {
     try {
       List<GoodExtAttrItem> list = [];
-      Map<String, dynamic> res =
+      List<dynamic> jsonList =
           await BaseDio.getInstance().get(url: goodExtAttrUrl);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      List<dynamic> jsonList = res['data'];
       for (var item in jsonList) {
         list.add(GoodExtAttrItem.fromJson(item));
       }
@@ -76,13 +61,8 @@ class GoodResponse {
   static Future getExtAttrValueList() async {
     try {
       List<ExtAttrValueItem> list = [];
-      Map<String, dynamic> res =
+      List<dynamic> jsonList =
           await BaseDio.getInstance().get(url: extAttrValueUrl);
-      if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastApiInfo(msg: '${res['message'] ?? "未知錯誤"}');
-        return;
-      }
-      List<dynamic> jsonList = res['data'];
       for (var item in jsonList) {
         list.add(ExtAttrValueItem.fromJson(item));
       }
