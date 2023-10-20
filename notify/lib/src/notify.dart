@@ -4,8 +4,8 @@ import 'package:push/http/request.dart';
 
 typedef EventHandlerMap = Future<dynamic> Function(Map<String, dynamic> event);
 
-class Push {
-  static Push? _instance;
+class Notify {
+  static Notify? _instance;
 
   static String token = '';
 
@@ -19,8 +19,8 @@ class Push {
 
   static const MethodChannel _channel = MethodChannel('push_plugin');
 
-  static Push getInstance() {
-    _instance ??= Push();
+  static Notify getInstance() {
+    _instance ??= Notify();
     return _instance!;
   }
 
@@ -29,10 +29,10 @@ class Push {
     required String pushType,
     String? hmsAppId,
   }) async {
-    Push.bundleId = bundleId;
-    Push.cid = pushType;
-    Push.hmsAppId = hmsAppId;
-    Push.getInstance();
+    Notify.bundleId = bundleId;
+    Notify.cid = pushType;
+    Notify.hmsAppId = hmsAppId;
+    Notify.getInstance();
   }
 
   static Future<String> getToken() async {

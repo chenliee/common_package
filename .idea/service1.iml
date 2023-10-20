@@ -6,9 +6,6 @@
       <excludeFolder url="file://$MODULE_DIR$/goods/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/goods/build" />
       <excludeFolder url="file://$MODULE_DIR$/goods/.pub" />
-      <excludeFolder url="file://$MODULE_DIR$/push/example/.pub" />
-      <excludeFolder url="file://$MODULE_DIR$/push/example/build" />
-      <excludeFolder url="file://$MODULE_DIR$/push/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/iam/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/iam/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/iam/build" />
@@ -24,9 +21,6 @@
       <excludeFolder url="file://$MODULE_DIR$/rating/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/rating/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/rating/build" />
-      <excludeFolder url="file://$MODULE_DIR$/push/build" />
-      <excludeFolder url="file://$MODULE_DIR$/push/.dart_tool" />
-      <excludeFolder url="file://$MODULE_DIR$/push/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/gold/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/gold/build" />
       <excludeFolder url="file://$MODULE_DIR$/gold/.dart_tool" />
@@ -51,6 +45,12 @@
       <excludeFolder url="file://$MODULE_DIR$/payment/example/ios/.symlinks/plugins/flutter_inappwebview/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/payment/example/ios/.symlinks/plugins/flutter_inappwebview/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/payment/example/ios/.symlinks/plugins/flutter_inappwebview/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/notify/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/notify/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/notify/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/notify/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/notify/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/notify/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

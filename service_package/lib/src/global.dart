@@ -53,8 +53,12 @@ class ServiceGlobal {
       ..token = token;
     BaseDio.getInstance().options.headers = {
       'content-type': 'application/json',
-      'Authorization': 'Bearer $token'
+      'Authorization': 'Bearer234 $token'
     };
+  }
+
+  static Future<void> initUnauthorized({required Function function}) async {
+    BaseDio.getInstance().onUnauthorized = function;
   }
 
   static clearToken() {

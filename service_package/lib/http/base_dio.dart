@@ -4,9 +4,11 @@ import '../service_package.dart';
 
 class BaseDio {
   static BaseDio? _instance;
+
   //static String bashUrl = 'http://10.100.203.20:7002';
   //static String bashUrl = 'http://10.100.202.100:7002';
   static String baseUrl = Env.envConfig.appDomain;
+  Function? onUnauthorized;
   //static String baseUrl = 'https://gateway.dev.heyday-catering.com:20443';
 
   static BaseDio getInstance() {
@@ -27,6 +29,24 @@ class BaseDio {
     dio.options.headers = {
       'content-type': 'application/json',
     };
+
+    dio.interceptors.add(InterceptorsWrapper(
+      onResponse: (Response response, ResponseInterceptorHandler handler) {
+        Map<String, dynamic> responseData = response.data;
+        if (responseData.containsKey('success') &&
+            responseData['success'] == false) {
+          if (responseData.containsKey('message') &&
+              responseData['message'] == 'Unauthorized') {
+            onUnauthorized?.call();
+          }
+        }
+        return handler.next(response); // 必须调用handler.next(response)
+      },
+      onError: (DioError error, ErrorInterceptorHandler handler) {
+        Debug.printMsg("Error: ${error.message}", StackTrace.current);
+        return handler.next(error); // 必须调用handler.next(error)
+      },
+    ));
   }
 
   Future<dynamic> get(
@@ -121,6 +141,10 @@ class BaseDio {
     } on DioError catch (error) {
       ToastInfo.toastInfo(msg: error.message);
       Debug.printMsg(error.message, StackTrace.current);
+      if (error.response!.data.containsKey('message') &&
+          error.response!.data['message'] == 'Unauthorized') {
+        onUnauthorized?.call();
+      }
       throw {'code': error.response!.statusCode, 'data': error.response!.data};
     }
   }

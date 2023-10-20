@@ -1,7 +1,6 @@
 class Env {
   // 获取到当前环境
-  static const appEnv = "PRO";
-
+  static const appEnv = const String.fromEnvironment(EnvName.envKey);
   // 开发环境
   static final EnvConfig _devConfig = EnvConfig(
     appTitle: "DEV",

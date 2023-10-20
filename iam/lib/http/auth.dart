@@ -15,4 +15,20 @@ class MyResponse {
       rethrow;
     }
   }
+
+  static Future auth123() async {
+    String authUrl =
+        '/iam/api/merchant/${ServiceGlobal.instance.merchantId}/login';
+    try {
+      await BaseDio.getInstance().post(url: authUrl, params: {
+        "id": "string",
+        "captcha": "string",
+        "username": "string",
+        "password": "string"
+      });
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
 }
