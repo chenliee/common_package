@@ -139,7 +139,7 @@ class BaseDio {
       }
       return response!.data;
     } on DioError catch (error) {
-      ToastInfo.toastInfo(msg: error.message);
+      ToastInfo.toastInfo(msg: error.response?.data ?? error.message);
       Debug.printMsg(error.message, StackTrace.current);
       if (error.response!.data.containsKey('message') &&
           error.response!.data['message'] == 'Unauthorized') {

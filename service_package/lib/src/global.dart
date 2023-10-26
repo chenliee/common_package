@@ -53,7 +53,7 @@ class ServiceGlobal {
       ..token = token;
     BaseDio.getInstance().options.headers = {
       'content-type': 'application/json',
-      'Authorization': 'Bearer234 $token'
+      'Authorization': 'Bearer $token'
     };
   }
 
