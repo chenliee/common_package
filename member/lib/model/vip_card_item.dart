@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-class VipCard {
-  VipCard({
+class VipCardItem {
+  VipCardItem({
     num? id,
     String? createAt,
     String? updateAt,
@@ -35,7 +35,7 @@ class VipCard {
     _isDelete = isDelete;
   }
 
-  VipCard.fromJson(dynamic json) {
+  VipCardItem.fromJson(dynamic json) {
     _id = json['id'];
     _createAt = json['createAt'];
     _updateAt = json['updateAt'];
@@ -44,7 +44,7 @@ class VipCard {
     _cardType = json['cardType'];
     _privileges = json['privileges'];
     if (json['priceList'] != null) {
-      List list = jsonDecode(json['jsonList']);
+      List list = jsonDecode(json['priceList']);
       _priceList = [];
       for (var v in list) {
         _priceList?.add(PriceList.fromJson(v));
@@ -74,7 +74,7 @@ class VipCard {
   num? _isDisable;
   num? _isDefault;
   num? _isDelete;
-  VipCard copyWith({
+  VipCardItem copyWith({
     num? id,
     String? createAt,
     String? updateAt,
@@ -91,7 +91,7 @@ class VipCard {
     num? isDefault,
     num? isDelete,
   }) =>
-      VipCard(
+      VipCardItem(
         id: id ?? _id,
         createAt: createAt ?? _createAt,
         updateAt: updateAt ?? _updateAt,

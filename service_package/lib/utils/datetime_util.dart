@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
 class DateTimeUtil {
-  static String exchangeLocal(String date) =>
-      DateFormat('yyyy-MM-dd').format(DateTime.parse(date).toLocal());
+  static String exchangeLocal(String date, {String type = 'yyyy-MM-dd'}) =>
+      DateFormat(type).format(DateTime.parse(date).toLocal());
 }

@@ -1,7 +1,7 @@
 import 'package:iam/model/auth_model.dart';
 import 'package:service_package/service_package.dart';
 
-class MyResponse {
+class AuthResponse {
   static Future auth({required String code, required String pid}) async {
     String authUrl =
         '/iam/api/merchant/${ServiceGlobal.instance.merchantId}/provider/$pid/auth/';
@@ -26,6 +26,7 @@ class MyResponse {
         "username": "string",
         "password": "string"
       });
+      return 1;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

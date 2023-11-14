@@ -13,8 +13,6 @@ class ScoreResponse {
   static String scoreDesUrl =
       '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/score/describe';
 
-  static a() {}
-
   static Future getScore() async {
     Statistical? score;
     try {

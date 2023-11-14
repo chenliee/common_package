@@ -1,8 +1,7 @@
 import 'package:service_package/service_package.dart';
 
 class UploadResponse {
-  static String uploadUrl =
-      '/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/upload';
+  static String uploadUrl = '/member/api/merchant/goody/upload/';
 
   static Future upload({required String path}) async {
     try {
@@ -12,7 +11,6 @@ class UploadResponse {
         await MultipartFile.fromFile(path),
       ));
       await BaseDio.getInstance().upload(url: uploadUrl, data: formData);
-      ToastInfo.toastInfo(msg: '上傳成功');
       return true;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);

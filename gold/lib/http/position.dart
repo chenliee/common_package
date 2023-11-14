@@ -27,7 +27,7 @@ class PositionResponse {
     try {
       List<PositionItem> list = [];
       List<dynamic> jsonLists =
-          await BaseDio.getInstance().get(url: '$advertUrl/$position');
+          await BaseDio.getInstance().get(url: '$advertUrl/$position/');
       for (var item in jsonLists) {
         list.add(PositionItem.fromJson(item));
       }

@@ -17,7 +17,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
-  final _pushPlugin = Notify();
+  final _pushPlugin = GlobalNotify();
 
   @override
   void initState() {

@@ -7,6 +7,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import io.flutter.embedding.android.FlutterActivity
 
 /** ServicePackagePlugin */
 class ServicePackagePlugin: FlutterPlugin, MethodCallHandler {
@@ -24,7 +25,7 @@ class ServicePackagePlugin: FlutterPlugin, MethodCallHandler {
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
     if (call.method == "backDesktop") {
       result.success(true)
-      moveTaskToBack(false)
+      FlutterActivity().moveTaskToBack(false)
     } else {
       result.notImplemented()
     }

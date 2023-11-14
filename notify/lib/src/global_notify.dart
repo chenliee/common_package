@@ -1,11 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:push/http/request.dart';
+
+import '../http/push.dart';
 
 typedef EventHandlerMap = Future<dynamic> Function(Map<String, dynamic> event);
 
-class Notify {
-  static Notify? _instance;
+class GlobalNotify {
+  static GlobalNotify? _instance;
 
   static String token = '';
 
@@ -19,8 +22,8 @@ class Notify {
 
   static const MethodChannel _channel = MethodChannel('push_plugin');
 
-  static Notify getInstance() {
-    _instance ??= Notify();
+  static GlobalNotify getInstance() {
+    _instance ??= GlobalNotify();
     return _instance!;
   }
 
@@ -29,10 +32,10 @@ class Notify {
     required String pushType,
     String? hmsAppId,
   }) async {
-    Notify.bundleId = bundleId;
-    Notify.cid = pushType;
-    Notify.hmsAppId = hmsAppId;
-    Notify.getInstance();
+    GlobalNotify.bundleId = bundleId;
+    GlobalNotify.cid = pushType;
+    GlobalNotify.hmsAppId = hmsAppId;
+    GlobalNotify.getInstance();
   }
 
   static Future<String> getToken() async {
@@ -41,6 +44,7 @@ class Notify {
         token = await _channel.invokeMethod('getToken', {'appId': hmsAppId});
       } else {
         token = await _channel.invokeMethod('getToken');
+        log(token);
       }
     } on PlatformException catch (e) {
       if (kDebugMode) {

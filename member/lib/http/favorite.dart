@@ -2,7 +2,7 @@
 import 'package:member/member.dart';
 import 'package:service_package/service_package.dart';
 
-class FavoriteDio {
+class FavoriteResponse {
   static String favoriteUrl =
       '/member/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/favorite';
 
@@ -14,9 +14,10 @@ class FavoriteDio {
       };
       await BaseDio.getInstance().post(url: favoriteUrl, params: params);
       ToastInfo.toastInfo(msg: '已加入收藏');
-        return true;
+      return true;
     } catch (e) {
-      throw Exception();
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 
@@ -28,13 +29,15 @@ class FavoriteDio {
         'page': page,
         'pageSize': ServiceGlobal.instance.pageSize,
       };
-      List<dynamic> jsonList = await BaseDio.getInstance().get(url: favoriteUrl, params: params);
+      List<dynamic> jsonList =
+          await BaseDio.getInstance().get(url: favoriteUrl, params: params);
       for (dynamic item in jsonList) {
         list.add(FavoriteInfo.fromJson(item));
       }
       return list;
     } catch (e) {
-      throw Exception();
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 
@@ -43,9 +46,10 @@ class FavoriteDio {
     try {
       await BaseDio.getInstance().put(url: '$favoriteUrl/$id');
       ToastInfo.toastInfo(msg: '已移除收藏');
-        return true;
+      return true;
     } catch (e) {
-      throw Exception();
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
     }
   }
 }

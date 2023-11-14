@@ -9,7 +9,6 @@ class BaseDio {
   //static String bashUrl = 'http://10.100.202.100:7002';
   static String baseUrl = Env.envConfig.appDomain;
   Function? onUnauthorized;
-  //static String baseUrl = 'https://gateway.dev.heyday-catering.com:20443';
 
   static BaseDio getInstance() {
     _instance ??= BaseDio();
@@ -37,7 +36,7 @@ class BaseDio {
             responseData['success'] == false) {
           if (responseData.containsKey('message') &&
               responseData['message'] == 'Unauthorized') {
-            onUnauthorized?.call();
+            if (onUnauthorized != null) onUnauthorized!();
           }
         }
         return handler.next(response); // 必须调用handler.next(response)
@@ -97,9 +96,10 @@ class BaseDio {
   throwException(Map<String, dynamic> res, bool isApi, String url,
       Map<String, dynamic>? params) {
     if (res.containsKey('success') && !res['success']) {
-      ToastInfo.toastInfo(msg: '${res['message'] ?? "未知錯誤"}', isApi: isApi);
+      ToastInfo.toastInfo(
+          msg: '${res['message'] ?? res['msg'] ?? "未知錯誤"}', isApi: isApi);
       //throw 'Url:$url,\nRequest:$params,\nMessage:${res['message']}';
-      throw res['message'];
+      throw res['message'] ?? res['msg'];
     }
   }
 
@@ -139,13 +139,13 @@ class BaseDio {
       }
       return response!.data;
     } on DioError catch (error) {
-      ToastInfo.toastInfo(msg: error.response?.data ?? error.message);
+      ToastInfo.toastInfo(
+          msg: error.response?.data.toString() ?? error.message.toString());
       Debug.printMsg(error.message, StackTrace.current);
-      if (error.response!.data.containsKey('message') &&
-          error.response!.data['message'] == 'Unauthorized') {
-        onUnauthorized?.call();
-      }
-      throw {'code': error.response!.statusCode, 'data': error.response!.data};
+      throw {
+        'code': error.response!.statusCode,
+        'data': error.response?.data.toString() ?? error.message.toString()
+      };
     }
   }
 

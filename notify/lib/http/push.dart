@@ -1,33 +1,33 @@
-import 'package:push/http/base_dio.dart';
 import 'package:service_package/service_package.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../flutter_notify.dart';
 
+///手机推送
 class PushRequest {
   static Future<void> deviceRegistration() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? accessToken = pref.getString('accessToken');
     if (accessToken == null) {
       Map<String, dynamic>? params = {
-        'package': Notify.bundleId,
-        'token': Notify.token,
+        'package': GlobalNotify.bundleId,
+        'token': GlobalNotify.token,
       };
       final res = await PushDio.getInstance().post(
           url:
-              '/notify/api/merchant/${ServiceGlobal.instance.merchantId}/channel/${Notify.cid}/device-registration',
+              '/notify/api/merchant/${ServiceGlobal.instance.merchantId}/channel/${GlobalNotify.cid}/device-registration',
           params: params);
-      Notify.uuid = res['uuid'];
+      GlobalNotify.uuid = res['uuid'];
     } else {
-      update(cid: Notify.cid);
+      update(cid: GlobalNotify.cid);
     }
   }
 
   static Future<void> deviceBinging(
       {required String cid, required String uuid, required String code}) async {
     Map<String, dynamic>? params = {
-      'package': Notify.bundleId,
-      'token': Notify.token,
+      'package': GlobalNotify.bundleId,
+      'token': GlobalNotify.token,
       'uuid': uuid,
       'code': code,
     };

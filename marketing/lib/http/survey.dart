@@ -14,7 +14,8 @@ class SurveyResponse {
         'pageSize': ServiceGlobal.instance.pageSize,
       };
       List<SurveyList> list = [];
-      List<dynamic> jsonList = await BaseDio.getInstance().get(url: surveyListUrl, params: params);
+      List<dynamic> jsonList =
+          await BaseDio.getInstance().get(url: surveyListUrl, params: params);
       for (var json in jsonList) {
         list.add(SurveyList.fromJson(json));
       }
@@ -40,8 +41,7 @@ class SurveyResponse {
   static Future submitSurvey(
       {required String id, required Map<String, dynamic> params}) async {
     try {
-      await BaseDio.getInstance()
-          .post(url: '$surveyUrl/$id', params: params);
+      await BaseDio.getInstance().post(url: '$surveyUrl/$id', params: params);
       ToastInfo.toastInfo(msg: '提交成功');
       return true;
     } catch (e) {
