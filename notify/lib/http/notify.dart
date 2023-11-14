@@ -9,17 +9,21 @@ class NotifyRequest {
 
   static Future<RegistrationModel?> deviceRegistration(
       {required String cid,
-      required String uuid,
-      required String code,
+      String? uuid,
+      String? code,
       required String token,
       required String package}) async {
     try {
       Map<String, dynamic>? params = {
         'package': package,
         'token': token,
-        'uuid': uuid,
-        'code': code,
       };
+      if (uuid != null) {
+        params['uuid'] = uuid;
+      }
+      if (code != null) {
+        params['code'] = code;
+      }
       final res = await BaseDio.getInstance()
           .post(url: '$url/$cid/device-registration', params: params);
       RegistrationModel authModel = RegistrationModel.fromJson(res);
