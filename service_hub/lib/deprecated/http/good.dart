@@ -1,5 +1,10 @@
-import 'package:goods/goods.dart';
 import 'package:service_package/service_package.dart';
+
+import '../model/ext_attr_value_item.dart';
+import '../model/good_category_item.dart';
+import '../model/good_custom_attr_item.dart';
+import '../model/good_ext_attr_item.dart';
+import '../model/good_item.dart';
 
 class GoodResponse {
   static String categoryUrl =

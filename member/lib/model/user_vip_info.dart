@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class UserVipInfo {
   bool? isVip;
   bool? isHadVip;
@@ -32,7 +34,7 @@ class CardInfo {
   String? cardType;
   String? description;
   String? guideTitle;
-  String? privileges;
+  Privileges? privileges;
   String? coverImg;
 
   CardInfo({
@@ -51,7 +53,7 @@ class CardInfo {
     cardType = json['cardType'];
     description = json['description'];
     guideTitle = json['guideTitle'];
-    privileges = json['privileges'];
+    privileges = Privileges.fromJson(jsonDecode(json['privileges']));
     coverImg = json['coverImg'];
   }
 
@@ -65,5 +67,39 @@ class CardInfo {
     data['privileges'] = privileges;
     data['coverImg'] = coverImg;
     return data;
+  }
+}
+
+class Privileges {
+  Privileges({
+    num? discount,
+    String? discountDesc,
+  }) {
+    _discount = discount;
+    _discountDesc = discountDesc;
+  }
+
+  Privileges.fromJson(dynamic json) {
+    _discount = json['discount'];
+    _discountDesc = json['discount_desc'];
+  }
+  num? _discount;
+  String? _discountDesc;
+  Privileges copyWith({
+    num? discount,
+    String? discountDesc,
+  }) =>
+      Privileges(
+        discount: discount ?? _discount,
+        discountDesc: discountDesc ?? _discountDesc,
+      );
+  num? get discount => _discount;
+  String? get discountDesc => _discountDesc;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['discount'] = _discount;
+    map['discount_desc'] = _discountDesc;
+    return map;
   }
 }

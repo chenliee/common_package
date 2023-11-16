@@ -1,4 +1,7 @@
-import 'package:goods/goods.dart';
+import 'ext_attr_value_item.dart';
+import 'good_category_item.dart';
+import 'good_custom_attr_item.dart';
+import 'good_ext_attr_item.dart';
 
 class GoodItem {
   final num? id;

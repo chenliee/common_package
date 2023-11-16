@@ -1,3 +1,6 @@
+import 'package:member/model/user_grade_info.dart';
+import 'package:member/model/user_vip_info.dart';
+
 /// id : 1
 /// gradeId : "fad445d2-87e2-4f4c-a70c-2ec211c3bcb9"
 /// gradeType : "member"
@@ -17,22 +20,23 @@
 
 class UserVipGradeItem {
   UserVipGradeItem({
-      num? id, 
-      String? gradeId, 
-      String? gradeType, 
-      num? order, 
-      num? projectId, 
-      String? gradeName, 
-      String? privileges, 
-      String? description, 
-      String? guideTitle, 
-      String? upgradeCondition, 
-      num? imgFileId, 
-      num? isDelete, 
-      Config? config, 
-      String? createdAt, 
-      String? updatedAt, 
-      String? coverImg,}){
+    num? id,
+    String? gradeId,
+    String? gradeType,
+    num? order,
+    num? projectId,
+    String? gradeName,
+    Privileges? privileges,
+    String? description,
+    String? guideTitle,
+    Record? upgradeCondition,
+    num? imgFileId,
+    num? isDelete,
+    Config? config,
+    String? createdAt,
+    String? updatedAt,
+    String? coverImg,
+  }) {
     _id = id;
     _gradeId = gradeId;
     _gradeType = gradeType;
@@ -49,7 +53,7 @@ class UserVipGradeItem {
     _createdAt = createdAt;
     _updatedAt = updatedAt;
     _coverImg = coverImg;
-}
+  }
 
   UserVipGradeItem.fromJson(dynamic json) {
     _id = json['id'];
@@ -58,10 +62,12 @@ class UserVipGradeItem {
     _order = json['order'];
     _projectId = json['projectId'];
     _gradeName = json['gradeName'];
-    _privileges = json['privileges'];
+    _privileges = Privileges.fromJson(json['privileges']);
     _description = json['description'];
     _guideTitle = json['guideTitle'];
-    _upgradeCondition = json['upgradeCondition'];
+    _upgradeCondition = json['upgradeCondition'] != null
+        ? Record.fromJson(json['upgradeCondition'])
+        : null;
     _imgFileId = json['imgFileId'];
     _isDelete = json['isDelete'];
     _config = json['config'] != null ? Config.fromJson(json['config']) : null;
@@ -75,59 +81,62 @@ class UserVipGradeItem {
   num? _order;
   num? _projectId;
   String? _gradeName;
-  String? _privileges;
+  Privileges? _privileges;
   String? _description;
   String? _guideTitle;
-  String? _upgradeCondition;
+  Record? _upgradeCondition;
   num? _imgFileId;
   num? _isDelete;
   Config? _config;
   String? _createdAt;
   String? _updatedAt;
   String? _coverImg;
-UserVipGradeItem copyWith({  num? id,
-  String? gradeId,
-  String? gradeType,
-  num? order,
-  num? projectId,
-  String? gradeName,
-  String? privileges,
-  String? description,
-  String? guideTitle,
-  String? upgradeCondition,
-  num? imgFileId,
-  num? isDelete,
-  Config? config,
-  String? createdAt,
-  String? updatedAt,
-  String? coverImg,
-}) => UserVipGradeItem(  id: id ?? _id,
-  gradeId: gradeId ?? _gradeId,
-  gradeType: gradeType ?? _gradeType,
-  order: order ?? _order,
-  projectId: projectId ?? _projectId,
-  gradeName: gradeName ?? _gradeName,
-  privileges: privileges ?? _privileges,
-  description: description ?? _description,
-  guideTitle: guideTitle ?? _guideTitle,
-  upgradeCondition: upgradeCondition ?? _upgradeCondition,
-  imgFileId: imgFileId ?? _imgFileId,
-  isDelete: isDelete ?? _isDelete,
-  config: config ?? _config,
-  createdAt: createdAt ?? _createdAt,
-  updatedAt: updatedAt ?? _updatedAt,
-  coverImg: coverImg ?? _coverImg,
-);
+  UserVipGradeItem copyWith({
+    num? id,
+    String? gradeId,
+    String? gradeType,
+    num? order,
+    num? projectId,
+    String? gradeName,
+    Privileges? privileges,
+    String? description,
+    String? guideTitle,
+    Record? upgradeCondition,
+    num? imgFileId,
+    num? isDelete,
+    Config? config,
+    String? createdAt,
+    String? updatedAt,
+    String? coverImg,
+  }) =>
+      UserVipGradeItem(
+        id: id ?? _id,
+        gradeId: gradeId ?? _gradeId,
+        gradeType: gradeType ?? _gradeType,
+        order: order ?? _order,
+        projectId: projectId ?? _projectId,
+        gradeName: gradeName ?? _gradeName,
+        privileges: privileges ?? _privileges,
+        description: description ?? _description,
+        guideTitle: guideTitle ?? _guideTitle,
+        upgradeCondition: upgradeCondition ?? _upgradeCondition,
+        imgFileId: imgFileId ?? _imgFileId,
+        isDelete: isDelete ?? _isDelete,
+        config: config ?? _config,
+        createdAt: createdAt ?? _createdAt,
+        updatedAt: updatedAt ?? _updatedAt,
+        coverImg: coverImg ?? _coverImg,
+      );
   num? get id => _id;
   String? get gradeId => _gradeId;
   String? get gradeType => _gradeType;
   num? get order => _order;
   num? get projectId => _projectId;
   String? get gradeName => _gradeName;
-  String? get privileges => _privileges;
+  Privileges? get privileges => _privileges;
   String? get description => _description;
   String? get guideTitle => _guideTitle;
-  String? get upgradeCondition => _upgradeCondition;
+  Record? get upgradeCondition => _upgradeCondition;
   num? get imgFileId => _imgFileId;
   num? get isDelete => _isDelete;
   Config? get config => _config;
@@ -143,10 +152,10 @@ UserVipGradeItem copyWith({  num? id,
     map['order'] = _order;
     map['projectId'] = _projectId;
     map['gradeName'] = _gradeName;
-    map['privileges'] = _privileges;
+    map['privileges'] = _privileges?.toJson();
     map['description'] = _description;
     map['guideTitle'] = _guideTitle;
-    map['upgradeCondition'] = _upgradeCondition;
+    map['upgradeCondition'] = _upgradeCondition?.toJson();
     map['imgFileId'] = _imgFileId;
     map['isDelete'] = _isDelete;
     if (_config != null) {
@@ -157,24 +166,27 @@ UserVipGradeItem copyWith({  num? id,
     map['coverImg'] = _coverImg;
     return map;
   }
-
 }
 
 /// background : "https://storage.dev.heyday-catering.com:20443/member/public/d2504993ca0fff74f83cf0c89a45f6d16fc48b96e5411ab94c41fc3b6fd2f9f6_upload_1692256038221.0.59687935601349.0.svg"
 
 class Config {
   Config({
-      String? background,}){
+    String? background,
+  }) {
     _background = background;
-}
+  }
 
   Config.fromJson(dynamic json) {
     _background = json['background'];
   }
   String? _background;
-Config copyWith({  String? background,
-}) => Config(  background: background ?? _background,
-);
+  Config copyWith({
+    String? background,
+  }) =>
+      Config(
+        background: background ?? _background,
+      );
   String? get background => _background;
 
   Map<String, dynamic> toJson() {
@@ -182,5 +194,4 @@ Config copyWith({  String? background,
     map['background'] = _background;
     return map;
   }
-
 }

@@ -152,39 +152,46 @@ class PriceList {
     String? name,
     String? price,
     String? day,
+    String? desc,
   }) {
     _name = name;
     _price = price;
     _day = day;
+    _desc = desc;
   }
 
   PriceList.fromJson(dynamic json) {
     _name = json['name'];
     _price = json['price'];
     _day = json['day'];
+    _desc = json['desc'];
   }
   String? _name;
   String? _price;
   String? _day;
+  String? _desc;
   PriceList copyWith({
     String? name,
     String? price,
     String? day,
+    String? desc,
   }) =>
       PriceList(
-        name: name ?? _name,
-        price: price ?? _price,
-        day: day ?? _day,
-      );
+          name: name ?? _name,
+          price: price ?? _price,
+          day: day ?? _day,
+          desc: desc ?? _desc);
   String? get name => _name;
   String? get price => _price;
   String? get day => _day;
+  String? get desc => _desc;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['name'] = _name;
     map['price'] = _price;
     map['day'] = _day;
+    map['desc'] = _desc;
     return map;
   }
 }

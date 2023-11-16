@@ -17,7 +17,8 @@ class AddressResponse {
       required String? detail,
       required num? lat,
       required num? lng,
-      num? isDefault}) async {
+      required num? isDefault,
+      required String? poi}) async {
     try {
       Map<String, dynamic> params = {
         "username": userName,
@@ -29,7 +30,8 @@ class AddressResponse {
         "detail": detail,
         "lat": lat,
         "lng": lng,
-        "isDefault": isDefault ?? 0
+        "isDefault": isDefault,
+        "poi": poi
       };
       await BaseDio.getInstance().post(url: addressListUrl, params: params);
       ToastInfo.toastInfo(msg: '添加成功');
@@ -41,9 +43,9 @@ class AddressResponse {
   }
 
   // 获取地址列表
-  static Future<List<AddressInfo>> getAddressList({num? page}) async {
+  static Future<List<AddressItem>> getAddressList({num? page}) async {
     try {
-      List<AddressInfo> list = [];
+      List<AddressItem> list = [];
       Map<String, dynamic> params = {};
       if (page != null) {
         params = {
@@ -54,7 +56,7 @@ class AddressResponse {
       List<dynamic> jsonList =
           await BaseDio.getInstance().get(url: addressListUrl, params: params);
       for (dynamic item in jsonList) {
-        list.add(AddressInfo.fromJson(item));
+        list.add(AddressItem.fromJson(item));
       }
       return list;
     } catch (e) {
@@ -64,11 +66,11 @@ class AddressResponse {
   }
 
   // 获取地址
-  static Future<AddressInfo?> getAddress({required int id}) async {
+  static Future<AddressItem?> getAddress({required int id}) async {
     try {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$addressListUrl/$id');
-      AddressInfo addressInfo = AddressInfo.fromJson(res);
+      AddressItem addressInfo = AddressItem.fromJson(res);
       return addressInfo;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
@@ -78,7 +80,7 @@ class AddressResponse {
 
   // 修改地址
   static Future<bool> editAddress(
-      {required int id,
+      {required num id,
       required String? userName,
       required String? mobile,
       required int? sex,
@@ -88,7 +90,8 @@ class AddressResponse {
       required String? detail,
       required num? lat,
       required num? lng,
-      required num? isDefault}) async {
+      required num? isDefault,
+      required String? poi}) async {
     try {
       Map<String, dynamic> params = {
         "username": userName,
@@ -100,7 +103,8 @@ class AddressResponse {
         "detail": detail,
         "lat": lat,
         "lng": lng,
-        "isDefault": isDefault
+        "isDefault": isDefault,
+        "poi": poi
       };
       await BaseDio.getInstance()
           .put(url: '$addressListUrl/$id', params: params);
@@ -113,10 +117,9 @@ class AddressResponse {
   }
 
   // 删除地址
-  static Future<bool> delAddress({required int id}) async {
+  static Future<bool> delAddress({required num id}) async {
     try {
       await BaseDio.getInstance().delete(url: '$addressListUrl/$id');
-
       ToastInfo.toastInfo(msg: '删除成功');
       return true;
     } catch (e) {

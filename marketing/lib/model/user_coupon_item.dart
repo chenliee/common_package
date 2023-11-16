@@ -1,159 +1,258 @@
-/// id : 0
-/// name : "string"
-/// typename : "string"
-/// percent : 0
-/// cost : 0
-/// doorsill : 0
-/// endTime : "string"
-/// description : "string"
-/// plus : true
-/// cause : "string"
-/// code : "string"
+/// id : 1075
+/// code : "40ce78de-4bc4-4be8-b12e-8e7a2f6be1b2"
+/// uid : "231100200248"
+/// cardId : 27
+/// startAt : "2023-11-01T09:22:03.661Z"
+/// addTime : "2023-11-01T09:22:03.662Z"
+/// endTime : "2023-11-01 17:22-2023-11-08 17:22"
+/// status : 2
+/// relShopId : null
+/// relGoodId : null
+/// relOrderId : null
+/// useTime : null
+/// imgUrl : {}
+/// closeAt : "2023-11-08 17:22"
+/// name : "滿90減20(7天)"
+/// typename : "滿減券"
+/// description : "使用條件：訂單金額滿90可用；\n使用規格：\n1. 本券有效期為領券后7天內有效；\n2.此優惠券為一次性使用商品，不可兌換現金、不找零、不開發票；\n3. 本券不得與其他優惠券、促銷活動、贈券、電子券、銀行積分和各類卡券等同時使用；\n4. 在有效期當天結束前均可使用；\n5. 此券可在盛世品牌門店堂食/點單小程序-外賣/點單小程序-自取下單時使用；"
+/// plus : false
+/// couponAct : {"id":27,"name":"滿90減20(7天)","shopId":"0","projectId":2,"sourceId":1,"imgUrl":null,"status":true,"share":false,"rule":{"cost":20,"endDate":"","doorsill":"90","getLimit":99,"goodsIds":"","upCoupon":false,"validDay":7,"beginDate":""},"description":"使用條件：訂單金額滿90可用；\n使用規格：\n1. 本券有效期為領券后7天內有效；\n2.此優惠券為一次性使用商品，不可兌換現金、不找零、不開發票；\n3. 本券不得與其他優惠券、促銷活動、贈券、電子券、銀行積分和各類卡券等同時使用；\n4. 在有效期當天結束前均可使用；\n5. 此券可在盛世品牌門店堂食/點單小程序-外賣/點單小程序-自取下單時使用；","quantity":88,"addTime":"2023-07-31T09:08:24.907Z","deletedAt":null,"brandCoupon":[]}
+/// cost : 20
+/// doorsill : "90"
+/// cause : "已過期"
 
 class UserCouponItem {
-
-
   UserCouponItem({
     num? id,
-    String? name,
-    String? startTime,
+    String? code,
+    String? uid,
+    num? cardId,
+    String? startAt,
+    String? addTime,
     String? endTime,
+    num? status,
+    dynamic relShopId,
+    dynamic relGoodId,
+    dynamic relOrderId,
+    dynamic useTime,
+    dynamic imgUrl,
+    String? closeAt,
+    String? name,
+    String? typename,
     String? description,
     bool? plus,
-    num? cost,
-    num? percent,
-    num? doorsill,
-    String? cause,
-    String? code,
-    String? typename,
     CouponAct? couponAct,
+    String? cost,
+    String? doorsill,
+    String? percent,
+    String? cause,
   }) {
     _id = id;
-    _name = name;
+    _code = code;
+    _uid = uid;
+    _cardId = cardId;
+    _startAt = startAt;
+    _addTime = addTime;
     _endTime = endTime;
-    _startTime = startTime;
+    _status = status;
+    _relShopId = relShopId;
+    _relGoodId = relGoodId;
+    _relOrderId = relOrderId;
+    _useTime = useTime;
+    _imgUrl = imgUrl;
+    _closeAt = closeAt;
+    _name = name;
+    _typename = typename;
     _description = description;
     _plus = plus;
+    _couponAct = couponAct;
     _cost = cost;
     _doorsill = doorsill;
+    _percent = percent;
     _cause = cause;
-    _typename = typename;
-    _couponAct = couponAct;
   }
 
   UserCouponItem.fromJson(dynamic json) {
     _id = json['id'];
-    _name = json['name'];
-    _startTime = json['startAt'];
+    _code = json['code'];
+    _uid = json['uid'];
+    _cardId = json['cardId'];
+    _startAt = json['startAt'];
+    _addTime = json['addTime'];
     _endTime = json['endTime'];
+    _status = json['status'];
+    _relShopId = json['relShopId'];
+    _relGoodId = json['relGoodId'];
+    _relOrderId = json['relOrderId'];
+    _useTime = json['useTime'];
+    _imgUrl = json['imgUrl'];
+    _closeAt = json['closeAt'];
+    _name = json['name'];
+    _typename = json['typename'];
     _description = json['description'];
     _plus = json['plus'];
-    _cost = json['cost'];
-    _percent = json['percent'] ?? 0;
-    _doorsill = json['doorsill'] ?? 0;
-    _cause = json['cause'] ?? '';
-    _code = json['code'];
-    _typename = json['typename'];
-    _couponAct = CouponAct.fromJson(json['couponAct']);
+    _couponAct = json['couponAct'] != null
+        ? CouponAct.fromJson(json['couponAct'])
+        : null;
+    _cost = json['cost']?.toString() ?? '0';
+    _doorsill = json['doorsill']?.toString() ?? '0';
+    _percent = json['percent']?.toString() ?? "0";
+    _cause = json['cause'];
   }
-
   num? _id;
-  String? _name;
-  String? _startTime;
+  String? _code;
+  String? _uid;
+  num? _cardId;
+  String? _startAt;
+  String? _addTime;
   String? _endTime;
+  num? _status;
+  dynamic _relShopId;
+  dynamic _relGoodId;
+  dynamic _relOrderId;
+  dynamic _useTime;
+  dynamic _imgUrl;
+  String? _closeAt;
+  String? _name;
+  String? _typename;
   String? _description;
   bool? _plus;
-  num? _cost;
-  num? _percent;
-  num? _doorsill;
-  String? _cause;
-  String? _code;
-  String? _typename;
   CouponAct? _couponAct;
-
+  String? _cost;
+  String? _doorsill;
+  String? _percent;
+  String? _cause;
   UserCouponItem copyWith({
     num? id,
-    String? name,
-    String? startTime,
+    String? code,
+    String? uid,
+    num? cardId,
+    String? startAt,
+    String? addTime,
     String? endTime,
+    num? status,
+    dynamic relShopId,
+    dynamic relGoodId,
+    dynamic relOrderId,
+    dynamic useTime,
+    dynamic imgUrl,
+    String? closeAt,
+    String? name,
+    String? typename,
     String? description,
     bool? plus,
-    num? cost,
-    num? doorsill,
-    num? percent,
-    String? cause,
-    String? code,
-    String? typename,
     CouponAct? couponAct,
+    String? cost,
+    String? doorsill,
+    String? percent,
+    String? cause,
   }) =>
       UserCouponItem(
-          id: id ?? _id,
-          name: name ?? _name,
-          startTime: startTime ?? _startTime,
-          endTime: endTime ?? _endTime,
-          description: description ?? _description,
-          plus: plus ?? _plus,
-          cost: cost ?? _cost,
-          doorsill: doorsill ?? _doorsill,
-          cause: cause ?? _cause,
-          code: code ?? _code,
-          percent: percent ?? _percent,
-          typename: typename ?? _typename,
-          couponAct: couponAct ?? _couponAct);
-
+        id: id ?? _id,
+        code: code ?? _code,
+        uid: uid ?? _uid,
+        cardId: cardId ?? _cardId,
+        startAt: startAt ?? _startAt,
+        addTime: addTime ?? _addTime,
+        endTime: endTime ?? _endTime,
+        status: status ?? _status,
+        relShopId: relShopId ?? _relShopId,
+        relGoodId: relGoodId ?? _relGoodId,
+        relOrderId: relOrderId ?? _relOrderId,
+        useTime: useTime ?? _useTime,
+        imgUrl: imgUrl ?? _imgUrl,
+        closeAt: closeAt ?? _closeAt,
+        name: name ?? _name,
+        typename: typename ?? _typename,
+        description: description ?? _description,
+        plus: plus ?? _plus,
+        couponAct: couponAct ?? _couponAct,
+        cost: cost ?? _cost,
+        doorsill: doorsill ?? _doorsill,
+        percent: percent ?? _percent,
+        cause: cause ?? _cause,
+      );
   num? get id => _id;
-  String? get name => _name;
-  String? get startTime => _startTime;
+  String? get code => _code;
+  String? get uid => _uid;
+  num? get cardId => _cardId;
+  String? get startAt => _startAt;
+  String? get addTime => _addTime;
   String? get endTime => _endTime;
+  num? get status => _status;
+  dynamic get relShopId => _relShopId;
+  dynamic get relGoodId => _relGoodId;
+  dynamic get relOrderId => _relOrderId;
+  dynamic get useTime => _useTime;
+  dynamic get imgUrl => _imgUrl;
+  String? get closeAt => _closeAt;
+  String? get name => _name;
+  String? get typename => _typename;
   String? get description => _description;
   bool? get plus => _plus;
-  num? get cost => _cost;
-  num? get percent => _percent;
-  num? get doorsill => _doorsill;
-  String? get cause => _cause;
-  String? get code => _code;
-  String? get typename => _typename;
   CouponAct? get couponAct => _couponAct;
+  String? get cost => _cost;
+  String? get doorsill => _doorsill;
+  String? get percent => _percent;
+  String? get cause => _cause;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
-    map['name'] = _name;
-    map['startAt'] = _startTime;
+    map['code'] = _code;
+    map['uid'] = _uid;
+    map['cardId'] = _cardId;
+    map['startAt'] = _startAt;
+    map['addTime'] = _addTime;
     map['endTime'] = _endTime;
+    map['status'] = _status;
+    map['relShopId'] = _relShopId;
+    map['relGoodId'] = _relGoodId;
+    map['relOrderId'] = _relOrderId;
+    map['useTime'] = _useTime;
+    map['imgUrl'] = _imgUrl;
+    map['closeAt'] = _closeAt;
+    map['name'] = _name;
+    map['typename'] = _typename;
     map['description'] = _description;
     map['plus'] = _plus;
+    if (_couponAct != null) {
+      map['couponAct'] = _couponAct?.toJson();
+    }
     map['cost'] = _cost;
-    map['percent'] = _percent;
     map['doorsill'] = _doorsill;
+    map['percent'] = _percent;
     map['cause'] = _cause;
-    map['code'] = _code;
-    map['typename'] = _typename;
-    map['couponAct'] = _couponAct?.toJson();
     return map;
   }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is UserCouponItem && runtimeType == other.runtimeType
-  && id == other.id;
-
-  @override
-  int get hashCode => 0;
 }
+
+/// id : 27
+/// name : "滿90減20(7天)"
+/// shopId : "0"
+/// projectId : 2
+/// sourceId : 1
+/// imgUrl : null
+/// status : true
+/// share : false
+/// rule : {"cost":20,"endDate":"","doorsill":"90","getLimit":99,"goodsIds":"","upCoupon":false,"validDay":7,"beginDate":""}
+/// description : "使用條件：訂單金額滿90可用；\n使用規格：\n1. 本券有效期為領券后7天內有效；\n2.此優惠券為一次性使用商品，不可兌換現金、不找零、不開發票；\n3. 本券不得與其他優惠券、促銷活動、贈券、電子券、銀行積分和各類卡券等同時使用；\n4. 在有效期當天結束前均可使用；\n5. 此券可在盛世品牌門店堂食/點單小程序-外賣/點單小程序-自取下單時使用；"
+/// quantity : 88
+/// addTime : "2023-07-31T09:08:24.907Z"
+/// deletedAt : null
+/// brandCoupon : []
 
 class CouponAct {
   CouponAct({
     num? id,
     String? name,
-    dynamic shopId,
+    String? shopId,
     num? projectId,
     num? sourceId,
     dynamic imgUrl,
     bool? status,
     bool? share,
-    CouponRule? rule,
+    Rule? rule,
     String? description,
     num? quantity,
     String? addTime,
@@ -185,27 +284,27 @@ class CouponAct {
     _imgUrl = json['imgUrl'];
     _status = json['status'];
     _share = json['share'];
-    _rule = json['rule'] != null ? CouponRule.fromJson(json['rule']) : null;
+    _rule = json['rule'] != null ? Rule.fromJson(json['rule']) : null;
     _description = json['description'];
     _quantity = json['quantity'];
     _addTime = json['addTime'];
     _deletedAt = json['deletedAt'];
     if (json['brandCoupon'] != null) {
       _brandCoupon = json['brandCoupon'];
-      /* json['brandCoupon'].forEach((v) {
-        _brandCoupon?.add(dynamic.fromJson(v));
+/*      json['brandCoupon'].forEach((v) {
+        _brandCoupon?.add(Dynamic.fromJson(v));
       });*/
     }
   }
   num? _id;
   String? _name;
-  dynamic _shopId;
+  String? _shopId;
   num? _projectId;
   num? _sourceId;
   dynamic _imgUrl;
   bool? _status;
   bool? _share;
-  CouponRule? _rule;
+  Rule? _rule;
   String? _description;
   num? _quantity;
   String? _addTime;
@@ -214,13 +313,13 @@ class CouponAct {
   CouponAct copyWith({
     num? id,
     String? name,
-    dynamic shopId,
+    String? shopId,
     num? projectId,
     num? sourceId,
     dynamic imgUrl,
     bool? status,
     bool? share,
-    CouponRule? rule,
+    Rule? rule,
     String? description,
     num? quantity,
     String? addTime,
@@ -245,13 +344,13 @@ class CouponAct {
       );
   num? get id => _id;
   String? get name => _name;
-  dynamic get shopId => _shopId;
+  String? get shopId => _shopId;
   num? get projectId => _projectId;
   num? get sourceId => _sourceId;
   dynamic get imgUrl => _imgUrl;
   bool? get status => _status;
   bool? get share => _share;
-  CouponRule? get rule => _rule;
+  Rule? get rule => _rule;
   String? get description => _description;
   num? get quantity => _quantity;
   String? get addTime => _addTime;
@@ -282,20 +381,21 @@ class CouponAct {
   }
 }
 
-/// cost : 10
-/// endDate : "2023-10-1T00:00:00.000Z"
-/// percent : 0
-/// doorsill : 0
+/// cost : 20
+/// endDate : ""
+/// doorsill : "90"
+/// getLimit : 99
+/// goodsIds : ""
 /// upCoupon : false
-/// beginDate : "2023-09-1T00:00:00.000Z"
-/// goodsIds : "1,2"
+/// validDay : 7
+/// beginDate : ""
 
-class CouponRule {
-  CouponRule({
-    num? cost,
+class Rule {
+  Rule({
+    String? cost,
     String? endDate,
-    num? percent,
-    num? doorsill,
+    String? percent,
+    String? doorsill,
     bool? upCoupon,
     String? beginDate,
     String? goodsIds,
@@ -311,35 +411,34 @@ class CouponRule {
     _shopIds = shopIds;
   }
 
-  CouponRule.fromJson(dynamic json) {
-    _cost = json['cost'];
+  Rule.fromJson(dynamic json) {
+    _cost = json['cost'].toString();
     _endDate = json['endDate'];
-    _percent = json['percent'];
-    _doorsill = json['doorsill'];
+    _percent = json['percent']?.toString() ?? '0';
+    _doorsill = json['doorsill']?.toString() ?? '0';
     _upCoupon = json['upCoupon'];
     _beginDate = json['beginDate'];
     _goodsIds = json['goodsIds'];
     _shopIds = json['shopIds'] != null ? json['shopIds'].cast<String>() : [];
   }
-  num? _cost;
+  String? _cost;
   String? _endDate;
-  num? _percent;
-  num? _doorsill;
+  String? _percent;
+  String? _doorsill;
   bool? _upCoupon;
   String? _beginDate;
   String? _goodsIds;
   List<String>? _shopIds;
-  CouponRule copyWith({
-    num? cost,
-    String? endDate,
-    num? percent,
-    num? doorsill,
-    bool? upCoupon,
-    String? beginDate,
-    String? goodsIds,
-    List<String>? shopIds
-  }) =>
-      CouponRule(
+  Rule copyWith(
+          {String? cost,
+          String? endDate,
+          String? percent,
+          String? doorsill,
+          bool? upCoupon,
+          String? beginDate,
+          String? goodsIds,
+          List<String>? shopIds}) =>
+      Rule(
         cost: cost ?? _cost,
         endDate: endDate ?? _endDate,
         percent: percent ?? _percent,
@@ -349,10 +448,10 @@ class CouponRule {
         goodsIds: goodsIds ?? _goodsIds,
         shopIds: shopIds ?? _shopIds,
       );
-  num? get cost => _cost;
+  String? get cost => _cost;
   String? get endDate => _endDate;
-  num? get percent => _percent;
-  num? get doorsill => _doorsill;
+  String? get percent => _percent;
+  String? get doorsill => _doorsill;
   bool? get upCoupon => _upCoupon;
   String? get beginDate => _beginDate;
   String? get goodsIds => _goodsIds;

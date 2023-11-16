@@ -72,12 +72,12 @@ class UserResponse {
   }
 
   // 獲取用戶會員等級信息
-  static Future getUserVipGradeInfo() async {
+  static Future getUserGradeInfo() async {
     try {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: gradeInfoUrl);
-      UserVipGradeInfo? userVipGradeInfo = UserVipGradeInfo.fromJson(res);
-      return userVipGradeInfo;
+      UserGradeInfo? userGradeInfo = UserGradeInfo.fromJson(res);
+      return userGradeInfo;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
@@ -88,11 +88,12 @@ class UserResponse {
   static Future buyVipCard(
       {required num? id, required String? name, String? redirectUrl}) async {
     try {
-      Map<String, dynamic> params = {
+      Map<String, dynamic> params = Map.from({
         'vid': id,
         'name': name,
-      };
-      params['redirectUrl'] = redirectUrl;
+        'redirectUrl': redirectUrl
+      }..removeWhere((key, value) => value == null));
+
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: vipBuyUrl, params: params);
       return res;

@@ -35,7 +35,8 @@ class BaseDio {
         if (responseData.containsKey('success') &&
             responseData['success'] == false) {
           if (responseData.containsKey('message') &&
-              responseData['message'] == 'Unauthorized') {
+                  responseData['message'] == 'Unauthorized' ||
+              responseData['message'] == 'DeviceAccessToken Unauthorized') {
             if (onUnauthorized != null) onUnauthorized!();
           }
         }

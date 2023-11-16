@@ -1,7 +1,7 @@
-name: goods
+name: service_hub
 description: A new Flutter project.
 version: 0.0.1
-homepage: https://gateway.dev.heyday-catering.com/goods/swagger-ui/index.html#/
+homepage: https://gateway.dev.heyday-catering.com/service-hub/swagger-ui/index.html#/
 
 environment:
   sdk: '>=2.18.2 <3.0.0'

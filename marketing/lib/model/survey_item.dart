@@ -126,7 +126,7 @@ class Gift {
     num? id,
     String? name,
     String? type,
-    Rule? rule,
+    SurveyRule? rule,
     List<ImgUrl>? imgUrl,
     num? count,
     bool? isLimit,
@@ -150,7 +150,7 @@ class Gift {
     _id = json['id'];
     _name = json['name'];
     _type = json['type'];
-    _rule = json['rule'] != null ? Rule.fromJson(json['rule']) : null;
+    _rule = json['rule'] != null ? SurveyRule.fromJson(json['rule']) : null;
     if (json['imgUrl'] != null) {
       _imgUrl = [];
       json['imgUrl'].forEach((v) {
@@ -166,7 +166,7 @@ class Gift {
   num? _id;
   String? _name;
   String? _type;
-  Rule? _rule;
+  SurveyRule? _rule;
   List<ImgUrl>? _imgUrl;
   num? _count;
   bool? _isLimit;
@@ -177,7 +177,7 @@ class Gift {
     num? id,
     String? name,
     String? type,
-    Rule? rule,
+    SurveyRule? rule,
     List<ImgUrl>? imgUrl,
     num? count,
     bool? isLimit,
@@ -200,7 +200,7 @@ class Gift {
   num? get id => _id;
   String? get name => _name;
   String? get type => _type;
-  Rule? get rule => _rule;
+  SurveyRule? get rule => _rule;
   List<ImgUrl>? get imgUrl => _imgUrl;
   num? get count => _count;
   bool? get isLimit => _isLimit;
@@ -269,8 +269,8 @@ class ImgUrl {
 /// score : 0
 /// goods : {"goodsId":0,"attrIds":["string"]}
 
-class Rule {
-  Rule({
+class SurveyRule {
+  SurveyRule({
     num? coupon,
     num? score,
     Goods? goods,
@@ -280,7 +280,7 @@ class Rule {
     _goods = goods;
   }
 
-  Rule.fromJson(dynamic json) {
+  SurveyRule.fromJson(dynamic json) {
     _coupon = json['coupon'];
     _score = json['score'];
     _goods = json['goods'] != null ? Goods.fromJson(json['goods']) : null;
@@ -288,12 +288,12 @@ class Rule {
   num? _coupon;
   num? _score;
   Goods? _goods;
-  Rule copyWith({
+  SurveyRule copyWith({
     num? coupon,
     num? score,
     Goods? goods,
   }) =>
-      Rule(
+      SurveyRule(
         coupon: coupon ?? _coupon,
         score: score ?? _score,
         goods: goods ?? _goods,

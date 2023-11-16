@@ -3,8 +3,10 @@ import 'package:member/member.dart';
 import 'package:service_package/service_package.dart';
 
 class FavoriteResponse {
-  static String favoriteUrl =
-      '/member/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/favorite';
+  static String baseUrl =
+      '/member/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}';
+  static String favoriteUrl = '$baseUrl/favorite';
+  static String delFavoriteUrl = '$baseUrl/favorite/cancel';
 
   // 添加收藏
   static Future addFavorite({required int id}) async {
@@ -22,17 +24,19 @@ class FavoriteResponse {
   }
 
   // 获取收藏列表
-  static Future getFavoriteList({required num page}) async {
+  static Future getFavoriteList(
+      {required num page, required String targetType}) async {
     try {
-      List<FavoriteInfo> list = [];
+      List<FavoriteItem> list = [];
       Map<String, dynamic> params = {
         'page': page,
         'pageSize': ServiceGlobal.instance.pageSize,
+        'targetType': targetType,
       };
       List<dynamic> jsonList =
           await BaseDio.getInstance().get(url: favoriteUrl, params: params);
       for (dynamic item in jsonList) {
-        list.add(FavoriteInfo.fromJson(item));
+        list.add(FavoriteItem.fromJson(item));
       }
       return list;
     } catch (e) {
@@ -42,9 +46,9 @@ class FavoriteResponse {
   }
 
   // 取消收藏
-  static Future delFavorite({required int id}) async {
+  static Future delFavorite({required String id}) async {
     try {
-      await BaseDio.getInstance().put(url: '$favoriteUrl/$id');
+      await BaseDio.getInstance().post(url: '$delFavoriteUrl/$id');
       ToastInfo.toastInfo(msg: '已移除收藏');
       return true;
     } catch (e) {

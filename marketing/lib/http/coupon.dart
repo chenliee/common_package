@@ -2,12 +2,11 @@ import 'package:marketing/marketing.dart';
 import 'package:service_package/service_package.dart';
 
 class CouponResponse {
-  static String receiveCouponUrl =
-      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/coupon/gain';
-  static String userCouponUrl =
-      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/coupon/user';
-  static String couponListUrl =
-      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/coupon';
+  static String baseUrl =
+      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}';
+  static String receiveCouponUrl = '$baseUrl/coupon/gain';
+  static String userCouponUrl = '$baseUrl/coupon/user';
+  static String couponListUrl = '$baseUrl/coupon';
 
   static Future receiveCoupon({required String cid}) async {
     try {
@@ -27,16 +26,12 @@ class CouponResponse {
     List<UserCouponItem> notList = [];
     String usable = '';
     try {
-      Map<String, dynamic> params = {};
-      if (shopId != null) {
-        params['shopId'] = shopId;
-      }
-      if (status != null) {
-        params['status'] = status;
-      }
-      if (items != null && items.isNotEmpty) {
-        params['items'] = items;
-      }
+      Map<String, dynamic> params = Map.from({
+        'shopId': shopId,
+        'status': status,
+        'items': items
+      }..removeWhere((key, value) => value == null));
+
       Map<String, dynamic> res = await BaseDio.getInstance().post(
           url: '$userCouponUrl'
               '${page == null ? '' : '?page=$page&pageSize=${ServiceGlobal.instance.pageSize}'}',
@@ -63,16 +58,14 @@ class CouponResponse {
       {bool? upCoupon = false, required num page}) async {
     List<CouponItem> list = [];
     try {
-      Map<String, dynamic> params = {
-        'upCoupon': upCoupon,
-        'page': page,
-        'pageSize': ServiceGlobal.instance.pageSize
-      };
+      Map<String, dynamic> params = {'upCoupon': upCoupon};
       if (ServiceGlobal.instance.shopId.isNotEmpty) {
         params['shopId'] = ServiceGlobal.instance.shopId;
       }
-      List<dynamic> res =
-          await BaseDio.getInstance().post(url: couponListUrl, params: params);
+      List<dynamic> res = await BaseDio.getInstance().post(
+          url:
+              '$couponListUrl/?page=$page&pageSize=${ServiceGlobal.instance.pageSize}',
+          params: params);
       for (dynamic item in res) {
         list.add(CouponItem.fromJson(item));
       }

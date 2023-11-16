@@ -14,16 +14,13 @@ class NotifyRequest {
       required String token,
       required String package}) async {
     try {
-      Map<String, dynamic>? params = {
+      Map<String, dynamic>? params = Map.from({
         'package': package,
         'token': token,
-      };
-      if (uuid != null) {
-        params['uuid'] = uuid;
-      }
-      if (code != null) {
-        params['code'] = code;
-      }
+        'uuid': uuid,
+        'code': code
+      }..removeWhere((key, value) => value == null));
+
       final res = await BaseDio.getInstance()
           .post(url: '$url/$cid/device-registration', params: params);
       RegistrationModel authModel = RegistrationModel.fromJson(res);
