@@ -51,6 +51,12 @@
       <excludeFolder url="file://$MODULE_DIR$/service_hub/build" />
       <excludeFolder url="file://$MODULE_DIR$/service_hub/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/service_hub/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/crop/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/crop/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/crop/build" />
+      <excludeFolder url="file://$MODULE_DIR$/service_package/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/service_package/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/service_package/example/.pub" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

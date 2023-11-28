@@ -4,14 +4,10 @@ import 'package:service_package/service_package.dart';
 class ScoreResponse {
   static String scoreUrl =
       '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/score';
-  static String scoreRecordUrl =
-      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/score/record';
-  static String scoreSwapUrl =
-      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/score/swap';
-  static String scoreListUrl =
-      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/score/list';
-  static String scoreDesUrl =
-      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/score/describe';
+  static String scoreRecordUrl = '$scoreUrl/record';
+  static String scoreSwapUrl = '$scoreUrl/swap';
+  static String scoreListUrl = '$scoreUrl/list';
+  static String scoreDesUrl = '$scoreUrl/describe';
 
   static Future getScore() async {
     Statistical? score;
@@ -25,19 +21,25 @@ class ScoreResponse {
     return score;
   }
 
-  static Future<dynamic> getScoreRecord() async {
-    List<ScoreRecord> list = [];
+  static Future<List<ScoreRecord>?> getScoreRecord({int? page}) async {
     try {
+      Map<String, dynamic> params = page == null
+          ? {}
+          : {
+              'page': page,
+              'pageSize': ServiceGlobal.instance.pageSize,
+            };
+      List<ScoreRecord> list = [];
       List<dynamic> jsonList =
-          await BaseDio.getInstance().get(url: scoreRecordUrl);
+          await BaseDio.getInstance().get(url: scoreRecordUrl, params: params);
       for (dynamic item in jsonList) {
         list.add(ScoreRecord.fromJson(item));
       }
+      return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
     }
-    return list;
   }
 
   static Future<dynamic> getScoreSwap() async {

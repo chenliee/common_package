@@ -55,18 +55,20 @@ class CouponResponse {
   }
 
   static Future<List<CouponItem>> getCouponList(
-      {bool? upCoupon = false, required num page}) async {
+      {bool? upCoupon, required num page}) async {
     List<CouponItem> list = [];
     try {
-      Map<String, dynamic> params = {'upCoupon': upCoupon};
+      Map<String, dynamic> params = Map.from(
+          {'upCoupon': upCoupon}..removeWhere((key, value) => value == null));
       if (ServiceGlobal.instance.shopId.isNotEmpty) {
         params['shopId'] = ServiceGlobal.instance.shopId;
       }
-      List<dynamic> res = await BaseDio.getInstance().post(
+      Map res = await BaseDio.getInstance().post(
           url:
               '$couponListUrl/?page=$page&pageSize=${ServiceGlobal.instance.pageSize}',
           params: params);
-      for (dynamic item in res) {
+      List jsonList = res['list'];
+      for (dynamic item in jsonList) {
         list.add(CouponItem.fromJson(item));
       }
     } catch (e) {

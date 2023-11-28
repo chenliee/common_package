@@ -7,9 +7,10 @@ class FavoriteResponse {
       '/member/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}';
   static String favoriteUrl = '$baseUrl/favorite';
   static String delFavoriteUrl = '$baseUrl/favorite/cancel';
+  static String isFavoriteUrl = '$baseUrl/favorite/isFavorite';
 
   // 添加收藏
-  static Future addFavorite({required int id}) async {
+  static Future addFavorite({required String id}) async {
     try {
       Map<String, dynamic> params = {
         'itemId': id,
@@ -51,6 +52,16 @@ class FavoriteResponse {
       await BaseDio.getInstance().post(url: '$delFavoriteUrl/$id');
       ToastInfo.toastInfo(msg: '已移除收藏');
       return true;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<bool?> isFavorite({required String id}) async {
+    try {
+      Map res = await BaseDio.getInstance().post(url: '$isFavoriteUrl/$id');
+      return res['isFavorite'];
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

@@ -1,5 +1,8 @@
 package com.example.service_package
 
+import android.content.Context
+import android.os.Build
+import android.provider.Settings
 import androidx.annotation.NonNull
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -16,18 +19,33 @@ class ServicePackagePlugin: FlutterPlugin, MethodCallHandler {
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
   /// when the Flutter Engine is detached from the Activity
   private lateinit var channel : MethodChannel
+  private var context: Context? = null
 
-  override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+  override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "service_package")
     channel.setMethodCallHandler(this)
+    context = flutterPluginBinding.applicationContext
   }
 
-  override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-    if (call.method == "backDesktop") {
-      result.success(true)
-      FlutterActivity().moveTaskToBack(false)
-    } else {
-      result.notImplemented()
+  override fun onMethodCall(call: MethodCall, result: Result) {
+    when (call.method) {
+      "backDesktop" -> {
+        result.success(true)
+        FlutterActivity().moveTaskToBack(false)
+      }
+      "deviceIdentifier" -> {
+        result.success(
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Settings.Secure.getString(
+              context!!.contentResolver,
+              Settings.Secure.ANDROID_ID
+            )
+          } else Build.SERIAL
+        )
+      }
+      else -> {
+        result.notImplemented()
+      }
     }
   }
 

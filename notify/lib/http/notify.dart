@@ -5,7 +5,8 @@ import '../flutter_notify.dart';
 class NotifyRequest {
   static String url =
       '/notify/api/merchant/${ServiceGlobal.instance.merchantId}/channel';
-  static String captchaUrl = '/notify/api/merchant/scholar/captcha/';
+  static String captchaUrl =
+      '/notify/api/merchant/${ServiceGlobal.instance.merchantId}/captcha/';
 
   static Future<RegistrationModel?> deviceRegistration(
       {required String cid,

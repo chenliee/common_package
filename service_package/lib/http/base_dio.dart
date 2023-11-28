@@ -31,19 +31,33 @@ class BaseDio {
 
     dio.interceptors.add(InterceptorsWrapper(
       onResponse: (Response response, ResponseInterceptorHandler handler) {
-        Map<String, dynamic> responseData = response.data;
-        if (responseData.containsKey('success') &&
-            responseData['success'] == false) {
-          if (responseData.containsKey('message') &&
-                  responseData['message'] == 'Unauthorized' ||
-              responseData['message'] == 'DeviceAccessToken Unauthorized') {
-            if (onUnauthorized != null) onUnauthorized!();
+        final responseData = response.data;
+        if (responseData is Map) {
+          if (responseData.containsKey('success') &&
+              responseData['success'] == false) {
+            if (responseData.containsKey('message') &&
+                (responseData['message'] == 'Unauthorized' ||
+                    responseData['message'] ==
+                        'DeviceAccessToken Unauthorized')) {
+              if (onUnauthorized != null) onUnauthorized!();
+            }
           }
         }
         return handler.next(response); // 必须调用handler.next(response)
       },
       onError: (DioError error, ErrorInterceptorHandler handler) {
-        Debug.printMsg("Error: ${error.message}", StackTrace.current);
+        final responseData = error.response?.data;
+        if (responseData is Map) {
+          if (responseData.containsKey('success') &&
+              responseData['success'] == false) {
+            if (responseData.containsKey('message') &&
+                (responseData['message'] == 'Unauthorized' ||
+                    responseData['message'] ==
+                        'DeviceAccessToken Unauthorized')) {
+              if (onUnauthorized != null) onUnauthorized!();
+            }
+          }
+        }
         return handler.next(error); // 必须调用handler.next(error)
       },
     ));
@@ -62,7 +76,7 @@ class BaseDio {
       {required String url,
       Map<String, dynamic>? params,
       bool isApi = true}) async {
-    Map<String, dynamic> res = await requestHttp(url, 'post', params);
+    dynamic res = await requestHttp(url, 'post', params);
     throwException(res, isApi, url, params);
     return res['data'];
   }
@@ -141,10 +155,13 @@ class BaseDio {
       return response!.data;
     } on DioError catch (error) {
       ToastInfo.toastInfo(
-          msg: error.response?.data.toString() ?? error.message.toString());
-      Debug.printMsg(error.message, StackTrace.current);
+          msg: error.response?.data.toString() ?? error.message.toString(),
+          isApi: true);
+      Debug.printMsg(
+          error.response?.data.toString() ?? error.message.toString(),
+          StackTrace.current);
       throw {
-        'code': error.response!.statusCode,
+        'code': error.response?.statusCode ?? 0,
         'data': error.response?.data.toString() ?? error.message.toString()
       };
     }

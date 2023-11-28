@@ -46,13 +46,12 @@ class AddressResponse {
   static Future<List<AddressItem>> getAddressList({num? page}) async {
     try {
       List<AddressItem> list = [];
-      Map<String, dynamic> params = {};
-      if (page != null) {
-        params = {
-          'page': page,
-          'pageSize': ServiceGlobal.instance.pageSize,
-        };
-      }
+      Map<String, dynamic> params = page != null
+          ? {
+              'page': page,
+              'pageSize': ServiceGlobal.instance.pageSize,
+            }
+          : {};
       List<dynamic> jsonList =
           await BaseDio.getInstance().get(url: addressListUrl, params: params);
       for (dynamic item in jsonList) {
@@ -108,7 +107,7 @@ class AddressResponse {
       };
       await BaseDio.getInstance()
           .put(url: '$addressListUrl/$id', params: params);
-      ToastInfo.toastInfo(msg: '添加成功');
+      ToastInfo.toastInfo(msg: '修改成功');
       return true;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);

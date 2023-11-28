@@ -13,9 +13,9 @@ class CouponItem {
     String? shopId,
     String? img,
     String? goodsIds,
-    num? cost,
-    num? percent,
-    num? doorsill,
+    String? cost,
+    String? percent,
+    String? doorsill,
     String? endTime,
     String? typename,
     String? hint,
@@ -45,9 +45,9 @@ class CouponItem {
     _shopId = json['shopId'];
     _img = json['img'];
     _goodsIds = json['goodsIds'];
-    _cost = json['cost'];
-    _percent = json['percent'];
-    _doorsill = json['doorsill'];
+    _cost = json['cost']?.toString() ?? '0';
+    _doorsill = json['doorsill']?.toString() ?? '0';
+    _percent = json['percent']?.toString() ?? "0";
     _endTime = json['endTime'];
     _typename = json['typename'];
     _hint = json['hint'];
@@ -60,9 +60,9 @@ class CouponItem {
   String? _shopId;
   String? _img;
   String? _goodsIds;
-  num? _cost;
-  num? _percent;
-  num? _doorsill;
+  String? _cost;
+  String? _percent;
+  String? _doorsill;
   String? _endTime;
   String? _typename;
   String? _hint;
@@ -75,9 +75,9 @@ class CouponItem {
           String? shopId,
           String? img,
           String? goodsIds,
-          num? cost,
-          num? percent,
-          num? doorsill,
+          String? cost,
+          String? percent,
+          String? doorsill,
           String? endTime,
           String? typename,
           String? hint,
@@ -104,9 +104,9 @@ class CouponItem {
   String? get shopId => _shopId;
   String? get img => _img;
   String? get goodsIds => _goodsIds;
-  num? get cost => _cost;
-  num? get percent => _percent;
-  num? get doorsill => _doorsill;
+  String? get cost => _cost;
+  String? get percent => _percent;
+  String? get doorsill => _doorsill;
   String? get endTime => _endTime;
   String? get typename => _typename;
   String? get hint => _hint;

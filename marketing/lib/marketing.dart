@@ -2,6 +2,7 @@ library marketing;
 
 export 'http/coupon.dart';
 export 'http/group_act.dart';
+export 'http/recharge.dart';
 export 'http/score.dart';
 export 'http/spike_act.dart';
 export 'http/survey.dart';
@@ -9,6 +10,8 @@ export 'http/vip_right.dart';
 export 'model/coupon_item.dart';
 export 'model/group_item.dart';
 export 'model/order_score.dart';
+export 'model/recharge_item.dart';
+export 'model/recharge_log_item.dart';
 export 'model/score_item.dart';
 export 'model/score_record.dart';
 export 'model/spike_item.dart';

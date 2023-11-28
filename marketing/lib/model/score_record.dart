@@ -1,63 +1,60 @@
-/// id : 0
-/// alter : 0
-/// content : "string"
-/// type : 0
-/// addTime : "string"
+/// id : 7173
+/// adjValue : 100
+/// type : "backstage"
+/// createdAt : "2023-11-17 11:25:50"
+/// balance : 100
 
 class ScoreRecord {
   ScoreRecord({
-    num? id,
-    num? alter,
-    String? content,
-    num? type,
-    String? addTime,
-  }) {
+      num? id, 
+      num? adjValue, 
+      String? type, 
+      String? createdAt, 
+      num? balance,}){
     _id = id;
-    _alter = alter;
-    _content = content;
+    _adjValue = adjValue;
     _type = type;
-    _addTime = addTime;
-  }
+    _createdAt = createdAt;
+    _balance = balance;
+}
 
   ScoreRecord.fromJson(dynamic json) {
     _id = json['id'];
-    _alter = json['alter'];
-    _content = json['content'];
+    _adjValue = json['adjValue'];
     _type = json['type'];
-    _addTime = json['addTime'];
+    _createdAt = json['createdAt'];
+    _balance = json['balance'];
   }
   num? _id;
-  num? _alter;
-  String? _content;
-  num? _type;
-  String? _addTime;
-  ScoreRecord copyWith({
-    num? id,
-    num? alter,
-    String? content,
-    num? type,
-    String? addTime,
-  }) =>
-      ScoreRecord(
-        id: id ?? _id,
-        alter: alter ?? _alter,
-        content: content ?? _content,
-        type: type ?? _type,
-        addTime: addTime ?? _addTime,
-      );
+  num? _adjValue;
+  String? _type;
+  String? _createdAt;
+  num? _balance;
+ScoreRecord copyWith({  num? id,
+  num? adjValue,
+  String? type,
+  String? createdAt,
+  num? balance,
+}) => ScoreRecord(  id: id ?? _id,
+  adjValue: adjValue ?? _adjValue,
+  type: type ?? _type,
+  createdAt: createdAt ?? _createdAt,
+  balance: balance ?? _balance,
+);
   num? get id => _id;
-  num? get alter => _alter;
-  String? get content => _content;
-  num? get type => _type;
-  String? get addTime => _addTime;
+  num? get adjValue => _adjValue;
+  String? get type => _type;
+  String? get createdAt => _createdAt;
+  num? get balance => _balance;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
-    map['alter'] = _alter;
-    map['content'] = _content;
+    map['adjValue'] = _adjValue;
     map['type'] = _type;
-    map['addTime'] = _addTime;
+    map['createdAt'] = _createdAt;
+    map['balance'] = _balance;
     return map;
   }
+
 }

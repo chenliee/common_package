@@ -15,7 +15,7 @@ class CommentResponse {
       if (id != null) {
         url = '$getCommentUrl/branch/$bCode/$id';
       } else {
-        url = 'getCommentUrl/branch/$bCode';
+        url = '$getCommentUrl/branch/$bCode';
       }
       Map<String, dynamic> params = {
         'page': page,
@@ -23,7 +23,8 @@ class CommentResponse {
         'orderBy': 'desc',
       };
 
-      List<dynamic> jsonLists = await BaseDio.getInstance().get(url: url, params: params);
+      List<dynamic> jsonLists =
+          await BaseDio.getInstance().get(url: url, params: params);
       for (var item in jsonLists) {
         list.add(CommentItem.fromJson(item));
       }
@@ -63,8 +64,7 @@ class CommentResponse {
       Map<String, dynamic> res = await BaseDio.getInstance()
           .post(url: '$relatedUrl/$bCode', params: params);
       ToastInfo.toastInfo(msg: '${res['message'] ?? "評論成功"}');
-        return true;
-
+      return true;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
