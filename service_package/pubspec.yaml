@@ -32,7 +32,8 @@ flutter:
       android:
         package: com.example.service_package
         pluginClass: ServicePackagePlugin
-
+      ios:
+        pluginClass: ServicePackagePlugin
   # To add assets to your package, add an assets section, like this:
   assets:
     - .env

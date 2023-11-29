@@ -33,7 +33,7 @@ class ServicePackagePlugin: FlutterPlugin, MethodCallHandler {
         result.success(true)
         FlutterActivity().moveTaskToBack(false)
       }
-      "deviceIdentifier" -> {
+      "getIdentifier" -> {
         result.success(
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Settings.Secure.getString(
