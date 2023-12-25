@@ -1,4 +1,3 @@
-import 'package:member/model/vip_card_item.dart';
 import 'package:service_package/service_package.dart';
 
 import '../member.dart';

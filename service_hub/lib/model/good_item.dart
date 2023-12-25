@@ -262,7 +262,7 @@ class Options {
 
 class Ext {
   Ext({
-    num? isDefault,
+    String? isDefault,
     String? attributeValue,
   }) {
     _isDefault = isDefault;
@@ -270,20 +270,20 @@ class Ext {
   }
 
   Ext.fromJson(dynamic json) {
-    _isDefault = json['isDefault'];
+    _isDefault = json['isDefault'].toString();
     _attributeValue = json['attributeValue'];
   }
-  num? _isDefault;
+  String? _isDefault;
   String? _attributeValue;
   Ext copyWith({
-    num? isDefault,
+    String? isDefault,
     String? attributeValue,
   }) =>
       Ext(
         isDefault: isDefault ?? _isDefault,
         attributeValue: attributeValue ?? _attributeValue,
       );
-  num? get isDefault => _isDefault;
+  String? get isDefault => _isDefault;
   String? get attributeValue => _attributeValue;
 
   Map<String, dynamic> toJson() {

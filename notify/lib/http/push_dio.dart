@@ -58,7 +58,20 @@ class PushDio extends BaseDio {
       }
       return response!.data;
     } on DioError catch (error) {
-      Debug.printMsg(error.message, StackTrace.current);
+      Debug.printMsg(error.response?.data ?? error.message, StackTrace.current);
+      String message = error.response?.data is Map
+          ? (error.response?.data['message'] ??
+              error.response?.data ??
+              error.message.toString())
+          : '';
+
+      throw Env.appEnv != 'PRO'
+          ? {
+              'code': error.response?.statusCode ?? 0,
+              'data':
+                  error.response?.data.toString() ?? error.message.toString()
+            }
+          : message;
     }
   }
 }

@@ -43,7 +43,7 @@ class UserGradeInfo {
     _updatedAt = json['updatedAt'];
     _grade =
         json['grade'] != null ? UserVipGradeItem.fromJson(json['grade']) : null;
-    _nextGrade = json['nextGrade'] != null
+    _nextGrade = json['nextGrade'] != null && json['nextGrade'].isNotEmpty
         ? UserVipGradeItem.fromJson(json['nextGrade'])
         : null;
   }

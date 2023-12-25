@@ -15,19 +15,34 @@ class MyHmsMessageService : HmsMessageService() {
 
     override fun onMessageReceived(message: RemoteMessage?) {
         super.onMessageReceived(message)
-        {"action":"device-registration","params":{"code":"d0sLZ6KeVQMEKDrH"}}
+        //{"action":"device-registration","params":{"code":"d0sLZ6KeVQMEKDrH"}}
         if (message != null) {
             // 处理透传消息
             if (message.dataOfMap.isNotEmpty()) {
                 Log.i(TAG, "onMessageReceived: data=${message.dataOfMap}")
-                val jsonString = """${message.dataOfMap["params"]}"""
-                val jsonObject = Json.parseToJsonElement(jsonString)
-                val resultMap = Json.decodeFromJsonElement<Map<String, String>>(jsonObject)
-                val queryParams: MutableMap<String, Any> = mutableMapOf(
-                    "cid" to "hms",
-                    "code" to (resultMap["code"] ?: "")
-                )
-                PushPlugin.instance.toFlutterMethod("deviceBinging", queryParams)
+                val actionString = """${message.dataOfMap["action"]}"""
+                if(actionString == "device-registration") {
+                    val jsonString =
+                            """${message.dataOfMap["params"]}"""
+                    val jsonObject =
+                            Json.parseToJsonElement(
+                                jsonString
+                            )
+                    val resultMap =
+                            Json.decodeFromJsonElement<Map<String, String>>(
+                                jsonObject
+                            )
+                    val queryParams: MutableMap<String, Any> =
+                            mutableMapOf(
+                                "cid" to "hms",
+                                "code" to (resultMap["code"]
+                                    ?: "")
+                            )
+                    PushPlugin.instance.toFlutterMethod(
+                        "deviceBinging",
+                        queryParams
+                    )
+                }
             }
             // 处理通知消息
             if (message.notification != null) {

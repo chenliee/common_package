@@ -67,36 +67,36 @@ class BaseDio {
       {required String url,
       Map<String, dynamic>? params,
       bool isApi = true}) async {
-    Map<String, dynamic> res = await requestHttp(url, 'get', params);
+    Map<String, dynamic>? res = await requestHttp(url, 'get', params);
     throwException(res, isApi, url, params);
-    return res['data'];
+    return res?['data'];
   }
 
   Future<dynamic> post(
       {required String url,
       Map<String, dynamic>? params,
       bool isApi = true}) async {
-    dynamic res = await requestHttp(url, 'post', params);
+    Map<String, dynamic>? res = await requestHttp(url, 'post', params);
     throwException(res, isApi, url, params);
-    return res['data'];
+    return res?['data'];
   }
 
   Future<dynamic> put(
       {required String url,
       Map<String, dynamic>? params,
       bool isApi = true}) async {
-    Map<String, dynamic> res = await requestHttp(url, 'put', params);
+    Map<String, dynamic>? res = await requestHttp(url, 'put', params);
     throwException(res, isApi, url, params);
-    return res['data'];
+    return res?['data'];
   }
 
   Future<dynamic> delete(
       {required String url,
       Map<String, dynamic>? params,
       bool isApi = true}) async {
-    Map<String, dynamic> res = await requestHttp(url, 'delete', params);
+    Map<String, dynamic>? res = await requestHttp(url, 'delete', params);
     throwException(res, isApi, url, params);
-    return res['data'];
+    return res?['data'];
   }
 
   Future<dynamic> patch(
@@ -108,13 +108,15 @@ class BaseDio {
     return res['data'];
   }
 
-  throwException(Map<String, dynamic> res, bool isApi, String url,
+  throwException(Map<String, dynamic>? res, bool isApi, String url,
       Map<String, dynamic>? params) {
-    if (res.containsKey('success') && !res['success']) {
-      ToastInfo.toastInfo(
-          msg: '${res['message'] ?? res['msg'] ?? "未知錯誤"}', isApi: isApi);
-      //throw 'Url:$url,\nRequest:$params,\nMessage:${res['message']}';
-      throw res['message'] ?? res['msg'];
+    if (res != null) {
+      if (res.containsKey('success') && !res['success']) {
+        ToastInfo.toastInfo(
+            msg: '${res['message'] ?? res['msg'] ?? "未知錯誤"}', isApi: isApi);
+        //throw 'Url:$url,\nRequest:$params,\nMessage:${res['message']}';
+        throw res['message'] ?? res['msg'];
+      }
     }
   }
 
@@ -160,10 +162,19 @@ class BaseDio {
       Debug.printMsg(
           error.response?.data.toString() ?? error.message.toString(),
           StackTrace.current);
-      throw {
-        'code': error.response?.statusCode ?? 0,
-        'data': error.response?.data.toString() ?? error.message.toString()
-      };
+      String message = error.response?.data is Map
+          ? (error.response?.data['message'] ??
+              error.response?.data ??
+              error.message.toString())
+          : '';
+
+      throw Env.appEnv != 'PRO'
+          ? {
+              'code': error.response?.statusCode ?? 0,
+              'data':
+                  error.response?.data.toString() ?? error.message.toString()
+            }
+          : message;
     }
   }
 

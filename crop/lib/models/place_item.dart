@@ -22,6 +22,15 @@ class PlaceItem {
         this.files,
         this.contacts});
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is PlaceItem && runtimeType == other.runtimeType &&
+              code == other.code && title == other.title;
+
+  @override
+  int get hashCode => code.hashCode ^ title.hashCode;
+
   PlaceItem.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     title = json['title'];

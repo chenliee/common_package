@@ -73,16 +73,29 @@ public class SwiftPushPlugin: NSObject, FlutterPlugin, UNUserNotificationCenterD
          let params = data["params"] as? [String: Any],
          let code = params["code"] as? String,
          action == "device-registration" {
-         print("123")
          var queryParams: Dictionary<String, String> = ["cid": "apns","code": code]
          channel.invokeMethod("deviceBinging", arguments: queryParams)
       }
       if notification.request.trigger is UNPushNotificationTrigger {
-          //UNPushNotificationTrigger 触发器，专门用于远程推送，其他一般是本地通知要用到的
+          if userInfo["data"] == nil {
+              let options: UNNotificationPresentationOptions = [.alert, .sound]
+              completionHandler(options)
+          } else {
+              completionHandler([])
+          }
       } else {
           //本地通知
       }
-      let options: UNNotificationPresentationOptions = []
-      completionHandler(options)
   }
+    
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+          // 处理用户点击通知的逻辑
+          let request = response.notification.request
+          let content = request.content
+          let userInfo = content.userInfo
+          let data = userInfo as? [String: Any]
+          channel.invokeMethod("pushClickAction", arguments: data)
+          // 处理完成后调用 completionHandler
+          completionHandler()
+      }
 }

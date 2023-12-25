@@ -68,7 +68,8 @@ class GlobalNotify {
   static Future<dynamic> _handleMethod(MethodCall call) async {
     switch (call.method) {
       case "pushClickAction":
-        return _pushClickAction!({'key': 'product'});
+        print(call.arguments is Map);
+        return _pushClickAction!(call.arguments.cast<String, dynamic>());
       case "deviceBinging":
         return PushRequest.deviceBinging(
             cid: call.arguments['cid'],

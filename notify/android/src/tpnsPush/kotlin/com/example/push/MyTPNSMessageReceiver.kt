@@ -2,15 +2,10 @@ package com.example.push
 
 import android.content.Context
 import android.util.Log
-import com.tencent.android.tpush.XGPushBaseReceiver
-import com.tencent.android.tpush.XGPushClickedResult
-import com.tencent.android.tpush.XGPushRegisterResult
-import com.tencent.android.tpush.XGPushShowedResult
-import com.tencent.android.tpush.XGPushTextMessage
+import com.tencent.android.tpush.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromJsonElement
 
 class MyTPNSMessageReceiver : XGPushBaseReceiver() {
 
@@ -43,6 +38,48 @@ class MyTPNSMessageReceiver : XGPushBaseReceiver() {
                 TAG,
                 "onNotificationClickedResult error: $e"
             )
+        }
+    }
+
+    override fun onNotificationClickedResult(
+        p0: Context?,
+        p1: XGPushClickedResult?
+    ) {
+        try {
+            if (p1 != null) {
+                Log.d(TAG, "Received notification clicked result: $p1")
+                // 从 result 中获取通知的相关信息
+                val customContent = p1.customContent
+                val content: String =
+                        p1.content
+                val title: String =
+                        p1.title
+                val notificationActionType: Int =
+                        p1.notificationActionType
+                val msgId: Long =
+                        p1.msgId
+                val activityName: String =
+                        p1.activityName
+                val actionType: Long =
+                        p1.actionType
+
+                val para: MutableMap<String, Any> =
+                        HashMap()
+                para["title"] = title
+                para["content"] = content
+                para["customMessage"] =
+                        customContent
+                para["msgId"] = msgId
+                para["notifactionActionType"] =
+                        notificationActionType
+                para["activityName"] =
+                        activityName
+                para["actionType"] = actionType
+
+                PushPlugin.instance.toFlutterMethod("pushClickAction", para)
+            }
+        } catch (e: Throwable) {
+            Log.e(TAG, "onNotificationClickedResult error: $e")
         }
     }
 
@@ -90,9 +127,6 @@ class MyTPNSMessageReceiver : XGPushBaseReceiver() {
         TODO("Not yet implemented")
     }
 
-    override fun onNotificationClickedResult(p0: Context?, p1: XGPushClickedResult?) {
-        TODO("Not yet implemented")
-    }
 
     companion object {
         private const val TAG = "TPNS Receiver"

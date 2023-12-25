@@ -3,19 +3,19 @@ import 'package:service_package/service_package.dart';
 
 class CommentResponse {
   static String getCommentUrl =
-      '/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/branch';
+      '/rating/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/branch';
   static String relatedUrl =
-      '/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/related';
+      '/rating/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/related';
 
-  static Future getComment(
-      {required String bCode, required int page, int? id}) async {
+  static Future<List> getComment(
+      {required String bCode, required int page, String? id}) async {
     try {
       List<CommentItem> list = [];
       String url = '';
       if (id != null) {
-        url = '$getCommentUrl/branch/$bCode/$id';
+        url = '$getCommentUrl/$bCode/$id';
       } else {
-        url = '$getCommentUrl/branch/$bCode';
+        url = '$getCommentUrl/$bCode';
       }
       Map<String, dynamic> params = {
         'page': page,
@@ -23,12 +23,12 @@ class CommentResponse {
         'orderBy': 'desc',
       };
 
-      List<dynamic> jsonLists =
+      Map<String, dynamic> json =
           await BaseDio.getInstance().get(url: url, params: params);
-      for (var item in jsonLists) {
+      for (var item in json['list']) {
         list.add(CommentItem.fromJson(item));
       }
-      return list;
+      return [list, json['total']];
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

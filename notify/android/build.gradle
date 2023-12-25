@@ -6,7 +6,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-
+        maven {url 'https://developer.huawei.com/repo/'}
     }
 
     dependencies {
@@ -20,6 +20,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven {url 'https://developer.huawei.com/repo/'}
     }
 }
 
@@ -66,7 +67,7 @@ android {
         implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0'
         fcmPushImplementation 'com.google.android.gms:play-services-basement:18.0.1'
         fcmPushImplementation 'com.google.firebase:firebase-messaging:21.0.1'
-        hmsPushImplementation 'com.huawei.hms:push:6.7.0.300'
+        hmsPushImplementation 'com.huawei.hms:push:6.11.0.300'
         tpnsPushImplementation 'com.tencent.tpns:tpns:1.3.9.0-release'
 
     }

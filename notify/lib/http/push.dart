@@ -6,20 +6,24 @@ import '../flutter_notify.dart';
 ///手机推送
 class PushRequest {
   static Future<void> deviceRegistration() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    String? accessToken = pref.getString('accessToken');
-    if (accessToken == null) {
-      Map<String, dynamic>? params = {
-        'package': GlobalNotify.bundleId,
-        'token': GlobalNotify.token,
-      };
-      final res = await PushDio.getInstance().post(
-          url:
-              '/notify/api/merchant/${ServiceGlobal.instance.merchantId}/channel/${GlobalNotify.cid}/device-registration',
-          params: params);
-      GlobalNotify.uuid = res['uuid'];
-    } else {
-      update(cid: GlobalNotify.cid);
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      String? accessToken = pref.getString('accessToken');
+      if (accessToken == null) {
+        Map<String, dynamic>? params = {
+          'package': GlobalNotify.bundleId,
+          'token': GlobalNotify.token,
+        };
+        final res = await PushDio.getInstance().post(
+            url:
+                '/notify/api/merchant/${ServiceGlobal.instance.merchantId}/channel/${GlobalNotify.cid}/device-registration',
+            params: params);
+        GlobalNotify.uuid = res['uuid'];
+      } else {
+        update(cid: GlobalNotify.cid);
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -45,5 +49,12 @@ class PushRequest {
         url:
             '/notify/api/merchant/${ServiceGlobal.instance.merchantId}/channel/$cid/device/current/update',
         params: {});
+  }
+
+  static void getSn() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    print(pref.getString('sn'));
+    print(pref.getString('accessToken'));
+    print(GlobalNotify.token);
   }
 }

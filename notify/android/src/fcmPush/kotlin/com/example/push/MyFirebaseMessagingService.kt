@@ -15,25 +15,38 @@ import kotlinx.serialization.json.decodeFromJsonElement
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        Log.d(TAG, "From: " + remoteMessage.from)
-        Log.d(TAG, "Message data payload: " + remoteMessage.data)
         if (remoteMessage.data.isNotEmpty()) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.data)
-            val jsonString = """${remoteMessage.data["params"]}"""
-            val jsonObject = Json.parseToJsonElement(jsonString)
-            val resultMap = Json.decodeFromJsonElement<Map<String, String>>(jsonObject)
-            val queryParams: MutableMap<String, Any> = mutableMapOf(
-                "cid" to "fcm",
-                "code" to (resultMap["code"] ?: "")
-            )
-            PushPlugin.instance.toFlutterMethod("deviceBinging", queryParams)
+            val actionString = """${remoteMessage.data["action"]}"""
+            if(actionString == "device-registration") {
+                val jsonString =
+                        """${remoteMessage.data["params"]}"""
+                val jsonObject =
+                        Json.parseToJsonElement(
+                            jsonString
+                        )
+                val resultMap =
+                        Json.decodeFromJsonElement<Map<String, String>>(
+                            jsonObject
+                        )
+                val queryParams: MutableMap<String, Any> =
+                        mutableMapOf(
+                            "cid" to "fcm",
+                            "code" to (resultMap["code"]
+                                ?: "")
+                        )
+                val res : Strng
+                PushPlugin.instance.toFlutterMethod(
+                    "deviceBinging",
+                    queryParams
+                )
+            }
             // 数据消息
         }
         if (remoteMessage.notification != null) {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.notification!!.body)
             val title: String? = remoteMessage.notification!!.title
             val message: String? = remoteMessage.notification!!.body
-            title?.let { message?.let { it1 -> showNotification(it, it1) } }
+            val data: MutableMap<String, String> = remoteMessage.data
+            title?.let { message?.let { it1 -> showNotification(it, it1,data) } }
             // 通知消息
         }
     }
@@ -50,7 +63,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         Log.d("TOKEN ", token)
     }
 
-    private fun showNotification(title: String, message: String) {
+    private fun showNotification(title: String, message: String,data: MutableMap<String, String>) {
         val notificationManager: NotificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -63,6 +76,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
         val smallIconResId: Int = android.R.drawable.sym_def_app_icon
         val notificationIntent = Intent(this, NotificationReceiver::class.java)
+        notificationIntent.putExtra("data", HashMap(data))
         val pendingIntent: PendingIntent = PendingIntent.getBroadcast(
             this,
             0,

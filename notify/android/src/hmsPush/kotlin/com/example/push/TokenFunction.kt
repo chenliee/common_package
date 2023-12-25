@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import android.content.Context
 
-class TokenFunction(){
+class TokenFunction{
     fun getToken(result: MethodChannel.Result,appId: String?) {
         GlobalScope.launch(Dispatchers.IO) {
             try {

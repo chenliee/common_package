@@ -1,26 +1,25 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:marketing/model/group_item.dart';
 import 'package:marketing/model/user_group_item.dart';
 import 'package:service_package/service_package.dart';
 
-@immutable
 class GroupActResponse {
-  static String groupActListUrl =
+  static String groupActUrl =
       '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/groupAct';
-  static String payGroupUrl =
-      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/groupAct/pay';
-  static String refundGroupActUrl =
-      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/groupAct/refund';
-  static String userGroupActListUrl =
-      '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/groupAct/List';
+  static String payGroupUrl = '$groupActUrl/pay';
+  static String refundGroupActUrl = '$groupActUrl/refund';
+  static String userGroupActListUrl = '$groupActUrl/List';
 
-  static Future<dynamic> getGroupActList() async {
+  static Future<List<GroupItem>> getGroupActList({int? page}) async {
     List<GroupItem> list = [];
     try {
+      Map<String, dynamic> params = page != null
+          ? {
+              'page': page,
+              'pageSize': ServiceGlobal.instance.pageSize,
+            }
+          : {};
       List<dynamic> jsonList =
-          await BaseDio.getInstance().get(url: groupActListUrl);
+          await BaseDio.getInstance().get(url: groupActUrl, params: params);
       for (dynamic item in jsonList) {
         list.add(GroupItem.fromJson(item));
       }
@@ -35,7 +34,7 @@ class GroupActResponse {
     late GroupItem item;
     try {
       Map<String, dynamic> res =
-          await BaseDio.getInstance().get(url: '$groupActListUrl/$gid');
+          await BaseDio.getInstance().get(url: '$groupActUrl/$gid');
       item = GroupItem.fromJson(res);
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
@@ -45,56 +44,57 @@ class GroupActResponse {
   }
 
   static Future payGroupAct(
-      {num? id, String? channel, String? redirectUrl}) async {
-    String url = '';
+      {required num id, required String userId, String? redirectUrl}) async {
     try {
-      Map<String, dynamic> params = {
-        'id': id,
-        'channel': channel,
-        'platform': Platform.isAndroid ? 'android' : 'ios',
-      };
-      params['redirectUrl'] = redirectUrl;
+      Map<String, dynamic> params =
+          Map.from({'id': id, 'userId': userId, 'redirectUrl': redirectUrl})
+            ..removeWhere((key, value) => value == null);
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: payGroupUrl, params: params);
-      url = res['url'];
+      return res;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
     }
-    return url;
   }
 
   @Deprecated('弃用')
   static Future refundGroupAct({required String code}) async {
     try {
-      Map<String, dynamic> res =
-          await BaseDio.getInstance().post(url: '$refundGroupActUrl/$code');
+      await BaseDio.getInstance().post(url: '$refundGroupActUrl/$code');
+      ToastInfo.toastInfo(msg: '申请成功');
+      return true;
     } catch (e) {
-      Debug.printMsg(e, StackTrace.current);
-      rethrow;
+      return false;
     }
   }
 
-  static Future getUserGroupActList() async {
-    List<UserGroupItem> list = [];
+  static Future getUserGroupActList({int? page}) async {
     try {
-      List<dynamic> jsonList =
-          await BaseDio.getInstance().get(url: userGroupActListUrl);
+      Map<String, dynamic> params = page != null
+          ? {
+              'page': page,
+              'pageSize': ServiceGlobal.instance.pageSize,
+            }
+          : {};
+      List<dynamic> jsonList = await BaseDio.getInstance()
+          .get(url: userGroupActListUrl, params: params);
+      List<UserGroupItem> list = [];
       for (dynamic item in jsonList) {
         list.add(UserGroupItem.fromJson(item));
       }
+      return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
     }
-    return list;
   }
 
   static Future getUserGroupActItem({required num gid}) async {
     late UserGroupItem item;
     try {
       Map<String, dynamic> res =
-          await BaseDio.getInstance().get(url: '$userGroupActListUrl/$gid');
+          await BaseDio.getInstance().get(url: '$groupActUrl/groupOrder/$gid');
       item = UserGroupItem.fromJson(res);
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
