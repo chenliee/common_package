@@ -24,5 +24,19 @@ class TokenFunction(){
 
     fun init(context: Context){
         FirebaseApp.initializeApp(context)
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener(object : OnCompleteListener<String> {
+                override fun onComplete(task: Task<String>) {
+                    if (!task.isSuccessful) {
+                        return
+                    }
+                    val token: String? = task.result
+                    val queryParams: MutableMap<String, Any> = mutableMapOf(
+                        "pushType" to "tpns",
+                        "pushToken" to token!!
+                    )
+                    PushPlugin.instance.toFlutterMethod("onRegisteredDone", queryParams)
+                }
+            })
     }
 }

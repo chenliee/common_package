@@ -57,6 +57,7 @@ class OrderItem {
     Project? project,
     List<OrderItems>? orderItems,
     List<OrderSubPrices>? orderSubPrices,
+    List<OrderStatusChange>? orderStatusChange,
     List<dynamic>? link,
   }) {
     _id = id;
@@ -87,6 +88,7 @@ class OrderItem {
     _project = project;
     _orderItems = orderItems;
     _orderSubPrices = orderSubPrices;
+    _orderStatusChange = orderStatusChange;
     _link = link;
   }
 
@@ -132,6 +134,12 @@ class OrderItem {
         _orderSubPrices?.add(OrderSubPrices.fromJson(v));
       });
     }
+    if (json['orderStatusChange'] != null) {
+      _orderStatusChange = [];
+      json['orderStatusChange'].forEach((v) {
+        _orderStatusChange?.add(OrderStatusChange.fromJson(v));
+      });
+    }
     _link = json['link'];
   }
   num? _id;
@@ -162,6 +170,7 @@ class OrderItem {
   Project? _project;
   List<OrderItems>? _orderItems;
   List<OrderSubPrices>? _orderSubPrices;
+  List<OrderStatusChange>? _orderStatusChange;
   List<dynamic>? _link;
   OrderItem copyWith(
           {num? id,
@@ -192,6 +201,7 @@ class OrderItem {
           Project? project,
           List<OrderItems>? orderItems,
           List<OrderSubPrices>? orderSubPrices,
+          List<OrderStatusChange>? orderStatusChange,
           List<Map<String, dynamic>>? link}) =>
       OrderItem(
           id: id ?? _id,
@@ -222,6 +232,7 @@ class OrderItem {
           project: project ?? _project,
           orderItems: orderItems ?? _orderItems,
           orderSubPrices: orderSubPrices ?? _orderSubPrices,
+          orderStatusChange: orderStatusChange ?? _orderStatusChange,
           link: link ?? _link);
   num? get id => _id;
   String? get orderId => _orderId;
@@ -251,6 +262,7 @@ class OrderItem {
   Project? get project => _project;
   List<OrderItems>? get orderItems => _orderItems;
   List<OrderSubPrices>? get orderSubPrices => _orderSubPrices;
+  List<OrderStatusChange>? get orderStatusChange => _orderStatusChange;
   List<dynamic>? get link => _link;
 
   Map<String, dynamic> toJson() {
@@ -438,6 +450,8 @@ class OrderItems {
     String? size,
     String? title,
     num? unitPrice,
+    num? refundPrice,
+    String? state,
   }) {
     _id = id;
     _itemId = itemId;
@@ -451,6 +465,8 @@ class OrderItems {
     _size = size;
     _title = title;
     _unitPrice = unitPrice;
+    _refundPrice = refundPrice;
+    _state = state;
   }
 
   OrderItems.fromJson(dynamic json) {
@@ -469,6 +485,8 @@ class OrderItems {
     _size = json['size'];
     _title = json['title'];
     _unitPrice = json['unitPrice'];
+    _state = json['state'];
+    _refundPrice = json['refundPrice'];
   }
   int? _id;
   String? _itemId;
@@ -482,6 +500,8 @@ class OrderItems {
   String? _size;
   String? _title;
   num? _unitPrice;
+  num? _refundPrice;
+  String? _state;
   OrderItems copyWith({
     int? id,
     String? itemId,
@@ -495,6 +515,8 @@ class OrderItems {
     String? size,
     String? title,
     num? unitPrice,
+    num? refundPrice,
+    String? state,
   }) =>
       OrderItems(
         id: id ?? _id,
@@ -509,6 +531,8 @@ class OrderItems {
         size: size ?? _size,
         title: title ?? _title,
         unitPrice: unitPrice ?? _unitPrice,
+        refundPrice: refundPrice ?? _refundPrice,
+        state: state ?? _state,
       );
   int? get id => _id;
   String? get itemId => _itemId;
@@ -522,6 +546,8 @@ class OrderItems {
   String? get size => _size;
   String? get title => _title;
   num? get unitPrice => _unitPrice;
+  num? get refundPrice => _refundPrice;
+  String? get state => _state;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -721,27 +747,32 @@ class Links {
 /// place : "B01"
 
 class Condition {
-  Condition({
-    String? place,
-  }) {
+  Condition({String? place, String? reserveAt}) {
     _place = place;
+    _reserveAt = reserveAt;
   }
 
   Condition.fromJson(dynamic json) {
     _place = json['place'];
+    _reserveAt = json['reserveAt'];
   }
   String? _place;
+  String? _reserveAt;
   Condition copyWith({
     String? place,
+    String? reserveAt,
   }) =>
       Condition(
         place: place ?? _place,
+        reserveAt: reserveAt ?? _reserveAt,
       );
   String? get place => _place;
+  String? get reserveAt => _reserveAt;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['place'] = _place;
+    map['reserveAt'] = _reserveAt;
     return map;
   }
 }
@@ -902,32 +933,40 @@ class Branch {
   Branch({
     String? shopId,
     String? shopAddress,
+    String? shopTitle,
   }) {
     _shopId = shopId;
     _shopAddress = shopAddress;
+    _shopTitle = shopTitle;
   }
 
   Branch.fromJson(dynamic json) {
     _shopId = json['shopId'];
     _shopAddress = json['shopAddress'];
+    _shopTitle = json['shopTitle'];
   }
   String? _shopId;
   String? _shopAddress;
+  String? _shopTitle;
   Branch copyWith({
     String? shopId,
     String? shopAddress,
+    String? shopTitle,
   }) =>
       Branch(
         shopId: shopId ?? _shopId,
         shopAddress: shopAddress ?? _shopAddress,
+        shopTitle: shopTitle ?? _shopTitle,
       );
   String? get shopId => _shopId;
   String? get shopAddress => _shopAddress;
+  String? get shopTitle => _shopTitle;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['shopId'] = _shopId;
     map['shopAddress'] = _shopAddress;
+    map['shopTitle'] = _shopTitle;
     return map;
   }
 }
@@ -953,6 +992,9 @@ class ReceiverInfo {
     String? detail,
     String? lng,
     String? lat,
+    String? address,
+    String? title,
+    String? service,
   }) {
     _username = username;
     _mobile = mobile;
@@ -963,6 +1005,9 @@ class ReceiverInfo {
     _detail = detail;
     _lng = lng;
     _lat = lat;
+    _address = address;
+    _title = title;
+    _service = service;
   }
 
   ReceiverInfo.fromJson(dynamic json) {
@@ -975,6 +1020,9 @@ class ReceiverInfo {
     _detail = json['detail'];
     _lng = json['lng'];
     _lat = json['lat'];
+    _address = json['address'];
+    _title = json['title'];
+    _service = json['service'];
   }
   String? _username;
   String? _mobile;
@@ -985,6 +1033,9 @@ class ReceiverInfo {
   String? _detail;
   String? _lng;
   String? _lat;
+  String? _address;
+  String? _title;
+  String? _service;
   ReceiverInfo copyWith({
     String? username,
     String? mobile,
@@ -995,6 +1046,9 @@ class ReceiverInfo {
     String? detail,
     String? lng,
     String? lat,
+    String? address,
+    String? title,
+    String? service,
   }) =>
       ReceiverInfo(
         username: username ?? _username,
@@ -1006,6 +1060,9 @@ class ReceiverInfo {
         detail: detail ?? _detail,
         lng: lng ?? _lng,
         lat: lat ?? _lat,
+        address: address ?? _address,
+        title: title ?? _title,
+        service: service ?? _service,
       );
   String? get username => _username;
   String? get mobile => _mobile;
@@ -1016,6 +1073,9 @@ class ReceiverInfo {
   String? get detail => _detail;
   String? get lng => _lng;
   String? get lat => _lat;
+  String? get address => _address;
+  String? get title => _title;
+  String? get service => _service;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -1028,6 +1088,91 @@ class ReceiverInfo {
     map['detail'] = _detail;
     map['lng'] = _lng;
     map['lat'] = _lat;
+    map['address'] = _address;
+    map['title'] = _title;
+    map['service'] = _service;
+    return map;
+  }
+}
+
+/// id : 49
+/// orderId : 1468
+/// prevStatus : "WAIT_REFUND"
+/// nextStatus : "PART_REFUND"
+/// reason : null
+/// aduitStatus : "PENDING"
+/// updatedAt : "2024-03-07T07:55:20.617Z"
+
+class OrderStatusChange {
+  OrderStatusChange({
+    num? id,
+    num? orderId,
+    String? prevStatus,
+    String? nextStatus,
+    dynamic reason,
+    String? aduitStatus,
+    String? updatedAt,
+  }) {
+    _id = id;
+    _orderId = orderId;
+    _prevStatus = prevStatus;
+    _nextStatus = nextStatus;
+    _reason = reason;
+    _aduitStatus = aduitStatus;
+    _updatedAt = updatedAt;
+  }
+
+  OrderStatusChange.fromJson(dynamic json) {
+    _id = json['id'];
+    _orderId = json['orderId'];
+    _prevStatus = json['prevStatus'];
+    _nextStatus = json['nextStatus'];
+    _reason = json['reason'];
+    _aduitStatus = json['aduitStatus'];
+    _updatedAt = json['updatedAt'];
+  }
+  num? _id;
+  num? _orderId;
+  String? _prevStatus;
+  String? _nextStatus;
+  dynamic _reason;
+  String? _aduitStatus;
+  String? _updatedAt;
+  OrderStatusChange copyWith({
+    num? id,
+    num? orderId,
+    String? prevStatus,
+    String? nextStatus,
+    dynamic reason,
+    String? aduitStatus,
+    String? updatedAt,
+  }) =>
+      OrderStatusChange(
+        id: id ?? _id,
+        orderId: orderId ?? _orderId,
+        prevStatus: prevStatus ?? _prevStatus,
+        nextStatus: nextStatus ?? _nextStatus,
+        reason: reason ?? _reason,
+        aduitStatus: aduitStatus ?? _aduitStatus,
+        updatedAt: updatedAt ?? _updatedAt,
+      );
+  num? get id => _id;
+  num? get orderId => _orderId;
+  String? get prevStatus => _prevStatus;
+  String? get nextStatus => _nextStatus;
+  dynamic get reason => _reason;
+  String? get aduitStatus => _aduitStatus;
+  String? get updatedAt => _updatedAt;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = _id;
+    map['orderId'] = _orderId;
+    map['prevStatus'] = _prevStatus;
+    map['nextStatus'] = _nextStatus;
+    map['reason'] = _reason;
+    map['aduitStatus'] = _aduitStatus;
+    map['updatedAt'] = _updatedAt;
     return map;
   }
 }

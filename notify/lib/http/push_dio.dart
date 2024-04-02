@@ -11,7 +11,12 @@ class PushDio extends BaseDio {
 
   @override
   Future<dynamic> requestHttp(
-      String url, String method, Map<String, dynamic>? params) async {
+    String url,
+    String method,
+    Map<String, dynamic>? params, {
+    bool isApi = true,
+    Map<String, dynamic>? data,
+  }) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? accessToken = pref.getString('accessToken');
     if (accessToken != null) {

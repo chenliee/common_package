@@ -16,6 +16,7 @@ class MyHmsMessageService : HmsMessageService() {
     override fun onMessageReceived(message: RemoteMessage?) {
         super.onMessageReceived(message)
         //{"action":"device-registration","params":{"code":"d0sLZ6KeVQMEKDrH"}}
+        Log.e("1","sdsdsdsd")
         if (message != null) {
             // 处理透传消息
             if (message.dataOfMap.isNotEmpty()) {

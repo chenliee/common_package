@@ -39,6 +39,7 @@ class CommentResponse {
     required String bCode,
     bool? isAnonymous,
     required String? userId,
+    required String? userItem,
     required String? description,
     bool? satisfied,
     String? files,
@@ -52,6 +53,7 @@ class CommentResponse {
       Map<String, dynamic> params = {
         "isanonymous": isAnonymous ?? false,
         "userId": userId,
+        "userItem": userItem,
         "description": description,
         "satisfied": satisfied ?? true,
         "files": files ?? "",

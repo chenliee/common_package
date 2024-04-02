@@ -1,3 +1,4 @@
+import 'package:service_hub/model/new_good_item.dart';
 import 'package:service_package/service_package.dart';
 
 import '../service_hub.dart';
@@ -8,6 +9,7 @@ class GoodResponse {
   static String goodUrl =
       '/service-hub/api/merchant/${ServiceGlobal.instance.merchantId}/good';
   static String categoryUrl = '$_baseUrl/category';
+  static String newGoodsUrl = '$_baseUrl/newGoods';
 
   static Future<List<GoodItem>?> getGoods(
       {List? uid,
@@ -106,6 +108,34 @@ class GoodResponse {
         category.add(CategoryItem.fromJson(item));
       }
       return category;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<List<NewGoodItem>?> getNewGoods({
+    dynamic condition,
+    List? link,
+    List? info,
+    List? file,
+    required List<String?> category,
+  }) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        'condition': condition,
+        'link': link,
+        'info': info,
+        'file': file,
+        'category': category,
+      }..removeWhere((key, value) => value == null));
+      List res =
+          await BaseDio.getInstance().get(url: newGoodsUrl, params: params);
+      List<NewGoodItem> list = [];
+      for (var item in res) {
+        list.add(NewGoodItem.fromJson(item));
+      }
+      return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

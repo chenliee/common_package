@@ -17,6 +17,7 @@ class GlobalNotify {
   static String uuid = '';
 
   static EventHandlerMap? _pushClickAction;
+  static EventHandlerMap? _onRegisteredDone;
 
   static String? hmsAppId = '';
 
@@ -60,16 +61,19 @@ class GlobalNotify {
 
   static void addEventHandler({
     EventHandlerMap? pushClickAction,
+    EventHandlerMap? onRegisteredDone,
   }) {
     _pushClickAction = pushClickAction;
+    _onRegisteredDone = onRegisteredDone;
     _channel.setMethodCallHandler(_handleMethod);
   }
 
   static Future<dynamic> _handleMethod(MethodCall call) async {
     switch (call.method) {
       case "pushClickAction":
-        print(call.arguments is Map);
         return _pushClickAction!(call.arguments.cast<String, dynamic>());
+      case "onRegisteredDone":
+        return _onRegisteredDone!(call.arguments.cast<String, dynamic>());
       case "deviceBinging":
         return PushRequest.deviceBinging(
             cid: call.arguments['cid'],

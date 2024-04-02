@@ -11,3 +11,4 @@ export 'utils/strings.dart';
 export 'utils/toast.dart';
 export 'utils/upload.dart';
 export 'widget/custom_tab_indicator.dart';
+export 'widget/easy_refresh_widget.dart';

@@ -13,47 +13,45 @@ class SpikeActResponse {
   static String newBieUrl =
       '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/newBie';
 
-  static Future<dynamic> getSpikeActList() async {
-    List<SpikeList> list = [];
+  static Future<List<SpikeItem>?> getSpikeActList() async {
     try {
+      List<SpikeItem> list = [];
       List<dynamic> jsonList =
           await BaseDio.getInstance().get(url: seckillActUrl);
       for (dynamic item in jsonList) {
-        list.add(SpikeList.fromJson(item));
+        list.add(SpikeItem.fromJson(item));
       }
+      return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
     }
-    return list;
   }
 
   static Future<dynamic> getSpike({required int id}) async {
-    List<SpikeList> list = [];
-    try {
-      List<dynamic> jsonList =
-          await BaseDio.getInstance().get(url: '$seckillUrl/$id');
-      for (dynamic item in jsonList) {
-        list.add(SpikeList.fromJson(item));
-      }
-    } catch (e) {
-      Debug.printMsg(e, StackTrace.current);
-      rethrow;
-    }
-    return list;
-  }
-
-  static Future getSpikeItem({required int goodId}) async {
     late SpikeItem item;
     try {
-      Map<String, dynamic> res =
-          await BaseDio.getInstance().get(url: '$seckillGoodsUrl/$goodId');
-      item = SpikeItem.fromJson(res);
+      Map<String, dynamic> jsonList =
+          await BaseDio.getInstance().get(url: '$seckillUrl/$id');
+      item = SpikeItem.fromJson(jsonList);
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
     }
     return item;
+  }
+
+  static Future<GoodsItem?> getSpikeItem({required int goodId}) async {
+    try {
+      GoodsItem? item;
+      Map<String, dynamic> res =
+          await BaseDio.getInstance().get(url: '$seckillGoodsUrl/$goodId');
+      item = GoodsItem.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
   }
 
   static Future getOrderScore({num? total}) async {
@@ -73,16 +71,15 @@ class SpikeActResponse {
     return orderPoint;
   }
 
-  static Future<bool> existNewBie() async {
-    bool isNewBie = false;
+  static Future<NewBie> existNewBie() async {
     try {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: newBieUrl);
-      isNewBie = res['isOpen'];
+      NewBie item = NewBie.fromJson(res);
+      return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
     }
-    return isNewBie;
   }
 }

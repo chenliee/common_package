@@ -1,5 +1,6 @@
 package com.example.push
 
+import android.app.Application
 import android.util.Log
 import com.example.push.PushPlugin.Companion.mPluginBinding
 import com.huawei.hms.aaid.HmsInstanceId
@@ -27,7 +28,5 @@ class TokenFunction{
         }
     }
 
-    fun init(context: Context){
-
-    }
+    fun init(context: Context){}
 }

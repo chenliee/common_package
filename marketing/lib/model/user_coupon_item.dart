@@ -72,6 +72,17 @@ class UserCouponItem {
     _cause = cause;
   }
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UserCouponItem &&
+          runtimeType == other.runtimeType &&
+          _id == other._id &&
+          _uid == other._uid;
+
+  @override
+  int get hashCode => _id.hashCode ^ _uid.hashCode;
+
   UserCouponItem.fromJson(dynamic json) {
     _id = json['id'];
     _code = json['code'];

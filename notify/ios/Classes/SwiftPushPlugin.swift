@@ -43,6 +43,8 @@ public class SwiftPushPlugin: NSObject, FlutterPlugin, UNUserNotificationCenterD
       // 将设备令牌转换为字符串
     let tokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
     UserDefaults.standard.set(tokenString, forKey: "apns_token")
+    var queryParams: Dictionary<String, String> = ["pushType": "apns","pushToken": tokenString]
+    channel.invokeMethod("onRegisteredDone", arguments: queryParams)
     if let result = self.tokenResult {
        // 如果 Flutter 端已经请求令牌，则返回令牌值
         result(tokenString)

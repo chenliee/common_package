@@ -9,10 +9,11 @@ class ScoreResponse {
   static String scoreListUrl = '$scoreUrl/list';
   static String scoreDesUrl = '$scoreUrl/describe';
 
-  static Future getScore() async {
+  static Future getScore({bool isApi = true}) async {
     Statistical? score;
     try {
-      Map<String, dynamic> res = await BaseDio.getInstance().get(url: scoreUrl);
+      Map<String, dynamic> res =
+          await BaseDio.getInstance().get(url: scoreUrl, isApi: isApi);
       score = Statistical.fromJson(res);
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);

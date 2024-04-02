@@ -17,7 +17,7 @@ class BaseDio {
 
   BaseOptions options = BaseOptions(
     baseUrl: baseUrl,
-    connectTimeout: 5000,
+    connectTimeout: 10000,
     receiveTimeout: 30000,
   );
 
@@ -66,8 +66,10 @@ class BaseDio {
   Future<dynamic> get(
       {required String url,
       Map<String, dynamic>? params,
+      Map<String, dynamic>? data,
       bool isApi = true}) async {
-    Map<String, dynamic>? res = await requestHttp(url, 'get', params);
+    Map<String, dynamic>? res =
+        await requestHttp(url, 'get', params, isApi: isApi, data: data);
     throwException(res, isApi, url, params);
     return res?['data'];
   }
@@ -76,7 +78,8 @@ class BaseDio {
       {required String url,
       Map<String, dynamic>? params,
       bool isApi = true}) async {
-    Map<String, dynamic>? res = await requestHttp(url, 'post', params);
+    Map<String, dynamic>? res =
+        await requestHttp(url, 'post', params, isApi: isApi);
     throwException(res, isApi, url, params);
     return res?['data'];
   }
@@ -85,7 +88,8 @@ class BaseDio {
       {required String url,
       Map<String, dynamic>? params,
       bool isApi = true}) async {
-    Map<String, dynamic>? res = await requestHttp(url, 'put', params);
+    Map<String, dynamic>? res =
+        await requestHttp(url, 'put', params, isApi: isApi);
     throwException(res, isApi, url, params);
     return res?['data'];
   }
@@ -94,7 +98,8 @@ class BaseDio {
       {required String url,
       Map<String, dynamic>? params,
       bool isApi = true}) async {
-    Map<String, dynamic>? res = await requestHttp(url, 'delete', params);
+    Map<String, dynamic>? res =
+        await requestHttp(url, 'delete', params, isApi: isApi);
     throwException(res, isApi, url, params);
     return res?['data'];
   }
@@ -103,7 +108,8 @@ class BaseDio {
       {required String url,
       Map<String, dynamic>? params,
       bool isApi = true}) async {
-    Map<String, dynamic> res = await requestHttp(url, 'patch', params);
+    Map<String, dynamic> res =
+        await requestHttp(url, 'patch', params, isApi: isApi);
     throwException(res, isApi, url, params);
     return res['data'];
   }
@@ -121,7 +127,12 @@ class BaseDio {
   }
 
   Future<dynamic> requestHttp(
-      String url, String method, Map<String, dynamic>? params) async {
+    String url,
+    String method,
+    Map<String, dynamic>? params, {
+    bool isApi = true,
+    Map<String, dynamic>? data,
+  }) async {
     Response? response;
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
         (client) {
@@ -130,12 +141,23 @@ class BaseDio {
       };
       return null;
     };
+    if (ServiceGlobal.instance.token.isNotEmpty) {
+      dio.options.headers = {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer ${ServiceGlobal.instance.token}'
+      };
+    } else {
+      dio.options.headers = {
+        'content-type': 'application/json',
+      };
+    }
     try {
       if (method == 'get') {
         if (params != null && params.isNotEmpty) {
-          response = await dio.get(url, queryParameters: params);
+          response = await dio.get(url,
+              queryParameters: params, options: Options(headers: data));
         } else {
-          response = await dio.get(url);
+          response = await dio.get(url, options: Options(headers: data));
         }
       } else if (method == 'post') {
         if (params != null && params.isNotEmpty) {
@@ -156,17 +178,16 @@ class BaseDio {
       }
       return response!.data;
     } on DioError catch (error) {
-      ToastInfo.toastInfo(
-          msg: error.response?.data.toString() ?? error.message.toString(),
-          isApi: true);
-      Debug.printMsg(
-          error.response?.data.toString() ?? error.message.toString(),
-          StackTrace.current);
       String message = error.response?.data is Map
           ? (error.response?.data['message'] ??
               error.response?.data ??
               error.message.toString())
-          : '';
+          : error.message.toString();
+
+      ToastInfo.toastInfo(msg: message, isApi: isApi);
+      Debug.printMsg(
+          error.response?.data.toString() ?? error.message.toString(),
+          StackTrace.current);
 
       throw Env.appEnv != 'PRO'
           ? {
@@ -201,7 +222,8 @@ class BaseDio {
       response = await dio.post(url, data: data);
       return response.data;
     } on DioError catch (error) {
-      ToastInfo.toastInfo(msg: error.message);
+      ToastInfo.toastInfo(
+          msg: error.response?.data ?? error.message, isApi: true);
       Debug.printMsg(error.message, StackTrace.current);
       throw error.response!.data;
     }

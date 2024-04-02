@@ -16,6 +16,11 @@ dependencies:
   intl: ^0.17.0
   image_picker: ^0.8.5+3
   flutter_image_compress: ^1.1.2
+#  amap_map_fluttify: ^2.0.2
+#  permission_handler: ^10.0.0
+#  scrollable_positioned_list: ^0.2.3
+#  lpinyin: ^2.0.3
+  easy_refresh: ^3.0.4+4
 
 dev_dependencies:
   flutter_test:

@@ -15,12 +15,12 @@ class OrderResponse {
   static String refundUrl = '$_baseUrl/refund';
   static String countUrl = '$_baseUrl/count';
 
-  static Future getOrderCount({List<String>? fields}) async {
+  static Future getOrderCount({List<String>? fields, bool isApi = true}) async {
     try {
       Map<String, dynamic> params = Map.from(
           {'fields': fields}..removeWhere((key, value) => value == null));
-      List jsonList =
-          await BaseDio.getInstance().get(url: countUrl, params: params);
+      List jsonList = await BaseDio.getInstance()
+          .get(url: countUrl, params: params, isApi: isApi);
       List<OrderCount> orderCount = [];
       for (var item in jsonList) {
         orderCount.add(OrderCount.fromJson(item));
@@ -44,14 +44,29 @@ class OrderResponse {
     }
   }
 
-  static Future getOrderList({required int page, String? orderStatus}) async {
+  static Future<List<OrderItem>> getOrderList({
+    int? page,
+    String? orderStatus,
+    String? linkService,
+    String? linkStatus,
+    String? extra,
+    String? orderType,
+    String? receiverInfo,
+  }) async {
     try {
       Map<String, dynamic> params = Map.from({
-        "page": page,
-        "pageSize": ServiceGlobal.instance.pageSize,
         "orderBy": "desc",
-        'orderStatus': orderStatus
+        'orderStatus': orderStatus,
+        'linkService': linkService,
+        'linkStatus': linkStatus,
+        'extra': extra,
+        'orderType': orderType,
+        'receiverInfo': receiverInfo,
       }..removeWhere((key, value) => value == null));
+      if (page != null) {
+        params['page'] = page;
+        params['pageSize'] = ServiceGlobal.instance.pageSize;
+      }
       List<OrderItem> list = [];
       Map<String, dynamic> map =
           await BaseDio.getInstance().get(url: _baseUrl, params: params);
@@ -67,14 +82,17 @@ class OrderResponse {
   }
 
   static Future computedOrder(
-      {required List goods, required String place, required List adjs}) async {
+      {required List goods,
+      required String place,
+      required Map condition,
+      required List adjs}) async {
     try {
       Map<String, dynamic> params = {
         "goods": goods,
         "priceKey": "sell_price",
         "instockKey": "instock",
         "place": 'saas-cropinfo:$place',
-        // "condition": {"place": "B01"},
+        "condition": condition,
         "adjs": adjs
       };
       Map<String, dynamic> res =
@@ -92,7 +110,9 @@ class OrderResponse {
       required String place,
       required List adjs,
       required bool isShop,
-      required String mobile,
+      required Map condition,
+      required Map receiverInfo,
+      required Map branch,
       String? remark}) async {
     try {
       Map<String, dynamic> params = Map.from({
@@ -100,12 +120,12 @@ class OrderResponse {
         "priceKey": "sell_price",
         "instockKey": "instock",
         "place": 'saas-cropinfo:$place',
-        // "condition": {"place": "B01"},
+        "condition": condition,
         "adjs": adjs,
         "shopId": place,
         "orderType": !isShop ? 'TAKE_OUT' : "SHOP",
-        "branch": {"shopAddress": "商家地址", "shopId": place},
-        "receiverInfo": {"mobile": mobile},
+        "branch": branch,
+        "receiverInfo": receiverInfo,
         "remark": remark
       }..removeWhere((key, value) => value == null));
       Map<String, dynamic> res =
@@ -161,11 +181,14 @@ class OrderResponse {
   }
 
   static Future<bool> refundOrder(
-      {required String orderId, required String cancelReason}) async {
+      {required String orderId,
+      required String cancelReason,
+      required List orderItems}) async {
     try {
       Map<String, dynamic> params = {
         "orderId": orderId,
-        "cancelReason": cancelReason
+        "cancelReason": cancelReason,
+        "orderItems": orderItems
       };
       await BaseDio.getInstance().post(url: refundUrl, params: params);
       ToastInfo.toastInfo(msg: '申请成功');

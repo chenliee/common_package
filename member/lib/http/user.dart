@@ -16,7 +16,8 @@ class UserResponse {
       '$baseUrl/project/${ServiceGlobal.instance.projectId}/vipcard';
   static String gradeListUrl =
       '$baseUrl/project/${ServiceGlobal.instance.projectId}/grade';
-  static String uploadUrl = '$baseUrl/upload/';
+  static String uploadUrl =
+      '/member/api/merchant/${ServiceGlobal.instance.merchantId}/upload/';
 
   // 獲取用戶信息
   static Future getUserinfo() async {
@@ -61,7 +62,7 @@ class UserResponse {
   static Future getUserVipInfo() async {
     try {
       Map<String, dynamic> res =
-          await BaseDio.getInstance().get(url: vipInfoUrl);
+          await BaseDio.getInstance().get(url: vipInfoUrl, isApi: false);
       UserVipInfo? userVipInfo = UserVipInfo.fromJson(res);
       return userVipInfo;
     } catch (e) {
@@ -71,10 +72,10 @@ class UserResponse {
   }
 
   // 獲取用戶會員等級信息
-  static Future getUserGradeInfo() async {
+  static Future<UserGradeInfo?> getUserGradeInfo() async {
     try {
       Map<String, dynamic> res =
-          await BaseDio.getInstance().get(url: gradeInfoUrl);
+          await BaseDio.getInstance().get(url: gradeInfoUrl, isApi: false);
       UserGradeInfo? userGradeInfo = UserGradeInfo.fromJson(res);
       return userGradeInfo;
     } catch (e) {
@@ -116,12 +117,12 @@ class UserResponse {
     }
   }
 
-  static Future<List<UserVipGradeItem>?> getVipGradeList() async {
+  static Future<List<Grade>?> getVipGradeList() async {
     try {
-      List<UserVipGradeItem> list = [];
+      List<Grade> list = [];
       List jsonList = await BaseDio.getInstance().get(url: gradeListUrl);
       for (var item in jsonList) {
-        list.add(UserVipGradeItem.fromJson(item));
+        list.add(Grade.fromJson(item));
       }
       return list;
     } catch (e) {
@@ -139,7 +140,7 @@ class UserResponse {
       ));
       final res =
           await BaseDio.getInstance().upload(url: uploadUrl, data: formData);
-      UploadItem? item = UploadItem.fromJson(res);
+      UploadItem? item = UploadItem.fromJson(res['data']);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);

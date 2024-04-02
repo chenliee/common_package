@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 /// id : 1761
 /// merchantId : 2
 /// uid : "608987524999737694"
@@ -212,6 +214,17 @@ class Options {
     _value = value;
   }
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Options &&
+          runtimeType == other.runtimeType &&
+          _id == other._id &&
+          _code == other._code;
+
+  @override
+  int get hashCode => _id.hashCode ^ _code.hashCode;
+
   Options.fromJson(dynamic json) {
     _id = json['id'];
     _code = json['code'];
@@ -294,32 +307,189 @@ class Ext {
   }
 }
 
-/// cover : {"title":"封面","multiple":false,"desc":"商品、分類的封面","value":{"id":249,"url":"https://storage.heyday-catering.com/saas-servicehub/public/4fc74853c1874dbba94dc1b9f9a2dbc7d4bbd3bef53e8373f2fd63b074201282_2b582336-4c06-4eb3-9018-6ba9c375084d.jpg","mime":"image/jpeg","name":"2b582336-4c06-4eb3-9018-6ba9c375084d.jpg","size":"325329","hash":"4fc74853c1874dbba94dc1b9f9a2dbc7d4bbd3bef53e8373f2fd63b074201282"}}
+Files filesFromJson(String str) => Files.fromJson(json.decode(str));
+String filesToJson(Files data) => json.encode(data.toJson());
 
 class Files {
   Files({
     Cover? cover,
+    Banner? banner,
   }) {
     _cover = cover;
+    _banner = banner;
+  }
+
+  @override
+  String toString() {
+    return 'Files{_cover: $_cover}';
   }
 
   Files.fromJson(dynamic json) {
     _cover = json['cover'] != null ? Cover.fromJson(json['cover']) : null;
+    _banner = json['banner'] != null ? Banner.fromJson(json['banner']) : null;
   }
   Cover? _cover;
+  Banner? _banner;
   Files copyWith({
     Cover? cover,
+    Banner? banner,
   }) =>
       Files(
         cover: cover ?? _cover,
+        banner: banner ?? _banner,
       );
   Cover? get cover => _cover;
+  Banner? get banner => _banner;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     if (_cover != null) {
       map['cover'] = _cover?.toJson();
     }
+    if (_banner != null) {
+      map['banner'] = _banner?.toJson();
+    }
+    return map;
+  }
+}
+
+/// title : "商品图集"
+/// multiple : true
+/// desc : ""
+/// values : [{"id":4177,"url":"https://storage.dev.heyday-catering.com:20443/saas-service/public/2e853ef818ecc6df061930d12a243c3270d1c052d65120b8cdf54bc5ffeda9dc_%E5%84%92%E6%9E%97%E5%91%98%E5%B7%A5%E7%89%88code.png","mime":"image/png","name":"儒林员工版code.png","size":"29729","hash":"2e853ef818ecc6df061930d12a243c3270d1c052d65120b8cdf54bc5ffeda9dc"},{"id":4178,"url":"https://storage.dev.heyday-catering.com:20443/saas-service/public/5a8eab9e4aa8ac2b6217b6735787c93329f52d872f4735104a4cf94f39451dd9_%E5%84%92%E6%9E%97vip-2.png","mime":"image/png","name":"儒林vip-2.png","size":"75222","hash":"5a8eab9e4aa8ac2b6217b6735787c93329f52d872f4735104a4cf94f39451dd9"}]
+
+Banner bannerFromJson(String str) => Banner.fromJson(json.decode(str));
+String bannerToJson(Banner data) => json.encode(data.toJson());
+
+class Banner {
+  Banner({
+    String? title,
+    bool? multiple,
+    String? desc,
+    List<Values>? values,
+  }) {
+    _title = title;
+    _multiple = multiple;
+    _desc = desc;
+    _values = values;
+  }
+
+  Banner.fromJson(dynamic json) {
+    _title = json['title'];
+    _multiple = json['multiple'];
+    _desc = json['desc'];
+    if (json['values'] != null) {
+      _values = [];
+      json['values'].forEach((v) {
+        _values?.add(Values.fromJson(v));
+      });
+    }
+  }
+  String? _title;
+  bool? _multiple;
+  String? _desc;
+  List<Values>? _values;
+  Banner copyWith({
+    String? title,
+    bool? multiple,
+    String? desc,
+    List<Values>? values,
+  }) =>
+      Banner(
+        title: title ?? _title,
+        multiple: multiple ?? _multiple,
+        desc: desc ?? _desc,
+        values: values ?? _values,
+      );
+  String? get title => _title;
+  bool? get multiple => _multiple;
+  String? get desc => _desc;
+  List<Values>? get values => _values;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['title'] = _title;
+    map['multiple'] = _multiple;
+    map['desc'] = _desc;
+    if (_values != null) {
+      map['values'] = _values?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+}
+
+/// id : 4177
+/// url : "https://storage.dev.heyday-catering.com:20443/saas-service/public/2e853ef818ecc6df061930d12a243c3270d1c052d65120b8cdf54bc5ffeda9dc_%E5%84%92%E6%9E%97%E5%91%98%E5%B7%A5%E7%89%88code.png"
+/// mime : "image/png"
+/// name : "儒林员工版code.png"
+/// size : "29729"
+/// hash : "2e853ef818ecc6df061930d12a243c3270d1c052d65120b8cdf54bc5ffeda9dc"
+
+Values valuesFromJson(String str) => Values.fromJson(json.decode(str));
+String valuesToJson(Values data) => json.encode(data.toJson());
+
+class Values {
+  Values({
+    num? id,
+    String? url,
+    String? mime,
+    String? name,
+    String? size,
+    String? hash,
+  }) {
+    _id = id;
+    _url = url;
+    _mime = mime;
+    _name = name;
+    _size = size;
+    _hash = hash;
+  }
+
+  Values.fromJson(dynamic json) {
+    _id = json['id'];
+    _url = json['url'];
+    _mime = json['mime'];
+    _name = json['name'];
+    _size = json['size'];
+    _hash = json['hash'];
+  }
+  num? _id;
+  String? _url;
+  String? _mime;
+  String? _name;
+  String? _size;
+  String? _hash;
+  Values copyWith({
+    num? id,
+    String? url,
+    String? mime,
+    String? name,
+    String? size,
+    String? hash,
+  }) =>
+      Values(
+        id: id ?? _id,
+        url: url ?? _url,
+        mime: mime ?? _mime,
+        name: name ?? _name,
+        size: size ?? _size,
+        hash: hash ?? _hash,
+      );
+  num? get id => _id;
+  String? get url => _url;
+  String? get mime => _mime;
+  String? get name => _name;
+  String? get size => _size;
+  String? get hash => _hash;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = _id;
+    map['url'] = _url;
+    map['mime'] = _mime;
+    map['name'] = _name;
+    map['size'] = _size;
+    map['hash'] = _hash;
     return map;
   }
 }
@@ -327,7 +497,10 @@ class Files {
 /// title : "封面"
 /// multiple : false
 /// desc : "商品、分類的封面"
-/// value : {"id":249,"url":"https://storage.heyday-catering.com/saas-servicehub/public/4fc74853c1874dbba94dc1b9f9a2dbc7d4bbd3bef53e8373f2fd63b074201282_2b582336-4c06-4eb3-9018-6ba9c375084d.jpg","mime":"image/jpeg","name":"2b582336-4c06-4eb3-9018-6ba9c375084d.jpg","size":"325329","hash":"4fc74853c1874dbba94dc1b9f9a2dbc7d4bbd3bef53e8373f2fd63b074201282"}
+/// value : {"id":3139,"url":"https://storage.dev.heyday-catering.com:20443/saas-service/public/20fb8e7519a0525429c1f9e1fe0427ae99712320d0f8f82db45896fc11a98295_cdc1edbc-4590-46d7-a9b9-6d648bde8a52.png","mime":"image/png","name":"cdc1edbc-4590-46d7-a9b9-6d648bde8a52.png","size":"255131","hash":"20fb8e7519a0525429c1f9e1fe0427ae99712320d0f8f82db45896fc11a98295"}
+
+Cover coverFromJson(String str) => Cover.fromJson(json.decode(str));
+String coverToJson(Cover data) => json.encode(data.toJson());
 
 class Cover {
   Cover({
@@ -381,12 +554,15 @@ class Cover {
   }
 }
 
-/// id : 249
-/// url : "https://storage.heyday-catering.com/saas-servicehub/public/4fc74853c1874dbba94dc1b9f9a2dbc7d4bbd3bef53e8373f2fd63b074201282_2b582336-4c06-4eb3-9018-6ba9c375084d.jpg"
-/// mime : "image/jpeg"
-/// name : "2b582336-4c06-4eb3-9018-6ba9c375084d.jpg"
-/// size : "325329"
-/// hash : "4fc74853c1874dbba94dc1b9f9a2dbc7d4bbd3bef53e8373f2fd63b074201282"
+/// id : 3139
+/// url : "https://storage.dev.heyday-catering.com:20443/saas-service/public/20fb8e7519a0525429c1f9e1fe0427ae99712320d0f8f82db45896fc11a98295_cdc1edbc-4590-46d7-a9b9-6d648bde8a52.png"
+/// mime : "image/png"
+/// name : "cdc1edbc-4590-46d7-a9b9-6d648bde8a52.png"
+/// size : "255131"
+/// hash : "20fb8e7519a0525429c1f9e1fe0427ae99712320d0f8f82db45896fc11a98295"
+
+Value valueFromJson(String str) => Value.fromJson(json.decode(str));
+String valueToJson(Value data) => json.encode(data.toJson());
 
 class Value {
   Value({
@@ -463,11 +639,13 @@ class Infos {
     Info? instock,
     Info? monthSales,
     Info? stock,
+    Info? online,
   }) {
     _sellPrice = sellPrice;
     _instock = instock;
     _monthSales = monthSales;
     _stock = stock;
+    _online = online;
   }
 
   Infos.fromJson(dynamic json) {
@@ -477,27 +655,32 @@ class Infos {
     _stock = json['stock'] != null ? Info.fromJson(json['stock']) : null;
     _monthSales =
         json['month_sales'] != null ? Info.fromJson(json['month_sales']) : null;
+    _online = json['online'] != null ? Info.fromJson(json['online']) : null;
   }
   Info? _sellPrice;
   Info? _instock;
   Info? _monthSales;
   Info? _stock;
+  Info? _online;
 
   Infos copyWith({
     Info? sellPrice,
     Info? instock,
     Info? stock,
     Info? monthSales,
+    Info? online,
   }) =>
       Infos(
           sellPrice: sellPrice ?? _sellPrice,
           instock: instock ?? _instock,
           stock: stock ?? _stock,
+          online: online ?? _online,
           monthSales: monthSales ?? _monthSales);
   Info? get sellPrice => _sellPrice;
   Info? get instock => _instock;
   Info? get stock => _stock;
   Info? get monthSales => _monthSales;
+  Info? get online => _online;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -512,6 +695,9 @@ class Infos {
     }
     if (_monthSales != null) {
       map['month_sales'] = _monthSales?.toJson();
+    }
+    if (_online != null) {
+      map['online'] = _online?.toJson();
     }
     return map;
   }

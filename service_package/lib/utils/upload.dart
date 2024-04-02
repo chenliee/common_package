@@ -13,7 +13,7 @@ class UpLoad {
     return selectedImage;
   }
 
-  static Future<Object?> picFileCompressAndGetFile(File file) async {
+  static Future<File?> picFileCompressAndGetFile(File file) async {
     if (file.readAsBytesSync().lengthInBytes / 1024 < 2 * 1024) return file;
     final filePath = file.absolute.path;
     final lastIndex = filePath.lastIndexOf(RegExp(r'.jp'));
@@ -23,8 +23,7 @@ class UpLoad {
     return await FlutterImageCompress.compressAndGetFile(
       filePath,
       outPath,
-      quality: 88,
-      rotate: 180,
+      quality: 50,
     );
   }
 }

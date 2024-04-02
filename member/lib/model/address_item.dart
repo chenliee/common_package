@@ -177,4 +177,11 @@ class AddressItem {
     map['updatedAt'] = _updatedAt;
     return map;
   }
+
+  @override
+  String toString() {
+    return 'AddressItem{_id: $_id, _addressId: $_addressId, _userId: $_userId, _username: $_username, _mobile: $_mobile, _sex: $_sex, _mapType: $_mapType, _place: $_place, _street: $_street, _detail: $_detail, _lat: $_lat, _lng: $_lng, _poi: $_poi, _isDefault: $_isDefault, _isDelete: $_isDelete, _projectId: $_projectId, _createdAt: $_createdAt, _updatedAt: $_updatedAt}';
+  }
+
+
 }

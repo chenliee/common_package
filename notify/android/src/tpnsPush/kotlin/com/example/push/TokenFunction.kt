@@ -16,7 +16,11 @@ class TokenFunction(){
     fun init(context: Context){
         XGPushManager.registerPush(context, object : XGIOperateCallback {
             override fun onSuccess(data: Any, flag: Int) {
-                Log.d("TPush", "注册成功，设备token为：$data")
+                val queryParams: MutableMap<String, Any> = mutableMapOf(
+                    "pushType" to "tpns",
+                    "pushToken" to data
+                )
+                PushPlugin.instance.toFlutterMethod("onRegisteredDone", queryParams)
             }
             override fun onFail(data: Any?, errCode: Int, msg: String) {
                 Log.d("TPush", "注册失败，错误码：$errCode,错误信息：$msg")

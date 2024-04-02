@@ -17,8 +17,7 @@ class AddressResponse {
       required String? detail,
       required num? lat,
       required num? lng,
-      required num? isDefault,
-      required String? poi}) async {
+      required num? isDefault}) async {
     try {
       Map<String, dynamic> params = {
         "username": userName,
@@ -30,8 +29,7 @@ class AddressResponse {
         "detail": detail,
         "lat": lat,
         "lng": lng,
-        "isDefault": isDefault,
-        "poi": poi
+        "isDefault": isDefault
       };
       await BaseDio.getInstance().post(url: addressListUrl, params: params);
       ToastInfo.toastInfo(msg: '添加成功');
@@ -90,7 +88,7 @@ class AddressResponse {
       required num? lat,
       required num? lng,
       required num? isDefault,
-      required String? poi}) async {
+      String? poi}) async {
     try {
       Map<String, dynamic> params = {
         "username": userName,
@@ -102,8 +100,7 @@ class AddressResponse {
         "detail": detail,
         "lat": lat,
         "lng": lng,
-        "isDefault": isDefault,
-        "poi": poi
+        "isDefault": isDefault
       };
       await BaseDio.getInstance()
           .put(url: '$addressListUrl/$id', params: params);

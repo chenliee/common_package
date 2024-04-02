@@ -25,15 +25,19 @@ class BrandResponse {
   }
 
   ///获取品牌下分店
-  static Future<List<PlaceItem>> getPlaceItem({String? brand}) async {
+  static Future<List<PlaceItem>> getPlaceItem(
+      {String? brand, String? xLocation}) async {
     List<PlaceItem> branch = [];
-    var res;
-    if (brand == null) {
-      res = await BaseDio.getInstance().get(url: getPlaceURL);
-    } else {
-      Map<String, dynamic> params = {"brand": brand};
-      res = await BaseDio.getInstance().get(url: getPlaceURL, params: params);
-    }
+    Map<String, dynamic>? params = Map.from({
+      "brand": brand,
+    })
+      ..removeWhere((key, value) => value == null);
+    Map<String, dynamic>? data = Map.from({
+      "x-location": xLocation,
+    })
+      ..removeWhere((key, value) => value == null);
+    var res = await BaseDio.getInstance()
+        .get(url: getPlaceURL, params: params, data: data);
     for (var item in res) {
       try {
         branch.add(PlaceItem.fromJson(item));
@@ -45,9 +49,11 @@ class BrandResponse {
   }
 
   ///获取分店详情
-  static Future<PlaceItem> getPlaceInfo(String brand, String place) async {
+  static Future<PlaceItem> getPlaceInfo(
+      {String? brand, required String place}) async {
     PlaceItem placeItem;
-    Map<String, dynamic> params = {"brand": brand};
+    Map<String, dynamic> params = Map.from({"brand": brand})
+      ..removeWhere((key, value) => value == null);
     final res = await BaseDio.getInstance()
         .get(url: "$getPlaceInfoURL$place", params: params);
     placeItem = PlaceItem.fromJson(res);

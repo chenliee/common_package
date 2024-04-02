@@ -10,7 +10,7 @@ import kotlinx.serialization.json.Json
 class MyTPNSMessageReceiver : XGPushBaseReceiver() {
 
     override fun onRegisterResult(p0: Context?, p1: Int, p2: XGPushRegisterResult?) {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
     }
 
     override fun onTextMessage(context: Context, message: XGPushTextMessage) {
@@ -96,35 +96,35 @@ class MyTPNSMessageReceiver : XGPushBaseReceiver() {
     }
 
     override fun onUnregisterResult(p0: Context?, p1: Int) {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
     }
 
     override fun onSetTagResult(p0: Context?, p1: Int, p2: String?) {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
     }
 
     override fun onDeleteTagResult(p0: Context?, p1: Int, p2: String?) {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
     }
 
     override fun onSetAccountResult(p0: Context?, p1: Int, p2: String?) {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
     }
 
     override fun onDeleteAccountResult(p0: Context?, p1: Int, p2: String?) {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
     }
 
     override fun onSetAttributeResult(p0: Context?, p1: Int, p2: String?) {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
     }
 
     override fun onQueryTagsResult(p0: Context?, p1: Int, p2: String?, p3: String?) {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
     }
 
     override fun onDeleteAttributeResult(p0: Context?, p1: Int, p2: String?) {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
     }
 
 

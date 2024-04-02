@@ -34,7 +34,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                             "code" to (resultMap["code"]
                                 ?: "")
                         )
-                val res : Strng
                 PushPlugin.instance.toFlutterMethod(
                     "deviceBinging",
                     queryParams

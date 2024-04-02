@@ -45,7 +45,6 @@ class NotifyRequest {
         'uuid': uuid,
         'code': code,
       };
-      print(params);
       final res = await BaseDio.getInstance()
           .post(url: '$url/$cid/device-binding', params: params);
       BindModel bindModel = BindModel.fromJson(res);

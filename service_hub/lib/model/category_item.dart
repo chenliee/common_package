@@ -33,6 +33,11 @@ class CategoryItem {
     _files = files;
   }
 
+  @override
+  String toString() {
+    return 'CategoryItem{_files: $_files}';
+  }
+
   CategoryItem.fromJson(dynamic json) {
     _id = json['id'];
     _projectId = json['projectId'];
