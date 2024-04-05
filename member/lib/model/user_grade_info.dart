@@ -307,6 +307,12 @@ class Grade {
     _coverImg = coverImg;
   }
 
+
+  @override
+  String toString() {
+    return 'Grade{_gradeId: $_gradeId, _gradeName: $_gradeName}';
+  }
+
   Grade.fromJson(dynamic json) {
     _id = json['id'];
     _gradeId = json['gradeId'];

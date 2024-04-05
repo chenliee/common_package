@@ -1,4 +1,5 @@
 import 'package:marketing/marketing.dart';
+import 'package:marketing/model/score_desc.dart';
 import 'package:service_package/service_package.dart';
 
 class ScoreResponse {
@@ -96,11 +97,12 @@ class ScoreResponse {
     return scoreItem;
   }
 
-  static Future<dynamic> getScoreDesc() async {
+  static Future<ScoreDesc?> getScoreDesc() async {
     try {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: scoreDesUrl);
-      return res['describe'];
+      ScoreDesc scoreDesc = ScoreDesc.fromJson(res);
+      return scoreDesc;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
