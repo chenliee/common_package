@@ -136,42 +136,41 @@ class Config {
   Config({
     String? icon,
     String? background,
-    List<String>? notShowAct,
+    List<String>? notShow,
   }) {
     _icon = icon;
     _background = background;
-    _notShowAct = notShowAct;
+    _notShow = notShow;
   }
 
   Config.fromJson(dynamic json) {
     _icon = json['icon'];
     _background = json['background'];
-    _notShowAct =
-        json['notShowAct'] != null ? json['notShowAct'].cast<String>() : [];
+    _notShow = json['notShow'] != null ? json['notShow'].cast<String>() : [];
   }
 
   String? _icon;
   String? _background;
-  List<String>? _notShowAct;
+  List<String>? _notShow;
   Config copyWith({
     String? icon,
     String? background,
-    List<String>? notShowAct,
+    List<String>? notShow,
   }) =>
       Config(
         icon: icon ?? _icon,
         background: background ?? _background,
-        notShowAct: _notShowAct ?? _notShowAct,
+        notShow: _notShow ?? _notShow,
       );
   String? get icon => _icon;
   String? get background => _background;
-  List<String>? get notShowAct => _notShowAct;
+  List<String>? get notShow => _notShow;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['icon'] = _icon;
     map['background'] = _background;
-    map['notShowAct'] = _notShowAct;
+    map['notShow'] = _notShow;
     return map;
   }
 }
@@ -306,7 +305,6 @@ class Grade {
     _updatedAt = updatedAt;
     _coverImg = coverImg;
   }
-
 
   @override
   String toString() {

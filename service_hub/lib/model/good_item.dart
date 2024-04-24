@@ -36,6 +36,12 @@ class GoodItem {
     _attrs = attrs;
   }
 
+
+  @override
+  String toString() {
+    return 'GoodItem{_name: $_name}';
+  }
+
   GoodItem.fromJson(dynamic json) {
     _id = json['id'];
     _merchantId = json['merchantId'];
@@ -638,12 +644,14 @@ class Infos {
     Info? sellPrice,
     Info? instock,
     Info? monthSales,
+    Info? monthSale,
     Info? stock,
     Info? online,
   }) {
     _sellPrice = sellPrice;
     _instock = instock;
     _monthSales = monthSales;
+    _monthSale = monthSale;
     _stock = stock;
     _online = online;
   }
@@ -655,11 +663,14 @@ class Infos {
     _stock = json['stock'] != null ? Info.fromJson(json['stock']) : null;
     _monthSales =
         json['month_sales'] != null ? Info.fromJson(json['month_sales']) : null;
+    _monthSale =
+        json['month_sale'] != null ? Info.fromJson(json['month_sale']) : null;
     _online = json['online'] != null ? Info.fromJson(json['online']) : null;
   }
   Info? _sellPrice;
   Info? _instock;
   Info? _monthSales;
+  Info? _monthSale;
   Info? _stock;
   Info? _online;
 
@@ -668,6 +679,7 @@ class Infos {
     Info? instock,
     Info? stock,
     Info? monthSales,
+    Info? monthSale,
     Info? online,
   }) =>
       Infos(
@@ -675,11 +687,13 @@ class Infos {
           instock: instock ?? _instock,
           stock: stock ?? _stock,
           online: online ?? _online,
-          monthSales: monthSales ?? _monthSales);
+          monthSales: monthSales ?? _monthSales,
+          monthSale: monthSale ?? _monthSale);
   Info? get sellPrice => _sellPrice;
   Info? get instock => _instock;
   Info? get stock => _stock;
   Info? get monthSales => _monthSales;
+  Info? get monthSale => _monthSale;
   Info? get online => _online;
 
   Map<String, dynamic> toJson() {
@@ -695,6 +709,9 @@ class Infos {
     }
     if (_monthSales != null) {
       map['month_sales'] = _monthSales?.toJson();
+    }
+    if (_monthSale != null) {
+      map['month_sale'] = _monthSale?.toJson();
     }
     if (_online != null) {
       map['online'] = _online?.toJson();

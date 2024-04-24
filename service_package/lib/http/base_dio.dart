@@ -1,4 +1,6 @@
-import 'package:dio/adapter.dart';
+import 'dart:io';
+
+import 'package:dio/io.dart';
 
 import '../service_package.dart';
 
@@ -17,8 +19,8 @@ class BaseDio {
 
   BaseOptions options = BaseOptions(
     baseUrl: baseUrl,
-    connectTimeout: 10000,
-    receiveTimeout: 30000,
+    connectTimeout: const Duration(milliseconds: 30000),
+    receiveTimeout: const Duration(milliseconds: 30000),
   );
 
   Dio dio = Dio();
@@ -177,6 +179,9 @@ class BaseDio {
         response = await dio.patch(url, data: params);
       }
       return response!.data;
+    } on SocketException catch (e) {
+      ToastInfo.toastInfo(msg: "網絡請求超時，請檢查網絡$e");
+      throw "網絡不給力，請求超時";
     } on DioError catch (error) {
       String message = error.response?.data is Map
           ? (error.response?.data['message'] ??
@@ -224,7 +229,7 @@ class BaseDio {
     } on DioError catch (error) {
       ToastInfo.toastInfo(
           msg: error.response?.data ?? error.message, isApi: true);
-      Debug.printMsg(error.message, StackTrace.current);
+      Debug.printMsg(error.message ?? '', StackTrace.current);
       throw error.response!.data;
     }
   }

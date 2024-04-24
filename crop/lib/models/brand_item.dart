@@ -1,3 +1,5 @@
+import 'package:crop/models/place_item.dart';
+
 class BrandItem {
   int? id;
   String? code;
@@ -7,16 +9,18 @@ class BrandItem {
   String? updatedAt;
   dynamic deletedAt;
   File? files;
+  Infos? infos;
 
   BrandItem(
       {this.id,
-        this.code,
-        this.title,
-        this.index,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt,
-        this.files});
+      this.code,
+      this.title,
+      this.index,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt,
+      this.files,
+      this.infos});
 
   BrandItem.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -27,6 +31,7 @@ class BrandItem {
     updatedAt = json['updatedAt'];
     deletedAt = json['deletedAt'];
     files = json['files'] != null ? new File.fromJson(json['files']) : null;
+    infos = json['infos'] != null ? Infos.fromJson(json['infos']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -41,6 +46,9 @@ class BrandItem {
     if (this.files != null) {
       data['files'] = this.files!.toJson();
     }
+    if (this.infos != null) {
+      data['infos'] = this.infos!.toJson();
+    }
     return data;
   }
 }
@@ -51,13 +59,13 @@ class File {
   File({this.logo});
 
   File.fromJson(Map<String, dynamic> json) {
-    logo = json['logo'] != null ? new Logo.fromJson(json['logo']) : null;
+    logo = json['logo'] != null ? Logo.fromJson(json['logo']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.logo != null) {
-      data['logo'] = this.logo!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (logo != null) {
+      data['logo'] = logo!.toJson();
     }
     return data;
   }

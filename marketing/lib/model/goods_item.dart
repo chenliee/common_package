@@ -22,6 +22,7 @@ class GoodsItem {
     num? nativePrice,
     num? nowPrice,
     num? limit,
+    num? userLimit,
     num? count,
     num? sold,
     String? goodsName,
@@ -34,6 +35,7 @@ class GoodsItem {
     _nativePrice = nativePrice;
     _nowPrice = nowPrice;
     _limit = limit;
+    _userLimit = userLimit;
     _count = count;
     _sold = sold;
     _goodsName = goodsName;
@@ -48,6 +50,7 @@ class GoodsItem {
     _nativePrice = json['nativePrice'];
     _nowPrice = json['nowPrice'];
     _limit = json['limit'];
+    _userLimit = json['userLimit'];
     _count = json['count'];
     _sold = json['sold'];
     _goodsName = json['goodsName'];
@@ -62,6 +65,7 @@ class GoodsItem {
   num? _nativePrice;
   num? _nowPrice;
   num? _limit;
+  num? _userLimit;
   num? _count;
   num? _sold;
   String? _goodsName;
@@ -74,6 +78,7 @@ class GoodsItem {
     num? nativePrice,
     num? nowPrice,
     num? limit,
+    num? userLimit,
     num? count,
     num? sold,
     String? goodsName,
@@ -87,6 +92,7 @@ class GoodsItem {
         nativePrice: nativePrice ?? _nativePrice,
         nowPrice: nowPrice ?? _nowPrice,
         limit: limit ?? _limit,
+        userLimit: userLimit ?? _userLimit,
         count: count ?? _count,
         sold: sold ?? _sold,
         goodsName: goodsName ?? _goodsName,
@@ -99,6 +105,7 @@ class GoodsItem {
   num? get nativePrice => _nativePrice;
   num? get nowPrice => _nowPrice;
   num? get limit => _limit;
+  num? get userLimit => _userLimit;
   num? get count => _count;
   num? get sold => _sold;
   String? get goodsName => _goodsName;
@@ -113,6 +120,7 @@ class GoodsItem {
     map['nativePrice'] = _nativePrice;
     map['nowPrice'] = _nowPrice;
     map['limit'] = _limit;
+    map['userLimit'] = _userLimit;
     map['count'] = _count;
     map['sold'] = _sold;
     map['goodsName'] = _goodsName;

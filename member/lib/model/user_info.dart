@@ -45,8 +45,8 @@ class UserInfo {
 
   UserInfo.fromJson(dynamic json) {
     id = json['id'];
-    createAt = json['createAt'];
-    updateAt = json['updateAt'];
+    createAt = json['createdAt'];
+    updateAt = json['updatedAt'];
     userId = json['userId'];
     merchantId = json['merchantId'];
     username = json['username'];
@@ -106,8 +106,8 @@ class UserInfo {
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
-    map['createAt'] = createAt;
-    map['updateAt'] = updateAt;
+    map['createdAt'] = createAt;
+    map['updatedAt'] = updateAt;
     map['userId'] = userId;
     map['merchantId'] = merchantId;
     map['username'] = username;

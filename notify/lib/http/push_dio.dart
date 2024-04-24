@@ -1,5 +1,8 @@
-import 'package:dio/adapter.dart';
-import 'package:service_package/service_package.dart';
+import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
+import 'package:service_package/env/env.dart';
+import 'package:service_package/http/base_dio.dart';
+import 'package:service_package/utils/debug.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PushDio extends BaseDio {

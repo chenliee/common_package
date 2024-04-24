@@ -6,7 +6,6 @@ class GroupActResponse {
   static String groupActUrl =
       '/marketing/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/groupAct';
   static String payGroupUrl = '$groupActUrl/pay';
-  static String refundGroupActUrl = '$groupActUrl/refund';
   static String userGroupActListUrl = '$groupActUrl/List';
 
   static Future<List<GroupItem>> getGroupActList({int? page}) async {
@@ -58,10 +57,17 @@ class GroupActResponse {
     }
   }
 
-  @Deprecated('弃用')
-  static Future refundGroupAct({required String code}) async {
+  static Future refundGroupAct({
+    required String code,
+    String? cancelReason,
+  }) async {
     try {
-      await BaseDio.getInstance().post(url: '$refundGroupActUrl/$code');
+      Map<String, dynamic> params = Map.from({
+        "cancelReason": cancelReason,
+      })
+        ..removeWhere((key, value) => value == null);
+      await BaseDio.getInstance()
+          .post(url: '$groupActUrl/groupOrder/refund/$code', params: params);
       ToastInfo.toastInfo(msg: '申请成功');
       return true;
     } catch (e) {

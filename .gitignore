@@ -5,3 +5,7 @@
 *.lock
 **/test/
 */.env
+*/.metadata
+*/CHANGELOG.md
+*/LICENSE
+*/.gitignore

@@ -246,6 +246,9 @@
       <excludeFolder url="file://$MODULE_DIR$/article/build" />
       <excludeFolder url="file://$MODULE_DIR$/article/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/article/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/macauscholar/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/macauscholar/build" />
+      <excludeFolder url="file://$MODULE_DIR$/macauscholar/.dart_tool" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

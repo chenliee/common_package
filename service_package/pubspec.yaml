@@ -10,10 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dio: ^4.0.6
+  dio: ^5.2.0+1
   fluttertoast: ^8.0.9
-  flutter_dotenv: ^5.0.2
-  intl: ^0.17.0
+  intl: ^0.18.1
   image_picker: ^0.8.5+3
   flutter_image_compress: ^1.1.2
 #  amap_map_fluttify: ^2.0.2

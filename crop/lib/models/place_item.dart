@@ -167,27 +167,58 @@ String infosToJson(Infos data) => json.encode(data.toJson());
 
 class Infos {
   Infos({
-    IsPick? isPick,
+    Info? isPick,
+    Info? desc,
+    Info? about,
+    Info? nearSchool,
   }) {
     _isPick = isPick;
+    _desc = desc;
+    _about = about;
+    _nearSchool = nearSchool;
   }
 
   Infos.fromJson(dynamic json) {
-    _isPick = json['is_pick'] != null ? IsPick.fromJson(json['is_pick']) : null;
+    _isPick = json['is_pick'] != null ? Info.fromJson(json['is_pick']) : null;
+    _desc = json['desc'] != null ? Info.fromJson(json['desc']) : null;
+    _about = json['about'] != null ? Info.fromJson(json['about']) : null;
+    _nearSchool =
+        json['nearSchool'] != null ? Info.fromJson(json['nearSchool']) : null;
   }
-  IsPick? _isPick;
+  Info? _isPick;
+  Info? _desc;
+  Info? _about;
+  Info? _nearSchool;
   Infos copyWith({
-    IsPick? isPick,
+    Info? isPick,
+    Info? desc,
+    Info? about,
+    Info? nearSchool,
   }) =>
       Infos(
         isPick: isPick ?? _isPick,
+        desc: desc ?? _desc,
+        about: about ?? _about,
+        nearSchool: nearSchool ?? _nearSchool,
       );
-  IsPick? get isPick => _isPick;
+  Info? get isPick => _isPick;
+  Info? get desc => _desc;
+  Info? get about => _about;
+  Info? get nearSchool => _nearSchool;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     if (_isPick != null) {
       map['is_pick'] = _isPick?.toJson();
+    }
+    if (_desc != null) {
+      map['desc'] = _desc?.toJson();
+    }
+    if (_about != null) {
+      map['about'] = _about?.toJson();
+    }
+    if (_nearSchool != null) {
+      map['nearSchool'] = _nearSchool?.toJson();
     }
     return map;
   }
@@ -197,41 +228,41 @@ class Infos {
 /// multiple : false
 /// value : true
 
-IsPick isPickFromJson(String str) => IsPick.fromJson(json.decode(str));
-String isPickToJson(IsPick data) => json.encode(data.toJson());
+Info isPickFromJson(String str) => Info.fromJson(json.decode(str));
+String isPickToJson(Info data) => json.encode(data.toJson());
 
-class IsPick {
-  IsPick({
+class Info {
+  Info({
     String? title,
     bool? multiple,
-    bool? value,
+    dynamic value,
   }) {
     _title = title;
     _multiple = multiple;
     _value = value;
   }
 
-  IsPick.fromJson(dynamic json) {
+  Info.fromJson(dynamic json) {
     _title = json['title'];
     _multiple = json['multiple'];
     _value = json['value'];
   }
   String? _title;
   bool? _multiple;
-  bool? _value;
-  IsPick copyWith({
+  dynamic _value;
+  Info copyWith({
     String? title,
     bool? multiple,
-    bool? value,
+    dynamic value,
   }) =>
-      IsPick(
+      Info(
         title: title ?? _title,
         multiple: multiple ?? _multiple,
         value: value ?? _value,
       );
   String? get title => _title;
   bool? get multiple => _multiple;
-  bool? get value => _value;
+  dynamic get value => _value;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

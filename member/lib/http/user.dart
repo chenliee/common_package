@@ -22,7 +22,7 @@ class UserResponse {
   // 獲取用戶信息
   static Future getUserinfo() async {
     try {
-      Map<String, dynamic> res = await BaseDio.getInstance().get(url: userUrl);
+      Map<String, dynamic> res = await BaseDio.getInstance().get(url: userUrl,isApi:false);
       UserInfo? userInfo = UserInfo.fromJson(res);
       return userInfo;
     } catch (e) {

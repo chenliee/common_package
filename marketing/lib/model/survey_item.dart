@@ -10,7 +10,7 @@
 class SurveyItem {
   SurveyItem({
     num? id,
-    List<ImgUrl>? imgUrl,
+    List<Img>? imgUrl,
     String? name,
     String? startAt,
     String? endAt,
@@ -33,7 +33,7 @@ class SurveyItem {
     if (json['survey']['imgUrl'] != null) {
       _imgUrl = [];
       json['survey']['imgUrl'].forEach((v) {
-        _imgUrl?.add(ImgUrl.fromJson(v));
+        _imgUrl?.add(Img.fromJson(v));
       });
     }
     _name = json['survey']['name'];
@@ -54,7 +54,7 @@ class SurveyItem {
     }
   }
   num? _id;
-  List<ImgUrl>? _imgUrl;
+  List<Img>? _imgUrl;
   String? _name;
   String? _startAt;
   String? _endAt;
@@ -63,7 +63,7 @@ class SurveyItem {
   List<Gift>? _gift;
   SurveyItem copyWith({
     num? id,
-    List<ImgUrl>? imgUrl,
+    List<Img>? imgUrl,
     String? name,
     String? startAt,
     String? endAt,
@@ -82,7 +82,7 @@ class SurveyItem {
         gift: gift ?? _gift,
       );
   num? get id => _id;
-  List<ImgUrl>? get imgUrl => _imgUrl;
+  List<Img>? get imgUrl => _imgUrl;
   String? get name => _name;
   String? get startAt => _startAt;
   String? get endAt => _endAt;
@@ -127,7 +127,7 @@ class Gift {
     String? name,
     String? type,
     SurveyRule? rule,
-    List<ImgUrl>? imgUrl,
+    List<Img>? imgUrl,
     num? count,
     bool? isLimit,
     num? limit,
@@ -154,7 +154,7 @@ class Gift {
     if (json['imgUrl'] != null) {
       _imgUrl = [];
       json['imgUrl'].forEach((v) {
-        _imgUrl?.add(ImgUrl.fromJson(v));
+        _imgUrl?.add(Img.fromJson(v));
       });
     }
     _count = json['count'];
@@ -167,7 +167,7 @@ class Gift {
   String? _name;
   String? _type;
   SurveyRule? _rule;
-  List<ImgUrl>? _imgUrl;
+  List<Img>? _imgUrl;
   num? _count;
   bool? _isLimit;
   num? _limit;
@@ -178,7 +178,7 @@ class Gift {
     String? name,
     String? type,
     SurveyRule? rule,
-    List<ImgUrl>? imgUrl,
+    List<Img>? imgUrl,
     num? count,
     bool? isLimit,
     num? limit,
@@ -201,7 +201,7 @@ class Gift {
   String? get name => _name;
   String? get type => _type;
   SurveyRule? get rule => _rule;
-  List<ImgUrl>? get imgUrl => _imgUrl;
+  List<Img>? get imgUrl => _imgUrl;
   num? get count => _count;
   bool? get isLimit => _isLimit;
   num? get limit => _limit;
@@ -231,8 +231,8 @@ class Gift {
 /// fileId : 0
 /// hash : "string"
 
-class ImgUrl {
-  ImgUrl({
+class Img {
+  Img({
     num? fileId,
     String? hash,
   }) {
@@ -240,17 +240,17 @@ class ImgUrl {
     _hash = hash;
   }
 
-  ImgUrl.fromJson(dynamic json) {
+  Img.fromJson(dynamic json) {
     _fileId = json['fileId'];
     _hash = json['hash'];
   }
   num? _fileId;
   String? _hash;
-  ImgUrl copyWith({
+  Img copyWith({
     num? fileId,
     String? hash,
   }) =>
-      ImgUrl(
+      Img(
         fileId: fileId ?? _fileId,
         hash: hash ?? _hash,
       );
@@ -362,7 +362,7 @@ class Goods {
 class QuestionInfo {
   QuestionInfo({
     num? id,
-    List<ImgUrl>? imgUrl,
+    List<Img>? imgUrl,
     String? type,
     String? name,
     String? description,
@@ -387,7 +387,7 @@ class QuestionInfo {
     if (json['imgUrl'] != null) {
       _imgUrl = [];
       json['imgUrl'].forEach((v) {
-        _imgUrl?.add(ImgUrl.fromJson(v));
+        _imgUrl?.add(Img.fromJson(v));
       });
     }
     _type = json['type'];
@@ -404,7 +404,7 @@ class QuestionInfo {
     }
   }
   num? _id;
-  List<ImgUrl>? _imgUrl;
+  List<Img>? _imgUrl;
   String? _type;
   String? _name;
   String? _description;
@@ -414,7 +414,7 @@ class QuestionInfo {
   List<OptionInfo>? _optionInfo;
   QuestionInfo copyWith({
     num? id,
-    List<ImgUrl>? imgUrl,
+    List<Img>? imgUrl,
     String? type,
     String? name,
     String? description,
@@ -435,7 +435,7 @@ class QuestionInfo {
         optionInfo: optionInfo ?? _optionInfo,
       );
   num? get id => _id;
-  List<ImgUrl>? get imgUrl => _imgUrl;
+  List<Img>? get imgUrl => _imgUrl;
   String? get type => _type;
   String? get name => _name;
   String? get description => _description;
