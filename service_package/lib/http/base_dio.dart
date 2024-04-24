@@ -178,6 +178,7 @@ class BaseDio {
       } else if (method == 'patch') {
         response = await dio.patch(url, data: params);
       }
+      print(response!.data);
       return response!.data;
     } on SocketException catch (e) {
       ToastInfo.toastInfo(msg: "網絡請求超時，請檢查網絡$e");

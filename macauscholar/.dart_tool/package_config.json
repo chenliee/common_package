@@ -332,13 +332,13 @@
       "languageVersion": "3.3"
     },
     {
-      "name": "macauscholar",
+      "name": "macauscholar1",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-04-24T02:17:46.013711Z",
+  "generated": "2024-04-24T06:21:24.280338Z",
   "generator": "pub",
   "generatorVersion": "3.3.4"
 }

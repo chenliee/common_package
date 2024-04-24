@@ -47,7 +47,7 @@ class BrandResponse {
 
   ///获取分店详情
   static Future<PlaceItem> getPlaceInfo(
-      {required String brand, required String place}) async {
+      {String? brand, required String place}) async {
     PlaceItem placeItem;
     Map<String, dynamic> params = Map.from({"brand": brand})
       ..removeWhere((key, value) => value == null);
