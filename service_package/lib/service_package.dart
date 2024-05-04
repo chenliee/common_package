@@ -10,6 +10,7 @@ export 'utils/debug.dart';
 export 'utils/strings.dart';
 export 'utils/toast.dart';
 export 'utils/upload.dart';
+export 'utils/num_util.dart';
 export 'widget/custom_modal_route.dart';
 export 'widget/custom_tab_indicator.dart';
 export 'widget/easy_refresh_widget.dart';

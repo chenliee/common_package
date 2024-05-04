@@ -23,11 +23,12 @@ class BrandResponse {
 
   ///获取品牌下分店
   static Future<List<PlaceItem>?> getPlaceItem(
-      {String? brand, String? xLocation}) async {
+      {String? brand, String? xLocation, String? keyword}) async {
     try {
       List<PlaceItem> branch = [];
       Map<String, dynamic>? params = Map.from({
         "brand": brand,
+        "keyword": keyword,
       })
         ..removeWhere((key, value) => value == null);
       Map<String, dynamic>? data = Map.from({

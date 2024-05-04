@@ -1,26 +1,26 @@
+import 'package:macauscholar1/model/course_item.dart';
 import 'package:service_package/service_package.dart';
 
-import '../../model/class_item.dart';
 import '../macau_dio.dart';
 
-class ClassResponse {
-  static String classUrl = '/course/api/class/';
+class CourseResponse {
+  static String courseUrl = '/course/api/course/';
 
-  static Future<List<ClassItem>> getClassList(
+  static Future<List<CourseItem>> getCourseList(
       {required int page, Map? sort, required Map query, int? size}) async {
     try {
       Map<String, dynamic> params = Map.from({
         'size': size ?? ServiceGlobal.instance.pageSize,
         'page': page,
-        'sort': sort,
+        'sort': sort ?? {"createdAt": "desc"},
         'query': query
       })
         ..removeWhere((key, value) => value == null);
-      List<ClassItem> list = [];
+      List<CourseItem> list = [];
       List<dynamic> jsonLists =
-          await MacauDio.getInstance().get(url: classUrl, params: params);
+          await MacauDio.getInstance().get(url: courseUrl, params: params);
       for (var item in jsonLists) {
-        list.add(ClassItem.fromJson(item));
+        list.add(CourseItem.fromJson(item));
       }
       return list;
     } catch (e) {

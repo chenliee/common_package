@@ -19,6 +19,7 @@ class PushDio extends BaseDio {
     Map<String, dynamic>? params, {
     bool isApi = true,
     Map<String, dynamic>? data,
+    bool retry = false,
   }) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? accessToken = pref.getString('accessToken');

@@ -120,8 +120,10 @@ class BaseDio {
       Map<String, dynamic>? params) {
     if (res != null) {
       if (res.containsKey('success') && !res['success']) {
-        ToastInfo.toastInfo(
-            msg: '${res['message'] ?? res['msg'] ?? "未知錯誤"}', isApi: isApi);
+        String message = Env.appEnv != 'PRO'
+            ? '${res['message'] ?? res['msg'] ?? "未知錯誤"},url:$url'
+            : res['message'] ?? res['msg'] ?? "未知錯誤";
+        ToastInfo.toastInfo(msg: message, isApi: isApi);
         //throw 'Url:$url,\nRequest:$params,\nMessage:${res['message']}';
         throw res['message'] ?? res['msg'];
       }
@@ -134,6 +136,7 @@ class BaseDio {
     Map<String, dynamic>? params, {
     bool isApi = true,
     Map<String, dynamic>? data,
+    bool retry = false,
   }) async {
     Response? response;
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
@@ -178,18 +181,25 @@ class BaseDio {
       } else if (method == 'patch') {
         response = await dio.patch(url, data: params);
       }
-      print(response!.data);
       return response!.data;
     } on SocketException catch (e) {
       ToastInfo.toastInfo(msg: "網絡請求超時，請檢查網絡$e");
       throw "網絡不給力，請求超時";
-    } on DioError catch (error) {
+    } on DioException catch (error) {
+      if (error.type == DioExceptionType.receiveTimeout ||
+          error.type == DioExceptionType.connectionTimeout) {
+        if (retry == false) {
+          return await retryRequest(url, method, params);
+        } else {
+          ToastInfo.toastInfo(msg: "網絡請求超時，請檢查網絡");
+          throw "請求超時，請嘗試重新刷新";
+        }
+      }
       String message = error.response?.data is Map
           ? (error.response?.data['message'] ??
               error.response?.data ??
               error.message.toString())
           : error.message.toString();
-
       ToastInfo.toastInfo(msg: message, isApi: isApi);
       Debug.printMsg(
           error.response?.data.toString() ?? error.message.toString(),
@@ -198,10 +208,27 @@ class BaseDio {
       throw Env.appEnv != 'PRO'
           ? {
               'code': error.response?.statusCode ?? 0,
+              'url': url,
               'data':
                   error.response?.data.toString() ?? error.message.toString()
             }
           : message;
+    }
+  }
+
+  Future<dynamic> retryRequest(
+    String url,
+    String method,
+    Map<String, dynamic>? params, {
+    bool isApi = true,
+    Map<String, dynamic>? data,
+  }) async {
+    try {
+      return await requestHttp(url, method, params,
+          isApi: isApi, data: data, retry: true);
+    } catch (error) {
+      // 处理重新请求时的错误，例如超过重试次数限制等
+      // ...
     }
   }
 
