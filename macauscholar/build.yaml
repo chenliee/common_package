@@ -1,7 +1,0 @@
-builders:
-  api_builder:
-    import: 'package:macauscholar1/auto_api/api_builder.dart'
-    builder_factories: ['apiBuilder']
-    build_extensions: {'.dart': ['.response.dart']}
-    auto_apply: root_package
-    build_to: source

@@ -1,4 +1,5 @@
-import '../../auto_api/api_gen.dart';
+import 'package:service_package/api/api_gen.dart';
+
 import '../../model/course_item.dart';
 
 /// package:service_package/service_package.dart

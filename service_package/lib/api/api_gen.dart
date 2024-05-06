@@ -14,6 +14,7 @@ class ApiGen {
   final String? contentType; // 请求数据contentType
   final Map<String, dynamic>? header; // 请求header
   final String dio; // 请求header
+  final bool isList; // 请求header
 
   const ApiGen(this.url,
       {this.method = POST,
@@ -23,5 +24,6 @@ class ApiGen {
       this.header,
       this.target,
       this.file,
-      this.dio = 'BaseDio'});
+      this.dio = 'BaseDio',
+      this.isList = true});
 }

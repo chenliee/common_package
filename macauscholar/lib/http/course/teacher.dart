@@ -1,6 +1,5 @@
 import 'package:macauscholar1/macauscholar.dart';
-
-import '../../auto_api/api_gen.dart';
+import 'package:service_package/api/api_gen.dart';
 
 /// package:service_package/service_package.dart
 /// package:macauscholar1/macauscholar.dart
