@@ -1,31 +1,22 @@
-import 'package:service_package/service_package.dart';
+import 'package:macauscholar1/macauscholar.dart';
 
-import '../../model/class_item.dart';
-import '../macau_dio.dart';
+import '../../auto_api/api_gen.dart';
 
-class ClassResponse {
-  static String classUrl = '/course/api/class/';
-
-  static Future<List<ClassItem>> getClassList(
-      {required int page, Map? sort, required Map query, int? size}) async {
-    try {
-      Map<String, dynamic> params = Map.from({
-        'size': size ?? ServiceGlobal.instance.pageSize,
-        'page': page,
-        'sort': sort,
-        'query': query
-      })
-        ..removeWhere((key, value) => value == null);
-      List<ClassItem> list = [];
-      List<dynamic> jsonLists =
-          await MacauDio.getInstance().get(url: classUrl, params: params);
-      for (var item in jsonLists) {
-        list.add(ClassItem.fromJson(item));
-      }
-      return list;
-    } catch (e) {
-      Debug.printMsg(e, StackTrace.current);
-      rethrow;
-    }
-  }
+/// package:service_package/service_package.dart
+/// package:macauscholar1/macauscholar.dart
+@ApiGen('/course', file: 'ClassResponse', dio: 'MacauDio')
+abstract class Class {
+  @ApiGen(
+    '/api/class',
+    params: {
+      'size': '@C_size',
+      'page': '@C_page',
+      'sort': '@C_sort ?? {"createdAt": "desc"}',
+      'query': '@C_query'
+    },
+    method: ApiGen.GET,
+    target: 'ClassItem',
+  )
+  Future<List<ClassItem>> getClassList(
+      {required int page, Map? sort, required Map query, int? size});
 }

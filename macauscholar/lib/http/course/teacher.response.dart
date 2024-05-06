@@ -6,8 +6,6 @@
 
 import 'package:service_package/service_package.dart';
 import 'package:macauscholar1/macauscholar.dart';
-import 'dart:async';
-import 'dart:core';
 
 class TeacherResponse {
   static Future<List<TeacherItem>> getTeacherList(
