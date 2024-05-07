@@ -24,7 +24,7 @@ abstract class BrandApi {
     },
     target: 'PlaceItem',
   )
-  Future<List<PlaceItem>> getPlaceItem(
+  Future<List<PlaceItem>?> getPlaceItem(
       {String? brand, String? xLocation, String? keyword});
 
   @ApiGen(
@@ -32,7 +32,6 @@ abstract class BrandApi {
     method: ApiGen.GET,
     params: {"brand": "@C_brand"},
     target: 'PlaceItem',
-    isList: false,
   )
   Future<PlaceItem> getPlaceInfo({String? brand, required String place});
 }

@@ -1,17 +1,23 @@
-import 'package:service_hub/model/new_good_item.dart';
-import 'package:service_package/service_package.dart';
+import 'package:service_hub/service_hub.dart';
+import 'package:service_package/api/api_gen.dart';
 
-import '../service_hub.dart';
+/// package:service_package/service_package.dart
+/// package:service_hub/service_hub.dart
+@ApiGen('/service-hub', file: 'GoodResponse')
+abstract class Good {
+  static const url = '/api/merchant/\${ServiceGlobal.instance.merchantId}';
 
-class GoodResponse {
-  static final _baseUrl =
-      '/service-hub/api/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}';
-  static String goodUrl =
-      '/service-hub/api/merchant/${ServiceGlobal.instance.merchantId}/good';
-  static String categoryUrl = '$_baseUrl/category';
-  static String newGoodsUrl = '$_baseUrl/newGoods';
-
-  static Future<List<GoodItem>?> getGoods(
+  @ApiGen('$url/good', method: ApiGen.GET, target: 'GoodItem', params: {
+    'uid': "@C_uid",
+    'link': "@C_link",
+    'info': "@C_info",
+    'file': "@C_file",
+    'search': "@C_search",
+    'skip': "@C_skip",
+    'size': "@C_size",
+    'cursor': "@C_cursor",
+  })
+  Future<List<GoodItem>?> getGoods(
       {List? uid,
       List? link,
       List? info,
@@ -19,47 +25,22 @@ class GoodResponse {
       String? search,
       int? skip,
       int? size,
-      int? cursor}) async {
-    try {
-      Map<String, dynamic> params = Map.from({
-        'uid': uid,
-        'link': link,
-        'info': info,
-        'file': file,
-        'search': search,
-        'skip': skip,
-        'size': size,
-        'cursor': cursor,
-      }..removeWhere((key, value) => value == null));
+      int? cursor});
 
-      List res = await BaseDio.getInstance().get(url: goodUrl, params: params);
-      List<GoodItem> goods = [];
-      for (var item in res) {
-        goods.add(GoodItem.fromJson(item));
-      }
-      return goods;
-    } catch (e) {
-      Debug.printMsg(e, StackTrace.current);
-      rethrow;
-    }
-  }
-
-  static Future<GoodItem?> getGood({required String id, Map? condition}) async {
-    try {
-      Map<String, dynamic> params = Map.from(
-          {'condition': condition}..removeWhere((key, value) => value == null));
-
-      Map res =
-          await BaseDio.getInstance().get(url: '$goodUrl/$id', params: params);
-      GoodItem good = GoodItem.fromJson(res);
-      return good;
-    } catch (e) {
-      Debug.printMsg(e, StackTrace.current);
-      rethrow;
-    }
-  }
-
-  static Future<List<GoodItem>?> getCategoryGoods({
+  @ApiGen(
+      '$url/project/\${ServiceGlobal.instance.projectId}/category/\$category/goods',
+      method: ApiGen.GET,
+      target: 'GoodItem',
+      params: {
+        'condition': "@C_condition",
+        'link': "@C_link",
+        'info': "@C_info",
+        'file': "@C_file",
+        'search': "@C_search",
+        'skip': "@C_skip",
+        'size': "@C_size",
+      })
+  Future<List<GoodItem>?> getCategoryGoods({
     required String category,
     dynamic condition,
     List? link,
@@ -68,77 +49,62 @@ class GoodResponse {
     int? skip,
     int? size,
     String? search,
-  }) async {
-    try {
-      Map<String, dynamic> params = Map.from({
-        'condition': condition,
-        'link': link,
-        'info': info,
-        'file': file,
-        'search': search,
-        'skip': skip,
-        'size': size,
-      }..removeWhere((key, value) => value == null));
-      List res = await BaseDio.getInstance()
-          .get(url: '$categoryUrl/$category/goods', params: params);
-      List<GoodItem> list = [];
-      for (var item in res) {
-        list.add(GoodItem.fromJson(item));
-      }
-      return list;
-    } catch (e) {
-      Debug.printMsg(e, StackTrace.current);
-      rethrow;
-    }
-  }
+  });
 
-  static Future<List<CategoryItem>?> getCategory({
+  @ApiGen('$url/project/\${ServiceGlobal.instance.projectId}/category',
+      method: ApiGen.GET,
+      target: 'CategoryItem',
+      params: {'info': "@C_info", 'file': "@C_file"})
+  Future<List<CategoryItem>?> getCategory({
     List? info,
     List? file,
-  }) async {
-    try {
-      Map<String, dynamic> params = Map.from({
-        'info': info,
-        'file': file,
-      }..removeWhere((key, value) => value == null));
-      List res =
-          await BaseDio.getInstance().get(url: categoryUrl, params: params);
-      List<CategoryItem> category = [];
-      for (var item in res) {
-        category.add(CategoryItem.fromJson(item));
-      }
-      return category;
-    } catch (e) {
-      Debug.printMsg(e, StackTrace.current);
-      rethrow;
-    }
-  }
+  });
 
-  static Future<List<NewGoodItem>?> getNewGoods({
+  @ApiGen('$url/project/\${ServiceGlobal.instance.projectId}/newGoods',
+      method: ApiGen.GET,
+      target: 'NewGoodItem',
+      params: {
+        'info': "@C_info",
+        'file': "@C_file",
+        'condition': "@C_condition",
+        'link': "@C_link",
+        'category': "@C_category",
+      })
+  Future<List<NewGoodItem>?> getNewGoods({
     dynamic condition,
     List? link,
     List? info,
     List? file,
     required List<String?> category,
-  }) async {
-    try {
-      Map<String, dynamic> params = Map.from({
-        'condition': condition,
-        'link': link,
-        'info': info,
-        'file': file,
-        'category': category,
-      }..removeWhere((key, value) => value == null));
-      List res =
-          await BaseDio.getInstance().get(url: newGoodsUrl, params: params);
-      List<NewGoodItem> list = [];
-      for (var item in res) {
-        list.add(NewGoodItem.fromJson(item));
-      }
-      return list;
-    } catch (e) {
-      Debug.printMsg(e, StackTrace.current);
-      rethrow;
-    }
-  }
+  });
+
+  @ApiGen(
+    '$url/good/\$id',
+    method: ApiGen.GET,
+    target: 'GoodItem',
+    params: {
+      'condition': "@C_condition",
+    },
+  )
+  Future<GoodItem?> getGood({required String id, Map? condition});
+
+  @ApiGen('$url/key/\$key/goods',
+      method: ApiGen.GET,
+      target: 'GoodItem',
+      params: {
+        'condition': "@C_condition",
+        'link': "@C_link",
+        'info': "@C_info",
+        'file': "@C_file",
+        'value': "@C_value",
+        'key': "@C_key",
+      })
+  Future<List<GoodItem>?> getKeyGoods({
+    String? value,
+    dynamic condition,
+    required String key,
+    List? link,
+    List? info,
+    List? file,
+  });
 }

@@ -4,8 +4,8 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:service_package/service_package.dart';
 import 'package:crop/crop.dart';
+import 'package:service_package/service_package.dart';
 
 class BrandResponse {
   static Future<List<BrandItem>> getBrandItem() async {
@@ -24,7 +24,7 @@ class BrandResponse {
     }
   }
 
-  static Future<List<PlaceItem>> getPlaceItem(
+  static Future<List<PlaceItem>?> getPlaceItem(
       {String? brand, String? xLocation, String? keyword}) async {
     try {
       Map<String, dynamic> params = Map.from({

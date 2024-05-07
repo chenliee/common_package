@@ -40,6 +40,7 @@ class ApiGenerator extends GeneratorForAnnotation<ApiGen> {
       'fileName': annotation.peek('file')?.stringValue,
       'targetClassName': 'ApiBase',
       'functions': functions,
+      'dio': annotation.peek('dio')?.stringValue
     });
     imports.clear();
     functions.clear();
@@ -129,8 +130,7 @@ class SimpleVisitor extends SimpleElementVisitor {
     }
     funcInfo['requestName'] = requestName;
     funcInfo["className"] = reader.peek('target')?.stringValue;
-    funcInfo["dio"] = reader.peek('dio')?.stringValue;
-    funcInfo["isList"] = reader.peek('isList')?.boolValue;
+
     var params = reader.peek('params');
     funcInfo["hasParams"] = params != null;
 
@@ -155,6 +155,8 @@ class SimpleVisitor extends SimpleElementVisitor {
     /// 函数返回值
     DartType returnType = element.returnType;
     funcInfo["returnType"] = returnType.toString();
+    print(funcInfo["returnType"]);
+    funcInfo["isList"] = funcInfo["returnType"].contains("List");
 
     /// 返回值为泛型
     if (AnnotationUtil.canHaveGenerics(returnType)) {

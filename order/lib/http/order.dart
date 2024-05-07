@@ -91,6 +91,7 @@ class OrderResponse {
         "goods": goods,
         "priceKey": "sell_price",
         "instockKey": "instock",
+        "singleLimitKey": "single_limit",
         "place": 'saas-cropinfo:$place',
         "condition": condition,
         "adjs": adjs
@@ -119,6 +120,7 @@ class OrderResponse {
         "goods": goods,
         "priceKey": "sell_price",
         "instockKey": "instock",
+        "singleLimitKey": "single_limit",
         "place": 'saas-cropinfo:$place',
         "condition": condition,
         "adjs": adjs,

@@ -23,7 +23,7 @@ class TeacherResponse {
         ..removeWhere((key, value) => value == null);
 
       List<TeacherItem> list = [];
-      List<dynamic> jsonLists = await BaseDio.getInstance().get(
+      List<dynamic> jsonLists = await MacauDio.getInstance().get(
         url: "/course/api/teacher",
         params: params,
       );
