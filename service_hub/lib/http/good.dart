@@ -98,6 +98,8 @@ abstract class Good {
         'file': "@C_file",
         'value': "@C_value",
         'key': "@C_key",
+        'skip': "@C_skip",
+        'size': "@C_size",
       })
   Future<List<GoodItem>?> getKeyGoods({
     String? value,
@@ -106,5 +108,14 @@ abstract class Good {
     List? link,
     List? info,
     List? file,
+    int? skip,
+    int? size,
+  });
+
+  @ApiGen('$url/attribute/\$attribute/option/\$option',
+      method: ApiGen.GET, target: 'Attribute')
+  Future<Attribute> getAttribute({
+    required String option,
+    required String attribute,
   });
 }

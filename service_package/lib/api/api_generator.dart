@@ -137,12 +137,6 @@ class SimpleVisitor extends SimpleElementVisitor {
     if (funcInfo["hasParams"]) {
       funcInfo["paramsType"] = AnnotationUtil.getDataType(params!.objectValue);
       funcInfo["paramsValue"] = AnnotationUtil.getDataValue(params.objectValue);
-    } else {
-      if (element.parameters.isNotEmpty) {
-        funcInfo["hasParams"] = true;
-        funcInfo["paramsValue"] = "{}";
-        funcInfo["paramsType"] = "Map<String, dynamic>";
-      }
     }
 
     var data = reader.peek('data');

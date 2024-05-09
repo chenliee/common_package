@@ -168,7 +168,9 @@ class GoodResponse {
       required String key,
       List<dynamic>? link,
       List<dynamic>? info,
-      List<dynamic>? file}) async {
+      List<dynamic>? file,
+      int? skip,
+      int? size}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "condition": condition,
@@ -177,6 +179,8 @@ class GoodResponse {
         "file": file,
         "value": value,
         "key": key,
+        "skip": skip,
+        "size": size,
       })
         ..removeWhere((key, value) => value == null);
 
@@ -190,6 +194,22 @@ class GoodResponse {
         list.add(GoodItem.fromJson(item));
       }
       return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<Attribute> getAttribute(
+      {required String option, required String attribute}) async {
+    try {
+      Attribute? item;
+      Map<String, dynamic> res = await BaseDio.getInstance().get(
+        url:
+            "/service-hub/api/merchant/${ServiceGlobal.instance.merchantId}/attribute/$attribute/option/$option",
+      );
+      item = Attribute.fromJson(res);
+      return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
