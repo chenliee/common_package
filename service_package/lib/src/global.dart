@@ -9,6 +9,8 @@ class ServiceGlobal {
 
   late String token;
 
+  late String merchantToken;
+
   late String shopId;
 
   late num pageSize;
@@ -26,6 +28,7 @@ class ServiceGlobal {
     projectId = '';
     uid = '';
     token = '';
+    merchantToken = '';
     shopId = '';
     pageSize = 10;
     toastCustomize = false;

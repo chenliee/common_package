@@ -249,6 +249,12 @@
       <excludeFolder url="file://$MODULE_DIR$/macauscholar/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/macauscholar/build" />
       <excludeFolder url="file://$MODULE_DIR$/macauscholar/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/notify/example/ios/.symlinks/plugins/service_package/build" />
+      <excludeFolder url="file://$MODULE_DIR$/notify/example/ios/.symlinks/plugins/service_package/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/notify/example/ios/.symlinks/plugins/service_package/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/notify/example/ios/.symlinks/plugins/service_package/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/notify/example/ios/.symlinks/plugins/service_package/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/notify/example/ios/.symlinks/plugins/service_package/example/.dart_tool" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

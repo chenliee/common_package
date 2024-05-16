@@ -81,11 +81,13 @@ class OrderResponse {
     }
   }
 
-  static Future computedOrder(
-      {required List goods,
-      required String place,
-      required Map condition,
-      required List adjs}) async {
+  static Future computedOrder({
+    required List goods,
+    required String place,
+    required Map condition,
+    required List adjs,
+    String? memberCard,
+  }) async {
     try {
       Map<String, dynamic> params = {
         "goods": goods,
@@ -93,6 +95,7 @@ class OrderResponse {
         "instockKey": "instock",
         "singleLimitKey": "single_limit",
         "place": 'saas-cropinfo:$place',
+        "memberCard": memberCard,
         "condition": condition,
         "adjs": adjs
       };
@@ -114,6 +117,7 @@ class OrderResponse {
       required Map condition,
       required Map receiverInfo,
       required Map branch,
+      String? memberCard,
       String? remark}) async {
     try {
       Map<String, dynamic> params = Map.from({
@@ -121,6 +125,7 @@ class OrderResponse {
         "priceKey": "sell_price",
         "instockKey": "instock",
         "singleLimitKey": "single_limit",
+        "memberCard": memberCard,
         "place": 'saas-cropinfo:$place',
         "condition": condition,
         "adjs": adjs,

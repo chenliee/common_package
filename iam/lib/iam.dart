@@ -1,4 +1,5 @@
 library iam;
 
-export 'http/auth.dart';
+export 'http/auth.response.dart';
 export 'model/auth_model.dart';
+export 'model/oauth_model.dart';

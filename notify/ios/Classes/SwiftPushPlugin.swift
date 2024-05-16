@@ -14,7 +14,7 @@ public class SwiftPushPlugin: NSObject, FlutterPlugin, UNUserNotificationCenterD
     instance.channel = channel
     registrar.addApplicationDelegate(instance)
     registrar.addMethodCallDelegate(instance, channel: channel)
-    //NetworkManager.shared.startMonitoring()
+    NetworkManager.shared.startMonitoring()
     let center = UNUserNotificationCenter.current()
         center.delegate = instance
         center.requestAuthorization(options: [.badge, .sound, .alert]) { granted, error in

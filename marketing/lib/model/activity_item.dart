@@ -43,7 +43,7 @@ class ActivityItem {
     String? detail,
     dynamic settledAt,
     dynamic expiredAt,
-    Custom? custom,
+    Map? custom,
     dynamic meta,
     dynamic match,
     dynamic act,
@@ -95,7 +95,7 @@ class ActivityItem {
     _detail = json['detail'];
     _settledAt = json['settledAt'];
     _expiredAt = json['expiredAt'];
-    _custom = json['custom'] != null ? Custom.fromJson(json['custom']) : null;
+    _custom = json['custom'];
     _meta = json['meta'];
     _match = json['match'];
     _act = json['act'];
@@ -120,7 +120,7 @@ class ActivityItem {
   String? _detail;
   dynamic _settledAt;
   dynamic _expiredAt;
-  Custom? _custom;
+  Map? _custom;
   dynamic _meta;
   dynamic _match;
   dynamic _act;
@@ -145,7 +145,7 @@ class ActivityItem {
     String? detail,
     dynamic settledAt,
     dynamic expiredAt,
-    Custom? custom,
+    Map? custom,
     dynamic meta,
     dynamic match,
     dynamic act,
@@ -196,7 +196,7 @@ class ActivityItem {
   String? get detail => _detail;
   dynamic get settledAt => _settledAt;
   dynamic get expiredAt => _expiredAt;
-  Custom? get custom => _custom;
+  Map? get custom => _custom;
   dynamic get meta => _meta;
   dynamic get match => _match;
   dynamic get act => _act;
@@ -223,9 +223,7 @@ class ActivityItem {
     map['detail'] = _detail;
     map['settledAt'] = _settledAt;
     map['expiredAt'] = _expiredAt;
-    if (_custom != null) {
-      map['custom'] = _custom?.toJson();
-    }
+    map['custom'] = _custom;
     map['meta'] = _meta;
     map['match'] = _match;
     map['act'] = _act;
@@ -420,46 +418,6 @@ class Value {
     map['name'] = _name;
     map['size'] = _size;
     map['hash'] = _hash;
-    return map;
-  }
-}
-
-/// sort : 1
-/// grade : "f7b62dbe-2117-4b7d-92c8-7e9bcf468813"
-
-Custom customFromJson(String str) => Custom.fromJson(json.decode(str));
-String customToJson(Custom data) => json.encode(data.toJson());
-
-class Custom {
-  Custom({
-    num? sort,
-    String? grade,
-  }) {
-    _sort = sort;
-    _grade = grade;
-  }
-
-  Custom.fromJson(dynamic json) {
-    _sort = json['sort'];
-    _grade = json['grade'];
-  }
-  num? _sort;
-  String? _grade;
-  Custom copyWith({
-    num? sort,
-    String? grade,
-  }) =>
-      Custom(
-        sort: sort ?? _sort,
-        grade: grade ?? _grade,
-      );
-  num? get sort => _sort;
-  String? get grade => _grade;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['sort'] = _sort;
-    map['grade'] = _grade;
     return map;
   }
 }

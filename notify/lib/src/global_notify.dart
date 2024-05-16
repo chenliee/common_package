@@ -75,10 +75,12 @@ class GlobalNotify {
       case "onRegisteredDone":
         return _onRegisteredDone!(call.arguments.cast<String, dynamic>());
       case "deviceBinging":
-        return PushRequest.deviceBinging(
-            cid: call.arguments['cid'],
-            uuid: uuid,
-            code: call.arguments['code']);
+        return Future.delayed(Duration(milliseconds: 500)).then((value) {
+          PushRequest.deviceBinging(
+              cid: call.arguments['cid'],
+              uuid: uuid,
+              code: call.arguments['code']);
+        });
       default:
         throw UnsupportedError("Unrecognized Event");
     }

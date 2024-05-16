@@ -11,14 +11,16 @@ class ClassResponse {
   static Future<List<ClassItem>> getClassList(
       {required int page,
       Map<dynamic, dynamic>? sort,
-      required Map<dynamic, dynamic> query,
-      int? size}) async {
+      Map<dynamic, dynamic>? filter,
+      int? size,
+      String? keyword}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "size": size,
         "page": page,
         "sort": sort ?? {"createdAt": "desc"},
-        "query": query,
+        "filter": filter,
+        "keyword": keyword,
       })
         ..removeWhere((key, value) => value == null);
 

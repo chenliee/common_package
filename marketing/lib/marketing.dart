@@ -8,6 +8,7 @@ export 'http/score.dart';
 export 'http/spike_act.dart';
 export 'http/survey.dart';
 export 'http/vip_right.dart';
+export 'model/activity_item.dart';
 export 'model/coupon_item.dart';
 export 'model/goods_item.dart';
 export 'model/group_item.dart';

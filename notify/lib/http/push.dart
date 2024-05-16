@@ -9,19 +9,16 @@ class PushRequest {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
       String? accessToken = pref.getString('accessToken');
-      if (accessToken == null) {
-        Map<String, dynamic>? params = {
-          'package': GlobalNotify.bundleId,
-          'token': GlobalNotify.token,
-        };
-        final res = await PushDio.getInstance().post(
-            url:
-                '/notify/api/merchant/${ServiceGlobal.instance.merchantId}/channel/${GlobalNotify.cid}/device-registration',
-            params: params);
-        GlobalNotify.uuid = res['uuid'];
-      } else {
-        update(cid: GlobalNotify.cid);
-      }
+      Map<String, dynamic>? params = {
+        'package': GlobalNotify.bundleId,
+        'token': GlobalNotify.token,
+      };
+      final res = await PushDio.getInstance().post(
+          url:
+              '/notify/api/merchant/${ServiceGlobal.instance.merchantId}/channel/${GlobalNotify.cid}/device-registration',
+          params: params);
+      GlobalNotify.uuid = res['uuid'];
+      print("object$res");
     } catch (e) {
       rethrow;
     }
@@ -44,6 +41,7 @@ class PushRequest {
     pref.setString('accessToken', res['deviceAccessToken']);
   }
 
+  @Deprecated("弃用")
   static Future<void> update({required String cid}) async {
     await PushDio.getInstance().post(
         url:

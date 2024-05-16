@@ -11,11 +11,12 @@ abstract class Teacher {
       'size': '@C_size',
       'page': '@C_page',
       'sort': '@C_sort ?? {"createdAt": "desc"}',
-      'query': '@C_query'
+      'filter': '@C_filter',
+      'keyword': '@C_keyword'
     },
     method: ApiGen.GET,
     target: 'TeacherItem',
   )
   Future<List<TeacherItem>> getTeacherList(
-      {required int page, Map? sort, required Map query, int? size});
+      {required int page, Map? sort, Map? filter, int? size, String? keyword});
 }
