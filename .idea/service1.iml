@@ -255,6 +255,9 @@
       <excludeFolder url="file://$MODULE_DIR$/notify/example/ios/.symlinks/plugins/service_package/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/notify/example/ios/.symlinks/plugins/service_package/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/notify/example/ios/.symlinks/plugins/service_package/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/bestlife_retail/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/bestlife_retail/build" />
+      <excludeFolder url="file://$MODULE_DIR$/bestlife_retail/.pub" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -23,6 +23,11 @@ BindModel copyWith({  String? sn,
   String? get sn => _sn;
   String? get deviceAccessToken => _deviceAccessToken;
 
+  @override
+  String toString() {
+    return 'BindModel{_sn: $_sn, _deviceAccessToken: $_deviceAccessToken}';
+  }
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['sn'] = _sn;
