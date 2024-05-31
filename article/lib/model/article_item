@@ -1,22 +1,24 @@
 import 'dart:convert';
-/// id : 306
-/// title : "金車-柏克金(三月啤酒)"
-/// body : "<p>ssssss</p>"
-/// langId : 2
-/// id_old : null
-/// code : "makmakshop-238505737886347931"
-/// publishedAt : null
+/// id : 579
+/// title : "「第36屆澳門公益金百萬行」💪💪"
+/// suTitle : null
+/// code : null
+/// body : "<p>「第36屆澳門公益金百萬行」已於12月8日圓滿結束，儒林大家庭一早聚集到起步點集合，身體力行參與公益活動，傳遞社會正能量😁😁 期望未來我們有更多機會貢獻社會，為澳門出一分力💪💪 #人人爲我 #我爲人人 #公益金 #百萬行 #身體力行 #儒林教育 #導師教學用心 #學生學習開心 ![公益1.jpg](https://storage.macauscholar.com/strapi/scholar/1_38266a4bfe.jpg) ![公益2.jpg](https://storage.macauscholar.com/strapi/scholar/2_becff47242.jpg) ![公益3.jpg](https://storage.macauscholar.com/strapi/scholar/3_28d35d5600.jpg) ![公益4.jpg](https://storage.macauscholar.com/strapi/scholar/4_c04702912e.jpg) ![公益5.jpg](https://storage.macauscholar.com/strapi/scholar/5_9a7961f421.jpg) ![公益6.jpg](https://storage.macauscholar.com/strapi/scholar/6_52b899a55a.jpg)</p>"
+/// langId : 4
+/// id_old : 159
+/// publishedAt : "2022-12-29T16:00:00.000Z"
 /// template : null
-/// date : null
+/// date : "2019-11-30T16:00:00.000Z"
 /// description : null
-/// createdAt : "2024-02-23T03:27:20.546Z"
-/// old_createdAt : null
-/// coverId : null
-/// merchantId : 4
+/// createdAt : "2022-12-30T08:01:21.159Z"
+/// old_createdAt : "2022-12-30T08:01:21.159Z"
+/// coverId : 553
+/// merchantId : 1
 /// categoryId : null
-/// cover : null
-/// lang : {"createdAt":"2023-12-28T11:00:00.020Z","id":2,"title":"中文-中國澳門","code":"zh-hant","description":""}
-/// merchant : {"id":4,"code":"goody","title":"優品先生","createdAt":"2023-12-21T05:58:03.609Z"}
+/// cover : {"id":553,"provider":"default","merchantId":1,"name":"6_52b899a55a.jpg","hash":"ca6b34bef660aa74665cc514bb606d67cbcfdeb92ca6d477400dc314617e75a1","ext":".jpg","mime":"image/jpeg","size":"643289","path":"ca6b34bef660aa74665cc514bb606d67cbcfdeb92ca6d477400dc314617e75a1_6_52b899a55a.jpg","upload":{"etag":"1b52b4fc74059d37bf38061ceeb9915f","versionId":null},"createdAt":"2024-03-01T06:43:27.154Z","url":"https://storage.dev.heyday-catering.com:20443/saas-article/public/ca6b34bef660aa74665cc514bb606d67cbcfdeb92ca6d477400dc314617e75a1_6_52b899a55a.jpg"}
+/// merchant : {"id":1,"code":"scholar","title":"儒林教育","createdAt":"2023-12-21T05:58:03.597Z"}
+/// tags : [{"id":5,"merchantId":1,"name":"英文","description":"1","inside":true,"createdAt":"2024-05-28T09:05:52.122Z","updatedAt":"2024-05-28T09:05:52.122Z"}]
+/// lang : {"createdAt":"2024-03-01T06:41:45.438Z","id":4,"title":"en","code":"en","description":null}
 
 ArticleItem articleItemFromJson(String str) => ArticleItem.fromJson(json.decode(str));
 String articleItemToJson(ArticleItem data) => json.encode(data.toJson());
@@ -24,28 +26,31 @@ class ArticleItem {
   ArticleItem({
       num? id, 
       String? title, 
+      dynamic suTitle, 
+      dynamic code, 
       String? body, 
       num? langId, 
-      dynamic idOld, 
-      String? code, 
-      dynamic publishedAt, 
+      num? idOld, 
+      String? publishedAt, 
       dynamic template, 
-      dynamic date, 
+      String? date, 
       dynamic description, 
       String? createdAt, 
-      dynamic oldCreatedAt, 
-      dynamic coverId, 
+      String? oldCreatedAt, 
+      num? coverId, 
       num? merchantId, 
       dynamic categoryId, 
-      dynamic cover, 
-      Lang? lang, 
-      Merchant? merchant,}){
+      Cover? cover, 
+      Merchant? merchant, 
+      List<Tags>? tags, 
+      Lang? lang,}){
     _id = id;
     _title = title;
+    _suTitle = suTitle;
+    _code = code;
     _body = body;
     _langId = langId;
     _idOld = idOld;
-    _code = code;
     _publishedAt = publishedAt;
     _template = template;
     _date = date;
@@ -56,17 +61,19 @@ class ArticleItem {
     _merchantId = merchantId;
     _categoryId = categoryId;
     _cover = cover;
-    _lang = lang;
     _merchant = merchant;
+    _tags = tags;
+    _lang = lang;
 }
 
   ArticleItem.fromJson(dynamic json) {
     _id = json['id'];
     _title = json['title'];
+    _suTitle = json['suTitle'];
+    _code = json['code'];
     _body = json['body'];
     _langId = json['langId'];
     _idOld = json['id_old'];
-    _code = json['code'];
     _publishedAt = json['publishedAt'];
     _template = json['template'];
     _date = json['date'];
@@ -76,52 +83,63 @@ class ArticleItem {
     _coverId = json['coverId'];
     _merchantId = json['merchantId'];
     _categoryId = json['categoryId'];
-    _cover = json['cover'];
-    _lang = json['lang'] != null ? Lang.fromJson(json['lang']) : null;
+    _cover = json['cover'] != null ? Cover.fromJson(json['cover']) : null;
     _merchant = json['merchant'] != null ? Merchant.fromJson(json['merchant']) : null;
+    if (json['tags'] != null) {
+      _tags = [];
+      json['tags'].forEach((v) {
+        _tags?.add(Tags.fromJson(v));
+      });
+    }
+    _lang = json['lang'] != null ? Lang.fromJson(json['lang']) : null;
   }
   num? _id;
   String? _title;
+  dynamic _suTitle;
+  dynamic _code;
   String? _body;
   num? _langId;
-  dynamic _idOld;
-  String? _code;
-  dynamic _publishedAt;
+  num? _idOld;
+  String? _publishedAt;
   dynamic _template;
-  dynamic _date;
+  String? _date;
   dynamic _description;
   String? _createdAt;
-  dynamic _oldCreatedAt;
-  dynamic _coverId;
+  String? _oldCreatedAt;
+  num? _coverId;
   num? _merchantId;
   dynamic _categoryId;
-  dynamic _cover;
-  Lang? _lang;
+  Cover? _cover;
   Merchant? _merchant;
+  List<Tags>? _tags;
+  Lang? _lang;
 ArticleItem copyWith({  num? id,
   String? title,
+  dynamic suTitle,
+  dynamic code,
   String? body,
   num? langId,
-  dynamic idOld,
-  String? code,
-  dynamic publishedAt,
+  num? idOld,
+  String? publishedAt,
   dynamic template,
-  dynamic date,
+  String? date,
   dynamic description,
   String? createdAt,
-  dynamic oldCreatedAt,
-  dynamic coverId,
+  String? oldCreatedAt,
+  num? coverId,
   num? merchantId,
   dynamic categoryId,
-  dynamic cover,
-  Lang? lang,
+  Cover? cover,
   Merchant? merchant,
+  List<Tags>? tags,
+  Lang? lang,
 }) => ArticleItem(  id: id ?? _id,
   title: title ?? _title,
+  suTitle: suTitle ?? _suTitle,
+  code: code ?? _code,
   body: body ?? _body,
   langId: langId ?? _langId,
   idOld: idOld ?? _idOld,
-  code: code ?? _code,
   publishedAt: publishedAt ?? _publishedAt,
   template: template ?? _template,
   date: date ?? _date,
@@ -132,36 +150,40 @@ ArticleItem copyWith({  num? id,
   merchantId: merchantId ?? _merchantId,
   categoryId: categoryId ?? _categoryId,
   cover: cover ?? _cover,
-  lang: lang ?? _lang,
   merchant: merchant ?? _merchant,
+  tags: tags ?? _tags,
+  lang: lang ?? _lang,
 );
   num? get id => _id;
   String? get title => _title;
+  dynamic get suTitle => _suTitle;
+  dynamic get code => _code;
   String? get body => _body;
   num? get langId => _langId;
-  dynamic get idOld => _idOld;
-  String? get code => _code;
-  dynamic get publishedAt => _publishedAt;
+  num? get idOld => _idOld;
+  String? get publishedAt => _publishedAt;
   dynamic get template => _template;
-  dynamic get date => _date;
+  String? get date => _date;
   dynamic get description => _description;
   String? get createdAt => _createdAt;
-  dynamic get oldCreatedAt => _oldCreatedAt;
-  dynamic get coverId => _coverId;
+  String? get oldCreatedAt => _oldCreatedAt;
+  num? get coverId => _coverId;
   num? get merchantId => _merchantId;
   dynamic get categoryId => _categoryId;
-  dynamic get cover => _cover;
-  Lang? get lang => _lang;
+  Cover? get cover => _cover;
   Merchant? get merchant => _merchant;
+  List<Tags>? get tags => _tags;
+  Lang? get lang => _lang;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
     map['title'] = _title;
+    map['suTitle'] = _suTitle;
+    map['code'] = _code;
     map['body'] = _body;
     map['langId'] = _langId;
     map['id_old'] = _idOld;
-    map['code'] = _code;
     map['publishedAt'] = _publishedAt;
     map['template'] = _template;
     map['date'] = _date;
@@ -171,22 +193,171 @@ ArticleItem copyWith({  num? id,
     map['coverId'] = _coverId;
     map['merchantId'] = _merchantId;
     map['categoryId'] = _categoryId;
-    map['cover'] = _cover;
-    if (_lang != null) {
-      map['lang'] = _lang?.toJson();
+    if (_cover != null) {
+      map['cover'] = _cover?.toJson();
     }
     if (_merchant != null) {
       map['merchant'] = _merchant?.toJson();
+    }
+    if (_tags != null) {
+      map['tags'] = _tags?.map((v) => v.toJson()).toList();
+    }
+    if (_lang != null) {
+      map['lang'] = _lang?.toJson();
     }
     return map;
   }
 
 }
 
+/// createdAt : "2024-03-01T06:41:45.438Z"
 /// id : 4
-/// code : "goody"
-/// title : "優品先生"
-/// createdAt : "2023-12-21T05:58:03.609Z"
+/// title : "en"
+/// code : "en"
+/// description : null
+
+Lang langFromJson(String str) => Lang.fromJson(json.decode(str));
+String langToJson(Lang data) => json.encode(data.toJson());
+class Lang {
+  Lang({
+      String? createdAt, 
+      num? id, 
+      String? title, 
+      String? code, 
+      dynamic description,}){
+    _createdAt = createdAt;
+    _id = id;
+    _title = title;
+    _code = code;
+    _description = description;
+}
+
+  Lang.fromJson(dynamic json) {
+    _createdAt = json['createdAt'];
+    _id = json['id'];
+    _title = json['title'];
+    _code = json['code'];
+    _description = json['description'];
+  }
+  String? _createdAt;
+  num? _id;
+  String? _title;
+  String? _code;
+  dynamic _description;
+Lang copyWith({  String? createdAt,
+  num? id,
+  String? title,
+  String? code,
+  dynamic description,
+}) => Lang(  createdAt: createdAt ?? _createdAt,
+  id: id ?? _id,
+  title: title ?? _title,
+  code: code ?? _code,
+  description: description ?? _description,
+);
+  String? get createdAt => _createdAt;
+  num? get id => _id;
+  String? get title => _title;
+  String? get code => _code;
+  dynamic get description => _description;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['createdAt'] = _createdAt;
+    map['id'] = _id;
+    map['title'] = _title;
+    map['code'] = _code;
+    map['description'] = _description;
+    return map;
+  }
+
+}
+
+/// id : 5
+/// merchantId : 1
+/// name : "英文"
+/// description : "1"
+/// inside : true
+/// createdAt : "2024-05-28T09:05:52.122Z"
+/// updatedAt : "2024-05-28T09:05:52.122Z"
+
+Tags tagsFromJson(String str) => Tags.fromJson(json.decode(str));
+String tagsToJson(Tags data) => json.encode(data.toJson());
+class Tags {
+  Tags({
+      num? id, 
+      num? merchantId, 
+      String? name, 
+      String? description, 
+      bool? inside, 
+      String? createdAt, 
+      String? updatedAt,}){
+    _id = id;
+    _merchantId = merchantId;
+    _name = name;
+    _description = description;
+    _inside = inside;
+    _createdAt = createdAt;
+    _updatedAt = updatedAt;
+}
+
+  Tags.fromJson(dynamic json) {
+    _id = json['id'];
+    _merchantId = json['merchantId'];
+    _name = json['name'];
+    _description = json['description'];
+    _inside = json['inside'];
+    _createdAt = json['createdAt'];
+    _updatedAt = json['updatedAt'];
+  }
+  num? _id;
+  num? _merchantId;
+  String? _name;
+  String? _description;
+  bool? _inside;
+  String? _createdAt;
+  String? _updatedAt;
+Tags copyWith({  num? id,
+  num? merchantId,
+  String? name,
+  String? description,
+  bool? inside,
+  String? createdAt,
+  String? updatedAt,
+}) => Tags(  id: id ?? _id,
+  merchantId: merchantId ?? _merchantId,
+  name: name ?? _name,
+  description: description ?? _description,
+  inside: inside ?? _inside,
+  createdAt: createdAt ?? _createdAt,
+  updatedAt: updatedAt ?? _updatedAt,
+);
+  num? get id => _id;
+  num? get merchantId => _merchantId;
+  String? get name => _name;
+  String? get description => _description;
+  bool? get inside => _inside;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = _id;
+    map['merchantId'] = _merchantId;
+    map['name'] = _name;
+    map['description'] = _description;
+    map['inside'] = _inside;
+    map['createdAt'] = _createdAt;
+    map['updatedAt'] = _updatedAt;
+    return map;
+  }
+
+}
+
+/// id : 1
+/// code : "scholar"
+/// title : "儒林教育"
+/// createdAt : "2023-12-21T05:58:03.597Z"
 
 Merchant merchantFromJson(String str) => Merchant.fromJson(json.decode(str));
 String merchantToJson(Merchant data) => json.encode(data.toJson());
@@ -237,64 +408,165 @@ Merchant copyWith({  num? id,
 
 }
 
-/// createdAt : "2023-12-28T11:00:00.020Z"
-/// id : 2
-/// title : "中文-中國澳門"
-/// code : "zh-hant"
-/// description : ""
+/// id : 553
+/// provider : "default"
+/// merchantId : 1
+/// name : "6_52b899a55a.jpg"
+/// hash : "ca6b34bef660aa74665cc514bb606d67cbcfdeb92ca6d477400dc314617e75a1"
+/// ext : ".jpg"
+/// mime : "image/jpeg"
+/// size : "643289"
+/// path : "ca6b34bef660aa74665cc514bb606d67cbcfdeb92ca6d477400dc314617e75a1_6_52b899a55a.jpg"
+/// upload : {"etag":"1b52b4fc74059d37bf38061ceeb9915f","versionId":null}
+/// createdAt : "2024-03-01T06:43:27.154Z"
+/// url : "https://storage.dev.heyday-catering.com:20443/saas-article/public/ca6b34bef660aa74665cc514bb606d67cbcfdeb92ca6d477400dc314617e75a1_6_52b899a55a.jpg"
 
-Lang langFromJson(String str) => Lang.fromJson(json.decode(str));
-String langToJson(Lang data) => json.encode(data.toJson());
-class Lang {
-  Lang({
-      String? createdAt, 
+Cover coverFromJson(String str) => Cover.fromJson(json.decode(str));
+String coverToJson(Cover data) => json.encode(data.toJson());
+class Cover {
+  Cover({
       num? id, 
-      String? title, 
-      String? code, 
-      String? description,}){
-    _createdAt = createdAt;
+      String? provider, 
+      num? merchantId, 
+      String? name, 
+      String? hash, 
+      String? ext, 
+      String? mime, 
+      String? size, 
+      String? path, 
+      Upload? upload, 
+      String? createdAt, 
+      String? url,}){
     _id = id;
-    _title = title;
-    _code = code;
-    _description = description;
+    _provider = provider;
+    _merchantId = merchantId;
+    _name = name;
+    _hash = hash;
+    _ext = ext;
+    _mime = mime;
+    _size = size;
+    _path = path;
+    _upload = upload;
+    _createdAt = createdAt;
+    _url = url;
 }
 
-  Lang.fromJson(dynamic json) {
-    _createdAt = json['createdAt'];
+  Cover.fromJson(dynamic json) {
     _id = json['id'];
-    _title = json['title'];
-    _code = json['code'];
-    _description = json['description'];
+    _provider = json['provider'];
+    _merchantId = json['merchantId'];
+    _name = json['name'];
+    _hash = json['hash'];
+    _ext = json['ext'];
+    _mime = json['mime'];
+    _size = json['size'];
+    _path = json['path'];
+    _upload = json['upload'] != null ? Upload.fromJson(json['upload']) : null;
+    _createdAt = json['createdAt'];
+    _url = json['url'];
   }
-  String? _createdAt;
   num? _id;
-  String? _title;
-  String? _code;
-  String? _description;
-Lang copyWith({  String? createdAt,
-  num? id,
-  String? title,
-  String? code,
-  String? description,
-}) => Lang(  createdAt: createdAt ?? _createdAt,
-  id: id ?? _id,
-  title: title ?? _title,
-  code: code ?? _code,
-  description: description ?? _description,
+  String? _provider;
+  num? _merchantId;
+  String? _name;
+  String? _hash;
+  String? _ext;
+  String? _mime;
+  String? _size;
+  String? _path;
+  Upload? _upload;
+  String? _createdAt;
+  String? _url;
+Cover copyWith({  num? id,
+  String? provider,
+  num? merchantId,
+  String? name,
+  String? hash,
+  String? ext,
+  String? mime,
+  String? size,
+  String? path,
+  Upload? upload,
+  String? createdAt,
+  String? url,
+}) => Cover(  id: id ?? _id,
+  provider: provider ?? _provider,
+  merchantId: merchantId ?? _merchantId,
+  name: name ?? _name,
+  hash: hash ?? _hash,
+  ext: ext ?? _ext,
+  mime: mime ?? _mime,
+  size: size ?? _size,
+  path: path ?? _path,
+  upload: upload ?? _upload,
+  createdAt: createdAt ?? _createdAt,
+  url: url ?? _url,
 );
-  String? get createdAt => _createdAt;
   num? get id => _id;
-  String? get title => _title;
-  String? get code => _code;
-  String? get description => _description;
+  String? get provider => _provider;
+  num? get merchantId => _merchantId;
+  String? get name => _name;
+  String? get hash => _hash;
+  String? get ext => _ext;
+  String? get mime => _mime;
+  String? get size => _size;
+  String? get path => _path;
+  Upload? get upload => _upload;
+  String? get createdAt => _createdAt;
+  String? get url => _url;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['createdAt'] = _createdAt;
     map['id'] = _id;
-    map['title'] = _title;
-    map['code'] = _code;
-    map['description'] = _description;
+    map['provider'] = _provider;
+    map['merchantId'] = _merchantId;
+    map['name'] = _name;
+    map['hash'] = _hash;
+    map['ext'] = _ext;
+    map['mime'] = _mime;
+    map['size'] = _size;
+    map['path'] = _path;
+    if (_upload != null) {
+      map['upload'] = _upload?.toJson();
+    }
+    map['createdAt'] = _createdAt;
+    map['url'] = _url;
+    return map;
+  }
+
+}
+
+/// etag : "1b52b4fc74059d37bf38061ceeb9915f"
+/// versionId : null
+
+Upload uploadFromJson(String str) => Upload.fromJson(json.decode(str));
+String uploadToJson(Upload data) => json.encode(data.toJson());
+class Upload {
+  Upload({
+      String? etag, 
+      dynamic versionId,}){
+    _etag = etag;
+    _versionId = versionId;
+}
+
+  Upload.fromJson(dynamic json) {
+    _etag = json['etag'];
+    _versionId = json['versionId'];
+  }
+  String? _etag;
+  dynamic _versionId;
+Upload copyWith({  String? etag,
+  dynamic versionId,
+}) => Upload(  etag: etag ?? _etag,
+  versionId: versionId ?? _versionId,
+);
+  String? get etag => _etag;
+  dynamic get versionId => _versionId;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['etag'] = _etag;
+    map['versionId'] = _versionId;
     return map;
   }
 

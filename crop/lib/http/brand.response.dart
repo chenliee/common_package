@@ -11,7 +11,7 @@ class BrandResponse {
   static Future<List<BrandItem>> getBrandItem() async {
     try {
       List<BrandItem> list = [];
-      List<dynamic> jsonLists = await BaseDio.getInstance().get(
+      var jsonLists = await BaseDio.getInstance().get(
         url: "/crop/api/merchant/${ServiceGlobal.instance.merchantId}/brand",
       );
       for (var item in jsonLists) {
@@ -25,7 +25,7 @@ class BrandResponse {
   }
 
   static Future<List<PlaceItem>?> getPlaceItem(
-      {String? brand, String? xLocation, String? keyword}) async {
+      {List? brand, String? xLocation, String? keyword}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "brand": brand,

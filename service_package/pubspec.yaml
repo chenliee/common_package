@@ -14,7 +14,7 @@ dependencies:
   fluttertoast: ^8.0.9
   intl: ^0.18.1
   image_picker: ^0.8.5+3
-  flutter_image_compress: ^1.1.2
+  flutter_image_compress: ^2.3.0
 #  amap_map_fluttify: ^2.0.2
 #  permission_handler: ^10.0.0
 #  scrollable_positioned_list: ^0.2.3

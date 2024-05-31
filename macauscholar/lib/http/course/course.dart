@@ -3,7 +3,7 @@ import 'package:service_package/api/api_gen.dart';
 import '../../model/course_item.dart';
 
 /// package:service_package/service_package.dart
-/// package:macauscholar1/macauscholar.dart
+/// package:macauscholar/macauscholar.dart
 @ApiGen('/course', file: 'CourseResponse', dio: 'MacauDio')
 abstract class Course {
   @ApiGen(

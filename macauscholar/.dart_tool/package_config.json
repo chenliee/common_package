@@ -20,6 +20,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "article",
+      "rootUri": "../../article",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "async",
       "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.flutter-io.cn/async-2.11.0",
       "packageUri": "lib/",
@@ -112,6 +118,12 @@
     {
       "name": "convert",
       "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.flutter-io.cn/convert-3.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "crop",
+      "rootUri": "../../crop",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -240,6 +252,12 @@
       "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.flutter-io.cn/glob-2.1.2",
       "packageUri": "lib/",
       "languageVersion": "2.19"
+    },
+    {
+      "name": "gold",
+      "rootUri": "../../gold",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
     },
     {
       "name": "graphs",
@@ -578,13 +596,13 @@
       "languageVersion": "2.19"
     },
     {
-      "name": "macauscholar1",
+      "name": "macauscholar",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-05-06T05:11:42.047369Z",
+  "generated": "2024-05-30T02:07:37.991120Z",
   "generator": "pub",
   "generatorVersion": "3.3.4"
 }

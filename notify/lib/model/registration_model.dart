@@ -20,6 +20,12 @@ RegistrationModel copyWith({  String? uuid,
 }) => RegistrationModel(  uuid: uuid ?? _uuid,
   data: data ?? _data,
 );
+
+  @override
+  String toString() {
+    return 'RegistrationModel{_uuid: $_uuid, _data: $_data}';
+  }
+
   String? get uuid => _uuid;
   Data? get data => _data;
 

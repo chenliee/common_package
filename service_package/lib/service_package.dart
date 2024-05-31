@@ -6,6 +6,7 @@ export 'api/api_gen.dart';
 export 'env/env.dart';
 export 'http/base_dio.dart';
 export 'src/global.dart';
+export 'utils/custom_navigator_observer.dart';
 export 'utils/datetime_util.dart';
 export 'utils/debug.dart';
 export 'utils/num_util.dart';

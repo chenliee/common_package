@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/io.dart';
+import 'package:flutter/foundation.dart';
 
 import '../service_package.dart';
 
@@ -139,13 +140,15 @@ class BaseDio {
     bool retry = false,
   }) async {
     Response? response;
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (client) {
-      client.badCertificateCallback = (cert, host, port) {
-        return true; // 返回true强制通过
+    if (!kIsWeb) {
+      (dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
+        final HttpClient client =
+            HttpClient(context: SecurityContext(withTrustedRoots: false));
+        client.badCertificateCallback =
+            ((X509Certificate cert, String host, int port) => true);
+        return client;
       };
-      return null;
-    };
+    }
     if (ServiceGlobal.instance.token.isNotEmpty) {
       dio.options.headers = {
         'content-type': 'application/json',
@@ -186,6 +189,7 @@ class BaseDio {
       ToastInfo.toastInfo(msg: "網絡請求超時，請檢查網絡$e");
       throw "網絡不給力，請求超時";
     } on DioException catch (error) {
+      print("?????+++>>>>$error");
       if (error.type == DioExceptionType.receiveTimeout ||
           error.type == DioExceptionType.connectionTimeout) {
         if (retry == false) {
@@ -200,7 +204,14 @@ class BaseDio {
               error.response?.data ??
               error.message.toString())
           : error.message.toString();
-      ToastInfo.toastInfo(msg: message, isApi: isApi);
+      ToastInfo.toastInfo(
+          msg: '${Env.appEnv != 'PRO' ? {
+              'code': error.response?.statusCode ?? 0,
+              'url': url,
+              'data':
+                  error.response?.data.toString() ?? error.message.toString()
+            } : message}',
+          isApi: isApi);
       Debug.printMsg(
           error.response?.data.toString() ?? error.message.toString(),
           StackTrace.current);

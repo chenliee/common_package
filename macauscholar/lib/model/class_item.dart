@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:macauscholar1/model/teacher_item.dart';
+import 'package:macauscholar/model/teacher_item.dart';
 
 import 'course_item.dart';
 

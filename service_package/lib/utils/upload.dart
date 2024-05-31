@@ -20,10 +20,10 @@ class UpLoad {
     final splitter = filePath.substring(0, (lastIndex));
     final outPath = "${splitter}_out${filePath.substring(lastIndex)}";
 
-    return await FlutterImageCompress.compressAndGetFile(
-      filePath,
-      outPath,
-      quality: 50,
+    return File(
+      (await FlutterImageCompress.compressAndGetFile(filePath, outPath,
+              quality: 50))!
+          .path,
     );
   }
 }

@@ -548,7 +548,7 @@ class OrderItems {
   num? get unitPrice => _unitPrice;
   num? get refundPrice => _refundPrice;
   String? get state => _state;
-
+  
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;

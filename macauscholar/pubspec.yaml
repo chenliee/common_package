@@ -1,4 +1,4 @@
-name: macauscholar1
+name: macauscholar
 description: "macauscholar api"
 version: 0.0.1
 homepage:
@@ -12,6 +12,12 @@ dependencies:
     sdk: flutter
   service_package:
     path: ../service_package
+  article:
+    path: ../article
+  gold:
+    path: ../gold
+  crop:
+    path: ../crop
 
 dev_dependencies:
   flutter_test:

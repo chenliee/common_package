@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'brand_item.dart';
+
 /// code : "B01"
 /// title : "優品店"
 /// address : "提督馬路14-14C 祐順工業大廈1樓A"
@@ -526,81 +528,5 @@ class WorkingHours {
     map['createdAt'] = _createdAt;
     map['updatedAt'] = _updatedAt;
     return map;
-  }
-}
-
-class Files {
-  Cover? cover;
-
-  Files({this.cover});
-
-  Files.fromJson(Map<String, dynamic> json) {
-    cover = json['cover'] != null ? new Cover.fromJson(json['cover']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.cover != null) {
-      data['cover'] = this.cover!.toJson();
-    }
-    return data;
-  }
-}
-
-class Cover {
-  String? title;
-  bool? multiple;
-  dynamic desc;
-  Value? value;
-
-  Cover({this.title, this.multiple, this.desc, this.value});
-
-  Cover.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
-    multiple = json['multiple'];
-    desc = json['desc'];
-    value = json['value'] != null ? new Value.fromJson(json['value']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['title'] = this.title;
-    data['multiple'] = this.multiple;
-    data['desc'] = this.desc;
-    if (this.value != null) {
-      data['value'] = this.value!.toJson();
-    }
-    return data;
-  }
-}
-
-class Value {
-  int? id;
-  String? url;
-  String? mime;
-  String? name;
-  String? size;
-  String? hash;
-
-  Value({this.id, this.url, this.mime, this.name, this.size, this.hash});
-
-  Value.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    url = json['url'];
-    mime = json['mime'];
-    name = json['name'];
-    size = json['size'];
-    hash = json['hash'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['url'] = this.url;
-    data['mime'] = this.mime;
-    data['name'] = this.name;
-    data['size'] = this.size;
-    data['hash'] = this.hash;
-    return data;
   }
 }

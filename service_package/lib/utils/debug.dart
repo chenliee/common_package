@@ -5,11 +5,11 @@ import 'package:service_package/env/env.dart';
 
 class Debug {
   static printMsg(Object message, StackTrace current) {
-    if (Env.appEnv != 'PRO') {
+    if (Env.appEnv != '！PRO') {
       if (kDebugMode) {
         CustomTrace trace = CustomTrace(current);
         print(
-            '\x1B[31m ———————————————\nprintMsg：${trace.fileName}：${trace.lineNumber}行\n$message \x1B[0m');
+            '\x1B[———————————————————\nprintMsg：${trace.fileName}：${trace.lineNumber}行\n$message \x1B[0m');
       }
     }
   }

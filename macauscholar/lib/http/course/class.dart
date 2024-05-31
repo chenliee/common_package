@@ -1,8 +1,8 @@
-import 'package:macauscholar1/macauscholar.dart';
+import 'package:macauscholar/macauscholar.dart';
 import 'package:service_package/api/api_gen.dart';
 
 /// package:service_package/service_package.dart
-/// package:macauscholar1/macauscholar.dart
+/// package:macauscholar/macauscholar.dart
 @ApiGen('/course', file: 'ClassResponse', dio: 'MacauDio')
 abstract class Class {
   @ApiGen(

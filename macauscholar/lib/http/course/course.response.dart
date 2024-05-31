@@ -5,7 +5,7 @@
 // **************************************************************************
 
 import 'package:service_package/service_package.dart';
-import 'package:macauscholar1/macauscholar.dart';
+import 'package:macauscholar/macauscholar.dart';
 
 class CourseResponse {
   static Future<List<CourseItem>> getCourseList(

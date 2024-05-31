@@ -10,7 +10,7 @@ class MacauDio extends BaseDio {
   static final EnvConfig _devConfig = EnvConfig(
     appTitle: "DEV",
     // appDomain: "http://10.100.202.100:7001",
-    appDomain: "https://saas.dev.macauscholar.com:20443",
+    appDomain: "http://10.100.203.206:7002/",
   );
   // 测试环境
   static final EnvConfig _uatConfig = EnvConfig(

@@ -25,7 +25,7 @@ abstract class BrandApi {
     target: 'PlaceItem',
   )
   Future<List<PlaceItem>?> getPlaceItem(
-      {String? brand, String? xLocation, String? keyword});
+      {List<String>? brand, String? xLocation, String? keyword});
 
   @ApiGen(
     '/api/merchant/\${ServiceGlobal.instance.merchantId}/place/\$place',

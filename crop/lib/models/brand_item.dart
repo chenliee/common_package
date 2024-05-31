@@ -8,8 +8,17 @@ class BrandItem {
   String? createdAt;
   String? updatedAt;
   dynamic deletedAt;
-  File? files;
+  Files? files;
   Infos? infos;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is BrandItem && runtimeType == other.runtimeType &&
+              id == other.id && code == other.code;
+
+  @override
+  int get hashCode => id.hashCode ^ code.hashCode;
 
   BrandItem(
       {this.id,
@@ -30,7 +39,7 @@ class BrandItem {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     deletedAt = json['deletedAt'];
-    files = json['files'] != null ? new File.fromJson(json['files']) : null;
+    files = json['files'] != null ? new Files.fromJson(json['files']) : null;
     infos = json['infos'] != null ? Infos.fromJson(json['infos']) : null;
   }
 
@@ -53,13 +62,15 @@ class BrandItem {
   }
 }
 
-class File {
-  Logo? logo;
+class Files {
+  File? logo;
+  File? cover;
 
-  File({this.logo});
+  Files({this.cover, this.logo});
 
-  File.fromJson(Map<String, dynamic> json) {
-    logo = json['logo'] != null ? Logo.fromJson(json['logo']) : null;
+  Files.fromJson(Map<String, dynamic> json) {
+    logo = json['logo'] != null ? File.fromJson(json['logo']) : null;
+    cover = json['cover'] != null ? File.fromJson(json['cover']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -67,19 +78,22 @@ class File {
     if (logo != null) {
       data['logo'] = logo!.toJson();
     }
+    if (cover != null) {
+      data['cover'] = cover!.toJson();
+    }
     return data;
   }
 }
 
-class Logo {
+class File {
   String? title;
   bool? multiple;
   dynamic desc;
   Values? value;
 
-  Logo({this.title, this.multiple, this.desc, this.value});
+  File({this.title, this.multiple, this.desc, this.value});
 
-  Logo.fromJson(Map<String, dynamic> json) {
+  File.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     multiple = json['multiple'];
     desc = json['desc'];
