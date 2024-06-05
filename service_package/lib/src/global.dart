@@ -23,6 +23,8 @@ class ServiceGlobal {
 
   static ServiceGlobal get instance => _instance;
 
+  late String deviceAccessToken;
+
   ServiceGlobal._internal() {
     merchantId = '';
     projectId = '';
@@ -32,6 +34,7 @@ class ServiceGlobal {
     shopId = '';
     pageSize = 10;
     toastCustomize = false;
+    deviceAccessToken = '';
   }
 
   static Future<void> initDistributor({
@@ -62,6 +65,12 @@ class ServiceGlobal {
       'content-type': 'application/json',
       'Authorization': 'Bearer $token'
     };
+  }
+
+  static Future<void> initDeviceAccessToken({
+    required String deviceAccessToken,
+  }) async {
+    ServiceGlobal.instance..deviceAccessToken = deviceAccessToken;
   }
 
   static Future<void> initUnauthorized({required Function function}) async {

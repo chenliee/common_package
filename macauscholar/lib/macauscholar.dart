@@ -11,4 +11,5 @@ export 'model/advert_model.dart';
 export 'model/class_item.dart';
 export 'model/course_item.dart';
 export 'model/home_model.dart';
+export 'model/shop_home_model.dart';
 export 'model/teacher_item.dart';

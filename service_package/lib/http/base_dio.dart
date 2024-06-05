@@ -149,16 +149,17 @@ class BaseDio {
         return client;
       };
     }
+    Map<String, dynamic> headers =
+        Map<String, dynamic>.from(dio.options.headers);
+
     if (ServiceGlobal.instance.token.isNotEmpty) {
-      dio.options.headers = {
-        'content-type': 'application/json',
-        'Authorization': 'Bearer ${ServiceGlobal.instance.token}'
-      };
-    } else {
-      dio.options.headers = {
-        'content-type': 'application/json',
-      };
+      headers['Authorization'] = 'Bearer ${ServiceGlobal.instance.token}';
     }
+    if (ServiceGlobal.instance.deviceAccessToken.isNotEmpty) {
+      headers['DEVICE_ACCESS_TOKEN'] = ServiceGlobal.instance.deviceAccessToken;
+    }
+    dio.options.headers = headers;
+
     try {
       if (method == 'get') {
         if (params != null && params.isNotEmpty) {
@@ -189,7 +190,6 @@ class BaseDio {
       ToastInfo.toastInfo(msg: "網絡請求超時，請檢查網絡$e");
       throw "網絡不給力，請求超時";
     } on DioException catch (error) {
-      print("?????+++>>>>$error");
       if (error.type == DioExceptionType.receiveTimeout ||
           error.type == DioExceptionType.connectionTimeout) {
         if (retry == false) {

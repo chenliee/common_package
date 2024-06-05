@@ -36,7 +36,6 @@ class GoodItem {
     _attrs = attrs;
   }
 
-
   @override
   String toString() {
     return 'GoodItem{_name: $_name}';
@@ -643,17 +642,17 @@ class Infos {
   Infos({
     Info? sellPrice,
     Info? instock,
-    Info? monthSales,
     Info? monthSale,
     Info? stock,
     Info? online,
+    Info? isRecommend,
   }) {
     _sellPrice = sellPrice;
     _instock = instock;
-    _monthSales = monthSales;
     _monthSale = monthSale;
     _stock = stock;
     _online = online;
+    _isRecommend = isRecommend;
   }
 
   Infos.fromJson(dynamic json) {
@@ -661,18 +660,19 @@ class Infos {
         json['sell_price'] != null ? Info.fromJson(json['sell_price']) : null;
     _instock = json['instock'] != null ? Info.fromJson(json['instock']) : null;
     _stock = json['stock'] != null ? Info.fromJson(json['stock']) : null;
-    _monthSales =
-        json['month_sales'] != null ? Info.fromJson(json['month_sales']) : null;
     _monthSale =
         json['month_sale'] != null ? Info.fromJson(json['month_sale']) : null;
     _online = json['online'] != null ? Info.fromJson(json['online']) : null;
+    _isRecommend = json['is_recommend'] != null
+        ? Info.fromJson(json['is_recommend'])
+        : null;
   }
   Info? _sellPrice;
   Info? _instock;
-  Info? _monthSales;
   Info? _monthSale;
   Info? _stock;
   Info? _online;
+  Info? _isRecommend;
 
   Infos copyWith({
     Info? sellPrice,
@@ -681,20 +681,22 @@ class Infos {
     Info? monthSales,
     Info? monthSale,
     Info? online,
+    Info? isRecommend,
   }) =>
       Infos(
-          sellPrice: sellPrice ?? _sellPrice,
-          instock: instock ?? _instock,
-          stock: stock ?? _stock,
-          online: online ?? _online,
-          monthSales: monthSales ?? _monthSales,
-          monthSale: monthSale ?? _monthSale);
+        sellPrice: sellPrice ?? _sellPrice,
+        instock: instock ?? _instock,
+        stock: stock ?? _stock,
+        online: online ?? _online,
+        monthSale: monthSale ?? _monthSale,
+        isRecommend: isRecommend ?? _isRecommend,
+      );
   Info? get sellPrice => _sellPrice;
   Info? get instock => _instock;
   Info? get stock => _stock;
-  Info? get monthSales => _monthSales;
   Info? get monthSale => _monthSale;
   Info? get online => _online;
+  Info? get isRecommend => _isRecommend;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -707,14 +709,14 @@ class Infos {
     if (_stock != null) {
       map['stock'] = _stock?.toJson();
     }
-    if (_monthSales != null) {
-      map['month_sales'] = _monthSales?.toJson();
-    }
     if (_monthSale != null) {
       map['month_sale'] = _monthSale?.toJson();
     }
     if (_online != null) {
       map['online'] = _online?.toJson();
+    }
+    if (_online != null) {
+      map['is_recommend'] = _isRecommend?.toJson();
     }
     return map;
   }

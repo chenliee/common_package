@@ -51,4 +51,18 @@ class ScholarResponse {
       rethrow;
     }
   }
+
+  static Future<ShopHomeModel> getShopHomeData() async {
+    try {
+      ShopHomeModel? item;
+      Map<String, dynamic> res = await MacauDio.getInstance().get(
+        url: "/api/scholar/shop/home/data",
+      );
+      item = ShopHomeModel.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
 }

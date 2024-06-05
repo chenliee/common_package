@@ -207,9 +207,39 @@
     },
     {
       "name": "flutter_image_compress",
-      "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.flutter-io.cn/flutter_image_compress-1.1.3",
+      "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.flutter-io.cn/flutter_image_compress-2.3.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_image_compress_common",
+      "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.flutter-io.cn/flutter_image_compress_common-1.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_image_compress_macos",
+      "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.flutter-io.cn/flutter_image_compress_macos-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_image_compress_ohos",
+      "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.flutter-io.cn/flutter_image_compress_ohos-0.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_image_compress_platform_interface",
+      "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.flutter-io.cn/flutter_image_compress_platform_interface-1.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_image_compress_web",
+      "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.flutter-io.cn/flutter_image_compress_web-0.1.4+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
     },
     {
       "name": "flutter_lints",
@@ -392,6 +422,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "marketing",
+      "rootUri": "../../marketing",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "matcher",
       "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.flutter-io.cn/matcher-0.12.16+1",
       "packageUri": "lib/",
@@ -466,6 +502,12 @@
     {
       "name": "pubspec_parse",
       "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.flutter-io.cn/pubspec_parse-1.2.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "service_hub",
+      "rootUri": "../../service_hub",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -602,7 +644,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-05-30T02:07:37.991120Z",
+  "generated": "2024-06-04T02:29:25.253838Z",
   "generator": "pub",
   "generatorVersion": "3.3.4"
 }

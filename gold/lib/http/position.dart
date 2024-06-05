@@ -23,11 +23,12 @@ class PositionResponse {
     }
   }
 
-  static Future getPositionList({required String position}) async {
+  static Future<List<PositionItem>?> getPositionList(
+      {required String position}) async {
     try {
       List<PositionItem> list = [];
-      List<dynamic> jsonLists =
-          await BaseDio.getInstance().get(url: '$advertUrl/$position/',isApi:false);
+      List<dynamic> jsonLists = await BaseDio.getInstance()
+          .get(url: '$advertUrl/$position/', isApi: false);
       for (var item in jsonLists) {
         list.add(PositionItem.fromJson(item));
       }

@@ -24,4 +24,11 @@ abstract class Class {
       })
   Future<AdvertModel> getAdvert(
       {required String position, required String brand, String? xLocation});
+
+  @ApiGen(
+    '/scholar/shop/home/data',
+    method: ApiGen.GET,
+    target: 'ShopHomeModel',
+  )
+  Future<ShopHomeModel> getShopHomeData();
 }

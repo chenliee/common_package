@@ -18,6 +18,10 @@ dependencies:
     path: ../gold
   crop:
     path: ../crop
+  marketing:
+    path: ../marketing
+  service_hub:
+    path: ../service_hub
 
 dev_dependencies:
   flutter_test:
