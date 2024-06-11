@@ -48,7 +48,7 @@ class BaseDio {
         }
         return handler.next(response); // 必须调用handler.next(response)
       },
-      onError: (DioError error, ErrorInterceptorHandler handler) {
+      onError: (DioException error, ErrorInterceptorHandler handler) {
         final responseData = error.response?.data;
         if (responseData is Map) {
           if (responseData.containsKey('success') &&
@@ -152,11 +152,15 @@ class BaseDio {
     Map<String, dynamic> headers =
         Map<String, dynamic>.from(dio.options.headers);
 
-    if (ServiceGlobal.instance.token.isNotEmpty) {
-      headers['Authorization'] = 'Bearer ${ServiceGlobal.instance.token}';
-    }
+    headers['Authorization'] = ServiceGlobal.instance.token.isNotEmpty
+        ? 'Bearer ${ServiceGlobal.instance.token}'
+        : null;
+
     if (ServiceGlobal.instance.deviceAccessToken.isNotEmpty) {
-      headers['DEVICE_ACCESS_TOKEN'] = ServiceGlobal.instance.deviceAccessToken;
+      headers['DEVICE_ACCESS_TOKEN'] =
+          ServiceGlobal.instance.deviceAccessToken.isNotEmpty
+              ? ServiceGlobal.instance.deviceAccessToken
+              : null;
     }
     dio.options.headers = headers;
 
@@ -255,17 +259,19 @@ class BaseDio {
       };
     }
     Response? response;
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (client) {
-      client.badCertificateCallback = (cert, host, port) {
-        return true; // 返回true强制通过
+    if (!kIsWeb) {
+      (dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
+        final HttpClient client =
+            HttpClient(context: SecurityContext(withTrustedRoots: false));
+        client.badCertificateCallback =
+            ((X509Certificate cert, String host, int port) => true);
+        return client;
       };
-      return null;
-    };
+    }
     try {
       response = await dio.post(url, data: data);
       return response.data;
-    } on DioError catch (error) {
+    } on DioException catch (error) {
       ToastInfo.toastInfo(
           msg: error.response?.data ?? error.message, isApi: true);
       Debug.printMsg(error.message ?? '', StackTrace.current);

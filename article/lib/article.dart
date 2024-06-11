@@ -1,4 +1,5 @@
 library article;
 
-export 'http/merchant.dart';
+export 'http/article_dio.dart';
+export 'http/merchant.response.dart';
 export 'model/article_item';

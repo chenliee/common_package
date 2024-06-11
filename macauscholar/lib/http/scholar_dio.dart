@@ -1,15 +1,16 @@
 import 'package:service_package/service_package.dart';
 
-class MacauDio extends BaseDio {
-  static MacauDio? _instance;
-  static MacauDio getInstance() {
-    _instance ??= MacauDio();
+class ScholarDio extends BaseDio {
+  static ScholarDio? _instance;
+  static ScholarDio getInstance() {
+    _instance ??= ScholarDio();
     return _instance!;
   }
 
   static final EnvConfig _devConfig = EnvConfig(
     appTitle: "DEV",
-    appDomain: "https://saas.dev.macauscholar.com:20443",
+    // appDomain: "http://10.100.202.100:7001",
+    appDomain: "http://10.100.203.206:7002/",
   );
   // 测试环境
   static final EnvConfig _uatConfig = EnvConfig(
@@ -35,7 +36,7 @@ class MacauDio extends BaseDio {
     }
   }
 
-  MacauDio() {
+  ScholarDio() {
     dio.options = BaseOptions(
       baseUrl: _getEnvConfig().appDomain,
       connectTimeout: const Duration(milliseconds: 15000),

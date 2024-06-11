@@ -14,6 +14,7 @@ class ApiGen {
   final String? contentType; // 请求数据contentType
   final Map<String, dynamic>? header; // 请求header
   final String dio; // 请求header
+  final bool isApi; // 请求header
 
   const ApiGen(
     this.url, {
@@ -25,5 +26,6 @@ class ApiGen {
     this.target,
     this.file,
     this.dio = 'BaseDio',
+    this.isApi = true,
   });
 }
