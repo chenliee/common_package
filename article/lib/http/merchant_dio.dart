@@ -4,11 +4,11 @@ import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
 import 'package:service_package/service_package.dart';
 
-class ArticleDio extends BaseDio {
-  static ArticleDio? _instance;
+class MerchantDio extends BaseDio {
+  static MerchantDio? _instance;
 
-  static ArticleDio getInstance() {
-    _instance ??= ArticleDio();
+  static MerchantDio getInstance() {
+    _instance ??= MerchantDio();
     return _instance!;
   }
 

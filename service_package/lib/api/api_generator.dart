@@ -138,7 +138,7 @@ class SimpleVisitor extends SimpleElementVisitor {
       funcInfo["paramsType"] = AnnotationUtil.getDataType(params!.objectValue);
       funcInfo["paramsValue"] = AnnotationUtil.getDataValue(params.objectValue);
     }
-    var isApi = reader.peek('isApi');
+    var isApi = reader.peek('isApi')?.boolValue;
     funcInfo["hasApi"] = isApi == false;
 
     var data = reader.peek('data');

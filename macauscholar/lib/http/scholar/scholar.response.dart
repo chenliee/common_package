@@ -79,4 +79,18 @@ class ScholarResponse {
       rethrow;
     }
   }
+
+  static Future<TuitionModel> getTuitionData() async {
+    try {
+      TuitionModel? item;
+      Map<String, dynamic> res = await ScholarDio.getInstance().get(
+        url: "/api/scholar/tuition/advert/data",
+      );
+      item = TuitionModel.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
 }

@@ -14,4 +14,5 @@ export 'model/course_item.dart';
 export 'model/home_model.dart';
 export 'model/shop_home_model.dart';
 export 'model/teacher_item.dart';
+export 'model/tuition_model.dart';
 export 'model/welfare_model.dart';

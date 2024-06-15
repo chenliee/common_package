@@ -19,4 +19,11 @@ abstract class Teacher {
   )
   Future<List<TeacherItem>> getTeacherList(
       {required int page, Map? sort, Map? filter, int? size, String? keyword});
+
+  @ApiGen(
+    '/api/teacher/\$id',
+    method: ApiGen.GET,
+    target: 'TeacherItem',
+  )
+  Future<TeacherItem> getTeacherItem({required String id});
 }

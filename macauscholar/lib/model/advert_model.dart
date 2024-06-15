@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:article/model/article_item';
+import 'package:article/model/article_item.dart';
 import 'package:crop/models/place_item.dart';
 import 'package:gold/model/position_item.dart';
 

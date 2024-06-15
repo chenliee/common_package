@@ -69,11 +69,18 @@ class ScoreResponse {
     }
   }
 
-  static Future<dynamic> getScoreList() async {
+  static Future<List<ScoreItem>> getScoreList(
+      {int? page, int? pageSize}) async {
     List<ScoreItem> list = [];
     try {
+      Map<String, dynamic> params = page == null
+          ? {}
+          : {
+              'page': page,
+              'pageSize': pageSize ?? ServiceGlobal.instance.pageSize,
+            };
       List<dynamic> jsonList =
-          await BaseDio.getInstance().get(url: scoreListUrl);
+          await BaseDio.getInstance().get(url: scoreListUrl, params: params);
       for (dynamic item in jsonList) {
         list.add(ScoreItem.fromJson(item));
       }
@@ -84,7 +91,7 @@ class ScoreResponse {
     return list;
   }
 
-  static Future<dynamic> getScoreItem({required num sid}) async {
+  static Future<ScoreItem> getScoreItem({required num sid}) async {
     late ScoreItem scoreItem;
     try {
       Map<String, dynamic> res =

@@ -38,4 +38,11 @@ abstract class Class {
     target: 'ShopHomeModel',
   )
   Future<ShopHomeModel> getShopHomeData();
+
+  @ApiGen(
+    '/scholar/tuition/advert/data',
+    method: ApiGen.GET,
+    target: 'TuitionModel',
+  )
+  Future<TuitionModel> getTuitionData();
 }

@@ -1,5 +1,6 @@
 library article;
 
-export 'http/article_dio.dart';
 export 'http/merchant.response.dart';
-export 'model/article_item';
+export 'http/merchant_dio.dart';
+export 'model/article_item.dart';
+export 'model/article_map.dart';
