@@ -1,12 +1,15 @@
 import 'package:service_package/service_package.dart';
 
 import '../flutter_notify.dart';
+import '../model/notify_model.dart';
 
 class NotifyRequest {
   static String url =
       '/notify/api/merchant/${ServiceGlobal.instance.merchantId}/channel';
   static String captchaUrl =
       '/notify/api/merchant/${ServiceGlobal.instance.merchantId}/captcha/';
+  static String notifyUrl =
+      '/notify/api/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/notify/';
 
   static Future<RegistrationModel?> deviceRegistration(
       {required String cid,
@@ -21,7 +24,6 @@ class NotifyRequest {
         'uuid': uuid,
         'code': code
       }..removeWhere((key, value) => value == null));
-
       final res = await BaseDio.getInstance()
           .post(url: '$url/$cid/device-registration', params: params);
       RegistrationModel authModel = RegistrationModel.fromJson(res);
@@ -65,6 +67,27 @@ class NotifyRequest {
           await BaseDio.getInstance().get(url: captchaUrl, params: params);
       CaptchaModel captchaModel = CaptchaModel.fromJson(res);
       return captchaModel;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<List<NotifyModel>> notifyList(
+      {required num page, required num size, List<String>? uid}) async {
+    try {
+      List<NotifyModel> list = [];
+      Map<String, dynamic>? params = {
+        "page": page,
+        "size": size,
+        'uid': uid,
+      };
+      final res =
+          await BaseDio.getInstance().get(url: notifyUrl, params: params);
+      for (var item in res) {
+        list.add(NotifyModel.fromJson(item));
+      }
+      return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

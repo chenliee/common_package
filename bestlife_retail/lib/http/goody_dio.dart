@@ -9,12 +9,14 @@ class GoodyDio extends BaseDio {
 
   static final EnvConfig _devConfig = EnvConfig(
     appTitle: "DEV",
+    // appDomain: "http://10.100.203.206:7001",
     // appDomain: "http://10.100.202.100:7001",
     appDomain: "https://dev.bestlife-retail.com:20443",
   );
   // 测试环境
   static final EnvConfig _uatConfig = EnvConfig(
     appTitle: "UAT",
+    // appDomain: "http://10.100.203.206:7001",
     appDomain: "https://uat.bestlife-retail.com",
   );
   // 发布环境
