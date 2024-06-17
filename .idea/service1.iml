@@ -258,6 +258,9 @@
       <excludeFolder url="file://$MODULE_DIR$/bestlife_retail/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/bestlife_retail/build" />
       <excludeFolder url="file://$MODULE_DIR$/bestlife_retail/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:article/article.dart';
 import 'package:gold/gold.dart';
+import 'package:macauscholar/model/photo_item.dart';
 
 import 'class_item.dart';
 
@@ -15,12 +16,16 @@ String homeModelToJson(HomeModel data) => json.encode(data.toJson());
 class HomeModel {
   HomeModel({
     List<PositionItem>? bannerList,
+    List<PositionItem>? homeButtonList,
     List<ClassItem>? hotCourse,
     List<ArticleItem>? scholarDynamic,
+    List<PhotoItem>? photoList,
   }) {
     _bannerList = bannerList;
+    _homeButtonList = homeButtonList;
     _hotCourse = hotCourse;
     _scholarDynamic = scholarDynamic;
+    _photoList = photoList;
   }
 
   HomeModel.fromJson(dynamic json) {
@@ -28,6 +33,12 @@ class HomeModel {
       _bannerList = [];
       json['bannerList'].forEach((v) {
         _bannerList?.add(PositionItem.fromJson(v));
+      });
+    }
+    if (json['homeButtonList'] != null) {
+      _homeButtonList = [];
+      json['homeButtonList'].forEach((v) {
+        _homeButtonList?.add(PositionItem.fromJson(v));
       });
     }
     if (json['hotCourse'] != null) {
@@ -42,34 +53,54 @@ class HomeModel {
         _scholarDynamic?.add(ArticleItem.fromJson(v));
       });
     }
+    if (json['photoList'] != null) {
+      _photoList = [];
+      json['photoList'].forEach((v) {
+        _photoList?.add(PhotoItem.fromJson(v));
+      });
+    }
   }
   List<PositionItem>? _bannerList;
+  List<PositionItem>? _homeButtonList;
   List<ClassItem>? _hotCourse;
   List<ArticleItem>? _scholarDynamic;
+  List<PhotoItem>? _photoList;
   HomeModel copyWith({
     List<PositionItem>? bannerList,
+    List<PositionItem>? homeButtonList,
     List<ClassItem>? hotCourse,
     List<ArticleItem>? scholarDynamic,
+    List<PhotoItem>? photoList,
   }) =>
       HomeModel(
         bannerList: bannerList ?? _bannerList,
+        homeButtonList: homeButtonList ?? _homeButtonList,
         hotCourse: hotCourse ?? _hotCourse,
         scholarDynamic: scholarDynamic ?? _scholarDynamic,
+        photoList: photoList ?? _photoList,
       );
   List<PositionItem>? get bannerList => _bannerList;
+  List<PositionItem>? get homeButtonList => _homeButtonList;
   List<ClassItem>? get hotCourse => _hotCourse;
   List<ArticleItem>? get scholarDynamic => _scholarDynamic;
+  List<PhotoItem>? get photoList => _photoList;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     if (_bannerList != null) {
       map['bannerList'] = _bannerList?.map((v) => v.toJson()).toList();
     }
+    if (_homeButtonList != null) {
+      map['homeButtonList'] = _homeButtonList?.map((v) => v.toJson()).toList();
+    }
     if (_hotCourse != null) {
       map['hotCourse'] = _hotCourse?.map((v) => v.toJson()).toList();
     }
     if (_scholarDynamic != null) {
       map['scholarDynamic'] = _scholarDynamic?.map((v) => v.toJson()).toList();
+    }
+    if (_photoList != null) {
+      map['photoList'] = _photoList?.map((v) => v.toJson()).toList();
     }
     return map;
   }

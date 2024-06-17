@@ -56,11 +56,13 @@ class AdInfo {
     String? link,
     String? cover,
     String? title,
+    String? theme,
     List<Goods>? goods,
   }) {
     _link = link;
     _cover = cover;
     _title = title;
+    _theme = theme;
     _goods = goods;
   }
 
@@ -68,6 +70,7 @@ class AdInfo {
     _link = json['link'];
     _cover = json['cover'];
     _title = json['title'];
+    _theme = json['theme'];
     if (json['goods'] != null) {
       _goods = [];
       json['goods'].forEach((v) {
@@ -78,22 +81,26 @@ class AdInfo {
   String? _link;
   String? _cover;
   String? _title;
+  String? _theme;
   List<Goods>? _goods;
   AdInfo copyWith({
     String? link,
     String? cover,
     String? title,
+    String? theme,
     List<Goods>? goods,
   }) =>
       AdInfo(
         link: link ?? _link,
         cover: cover ?? _cover,
         title: title ?? _title,
+        theme: theme ?? _theme,
         goods: goods ?? _goods,
       );
   String? get link => _link;
   String? get cover => _cover;
   String? get title => _title;
+  String? get theme => _theme;
   List<Goods>? get goods => _goods;
 
   Map<String, dynamic> toJson() {

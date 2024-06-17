@@ -11,10 +11,24 @@ class ScholarResponse {
   static Future<HomeModel> getHomeData() async {
     try {
       HomeModel? item;
-      Map<String, dynamic> res = await MacauDio.getInstance().get(
+      Map<String, dynamic> res = await ScholarDio.getInstance().get(
         url: "/api/scholar/get_home_data",
       );
       item = HomeModel.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<WelfareModel> getWelfareData() async {
+    try {
+      WelfareModel? item;
+      Map<String, dynamic> res = await ScholarDio.getInstance().get(
+        url: "/api/scholar/welfare/data",
+      );
+      item = WelfareModel.fromJson(res);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
@@ -39,7 +53,7 @@ class ScholarResponse {
         ..removeWhere((key, value) => value == null);
 
       AdvertModel? item;
-      Map<String, dynamic> res = await MacauDio.getInstance().get(
+      Map<String, dynamic> res = await ScholarDio.getInstance().get(
         url: "/api/scholar/place/advert/",
         params: params,
         data: data,
@@ -55,10 +69,24 @@ class ScholarResponse {
   static Future<ShopHomeModel> getShopHomeData() async {
     try {
       ShopHomeModel? item;
-      Map<String, dynamic> res = await MacauDio.getInstance().get(
+      Map<String, dynamic> res = await ScholarDio.getInstance().get(
         url: "/api/scholar/shop/home/data",
       );
       item = ShopHomeModel.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<TuitionModel> getTuitionData() async {
+    try {
+      TuitionModel? item;
+      Map<String, dynamic> res = await ScholarDio.getInstance().get(
+        url: "/api/scholar/tuition/advert/data",
+      );
+      item = TuitionModel.fromJson(res);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);

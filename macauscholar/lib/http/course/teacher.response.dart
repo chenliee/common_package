@@ -4,8 +4,8 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:service_package/service_package.dart';
 import 'package:macauscholar/macauscholar.dart';
+import 'package:service_package/service_package.dart';
 
 class TeacherResponse {
   static Future<List<TeacherItem>> getTeacherList(
@@ -33,6 +33,20 @@ class TeacherResponse {
         list.add(TeacherItem.fromJson(item));
       }
       return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<TeacherItem> getTeacherItem({required String id}) async {
+    try {
+      TeacherItem? item;
+      Map<String, dynamic> res = await MacauDio.getInstance().get(
+        url: "/course/api/teacher/$id",
+      );
+      item = TeacherItem.fromJson(res);
+      return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

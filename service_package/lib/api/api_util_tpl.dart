@@ -24,7 +24,9 @@ class {{fileName}} {
           await {{{dio}}}.getInstance().{{requestName}}(
             url: "{{{url}}}",
             {{#hasParams}}params: params,{{/hasParams}}
-            {{#hasData}}data: data,{{/hasData}});
+            {{#hasData}}data: data,{{/hasData}}
+            {{#hasApi}}isApi: false,{{/hasApi}}
+            );
         for (var item in jsonLists) {
           list.add({{className}}.fromJson(item));
         }
@@ -36,7 +38,9 @@ class {{fileName}} {
           await {{{dio}}}.getInstance().{{requestName}}(
             url: "{{{url}}}", 
             {{#hasParams}}params: params,{{/hasParams}}
-            {{#hasData}}data: data,{{/hasData}});
+            {{#hasData}}data: data,{{/hasData}}
+            {{#hasApi}}isApi: false,{{/hasApi}}
+          );
         item = {{className}}.fromJson(res);
         return item;
         {{/isList}}

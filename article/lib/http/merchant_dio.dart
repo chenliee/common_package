@@ -1,11 +1,14 @@
+import 'dart:io';
+
 import 'package:dio/io.dart';
+import 'package:flutter/foundation.dart';
 import 'package:service_package/service_package.dart';
 
-class ArticleDio extends BaseDio {
-  static ArticleDio? _instance;
+class MerchantDio extends BaseDio {
+  static MerchantDio? _instance;
 
-  static ArticleDio getInstance() {
-    _instance ??= ArticleDio();
+  static MerchantDio getInstance() {
+    _instance ??= MerchantDio();
     return _instance!;
   }
 
@@ -18,24 +21,24 @@ class ArticleDio extends BaseDio {
     Map<String, dynamic>? data,
     bool retry = false,
   }) async {
-    if (ServiceGlobal.instance.merchantToken.isNotEmpty) {
-      dio.options.headers = {
-        'content-type': 'application/json',
-        'Authorization': 'Bearer ${ServiceGlobal.instance.merchantToken}'
-      };
-    } else {
-      dio.options.headers = {
-        'content-type': 'application/json',
+    dio.options.headers = {
+      'content-type': 'application/json',
+      'Authorization': ServiceGlobal.instance.token.isNotEmpty
+          ? 'Bearer ${ServiceGlobal.instance.token}'
+          : ServiceGlobal.instance.merchantToken.isNotEmpty
+              ? 'Bearer ${ServiceGlobal.instance.merchantToken}'
+              : null
+    };
+    Response? response;
+    if (!kIsWeb) {
+      (dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
+        final HttpClient client =
+            HttpClient(context: SecurityContext(withTrustedRoots: false));
+        client.badCertificateCallback =
+            ((X509Certificate cert, String host, int port) => true);
+        return client;
       };
     }
-    Response? response;
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (client) {
-      client.badCertificateCallback = (cert, host, port) {
-        return true; // 返回true强制通过
-      };
-      return null;
-    };
     try {
       if (method == 'get') {
         if (params != null && params.isNotEmpty) {
@@ -61,7 +64,7 @@ class ArticleDio extends BaseDio {
         response = await dio.patch(url, data: params);
       }
       return response!.data;
-    } on DioError catch (error) {
+    } on DioException catch (error) {
       Debug.printMsg(error.response?.data ?? error.message, StackTrace.current);
       String message = error.response?.data is Map
           ? (error.response?.data['message'] ??

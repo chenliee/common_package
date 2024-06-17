@@ -3,7 +3,7 @@ import 'package:service_package/api/api_gen.dart';
 
 /// package:service_package/service_package.dart
 /// package:macauscholar/macauscholar.dart
-@ApiGen('/api', file: 'ScholarResponse', dio: 'MacauDio')
+@ApiGen('/api', file: 'ScholarResponse', dio: 'ScholarDio')
 abstract class Class {
   @ApiGen(
     '/scholar/get_home_data',
@@ -11,6 +11,13 @@ abstract class Class {
     target: 'HomeModel',
   )
   Future<HomeModel> getHomeData();
+
+  @ApiGen(
+    '/scholar/welfare/data',
+    method: ApiGen.GET,
+    target: 'WelfareModel',
+  )
+  Future<WelfareModel> getWelfareData();
 
   @ApiGen('/scholar/place/advert/',
       method: ApiGen.GET,
@@ -31,4 +38,11 @@ abstract class Class {
     target: 'ShopHomeModel',
   )
   Future<ShopHomeModel> getShopHomeData();
+
+  @ApiGen(
+    '/scholar/tuition/advert/data',
+    method: ApiGen.GET,
+    target: 'TuitionModel',
+  )
+  Future<TuitionModel> getTuitionData();
 }
