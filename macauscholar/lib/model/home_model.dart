@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:article/article.dart';
 import 'package:gold/gold.dart';
-import 'package:macauscholar/model/photo_item.dart';
+import 'package:storage/storage.dart';
 
 import 'class_item.dart';
 
@@ -19,7 +19,7 @@ class HomeModel {
     List<PositionItem>? homeButtonList,
     List<ClassItem>? hotCourse,
     List<ArticleItem>? scholarDynamic,
-    List<PhotoItem>? photoList,
+    List<CatalogItem>? photoList,
   }) {
     _bannerList = bannerList;
     _homeButtonList = homeButtonList;
@@ -56,7 +56,7 @@ class HomeModel {
     if (json['photoList'] != null) {
       _photoList = [];
       json['photoList'].forEach((v) {
-        _photoList?.add(PhotoItem.fromJson(v));
+        _photoList?.add(CatalogItem.fromJson(v));
       });
     }
   }
@@ -64,13 +64,13 @@ class HomeModel {
   List<PositionItem>? _homeButtonList;
   List<ClassItem>? _hotCourse;
   List<ArticleItem>? _scholarDynamic;
-  List<PhotoItem>? _photoList;
+  List<CatalogItem>? _photoList;
   HomeModel copyWith({
     List<PositionItem>? bannerList,
     List<PositionItem>? homeButtonList,
     List<ClassItem>? hotCourse,
     List<ArticleItem>? scholarDynamic,
-    List<PhotoItem>? photoList,
+    List<CatalogItem>? photoList,
   }) =>
       HomeModel(
         bannerList: bannerList ?? _bannerList,
@@ -83,7 +83,7 @@ class HomeModel {
   List<PositionItem>? get homeButtonList => _homeButtonList;
   List<ClassItem>? get hotCourse => _hotCourse;
   List<ArticleItem>? get scholarDynamic => _scholarDynamic;
-  List<PhotoItem>? get photoList => _photoList;
+  List<CatalogItem>? get photoList => _photoList;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

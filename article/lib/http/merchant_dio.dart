@@ -12,6 +12,17 @@ class MerchantDio extends BaseDio {
     return _instance!;
   }
 
+  Future<dynamic> customGet(
+      {required String url,
+      Map<String, dynamic>? params,
+      Map<String, dynamic>? data,
+      bool isApi = true}) async {
+    Map<String, dynamic>? res =
+        await requestHttp(url, 'get', params, isApi: isApi, data: data);
+    throwException(res, isApi, url, params);
+    return res;
+  }
+
   @override
   Future<dynamic> requestHttp(
     String url,

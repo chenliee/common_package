@@ -2,6 +2,7 @@ name: macauscholar
 description: "macauscholar api"
 version: 0.0.1
 homepage:
+publish_to: none
 
 environment:
   sdk: '>=3.3.4 <4.0.0'
@@ -22,6 +23,8 @@ dependencies:
     path: ../marketing
   service_hub:
     path: ../service_hub
+  storage:
+    path: ../storage
 
 dev_dependencies:
   flutter_test:

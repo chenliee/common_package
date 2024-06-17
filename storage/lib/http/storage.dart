@@ -12,14 +12,19 @@ abstract class Storage {
     params: {
       'size': '@C_size??ServiceGlobal.instance.pageSize',
       'page': '@C_page',
-      'project': '@C_project',
+      'project': '@C_ServiceGlobal.instance.projectId',
       'catalog': '@C_catalog',
     },
     target: 'FileItem',
   )
   Future<List<FileItem>?> getFileList(
-      {required int page,
-      int? size,
-      required String project,
-      required List<num> catalog});
+      {required int page, int? size, required List<num> catalog});
+
+  @ApiGen(
+    '/api/merchant/\${ServiceGlobal.instance.merchantId}/project/\${ServiceGlobal.instance.projectId}'
+    '/catalog/\$id/',
+    method: ApiGen.GET,
+    target: 'CatalogItem',
+  )
+  Future<CatalogItem?> getCatalog({required int id});
 }
