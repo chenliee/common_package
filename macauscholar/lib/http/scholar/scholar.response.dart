@@ -93,4 +93,18 @@ class ScholarResponse {
       rethrow;
     }
   }
+
+  static Future<CourseModel> getCourseData() async {
+    try {
+      CourseModel? item;
+      Map<String, dynamic> res = await ScholarDio.getInstance().get(
+        url: "/api/scholar/course/data",
+      );
+      item = CourseModel.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:macauscholar/macauscholar.dart';
+import 'package:macauscholar/model/course_model.dart';
 import 'package:service_package/api/api_gen.dart';
 
 /// package:service_package/service_package.dart
@@ -45,4 +46,11 @@ abstract class Class {
     target: 'TuitionModel',
   )
   Future<TuitionModel> getTuitionData();
+
+  @ApiGen(
+    '/scholar/course/data',
+    method: ApiGen.GET,
+    target: 'CourseModel',
+  )
+  Future<CourseModel> getCourseData();
 }

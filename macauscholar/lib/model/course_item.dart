@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-import 'class_item.dart';
+import 'package:storage/model/file_item.dart';
+
+import 'category_item.dart';
 
 /// id : 32
 /// oldObjectId : "VaXKbVfc3D"
@@ -30,7 +32,7 @@ class CourseItem {
     String? title,
     String? code,
     dynamic description,
-    dynamic cover,
+    FileItem? cover,
     dynamic contents,
     num? categoryId,
     dynamic color,
@@ -41,7 +43,7 @@ class CourseItem {
     dynamic deletedAt,
     String? createdAt,
     String? updatedAt,
-    Category? category,
+    CategoryItem? category,
   }) {
     _id = id;
     _oldObjectId = oldObjectId;
@@ -68,7 +70,7 @@ class CourseItem {
     _title = json['title'];
     _code = json['code'];
     _description = json['description'];
-    _cover = json['cover'];
+    _cover = json['cover'] != null ? FileItem.fromJson(json['cover']) : null;
     _contents = json['contents'];
     _categoryId = json['categoryId'];
     _color = json['color'];
@@ -79,15 +81,16 @@ class CourseItem {
     _deletedAt = json['deletedAt'];
     _createdAt = json['createdAt'];
     _updatedAt = json['updatedAt'];
-    _category =
-        json['category'] != null ? Category.fromJson(json['category']) : null;
+    _category = json['category'] != null
+        ? CategoryItem.fromJson(json['category'])
+        : null;
   }
   num? _id;
   String? _oldObjectId;
   String? _title;
   String? _code;
   dynamic _description;
-  dynamic _cover;
+  FileItem? _cover;
   dynamic _contents;
   num? _categoryId;
   dynamic _color;
@@ -98,14 +101,15 @@ class CourseItem {
   dynamic _deletedAt;
   String? _createdAt;
   String? _updatedAt;
-  Category? _category;
+  CategoryItem? _category;
+
   CourseItem copyWith({
     num? id,
     String? oldObjectId,
     String? title,
     String? code,
     dynamic description,
-    dynamic cover,
+    FileItem? cover,
     dynamic contents,
     num? categoryId,
     dynamic color,
@@ -116,7 +120,7 @@ class CourseItem {
     dynamic deletedAt,
     String? createdAt,
     String? updatedAt,
-    Category? category,
+    CategoryItem? category,
   }) =>
       CourseItem(
         id: id ?? _id,
@@ -137,12 +141,13 @@ class CourseItem {
         updatedAt: updatedAt ?? _updatedAt,
         category: category ?? _category,
       );
+
   num? get id => _id;
   String? get oldObjectId => _oldObjectId;
   String? get title => _title;
   String? get code => _code;
   dynamic get description => _description;
-  dynamic get cover => _cover;
+  FileItem? get cover => _cover;
   dynamic get contents => _contents;
   num? get categoryId => _categoryId;
   dynamic get color => _color;
@@ -153,7 +158,7 @@ class CourseItem {
   dynamic get deletedAt => _deletedAt;
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
-  Category? get category => _category;
+  CategoryItem? get category => _category;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -162,7 +167,9 @@ class CourseItem {
     map['title'] = _title;
     map['code'] = _code;
     map['description'] = _description;
-    map['cover'] = _cover;
+    if (_cover != null) {
+      map['cover'] = _cover?.toJson();
+    }
     map['contents'] = _contents;
     map['categoryId'] = _categoryId;
     map['color'] = _color;
