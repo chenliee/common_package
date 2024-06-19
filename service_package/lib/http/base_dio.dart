@@ -157,7 +157,7 @@ class BaseDio {
         : null;
 
     if (ServiceGlobal.instance.deviceAccessToken.isNotEmpty) {
-      headers['DEVICE_ACCESS_TOKEN'] =
+      headers['DEVICE-ACCESS-TOKEN'] =
           ServiceGlobal.instance.deviceAccessToken.isNotEmpty
               ? ServiceGlobal.instance.deviceAccessToken
               : null;

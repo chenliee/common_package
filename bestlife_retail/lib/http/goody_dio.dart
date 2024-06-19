@@ -44,8 +44,6 @@ class GoodyDio extends BaseDio {
       connectTimeout: const Duration(milliseconds: 15000),
       receiveTimeout: const Duration(milliseconds: 30000),
     );
-    dio.options.headers = {
-      'content-type': 'application/json',
-    };
+    dio.options.headers = {'content-type': 'application/json', 'time-stamp': DateTime.now().millisecondsSinceEpoch};
   }
 }
