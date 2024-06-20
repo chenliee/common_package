@@ -1,9 +1,10 @@
 import 'package:macauscholar/macauscholar.dart';
-import 'package:macauscholar/model/course_model.dart';
 import 'package:service_package/api/api_gen.dart';
+import 'package:storage/storage.dart';
 
 /// package:service_package/service_package.dart
 /// package:macauscholar/macauscholar.dart
+/// package:storage/storage.dart
 @ApiGen('/api', file: 'ScholarResponse', dio: 'ScholarDio')
 abstract class Class {
   @ApiGen(
@@ -53,4 +54,18 @@ abstract class Class {
     target: 'CourseModel',
   )
   Future<CourseModel> getCourseData();
+
+  @ApiGen(
+    '/scholar/photo/list',
+    method: ApiGen.GET,
+    target: 'CatalogItem',
+    params: {
+      'group': '@C_group',
+      'name': '@C_name',
+      'page': '@C_page',
+      'size': '@C_size',
+    },
+  )
+  Future<List<CatalogItem>> getPhotoList(
+      {required String group, required String name, num? page, num? size});
 }

@@ -33,7 +33,7 @@ class CourseItem {
     String? code,
     dynamic description,
     FileItem? cover,
-    dynamic contents,
+    String? contents,
     num? categoryId,
     dynamic color,
     num? order,
@@ -91,7 +91,7 @@ class CourseItem {
   String? _code;
   dynamic _description;
   FileItem? _cover;
-  dynamic _contents;
+  String? _contents;
   num? _categoryId;
   dynamic _color;
   num? _order;
@@ -110,7 +110,7 @@ class CourseItem {
     String? code,
     dynamic description,
     FileItem? cover,
-    dynamic contents,
+    String? contents,
     num? categoryId,
     dynamic color,
     num? order,
@@ -146,9 +146,9 @@ class CourseItem {
   String? get oldObjectId => _oldObjectId;
   String? get title => _title;
   String? get code => _code;
-  dynamic get description => _description;
+  String? get description => _description;
   FileItem? get cover => _cover;
-  dynamic get contents => _contents;
+  String? get contents => _contents;
   num? get categoryId => _categoryId;
   dynamic get color => _color;
   num? get order => _order;

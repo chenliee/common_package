@@ -6,6 +6,7 @@
 
 import 'package:service_package/service_package.dart';
 import 'package:macauscholar/macauscholar.dart';
+import 'package:storage/storage.dart';
 
 class ScholarResponse {
   static Future<HomeModel> getHomeData() async {
@@ -102,6 +103,35 @@ class ScholarResponse {
       );
       item = CourseModel.fromJson(res);
       return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<List<CatalogItem>> getPhotoList(
+      {required String group,
+      required String name,
+      num? page,
+      num? size}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "group": group,
+        "name": name,
+        "page": page,
+        "size": size,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      List<CatalogItem> list = [];
+      List<dynamic> jsonLists = await ScholarDio.getInstance().get(
+        url: "/api/scholar/photo/list",
+        params: params,
+      );
+      for (var item in jsonLists) {
+        list.add(CatalogItem.fromJson(item));
+      }
+      return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

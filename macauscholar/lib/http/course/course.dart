@@ -20,4 +20,11 @@ abstract class Course {
   )
   Future<List<CourseItem>> getCourseList(
       {required int page, Map? sort, Map? filter, int? size, String? keyword});
+
+  @ApiGen(
+    '/api/course/\$id',
+    method: ApiGen.GET,
+    target: 'CourseItem',
+  )
+  Future<CourseItem> getCourse({required String id});
 }
