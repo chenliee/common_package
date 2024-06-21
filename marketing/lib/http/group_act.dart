@@ -43,11 +43,18 @@ class GroupActResponse {
   }
 
   static Future payGroupAct(
-      {required num id, required String userId, String? redirectUrl}) async {
+      {required num id,
+      required String userId,
+      String? phone,
+      String? redirectUrl}) async {
     try {
-      Map<String, dynamic> params =
-          Map.from({'id': id, 'userId': userId, 'redirectUrl': redirectUrl})
-            ..removeWhere((key, value) => value == null);
+      Map<String, dynamic> params = Map.from({
+        'id': id,
+        'userId': userId,
+        "phone": phone,
+        'redirectUrl': redirectUrl
+      })
+        ..removeWhere((key, value) => value == null);
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: payGroupUrl, params: params);
       return res;
