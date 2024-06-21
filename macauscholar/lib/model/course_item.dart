@@ -44,6 +44,7 @@ class CourseItem {
     String? createdAt,
     String? updatedAt,
     CategoryItem? category,
+    String? marketing,
   }) {
     _id = id;
     _oldObjectId = oldObjectId;
@@ -62,6 +63,7 @@ class CourseItem {
     _createdAt = createdAt;
     _updatedAt = updatedAt;
     _category = category;
+    _marketing = marketing;
   }
 
   CourseItem.fromJson(dynamic json) {
@@ -81,6 +83,7 @@ class CourseItem {
     _deletedAt = json['deletedAt'];
     _createdAt = json['createdAt'];
     _updatedAt = json['updatedAt'];
+    _marketing = json['marketing'];
     _category = json['category'] != null
         ? CategoryItem.fromJson(json['category'])
         : null;
@@ -101,6 +104,7 @@ class CourseItem {
   dynamic _deletedAt;
   String? _createdAt;
   String? _updatedAt;
+  String? _marketing;
   CategoryItem? _category;
 
   CourseItem copyWith({
@@ -120,6 +124,7 @@ class CourseItem {
     dynamic deletedAt,
     String? createdAt,
     String? updatedAt,
+    String? marketing,
     CategoryItem? category,
   }) =>
       CourseItem(
@@ -140,6 +145,7 @@ class CourseItem {
         createdAt: createdAt ?? _createdAt,
         updatedAt: updatedAt ?? _updatedAt,
         category: category ?? _category,
+        marketing: marketing ?? _marketing,
       );
 
   num? get id => _id;
@@ -158,6 +164,7 @@ class CourseItem {
   dynamic get deletedAt => _deletedAt;
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
+  String? get marketing => _marketing;
   CategoryItem? get category => _category;
 
   Map<String, dynamic> toJson() {
@@ -180,6 +187,7 @@ class CourseItem {
     map['deletedAt'] = _deletedAt;
     map['createdAt'] = _createdAt;
     map['updatedAt'] = _updatedAt;
+    map['marketing'] = _marketing;
     if (_category != null) {
       map['category'] = _category?.toJson();
     }

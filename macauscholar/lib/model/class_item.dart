@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:macauscholar/model/teacher_item.dart';
+import 'package:storage/model/file_item.dart';
+import 'package:storage/storage.dart';
 
 import 'course_item.dart';
 
@@ -100,6 +102,8 @@ class ClassItem {
     CourseItem? course,
     TeacherItem? teacher,
     dynamic assistant,
+    Room? room,
+    FileItem? cover,
   }) {
     _id = id;
     _oldObjectId = oldObjectId;
@@ -146,6 +150,8 @@ class ClassItem {
     _course = course;
     _teacher = teacher;
     _assistant = assistant;
+    _room = room;
+    _cover = cover;
   }
 
   ClassItem.fromJson(dynamic json) {
@@ -196,6 +202,8 @@ class ClassItem {
         json['course'] != null ? CourseItem.fromJson(json['course']) : null;
     _teacher =
         json['teacher'] != null ? TeacherItem.fromJson(json['teacher']) : null;
+    _room = json['room'] != null ? Room.fromJson(json['room']) : null;
+    _cover = json['cover'] != null ? FileItem.fromJson(json['cover']) : null;
     _assistant = json['assistant'];
   }
   num? _id;
@@ -243,53 +251,56 @@ class ClassItem {
   CourseItem? _course;
   TeacherItem? _teacher;
   dynamic _assistant;
-  ClassItem copyWith({
-    num? id,
-    String? oldObjectId,
-    dynamic issue,
-    String? sn,
-    String? branch,
-    num? roomId,
-    num? categoryId,
-    num? brandId,
-    String? title,
-    num? fee,
-    num? registrationFee,
-    String? startDate,
-    String? endDate,
-    num? capacity,
-    num? lessons,
-    num? lessonPrice,
-    dynamic pdac,
-    List<String>? tags,
-    num? order,
-    List<num>? scheduleDays,
-    dynamic scheduleTimeStart,
-    dynamic scheduleTimeEnd,
-    dynamic oldMySQLID,
-    dynamic color,
-    dynamic classEndDate,
-    String? state,
-    Ext1? ext1,
-    dynamic ext2,
-    bool? showInAppList,
-    dynamic feeRemark,
-    String? classRemark,
-    String? timeRemark,
-    num? discountLessonPrice,
-    bool? discount,
-    bool? allBuy,
-    String? incomeMode,
-    num? courseId,
-    num? teacherId,
-    dynamic assistantId,
-    String? createdAt,
-    String? updatedAt,
-    Brand? brand,
-    CourseItem? course,
-    TeacherItem? teacher,
-    dynamic assistant,
-  }) =>
+  Room? _room;
+  FileItem? _cover;
+  ClassItem copyWith(
+          {num? id,
+          String? oldObjectId,
+          dynamic issue,
+          String? sn,
+          String? branch,
+          num? roomId,
+          num? categoryId,
+          num? brandId,
+          String? title,
+          num? fee,
+          num? registrationFee,
+          String? startDate,
+          String? endDate,
+          num? capacity,
+          num? lessons,
+          num? lessonPrice,
+          dynamic pdac,
+          List<String>? tags,
+          num? order,
+          List<num>? scheduleDays,
+          dynamic scheduleTimeStart,
+          dynamic scheduleTimeEnd,
+          dynamic oldMySQLID,
+          dynamic color,
+          dynamic classEndDate,
+          String? state,
+          Ext1? ext1,
+          dynamic ext2,
+          bool? showInAppList,
+          dynamic feeRemark,
+          String? classRemark,
+          String? timeRemark,
+          num? discountLessonPrice,
+          bool? discount,
+          bool? allBuy,
+          String? incomeMode,
+          num? courseId,
+          num? teacherId,
+          dynamic assistantId,
+          String? createdAt,
+          String? updatedAt,
+          Brand? brand,
+          CourseItem? course,
+          TeacherItem? teacher,
+          dynamic assistant,
+          Room? room,
+          FileItem? cover}) =>
       ClassItem(
         id: id ?? _id,
         oldObjectId: oldObjectId ?? _oldObjectId,
@@ -336,6 +347,8 @@ class ClassItem {
         course: course ?? _course,
         teacher: teacher ?? _teacher,
         assistant: assistant ?? _assistant,
+        room: room ?? _room,
+        cover: cover ?? _cover,
       );
   num? get id => _id;
   String? get oldObjectId => _oldObjectId;
@@ -382,6 +395,8 @@ class ClassItem {
   CourseItem? get course => _course;
   TeacherItem? get teacher => _teacher;
   dynamic get assistant => _assistant;
+  Room? get room => _room;
+  FileItem? get cover => _cover;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -436,6 +451,12 @@ class ClassItem {
     }
     if (_teacher != null) {
       map['teacher'] = _teacher?.toJson();
+    }
+    if (_room != null) {
+      map['room'] = _room?.toJson();
+    }
+    if (_cover != null) {
+      map['cover'] = _cover?.toJson();
     }
     map['assistant'] = _assistant;
     return map;
@@ -596,6 +617,99 @@ class Ext1 {
     final map = <String, dynamic>{};
     map['enrolled'] = _enrolled;
     map['realEnrolled'] = _realEnrolled;
+    return map;
+  }
+}
+
+Room roomFromJson(String str) => Room.fromJson(json.decode(str));
+String roomToJson(Room data) => json.encode(data.toJson());
+
+class Room {
+  Room({
+    num? id,
+    String? sn,
+    String? oldObjectId,
+    String? branch,
+    String? number,
+    String? name,
+    num? order,
+    String? createdAt,
+    String? updatedAt,
+  }) {
+    _id = id;
+    _sn = sn;
+    _oldObjectId = oldObjectId;
+    _branch = branch;
+    _number = number;
+    _name = name;
+    _order = order;
+    _createdAt = createdAt;
+    _updatedAt = updatedAt;
+  }
+
+  Room.fromJson(dynamic json) {
+    _id = json['id'];
+    _sn = json['sn'];
+    _oldObjectId = json['oldObjectId'];
+    _branch = json['branch'];
+    _number = json['number'];
+    _name = json['name'];
+    _order = json['order'];
+    _createdAt = json['createdAt'];
+    _updatedAt = json['updatedAt'];
+  }
+  num? _id;
+  String? _sn;
+  String? _oldObjectId;
+  String? _branch;
+  String? _number;
+  String? _name;
+  num? _order;
+  String? _createdAt;
+  String? _updatedAt;
+  Room copyWith({
+    num? id,
+    String? sn,
+    String? oldObjectId,
+    String? branch,
+    String? number,
+    String? name,
+    num? order,
+    String? createdAt,
+    String? updatedAt,
+  }) =>
+      Room(
+        id: id ?? _id,
+        sn: sn ?? _sn,
+        oldObjectId: oldObjectId ?? _oldObjectId,
+        branch: branch ?? _branch,
+        number: number ?? _number,
+        name: name ?? _name,
+        order: order ?? _order,
+        createdAt: createdAt ?? _createdAt,
+        updatedAt: updatedAt ?? _updatedAt,
+      );
+  num? get id => _id;
+  String? get sn => _sn;
+  String? get oldObjectId => _oldObjectId;
+  String? get branch => _branch;
+  String? get number => _number;
+  String? get name => _name;
+  num? get order => _order;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = _id;
+    map['sn'] = _sn;
+    map['oldObjectId'] = _oldObjectId;
+    map['branch'] = _branch;
+    map['number'] = _number;
+    map['name'] = _name;
+    map['order'] = _order;
+    map['createdAt'] = _createdAt;
+    map['updatedAt'] = _updatedAt;
     return map;
   }
 }
