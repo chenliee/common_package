@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
   service_package:
     path: ../service_package
+  article:
+    path: ../article
 
 dev_dependencies:
   flutter_test:

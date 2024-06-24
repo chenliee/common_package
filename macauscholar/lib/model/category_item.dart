@@ -37,6 +37,7 @@ class CategoryItem {
     String? updatedAt,
     List<CategoryItem>? children,
     List<CourseItem>? courses,
+    String? color,
   }) {
     _id = id;
     _oldObjectId = oldObjectId;
@@ -51,6 +52,7 @@ class CategoryItem {
     _updatedAt = updatedAt;
     _children = children;
     _courses = courses;
+    _color = color;
   }
 
   CategoryItem.fromJson(dynamic json) {
@@ -77,6 +79,7 @@ class CategoryItem {
         _courses?.add(CourseItem.fromJson(v));
       });
     }
+    _color = json['color'];
   }
   num? _id;
   String? _oldObjectId;
@@ -91,37 +94,38 @@ class CategoryItem {
   String? _updatedAt;
   List<CategoryItem>? _children;
   List<CourseItem>? _courses;
+  String? _color;
 
-  CategoryItem copyWith({
-    num? id,
-    String? oldObjectId,
-    String? title,
-    String? code,
-    String? description,
-    FileItem? cover,
-    dynamic parentId,
-    num? order,
-    num? oldMySQLID,
-    String? createdAt,
-    String? updatedAt,
-    List<CategoryItem>? children,
-    List<CourseItem>? courses,
-  }) =>
+  CategoryItem copyWith(
+          {num? id,
+          String? oldObjectId,
+          String? title,
+          String? code,
+          String? description,
+          FileItem? cover,
+          dynamic parentId,
+          num? order,
+          num? oldMySQLID,
+          String? createdAt,
+          String? updatedAt,
+          List<CategoryItem>? children,
+          List<CourseItem>? courses,
+          String? color}) =>
       CategoryItem(
-        id: id ?? _id,
-        oldObjectId: oldObjectId ?? _oldObjectId,
-        title: title ?? _title,
-        code: code ?? _code,
-        description: description ?? _description,
-        cover: cover ?? _cover,
-        parentId: parentId ?? _parentId,
-        order: order ?? _order,
-        oldMySQLID: oldMySQLID ?? _oldMySQLID,
-        createdAt: createdAt ?? _createdAt,
-        updatedAt: updatedAt ?? _updatedAt,
-        children: children ?? _children,
-        courses: courses ?? _courses,
-      );
+          id: id ?? _id,
+          oldObjectId: oldObjectId ?? _oldObjectId,
+          title: title ?? _title,
+          code: code ?? _code,
+          description: description ?? _description,
+          cover: cover ?? _cover,
+          parentId: parentId ?? _parentId,
+          order: order ?? _order,
+          oldMySQLID: oldMySQLID ?? _oldMySQLID,
+          createdAt: createdAt ?? _createdAt,
+          updatedAt: updatedAt ?? _updatedAt,
+          children: children ?? _children,
+          courses: courses ?? _courses,
+          color: color ?? _color);
 
   num? get id => _id;
   String? get oldObjectId => _oldObjectId;
@@ -136,6 +140,7 @@ class CategoryItem {
   String? get updatedAt => _updatedAt;
   List<CategoryItem>? get children => _children;
   List<CourseItem>? get courses => _courses;
+  String? get color => _color;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -149,6 +154,7 @@ class CategoryItem {
     map['oldMySQLID'] = _oldMySQLID;
     map['createdAt'] = _createdAt;
     map['updatedAt'] = _updatedAt;
+    map['color'] = _color;
     if (_children != null) {
       map['children'] = _children?.map((v) => v.toJson()).toList();
     }

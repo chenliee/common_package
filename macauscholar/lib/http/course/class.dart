@@ -19,4 +19,19 @@ abstract class Class {
   )
   Future<List<ClassItem>> getClassList(
       {required int page, Map? sort, Map? filter, int? size, String? keyword});
+
+  @ApiGen(
+    '/api/class/\$classId/enrollment',
+    params: {
+      'scholar': '@C_scholar',
+      'remark': '@C_remark',
+    },
+    method: ApiGen.POST,
+    target: 'EnrollmentItem',
+  )
+  Future<EnrollmentItem> addEnrollmentItem({
+    required String scholar,
+    required String classId,
+    String? remark,
+  });
 }

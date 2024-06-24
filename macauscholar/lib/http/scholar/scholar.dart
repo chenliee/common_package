@@ -1,10 +1,12 @@
 import 'package:macauscholar/macauscholar.dart';
+import 'package:member/member.dart';
 import 'package:service_package/api/api_gen.dart';
 import 'package:storage/storage.dart';
 
 /// package:service_package/service_package.dart
 /// package:macauscholar/macauscholar.dart
 /// package:storage/storage.dart
+/// package:member/member.dart
 @ApiGen('/api', file: 'ScholarResponse', dio: 'ScholarDio')
 abstract class Class {
   @ApiGen(
@@ -68,4 +70,44 @@ abstract class Class {
   )
   Future<List<CatalogItem>> getPhotoList(
       {required String group, required String name, num? page, num? size});
+
+  @ApiGen(
+    '/scholar/add/scholar',
+    method: ApiGen.POST,
+    target: 'RelationshipItem',
+    params: {
+      'displayName': '@C_displayName',
+      'gender': '@C_gender',
+      'phone': '@C_phone',
+      'birthday': '@C_birthday',
+      'userId': '@C_userId',
+    },
+  )
+  Future<RelationshipItem> addScholar({
+    required String displayName,
+    required String gender,
+    required String phone,
+    required String birthday,
+    required String userId,
+  });
+
+  @ApiGen(
+    '/scholar/getRelationShip',
+    method: ApiGen.GET,
+    target: 'ScholarItem',
+    params: {
+      'type': 'scholar',
+    },
+  )
+  Future<List<ScholarItem>> getScholarList();
+
+  @ApiGen(
+    '/scholar/getRelationShip',
+    method: ApiGen.GET,
+    target: 'StudentItem',
+    params: {
+      'type': 'student',
+    },
+  )
+  Future<List<StudentItem>> getStudentList();
 }

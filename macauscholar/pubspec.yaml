@@ -25,6 +25,8 @@ dependencies:
     path: ../service_hub
   storage:
     path: ../storage
+  member:
+    path: ../member
 
 dev_dependencies:
   flutter_test:

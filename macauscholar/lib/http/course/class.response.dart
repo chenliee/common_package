@@ -38,4 +38,28 @@ class ClassResponse {
       rethrow;
     }
   }
+
+  static Future<EnrollmentItem> addEnrollmentItem(
+      {required String scholar,
+      required String classId,
+      String? remark}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "scholar": scholar,
+        "remark": remark,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      EnrollmentItem? item;
+      Map<String, dynamic> res = await MacauDio.getInstance().post(
+        url: "/course/api/class/$classId/enrollment",
+        params: params,
+      );
+      item = EnrollmentItem.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
 }

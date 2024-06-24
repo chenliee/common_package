@@ -4,8 +4,9 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:service_package/service_package.dart';
 import 'package:macauscholar/macauscholar.dart';
+import 'package:member/member.dart';
+import 'package:service_package/service_package.dart';
 import 'package:storage/storage.dart';
 
 class ScholarResponse {
@@ -130,6 +131,79 @@ class ScholarResponse {
       );
       for (var item in jsonLists) {
         list.add(CatalogItem.fromJson(item));
+      }
+      return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<RelationshipItem> addScholar(
+      {required String displayName,
+      required String gender,
+      required String phone,
+      required String birthday,
+      required String userId}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "displayName": displayName,
+        "gender": gender,
+        "phone": phone,
+        "birthday": birthday,
+        "userId": userId,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      RelationshipItem? item;
+      Map<String, dynamic> res = await ScholarDio.getInstance().post(
+        url: "/api/scholar/add/scholar",
+        params: params,
+      );
+      item = RelationshipItem.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<List<ScholarItem>> getScholarList() async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "type": "scholar",
+      })
+        ..removeWhere((key, value) => value == null);
+
+      List<ScholarItem> list = [];
+      List<dynamic> jsonLists = await ScholarDio.getInstance().get(
+        url: "/api/scholar/getRelationShip",
+        params: params,
+      );
+      for (var item in jsonLists) {
+        list.add(ScholarItem.fromJson(item));
+      }
+      return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<List<StudentItem>> getStudentList() async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "type": "student",
+      })
+        ..removeWhere((key, value) => value == null);
+
+      List<StudentItem> list = [];
+      List<dynamic> jsonLists = await ScholarDio.getInstance().get(
+        url: "/api/scholar/getRelationShip",
+        params: params,
+      );
+      for (var item in jsonLists) {
+        list.add(StudentItem.fromJson(item));
       }
       return list;
     } catch (e) {
