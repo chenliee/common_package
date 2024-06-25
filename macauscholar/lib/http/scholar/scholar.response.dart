@@ -144,7 +144,8 @@ class ScholarResponse {
       required String gender,
       required String phone,
       required String birthday,
-      required String userId}) async {
+      required String userId,
+      required num typeId}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "displayName": displayName,
@@ -152,6 +153,7 @@ class ScholarResponse {
         "phone": phone,
         "birthday": birthday,
         "userId": userId,
+        "typeId": typeId,
       })
         ..removeWhere((key, value) => value == null);
 
@@ -230,6 +232,28 @@ class ScholarResponse {
         list.add(ParentItem.fromJson(item));
       }
       return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<RelationshipItem> unbindParent(
+      {required String userToSn, required String userSn}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "userToSn": userToSn,
+        "userSn": userSn,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      RelationshipItem? item;
+      Map<String, dynamic> res = await ScholarDio.getInstance().post(
+        url: "/api/scholar/unbind/studentParent",
+        params: params,
+      );
+      item = RelationshipItem.fromJson(res);
+      return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

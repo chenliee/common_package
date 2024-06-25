@@ -1,5 +1,4 @@
 import 'package:macauscholar/macauscholar.dart';
-import 'package:macauscholar/model/parent_item.dart';
 import 'package:member/member.dart';
 import 'package:service_package/api/api_gen.dart';
 import 'package:storage/storage.dart';
@@ -82,6 +81,7 @@ abstract class Class {
       'phone': '@C_phone',
       'birthday': '@C_birthday',
       'userId': '@C_userId',
+      'typeId': '@C_typeId'
     },
   )
   Future<RelationshipItem> addScholar({
@@ -90,6 +90,7 @@ abstract class Class {
     required String phone,
     required String birthday,
     required String userId,
+    required num typeId,
   });
 
   @ApiGen(
@@ -123,4 +124,16 @@ abstract class Class {
   )
   Future<List<ParentItem>> getParentList(
       {required String type, required String user});
+
+  @ApiGen(
+    '/scholar/unbind/studentParent',
+    method: ApiGen.POST,
+    target: 'RelationshipItem',
+    params: {
+      'userToSn': '@C_userToSn',
+      'userSn': '@C_userSn',
+    },
+  )
+  Future<RelationshipItem> unbindParent(
+      {required String userToSn, required String userSn});
 }
