@@ -139,14 +139,12 @@ class ScholarResponse {
     }
   }
 
-  static Future<RelationshipItem> addScholar({
-    required String displayName,
-    required String gender,
-    required String phone,
-    required String birthday,
-    required String userId,
-    required num typeId,
-  }) async {
+  static Future<RelationshipItem> addScholar(
+      {required String displayName,
+      required String gender,
+      required String phone,
+      required String birthday,
+      required String userId}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "displayName": displayName,
@@ -154,7 +152,6 @@ class ScholarResponse {
         "phone": phone,
         "birthday": birthday,
         "userId": userId,
-        "typeId": typeId
       })
         ..removeWhere((key, value) => value == null);
 
@@ -207,6 +204,30 @@ class ScholarResponse {
       );
       for (var item in jsonLists) {
         list.add(StudentItem.fromJson(item));
+      }
+      return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<List<ParentItem>> getParentList(
+      {required String type, required String user}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "type": type,
+        "user": user,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      List<ParentItem> list = [];
+      List<dynamic> jsonLists = await ScholarDio.getInstance().get(
+        url: "/api/scholar/getStudentParent",
+        params: params,
+      );
+      for (var item in jsonLists) {
+        list.add(ParentItem.fromJson(item));
       }
       return list;
     } catch (e) {

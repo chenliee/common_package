@@ -16,6 +16,7 @@ export 'model/course_item.dart';
 export 'model/course_model.dart';
 export 'model/enrollment_item.dart';
 export 'model/home_model.dart';
+export 'model/parent_item.dart';
 export 'model/scholar_item.dart';
 export 'model/shop_home_model.dart';
 export 'model/student_item.dart';

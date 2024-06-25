@@ -78,9 +78,7 @@ class BaseDio {
   }
 
   Future<dynamic> post(
-      {required String url,
-      Map<String, dynamic>? params,
-      bool isApi = true}) async {
+      {required String url, Object? params, bool isApi = true}) async {
     Map<String, dynamic>? res =
         await requestHttp(url, 'post', params, isApi: isApi);
     throwException(res, isApi, url, params);
@@ -117,8 +115,8 @@ class BaseDio {
     return res['data'];
   }
 
-  throwException(Map<String, dynamic>? res, bool isApi, String url,
-      Map<String, dynamic>? params) {
+  throwException(
+      Map<String, dynamic>? res, bool isApi, String url, dynamic params) {
     if (res != null) {
       if (res.containsKey('success') && !res['success']) {
         String message = Env.appEnv != 'PRO'
@@ -134,7 +132,7 @@ class BaseDio {
   Future<dynamic> requestHttp(
     String url,
     String method,
-    Map<String, dynamic>? params, {
+    dynamic params, {
     bool isApi = true,
     Map<String, dynamic>? data,
     bool retry = false,

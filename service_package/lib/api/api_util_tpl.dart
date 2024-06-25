@@ -9,8 +9,13 @@ class {{fileName}} {
     static {{{functionDefine}}} async{
       try {
         {{#hasParams}}
-        {{{paramsType}}} params = Map.from({{{paramsValue}}})
-        ..removeWhere((key, value) => value == null);
+          {{#isMap}}
+            {{{paramsType}}} params = Map.from({{{paramsValue}}})
+            ..removeWhere((key, value) => value == null);
+          {{/isMap}}
+          {{^isMap}}
+            dynamic params = {{paramsValue}};
+          {{/isMap}}
         {{/hasParams}}
         
         {{#hasData}}

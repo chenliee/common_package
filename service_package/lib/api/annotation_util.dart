@@ -46,6 +46,8 @@ class AnnotationUtil {
   static String getDataType(DartObject value) {
     if (value.type!.isDartCoreMap) {
       return "Map<String, dynamic>";
+    } else if (value.type is DynamicType) {
+      return "dynamic";
     } else if (value.type!.isDartCoreString) {
       return "String";
     } else if (value.type!.isDartCoreList) {
@@ -56,8 +58,6 @@ class AnnotationUtil {
       return "double";
     } else if (value.type!.isDartCoreBool) {
       return "bool";
-    } else if (value.type!.isDynamic) {
-      return "dynamic";
     } else {
       throw Exception("data type not support!!!");
     }

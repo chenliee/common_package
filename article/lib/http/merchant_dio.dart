@@ -27,7 +27,7 @@ class MerchantDio extends BaseDio {
   Future<dynamic> requestHttp(
     String url,
     String method,
-    Map<String, dynamic>? params, {
+    dynamic params, {
     bool isApi = true,
     Map<String, dynamic>? data,
     bool retry = false,

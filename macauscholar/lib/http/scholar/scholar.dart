@@ -1,4 +1,5 @@
 import 'package:macauscholar/macauscholar.dart';
+import 'package:macauscholar/model/parent_item.dart';
 import 'package:member/member.dart';
 import 'package:service_package/api/api_gen.dart';
 import 'package:storage/storage.dart';
@@ -110,4 +111,16 @@ abstract class Class {
     },
   )
   Future<List<StudentItem>> getStudentList();
+
+  @ApiGen(
+    '/scholar/getStudentParent',
+    method: ApiGen.GET,
+    target: 'ParentItem',
+    params: {
+      'type': '@C_type',
+      'user': '@C_user',
+    },
+  )
+  Future<List<ParentItem>> getParentList(
+      {required String type, required String user});
 }

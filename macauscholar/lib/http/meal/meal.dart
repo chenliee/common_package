@@ -34,5 +34,7 @@ abstract class MenuClass {
       target: 'MenuSection')
   Future<List<MenuSection>> menuSection({required int menu});
 
-
+  @ApiGen('/api/order/priceTable/',
+      params: '@C_data', method: ApiGen.POST, target: 'MenuCart')
+  Future<MenuCart> addMenuShopCart({required dynamic data});
 }

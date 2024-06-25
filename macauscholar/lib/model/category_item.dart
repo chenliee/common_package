@@ -73,8 +73,8 @@ class CategoryItem {
         _children?.add(CategoryItem.fromJson(v));
       });
     }
+    _courses = [];
     if (json['courses'] != null) {
-      _courses = [];
       json['courses'].forEach((v) {
         _courses?.add(CourseItem.fromJson(v));
       });

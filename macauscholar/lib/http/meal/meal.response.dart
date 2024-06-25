@@ -75,12 +75,12 @@ class MealResponse {
 
   static Future<MenuCart> addMenuShopCart({required dynamic data}) async {
     try {
-
+      dynamic params = data;
 
       MenuCart? item;
       Map<String, dynamic> res = await MacauDio.getInstance().post(
-        url: "/meal/api/order/priceTable",
-        params: data,
+        url: "/meal/api/order/priceTable/",
+        params: params,
       );
       item = MenuCart.fromJson(res);
       return item;
