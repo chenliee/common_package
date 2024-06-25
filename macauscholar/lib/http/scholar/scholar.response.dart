@@ -139,12 +139,14 @@ class ScholarResponse {
     }
   }
 
-  static Future<RelationshipItem> addScholar(
-      {required String displayName,
-      required String gender,
-      required String phone,
-      required String birthday,
-      required String userId}) async {
+  static Future<RelationshipItem> addScholar({
+    required String displayName,
+    required String gender,
+    required String phone,
+    required String birthday,
+    required String userId,
+    required num typeId,
+  }) async {
     try {
       Map<String, dynamic> params = Map.from({
         "displayName": displayName,
@@ -152,6 +154,7 @@ class ScholarResponse {
         "phone": phone,
         "birthday": birthday,
         "userId": userId,
+        "typeId": typeId
       })
         ..removeWhere((key, value) => value == null);
 
