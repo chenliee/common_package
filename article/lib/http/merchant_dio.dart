@@ -34,10 +34,10 @@ class MerchantDio extends BaseDio {
   }) async {
     dio.options.headers = {
       'content-type': 'application/json',
-      'Authorization': ServiceGlobal.instance.token.isNotEmpty
-          ? 'Bearer ${ServiceGlobal.instance.token}'
-          : ServiceGlobal.instance.merchantToken.isNotEmpty
-              ? 'Bearer ${ServiceGlobal.instance.merchantToken}'
+      'Authorization': ServiceGlobal.instance.merchantToken.isNotEmpty
+          ? 'Bearer ${ServiceGlobal.instance.merchantToken}'
+          : ServiceGlobal.instance.token.isNotEmpty
+              ? 'Bearer ${ServiceGlobal.instance.token}'
               : null
     };
     Response? response;
