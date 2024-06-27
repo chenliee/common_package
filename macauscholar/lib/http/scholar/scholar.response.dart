@@ -4,10 +4,10 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:service_package/service_package.dart';
 import 'package:macauscholar/macauscholar.dart';
-import 'package:storage/storage.dart';
 import 'package:member/member.dart';
+import 'package:service_package/service_package.dart';
+import 'package:storage/storage.dart';
 
 class ScholarResponse {
   static Future<HomeModel> getHomeData() async {
@@ -39,9 +39,7 @@ class ScholarResponse {
   }
 
   static Future<AdvertModel> getAdvert(
-      {required String position,
-      required String brand,
-      String? xLocation}) async {
+      {required String position, String? brand, String? xLocation}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "position": position,

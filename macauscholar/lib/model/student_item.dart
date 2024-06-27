@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:macauscholar/macauscholar.dart';
 import 'package:macauscholar/model/subscription_item.dart';
+import 'package:storage/storage.dart';
 
 /// id : 455
 /// gender : null
@@ -61,7 +63,7 @@ class StudentItem {
     dynamic enName,
     num? schoolId,
     List<dynamic>? allergyFoods,
-    dynamic avatar,
+    FileItem? avatar,
     List<dynamic>? parentRequirements,
     String? member,
     dynamic registrationForm,
@@ -72,8 +74,8 @@ class StudentItem {
     String? createdAt,
     String? updatedAt,
     dynamic deletedAt,
-    School? school,
-    SchoolYear? schoolYear,
+    SchoolItem? school,
+    SchoolYearItem? schoolYear,
     List<Subscription>? subscription,
   }) {
     _id = id;
@@ -151,7 +153,7 @@ class StudentItem {
       //   _allergyFoods?.add(Dynamic.fromJson(v));
       // });
     }
-    _avatar = json['avatar'];
+    _avatar = json['avatar'] != null ? FileItem.fromJson(json['avatar']) : null;
     if (json['parentRequirements'] != null) {
       _parentRequirements = json['parentRequirements'];
       // json['parentRequirements'].forEach((v) {
@@ -167,9 +169,10 @@ class StudentItem {
     _createdAt = json['createdAt'];
     _updatedAt = json['updatedAt'];
     _deletedAt = json['deletedAt'];
-    _school = json['school'] != null ? School.fromJson(json['school']) : null;
+    _school =
+        json['school'] != null ? SchoolItem.fromJson(json['school']) : null;
     _schoolYear = json['schoolYear'] != null
-        ? SchoolYear.fromJson(json['schoolYear'])
+        ? SchoolYearItem.fromJson(json['schoolYear'])
         : null;
     if (json['subscription'] != null) {
       _subscription = [];
@@ -197,7 +200,7 @@ class StudentItem {
   dynamic _enName;
   num? _schoolId;
   List<dynamic>? _allergyFoods;
-  dynamic _avatar;
+  FileItem? _avatar;
   List<dynamic>? _parentRequirements;
   String? _member;
   dynamic _registrationForm;
@@ -208,8 +211,8 @@ class StudentItem {
   String? _createdAt;
   String? _updatedAt;
   dynamic _deletedAt;
-  School? _school;
-  SchoolYear? _schoolYear;
+  SchoolItem? _school;
+  SchoolYearItem? _schoolYear;
   List<Subscription>? _subscription;
   StudentItem copyWith({
     num? id,
@@ -231,7 +234,7 @@ class StudentItem {
     dynamic enName,
     num? schoolId,
     List<dynamic>? allergyFoods,
-    dynamic avatar,
+    FileItem? avatar,
     List<dynamic>? parentRequirements,
     String? member,
     dynamic registrationForm,
@@ -242,8 +245,8 @@ class StudentItem {
     String? createdAt,
     String? updatedAt,
     dynamic deletedAt,
-    School? school,
-    SchoolYear? schoolYear,
+    SchoolItem? school,
+    SchoolYearItem? schoolYear,
     List<Subscription>? subscription,
   }) =>
       StudentItem(
@@ -300,7 +303,7 @@ class StudentItem {
   dynamic get enName => _enName;
   num? get schoolId => _schoolId;
   List<dynamic>? get allergyFoods => _allergyFoods;
-  dynamic get avatar => _avatar;
+  FileItem? get avatar => _avatar;
   List<dynamic>? get parentRequirements => _parentRequirements;
   String? get member => _member;
   dynamic get registrationForm => _registrationForm;
@@ -311,8 +314,8 @@ class StudentItem {
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
   dynamic get deletedAt => _deletedAt;
-  School? get school => _school;
-  SchoolYear? get schoolYear => _schoolYear;
+  SchoolItem? get school => _school;
+  SchoolYearItem? get schoolYear => _schoolYear;
   List<Subscription>? get subscription => _subscription;
 
   Map<String, dynamic> toJson() {
@@ -344,7 +347,8 @@ class StudentItem {
     if (_allergyFoods != null) {
       map['allergyFoods'] = _allergyFoods?.map((v) => v.toJson()).toList();
     }
-    map['avatar'] = _avatar;
+    map['avatar'] = _avatar?.toJson();
+
     if (_parentRequirements != null) {
       map['parentRequirements'] =
           _parentRequirements?.map((v) => v.toJson()).toList();
@@ -367,213 +371,6 @@ class StudentItem {
     if (_subscription != null) {
       map['subscription'] = _subscription?.map((v) => v.toJson()).toList();
     }
-    return map;
-  }
-}
-
-/// id : 20
-/// code : "p4"
-/// type : "primary"
-/// order : 0
-/// displayName : "小四"
-/// createdAt : "2021-11-19T10:35:53.799Z"
-/// updatedAt : "2024-05-10T09:37:51.984Z"
-/// deletedAt : null
-/// mongoDBId : "mmp7sFlK4B"
-
-SchoolYear schoolYearFromJson(String str) =>
-    SchoolYear.fromJson(json.decode(str));
-String schoolYearToJson(SchoolYear data) => json.encode(data.toJson());
-
-class SchoolYear {
-  SchoolYear({
-    num? id,
-    String? code,
-    String? type,
-    num? order,
-    String? displayName,
-    String? createdAt,
-    String? updatedAt,
-    dynamic deletedAt,
-    String? mongoDBId,
-  }) {
-    _id = id;
-    _code = code;
-    _type = type;
-    _order = order;
-    _displayName = displayName;
-    _createdAt = createdAt;
-    _updatedAt = updatedAt;
-    _deletedAt = deletedAt;
-    _mongoDBId = mongoDBId;
-  }
-
-  SchoolYear.fromJson(dynamic json) {
-    _id = json['id'];
-    _code = json['code'];
-    _type = json['type'];
-    _order = json['order'];
-    _displayName = json['displayName'];
-    _createdAt = json['createdAt'];
-    _updatedAt = json['updatedAt'];
-    _deletedAt = json['deletedAt'];
-    _mongoDBId = json['mongoDBId'];
-  }
-  num? _id;
-  String? _code;
-  String? _type;
-  num? _order;
-  String? _displayName;
-  String? _createdAt;
-  String? _updatedAt;
-  dynamic _deletedAt;
-  String? _mongoDBId;
-  SchoolYear copyWith({
-    num? id,
-    String? code,
-    String? type,
-    num? order,
-    String? displayName,
-    String? createdAt,
-    String? updatedAt,
-    dynamic deletedAt,
-    String? mongoDBId,
-  }) =>
-      SchoolYear(
-        id: id ?? _id,
-        code: code ?? _code,
-        type: type ?? _type,
-        order: order ?? _order,
-        displayName: displayName ?? _displayName,
-        createdAt: createdAt ?? _createdAt,
-        updatedAt: updatedAt ?? _updatedAt,
-        deletedAt: deletedAt ?? _deletedAt,
-        mongoDBId: mongoDBId ?? _mongoDBId,
-      );
-  num? get id => _id;
-  String? get code => _code;
-  String? get type => _type;
-  num? get order => _order;
-  String? get displayName => _displayName;
-  String? get createdAt => _createdAt;
-  String? get updatedAt => _updatedAt;
-  dynamic get deletedAt => _deletedAt;
-  String? get mongoDBId => _mongoDBId;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = _id;
-    map['code'] = _code;
-    map['type'] = _type;
-    map['order'] = _order;
-    map['displayName'] = _displayName;
-    map['createdAt'] = _createdAt;
-    map['updatedAt'] = _updatedAt;
-    map['deletedAt'] = _deletedAt;
-    map['mongoDBId'] = _mongoDBId;
-    return map;
-  }
-}
-
-/// id : 15
-/// code : "S001"
-/// displayName : "聖公會(澳門)蔡高中學"
-/// order : 0
-/// location : null
-/// mongoDBId : "6UPCW14kTs"
-/// createdAt : "2021-11-19T10:35:52.615Z"
-/// updatedAt : "2024-05-10T09:36:23.117Z"
-/// deletedAt : null
-
-School schoolFromJson(String str) => School.fromJson(json.decode(str));
-String schoolToJson(School data) => json.encode(data.toJson());
-
-class School {
-  School({
-    num? id,
-    String? code,
-    String? displayName,
-    num? order,
-    dynamic location,
-    String? mongoDBId,
-    String? createdAt,
-    String? updatedAt,
-    dynamic deletedAt,
-  }) {
-    _id = id;
-    _code = code;
-    _displayName = displayName;
-    _order = order;
-    _location = location;
-    _mongoDBId = mongoDBId;
-    _createdAt = createdAt;
-    _updatedAt = updatedAt;
-    _deletedAt = deletedAt;
-  }
-
-  School.fromJson(dynamic json) {
-    _id = json['id'];
-    _code = json['code'];
-    _displayName = json['displayName'];
-    _order = json['order'];
-    _location = json['location'];
-    _mongoDBId = json['mongoDBId'];
-    _createdAt = json['createdAt'];
-    _updatedAt = json['updatedAt'];
-    _deletedAt = json['deletedAt'];
-  }
-  num? _id;
-  String? _code;
-  String? _displayName;
-  num? _order;
-  dynamic _location;
-  String? _mongoDBId;
-  String? _createdAt;
-  String? _updatedAt;
-  dynamic _deletedAt;
-  School copyWith({
-    num? id,
-    String? code,
-    String? displayName,
-    num? order,
-    dynamic location,
-    String? mongoDBId,
-    String? createdAt,
-    String? updatedAt,
-    dynamic deletedAt,
-  }) =>
-      School(
-        id: id ?? _id,
-        code: code ?? _code,
-        displayName: displayName ?? _displayName,
-        order: order ?? _order,
-        location: location ?? _location,
-        mongoDBId: mongoDBId ?? _mongoDBId,
-        createdAt: createdAt ?? _createdAt,
-        updatedAt: updatedAt ?? _updatedAt,
-        deletedAt: deletedAt ?? _deletedAt,
-      );
-  num? get id => _id;
-  String? get code => _code;
-  String? get displayName => _displayName;
-  num? get order => _order;
-  dynamic get location => _location;
-  String? get mongoDBId => _mongoDBId;
-  String? get createdAt => _createdAt;
-  String? get updatedAt => _updatedAt;
-  dynamic get deletedAt => _deletedAt;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = _id;
-    map['code'] = _code;
-    map['displayName'] = _displayName;
-    map['order'] = _order;
-    map['location'] = _location;
-    map['mongoDBId'] = _mongoDBId;
-    map['createdAt'] = _createdAt;
-    map['updatedAt'] = _updatedAt;
-    map['deletedAt'] = _deletedAt;
     return map;
   }
 }

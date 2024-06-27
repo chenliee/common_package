@@ -34,7 +34,7 @@ abstract class Class {
         'x-location': '@C_xLocation'
       })
   Future<AdvertModel> getAdvert(
-      {required String position, required String brand, String? xLocation});
+      {required String position, String? brand, String? xLocation});
 
   @ApiGen(
     '/scholar/shop/home/data',
