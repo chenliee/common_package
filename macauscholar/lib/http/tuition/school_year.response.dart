@@ -4,8 +4,8 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:macauscholar/macauscholar.dart';
 import 'package:service_package/service_package.dart';
+import 'package:macauscholar/macauscholar.dart';
 
 class SchoolYearResponse {
   static Future<List<SchoolYearItem>> getSchoolYearList(

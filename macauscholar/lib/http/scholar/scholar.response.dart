@@ -4,10 +4,10 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:macauscholar/macauscholar.dart';
-import 'package:member/member.dart';
 import 'package:service_package/service_package.dart';
+import 'package:macauscholar/macauscholar.dart';
 import 'package:storage/storage.dart';
+import 'package:member/member.dart';
 
 class ScholarResponse {
   static Future<HomeModel> getHomeData() async {
