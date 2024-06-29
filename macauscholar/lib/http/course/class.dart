@@ -27,9 +27,9 @@ abstract class Class {
       'remark': '@C_remark',
     },
     method: ApiGen.POST,
-    target: 'EnrollmentItem',
+    target: 'CourseEnrollmentItem',
   )
-  Future<EnrollmentItem> addEnrollmentItem({
+  Future<CourseEnrollmentItem> addEnrollmentItem({
     required String scholar,
     required String classId,
     String? remark,

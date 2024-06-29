@@ -81,7 +81,7 @@ class Goods {
         _items?.add(Items.fromJson(v));
       });
     }
-    _date = json['date'];
+    _date = json['date'].toString();
     _index = json['index'];
   }
   List<Items>? _items;
@@ -97,7 +97,7 @@ class Goods {
     if (_items != null) {
       map['items'] = _items?.map((v) => v.toJson()).toList();
     }
-    map['date'] = _date;
+    map['date'] = _date.toString();
     map['index'] = _index;
     return map;
   }
@@ -151,7 +151,8 @@ class Items {
     _realAmount = json['realAmount'];
     _type = json['type'];
     _menuId = json['menuId'];
-    _menuSectionId = json['menuSectionId'] != null ? json['menuSectionId'].cast<num>() : [];
+    _menuSectionId =
+        json['menuSectionId'] != null ? json['menuSectionId'].cast<num>() : [];
     _foodIds = json['foodIds'] != null ? json['foodIds'].cast<num>() : [];
     _cover = json['cover'];
     _description = json['description'];
@@ -291,11 +292,19 @@ class Menu {
     _description = json['description'];
     _withArea = json['withArea'];
     _withBranches = json['withBranches'];
-    _withoutBranches = json['withoutBranches'] != null ? json['withoutBranches'].cast<String>() : [];
+    _withoutBranches = json['withoutBranches'] != null
+        ? json['withoutBranches'].cast<String>()
+        : [];
     _canBuy = json['canBuy'];
-    _foodsWeightTable = json['foodsWeightTable'] != null ? FoodsWeightTable.fromJson(json['foodsWeightTable']) : null;
-    _foodsTitleTable = json['foodsTitleTable'] != null ? FoodsTitleTable.fromJson(json['foodsTitleTable']) : null;
-    _foodsSunitTable = json['foodsSunitTable'] != null ? FoodsSunitTable.fromJson(json['foodsSunitTable']) : null;
+    _foodsWeightTable = json['foodsWeightTable'] != null
+        ? FoodsWeightTable.fromJson(json['foodsWeightTable'])
+        : null;
+    _foodsTitleTable = json['foodsTitleTable'] != null
+        ? FoodsTitleTable.fromJson(json['foodsTitleTable'])
+        : null;
+    _foodsSunitTable = json['foodsSunitTable'] != null
+        ? FoodsSunitTable.fromJson(json['foodsSunitTable'])
+        : null;
     _dateFrom = json['dateFrom'];
     _dateTo = json['dateTo'];
     _createdAt = json['createdAt'];
@@ -373,7 +382,8 @@ class Menu {
     map['withArea'] = _withArea;
     map['withBranches'] = _withBranches;
     if (_withoutBranches != null) {
-      map['withoutBranches'] = _withoutBranches?.map((v) => v.toJson()).toList();
+      map['withoutBranches'] =
+          _withoutBranches?.map((v) => v.toJson()).toList();
     }
     map['canBuy'] = _canBuy;
     if (_foodsWeightTable != null) {
@@ -447,8 +457,10 @@ class Cover {
 /// pbd1A1HZjk : "g"
 /// warXjqCwS3 : "a"
 
-FoodsSunitTable foodsSunitTableFromJson(String str) => FoodsSunitTable.fromJson(json.decode(str));
-String foodsSunitTableToJson(FoodsSunitTable data) => json.encode(data.toJson());
+FoodsSunitTable foodsSunitTableFromJson(String str) =>
+    FoodsSunitTable.fromJson(json.decode(str));
+String foodsSunitTableToJson(FoodsSunitTable data) =>
+    json.encode(data.toJson());
 
 class FoodsSunitTable {
   FoodsSunitTable({
@@ -522,8 +534,10 @@ class FoodsSunitTable {
 /// pbd1A1HZjk : "火腿蒸水蛋"
 /// warXjqCwS3 : "藍莓包"
 
-FoodsTitleTable foodsTitleTableFromJson(String str) => FoodsTitleTable.fromJson(json.decode(str));
-String foodsTitleTableToJson(FoodsTitleTable data) => json.encode(data.toJson());
+FoodsTitleTable foodsTitleTableFromJson(String str) =>
+    FoodsTitleTable.fromJson(json.decode(str));
+String foodsTitleTableToJson(FoodsTitleTable data) =>
+    json.encode(data.toJson());
 
 class FoodsTitleTable {
   FoodsTitleTable({
@@ -597,8 +611,10 @@ class FoodsTitleTable {
 /// pbd1A1HZjk : 100
 /// warXjqCwS3 : 1
 
-FoodsWeightTable foodsWeightTableFromJson(String str) => FoodsWeightTable.fromJson(json.decode(str));
-String foodsWeightTableToJson(FoodsWeightTable data) => json.encode(data.toJson());
+FoodsWeightTable foodsWeightTableFromJson(String str) =>
+    FoodsWeightTable.fromJson(json.decode(str));
+String foodsWeightTableToJson(FoodsWeightTable data) =>
+    json.encode(data.toJson());
 
 class FoodsWeightTable {
   FoodsWeightTable({

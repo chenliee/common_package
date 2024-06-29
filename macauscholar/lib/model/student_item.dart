@@ -68,6 +68,7 @@ class StudentItem {
     String? member,
     dynamic registrationForm,
     String? joinAt,
+    String? birthday,
     String? mongoDBId,
     dynamic referrerId,
     dynamic card,
@@ -102,6 +103,7 @@ class StudentItem {
     _member = member;
     _registrationForm = registrationForm;
     _joinAt = joinAt;
+    _birthday = birthday;
     _mongoDBId = mongoDBId;
     _referrerId = referrerId;
     _card = card;
@@ -163,6 +165,7 @@ class StudentItem {
     _member = json['member'];
     _registrationForm = json['registrationForm'];
     _joinAt = json['joinAt'];
+    _birthday = json['birthday'];
     _mongoDBId = json['mongoDBId'];
     _referrerId = json['referrerId'];
     _card = json['card'];
@@ -205,6 +208,7 @@ class StudentItem {
   String? _member;
   dynamic _registrationForm;
   String? _joinAt;
+  String? _birthday;
   String? _mongoDBId;
   dynamic _referrerId;
   dynamic _card;
@@ -239,6 +243,7 @@ class StudentItem {
     String? member,
     dynamic registrationForm,
     String? joinAt,
+    String? birthday,
     String? mongoDBId,
     dynamic referrerId,
     dynamic card,
@@ -274,6 +279,7 @@ class StudentItem {
         member: member ?? _member,
         registrationForm: registrationForm ?? _registrationForm,
         joinAt: joinAt ?? _joinAt,
+        birthday: birthday ?? _birthday,
         mongoDBId: mongoDBId ?? _mongoDBId,
         referrerId: referrerId ?? _referrerId,
         card: card ?? _card,
@@ -308,6 +314,7 @@ class StudentItem {
   String? get member => _member;
   dynamic get registrationForm => _registrationForm;
   String? get joinAt => _joinAt;
+  String? get birthday => _birthday;
   String? get mongoDBId => _mongoDBId;
   dynamic get referrerId => _referrerId;
   dynamic get card => _card;
@@ -356,6 +363,7 @@ class StudentItem {
     map['member'] = _member;
     map['registrationForm'] = _registrationForm;
     map['joinAt'] = _joinAt;
+    map['birthday'] = _birthday;
     map['mongoDBId'] = _mongoDBId;
     map['referrerId'] = _referrerId;
     map['card'] = _card;

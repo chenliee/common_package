@@ -114,6 +114,13 @@ abstract class Class {
   Future<List<StudentItem>> getStudentList();
 
   @ApiGen(
+    '/scholar/getUserIdentity',
+    method: ApiGen.GET,
+    target: 'IdentityModel',
+  )
+  Future<IdentityModel> getUserIdentity();
+
+  @ApiGen(
     '/scholar/getStudentParent',
     method: ApiGen.GET,
     target: 'ParentItem',

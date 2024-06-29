@@ -4,10 +4,8 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:macauscholar/macauscholar.dart';
 import 'package:service_package/service_package.dart';
-
-import '../../model/package_item.dart';
+import 'package:macauscholar/macauscholar.dart';
 
 class EnrollmentResponse {
   static Future<List<PackageItem>> getPackageList(
@@ -35,6 +33,24 @@ class EnrollmentResponse {
         list.add(PackageItem.fromJson(item));
       }
       return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<TuitionEnrollmentItem> applyEnrollment(
+      {required Map<String, dynamic> arg}) async {
+    try {
+      dynamic params = arg;
+
+      TuitionEnrollmentItem? item;
+      Map<String, dynamic> res = await MacauDio.getInstance().post(
+        url: "/tuition/api/apply",
+        params: params,
+      );
+      item = TuitionEnrollmentItem.fromJson(res);
+      return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

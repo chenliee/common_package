@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 /// id : 587
 /// oldObjectId : "PMzzySANWT"
 /// studentName : "張芯淇"
@@ -28,38 +29,42 @@ import 'dart:convert';
 /// order : {"id":948,"oldObjectId":"oNcjiLox7n","number":"CO2310140002","studentNO":"YLC02301016","studentName":"張芯淇","branch":"B1000957","studentId":513,"classId":1,"brandId":3,"courseId":32,"categoryId":6,"orderBy":"YL1326","phone":"62044433","transactions":null,"amount":2223,"realAmount":1667,"paid":1667,"paidWait":0,"paidConfirm":0,"remark":null,"orderAt":"2023-10-14T01:22:48.034Z","state":"init","courseFee":1667,"incomeMode":"wholeClass","orderDate":"2023-09-30T16:00:00.000Z","coupons":null,"createdAt":"2024-03-28T09:05:26.569Z","updatedAt":"2024-03-28T09:05:26.569Z"}
 /// student : {"id":513,"oldObjectId":"cRBm9yt12n","displayName":"張芯淇","number":"YLC02301016","avatar":null,"gender":"f","phone":"62044433","birthday":null,"referrerId":null,"autoTransfer":"0","bindMember":null,"oldMySQLID":null,"createdAt":"2024-03-27T06:26:51.969Z","updatedAt":"2024-03-27T06:49:31.774Z"}
 
-EnrollmentItem enrollmentItemFromJson(String str) => EnrollmentItem.fromJson(json.decode(str));
-String enrollmentItemToJson(EnrollmentItem data) => json.encode(data.toJson());
-class EnrollmentItem {
-  EnrollmentItem({
-      num? id, 
-      String? oldObjectId, 
-      String? studentName, 
-      String? phone, 
-      String? gender, 
-      bool? pdac, 
-      String? sn, 
-      String? way, 
-      num? classId, 
-      num? studentId, 
-      num? orderId, 
-      String? handler, 
-      String? state, 
-      dynamic remark, 
-      String? joinAt, 
-      dynamic lessons, 
-      dynamic lessonAmount, 
-      dynamic lessonRealAmount, 
-      dynamic birthday, 
-      dynamic payMessage, 
-      dynamic transactionSN, 
-      dynamic referrer, 
-      dynamic uid, 
-      bool? enableTransfer, 
-      String? createdAt, 
-      String? updatedAt, 
-      Order? order, 
-      Student? student,}){
+CourseEnrollmentItem enrollmentItemFromJson(String str) =>
+    CourseEnrollmentItem.fromJson(json.decode(str));
+String enrollmentItemToJson(CourseEnrollmentItem data) =>
+    json.encode(data.toJson());
+
+class CourseEnrollmentItem {
+  CourseEnrollmentItem({
+    num? id,
+    String? oldObjectId,
+    String? studentName,
+    String? phone,
+    String? gender,
+    bool? pdac,
+    String? sn,
+    String? way,
+    num? classId,
+    num? studentId,
+    num? orderId,
+    String? handler,
+    String? state,
+    dynamic remark,
+    String? joinAt,
+    dynamic lessons,
+    dynamic lessonAmount,
+    dynamic lessonRealAmount,
+    dynamic birthday,
+    dynamic payMessage,
+    dynamic transactionSN,
+    dynamic referrer,
+    dynamic uid,
+    bool? enableTransfer,
+    String? createdAt,
+    String? updatedAt,
+    Order? order,
+    Student? student,
+  }) {
     _id = id;
     _oldObjectId = oldObjectId;
     _studentName = studentName;
@@ -88,9 +93,9 @@ class EnrollmentItem {
     _updatedAt = updatedAt;
     _order = order;
     _student = student;
-}
+  }
 
-  EnrollmentItem.fromJson(dynamic json) {
+  CourseEnrollmentItem.fromJson(dynamic json) {
     _id = json['id'];
     _oldObjectId = json['oldObjectId'];
     _studentName = json['studentName'];
@@ -118,7 +123,8 @@ class EnrollmentItem {
     _createdAt = json['createdAt'];
     _updatedAt = json['updatedAt'];
     _order = json['order'] != null ? Order.fromJson(json['order']) : null;
-    _student = json['student'] != null ? Student.fromJson(json['student']) : null;
+    _student =
+        json['student'] != null ? Student.fromJson(json['student']) : null;
   }
   num? _id;
   String? _oldObjectId;
@@ -148,63 +154,66 @@ class EnrollmentItem {
   String? _updatedAt;
   Order? _order;
   Student? _student;
-EnrollmentItem copyWith({  num? id,
-  String? oldObjectId,
-  String? studentName,
-  String? phone,
-  String? gender,
-  bool? pdac,
-  String? sn,
-  String? way,
-  num? classId,
-  num? studentId,
-  num? orderId,
-  String? handler,
-  String? state,
-  dynamic remark,
-  String? joinAt,
-  dynamic lessons,
-  dynamic lessonAmount,
-  dynamic lessonRealAmount,
-  dynamic birthday,
-  dynamic payMessage,
-  dynamic transactionSN,
-  dynamic referrer,
-  dynamic uid,
-  bool? enableTransfer,
-  String? createdAt,
-  String? updatedAt,
-  Order? order,
-  Student? student,
-}) => EnrollmentItem(  id: id ?? _id,
-  oldObjectId: oldObjectId ?? _oldObjectId,
-  studentName: studentName ?? _studentName,
-  phone: phone ?? _phone,
-  gender: gender ?? _gender,
-  pdac: pdac ?? _pdac,
-  sn: sn ?? _sn,
-  way: way ?? _way,
-  classId: classId ?? _classId,
-  studentId: studentId ?? _studentId,
-  orderId: orderId ?? _orderId,
-  handler: handler ?? _handler,
-  state: state ?? _state,
-  remark: remark ?? _remark,
-  joinAt: joinAt ?? _joinAt,
-  lessons: lessons ?? _lessons,
-  lessonAmount: lessonAmount ?? _lessonAmount,
-  lessonRealAmount: lessonRealAmount ?? _lessonRealAmount,
-  birthday: birthday ?? _birthday,
-  payMessage: payMessage ?? _payMessage,
-  transactionSN: transactionSN ?? _transactionSN,
-  referrer: referrer ?? _referrer,
-  uid: uid ?? _uid,
-  enableTransfer: enableTransfer ?? _enableTransfer,
-  createdAt: createdAt ?? _createdAt,
-  updatedAt: updatedAt ?? _updatedAt,
-  order: order ?? _order,
-  student: student ?? _student,
-);
+  CourseEnrollmentItem copyWith({
+    num? id,
+    String? oldObjectId,
+    String? studentName,
+    String? phone,
+    String? gender,
+    bool? pdac,
+    String? sn,
+    String? way,
+    num? classId,
+    num? studentId,
+    num? orderId,
+    String? handler,
+    String? state,
+    dynamic remark,
+    String? joinAt,
+    dynamic lessons,
+    dynamic lessonAmount,
+    dynamic lessonRealAmount,
+    dynamic birthday,
+    dynamic payMessage,
+    dynamic transactionSN,
+    dynamic referrer,
+    dynamic uid,
+    bool? enableTransfer,
+    String? createdAt,
+    String? updatedAt,
+    Order? order,
+    Student? student,
+  }) =>
+      CourseEnrollmentItem(
+        id: id ?? _id,
+        oldObjectId: oldObjectId ?? _oldObjectId,
+        studentName: studentName ?? _studentName,
+        phone: phone ?? _phone,
+        gender: gender ?? _gender,
+        pdac: pdac ?? _pdac,
+        sn: sn ?? _sn,
+        way: way ?? _way,
+        classId: classId ?? _classId,
+        studentId: studentId ?? _studentId,
+        orderId: orderId ?? _orderId,
+        handler: handler ?? _handler,
+        state: state ?? _state,
+        remark: remark ?? _remark,
+        joinAt: joinAt ?? _joinAt,
+        lessons: lessons ?? _lessons,
+        lessonAmount: lessonAmount ?? _lessonAmount,
+        lessonRealAmount: lessonRealAmount ?? _lessonRealAmount,
+        birthday: birthday ?? _birthday,
+        payMessage: payMessage ?? _payMessage,
+        transactionSN: transactionSN ?? _transactionSN,
+        referrer: referrer ?? _referrer,
+        uid: uid ?? _uid,
+        enableTransfer: enableTransfer ?? _enableTransfer,
+        createdAt: createdAt ?? _createdAt,
+        updatedAt: updatedAt ?? _updatedAt,
+        order: order ?? _order,
+        student: student ?? _student,
+      );
   num? get id => _id;
   String? get oldObjectId => _oldObjectId;
   String? get studentName => _studentName;
@@ -270,7 +279,6 @@ EnrollmentItem copyWith({  num? id,
     }
     return map;
   }
-
 }
 
 /// id : 513
@@ -290,22 +298,24 @@ EnrollmentItem copyWith({  num? id,
 
 Student studentFromJson(String str) => Student.fromJson(json.decode(str));
 String studentToJson(Student data) => json.encode(data.toJson());
+
 class Student {
   Student({
-      num? id, 
-      String? oldObjectId, 
-      String? displayName, 
-      String? number, 
-      dynamic avatar, 
-      String? gender, 
-      String? phone, 
-      dynamic birthday, 
-      dynamic referrerId, 
-      String? autoTransfer, 
-      dynamic bindMember, 
-      dynamic oldMySQLID, 
-      String? createdAt, 
-      String? updatedAt,}){
+    num? id,
+    String? oldObjectId,
+    String? displayName,
+    String? number,
+    dynamic avatar,
+    String? gender,
+    String? phone,
+    dynamic birthday,
+    dynamic referrerId,
+    String? autoTransfer,
+    dynamic bindMember,
+    dynamic oldMySQLID,
+    String? createdAt,
+    String? updatedAt,
+  }) {
     _id = id;
     _oldObjectId = oldObjectId;
     _displayName = displayName;
@@ -320,7 +330,7 @@ class Student {
     _oldMySQLID = oldMySQLID;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
-}
+  }
 
   Student.fromJson(dynamic json) {
     _id = json['id'];
@@ -352,35 +362,38 @@ class Student {
   dynamic _oldMySQLID;
   String? _createdAt;
   String? _updatedAt;
-Student copyWith({  num? id,
-  String? oldObjectId,
-  String? displayName,
-  String? number,
-  dynamic avatar,
-  String? gender,
-  String? phone,
-  dynamic birthday,
-  dynamic referrerId,
-  String? autoTransfer,
-  dynamic bindMember,
-  dynamic oldMySQLID,
-  String? createdAt,
-  String? updatedAt,
-}) => Student(  id: id ?? _id,
-  oldObjectId: oldObjectId ?? _oldObjectId,
-  displayName: displayName ?? _displayName,
-  number: number ?? _number,
-  avatar: avatar ?? _avatar,
-  gender: gender ?? _gender,
-  phone: phone ?? _phone,
-  birthday: birthday ?? _birthday,
-  referrerId: referrerId ?? _referrerId,
-  autoTransfer: autoTransfer ?? _autoTransfer,
-  bindMember: bindMember ?? _bindMember,
-  oldMySQLID: oldMySQLID ?? _oldMySQLID,
-  createdAt: createdAt ?? _createdAt,
-  updatedAt: updatedAt ?? _updatedAt,
-);
+  Student copyWith({
+    num? id,
+    String? oldObjectId,
+    String? displayName,
+    String? number,
+    dynamic avatar,
+    String? gender,
+    String? phone,
+    dynamic birthday,
+    dynamic referrerId,
+    String? autoTransfer,
+    dynamic bindMember,
+    dynamic oldMySQLID,
+    String? createdAt,
+    String? updatedAt,
+  }) =>
+      Student(
+        id: id ?? _id,
+        oldObjectId: oldObjectId ?? _oldObjectId,
+        displayName: displayName ?? _displayName,
+        number: number ?? _number,
+        avatar: avatar ?? _avatar,
+        gender: gender ?? _gender,
+        phone: phone ?? _phone,
+        birthday: birthday ?? _birthday,
+        referrerId: referrerId ?? _referrerId,
+        autoTransfer: autoTransfer ?? _autoTransfer,
+        bindMember: bindMember ?? _bindMember,
+        oldMySQLID: oldMySQLID ?? _oldMySQLID,
+        createdAt: createdAt ?? _createdAt,
+        updatedAt: updatedAt ?? _updatedAt,
+      );
   num? get id => _id;
   String? get oldObjectId => _oldObjectId;
   String? get displayName => _displayName;
@@ -414,7 +427,6 @@ Student copyWith({  num? id,
     map['updatedAt'] = _updatedAt;
     return map;
   }
-
 }
 
 /// id : 948
@@ -448,36 +460,38 @@ Student copyWith({  num? id,
 
 Order orderFromJson(String str) => Order.fromJson(json.decode(str));
 String orderToJson(Order data) => json.encode(data.toJson());
+
 class Order {
   Order({
-      num? id, 
-      String? oldObjectId, 
-      String? number, 
-      String? studentNO, 
-      String? studentName, 
-      String? branch, 
-      num? studentId, 
-      num? classId, 
-      num? brandId, 
-      num? courseId, 
-      num? categoryId, 
-      String? orderBy, 
-      String? phone, 
-      dynamic transactions, 
-      num? amount, 
-      num? realAmount, 
-      num? paid, 
-      num? paidWait, 
-      num? paidConfirm, 
-      dynamic remark, 
-      String? orderAt, 
-      String? state, 
-      num? courseFee, 
-      String? incomeMode, 
-      String? orderDate, 
-      dynamic coupons, 
-      String? createdAt, 
-      String? updatedAt,}){
+    num? id,
+    String? oldObjectId,
+    String? number,
+    String? studentNO,
+    String? studentName,
+    String? branch,
+    num? studentId,
+    num? classId,
+    num? brandId,
+    num? courseId,
+    num? categoryId,
+    String? orderBy,
+    String? phone,
+    dynamic transactions,
+    num? amount,
+    num? realAmount,
+    num? paid,
+    num? paidWait,
+    num? paidConfirm,
+    dynamic remark,
+    String? orderAt,
+    String? state,
+    num? courseFee,
+    String? incomeMode,
+    String? orderDate,
+    dynamic coupons,
+    String? createdAt,
+    String? updatedAt,
+  }) {
     _id = id;
     _oldObjectId = oldObjectId;
     _number = number;
@@ -506,7 +520,7 @@ class Order {
     _coupons = coupons;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
-}
+  }
 
   Order.fromJson(dynamic json) {
     _id = json['id'];
@@ -566,63 +580,66 @@ class Order {
   dynamic _coupons;
   String? _createdAt;
   String? _updatedAt;
-Order copyWith({  num? id,
-  String? oldObjectId,
-  String? number,
-  String? studentNO,
-  String? studentName,
-  String? branch,
-  num? studentId,
-  num? classId,
-  num? brandId,
-  num? courseId,
-  num? categoryId,
-  String? orderBy,
-  String? phone,
-  dynamic transactions,
-  num? amount,
-  num? realAmount,
-  num? paid,
-  num? paidWait,
-  num? paidConfirm,
-  dynamic remark,
-  String? orderAt,
-  String? state,
-  num? courseFee,
-  String? incomeMode,
-  String? orderDate,
-  dynamic coupons,
-  String? createdAt,
-  String? updatedAt,
-}) => Order(  id: id ?? _id,
-  oldObjectId: oldObjectId ?? _oldObjectId,
-  number: number ?? _number,
-  studentNO: studentNO ?? _studentNO,
-  studentName: studentName ?? _studentName,
-  branch: branch ?? _branch,
-  studentId: studentId ?? _studentId,
-  classId: classId ?? _classId,
-  brandId: brandId ?? _brandId,
-  courseId: courseId ?? _courseId,
-  categoryId: categoryId ?? _categoryId,
-  orderBy: orderBy ?? _orderBy,
-  phone: phone ?? _phone,
-  transactions: transactions ?? _transactions,
-  amount: amount ?? _amount,
-  realAmount: realAmount ?? _realAmount,
-  paid: paid ?? _paid,
-  paidWait: paidWait ?? _paidWait,
-  paidConfirm: paidConfirm ?? _paidConfirm,
-  remark: remark ?? _remark,
-  orderAt: orderAt ?? _orderAt,
-  state: state ?? _state,
-  courseFee: courseFee ?? _courseFee,
-  incomeMode: incomeMode ?? _incomeMode,
-  orderDate: orderDate ?? _orderDate,
-  coupons: coupons ?? _coupons,
-  createdAt: createdAt ?? _createdAt,
-  updatedAt: updatedAt ?? _updatedAt,
-);
+  Order copyWith({
+    num? id,
+    String? oldObjectId,
+    String? number,
+    String? studentNO,
+    String? studentName,
+    String? branch,
+    num? studentId,
+    num? classId,
+    num? brandId,
+    num? courseId,
+    num? categoryId,
+    String? orderBy,
+    String? phone,
+    dynamic transactions,
+    num? amount,
+    num? realAmount,
+    num? paid,
+    num? paidWait,
+    num? paidConfirm,
+    dynamic remark,
+    String? orderAt,
+    String? state,
+    num? courseFee,
+    String? incomeMode,
+    String? orderDate,
+    dynamic coupons,
+    String? createdAt,
+    String? updatedAt,
+  }) =>
+      Order(
+        id: id ?? _id,
+        oldObjectId: oldObjectId ?? _oldObjectId,
+        number: number ?? _number,
+        studentNO: studentNO ?? _studentNO,
+        studentName: studentName ?? _studentName,
+        branch: branch ?? _branch,
+        studentId: studentId ?? _studentId,
+        classId: classId ?? _classId,
+        brandId: brandId ?? _brandId,
+        courseId: courseId ?? _courseId,
+        categoryId: categoryId ?? _categoryId,
+        orderBy: orderBy ?? _orderBy,
+        phone: phone ?? _phone,
+        transactions: transactions ?? _transactions,
+        amount: amount ?? _amount,
+        realAmount: realAmount ?? _realAmount,
+        paid: paid ?? _paid,
+        paidWait: paidWait ?? _paidWait,
+        paidConfirm: paidConfirm ?? _paidConfirm,
+        remark: remark ?? _remark,
+        orderAt: orderAt ?? _orderAt,
+        state: state ?? _state,
+        courseFee: courseFee ?? _courseFee,
+        incomeMode: incomeMode ?? _incomeMode,
+        orderDate: orderDate ?? _orderDate,
+        coupons: coupons ?? _coupons,
+        createdAt: createdAt ?? _createdAt,
+        updatedAt: updatedAt ?? _updatedAt,
+      );
   num? get id => _id;
   String? get oldObjectId => _oldObjectId;
   String? get number => _number;
@@ -684,5 +701,4 @@ Order copyWith({  num? id,
     map['updatedAt'] = _updatedAt;
     return map;
   }
-
 }

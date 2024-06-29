@@ -1,3 +1,4 @@
+import 'package:macauscholar/macauscholar.dart';
 import 'package:macauscholar/model/menu_cart.dart';
 import 'package:macauscholar/model/menu_detail.dart';
 import 'package:macauscholar/model/menus_model.dart';
@@ -38,4 +39,8 @@ abstract class MenuClass {
   @ApiGen('/api/order/priceTable/',
       params: '@C_data', method: ApiGen.POST, target: 'MenuCart')
   Future<MenuCart> addMenuShopCart({required dynamic data});
+
+  @ApiGen('/api/order/shoppingMode/',
+      params: '@C_data', method: ApiGen.POST, target: 'MealOrderItem')
+  Future<List<MealOrderItem>> confirmMenuOrder({required dynamic data});
 }

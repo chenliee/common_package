@@ -212,6 +212,20 @@ class ScholarResponse {
     }
   }
 
+  static Future<IdentityModel> getUserIdentity() async {
+    try {
+      IdentityModel? item;
+      Map<String, dynamic> res = await ScholarDio.getInstance().get(
+        url: "/api/scholar/getUserIdentity",
+      );
+      item = IdentityModel.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
   static Future<List<ParentItem>> getParentList(
       {required String type, required String user}) async {
     try {

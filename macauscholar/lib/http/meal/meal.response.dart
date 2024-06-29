@@ -4,12 +4,12 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:service_package/service_package.dart';
 import 'package:macauscholar/macauscholar.dart';
-import 'package:macauscholar/model/menus_model.dart';
-import 'package:macauscholar/model/menu_section.dart';
-import 'package:macauscholar/model/menu_detail.dart';
 import 'package:macauscholar/model/menu_cart.dart';
+import 'package:macauscholar/model/menu_detail.dart';
+import 'package:macauscholar/model/menu_section.dart';
+import 'package:macauscholar/model/menus_model.dart';
+import 'package:service_package/service_package.dart';
 
 class MealResponse {
   static Future<List<FoodMenus>> getMenuList(
@@ -84,6 +84,20 @@ class MealResponse {
       );
       item = MenuCart.fromJson(res);
       return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future confirmMenuOrder({required dynamic data}) async {
+    try {
+      dynamic params = data;
+      await MacauDio.getInstance().post(
+        url: "/meal/api/order/shoppingMode/",
+        params: params,
+      );
+      return true;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

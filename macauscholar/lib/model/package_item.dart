@@ -49,6 +49,7 @@ class PackageItem {
     List<SchoolYearItem>? withSchoolYears,
     List<ServiceItem>? services,
     List<SectionItem>? sections,
+    Config? config,
   }) {
     _id = id;
     _title = title;
@@ -70,6 +71,7 @@ class PackageItem {
     _withSchoolYears = withSchoolYears;
     _services = services;
     _sections = sections;
+    _config = config;
   }
 
   PackageItem.fromJson(dynamic json) {
@@ -128,6 +130,7 @@ class PackageItem {
         _sections?.add(SectionItem.fromJson(v));
       });
     }
+    _config = json['config'] != null ? Config.fromJson(json['config']) : null;
   }
   num? _id;
   String? _title;
@@ -149,28 +152,29 @@ class PackageItem {
   List<SchoolYearItem>? _withSchoolYears;
   List<ServiceItem>? _services;
   List<SectionItem>? _sections;
-  PackageItem copyWith({
-    num? id,
-    String? title,
-    String? code,
-    dynamic version,
-    bool? appNotShow,
-    List<String>? withBranches,
-    List<String>? withoutBranches,
-    String? dateTo,
-    String? dateFrom,
-    dynamic mongoDBId,
-    num? order,
-    String? createdAt,
-    String? updatedAt,
-    dynamic deletedAt,
-    List<SchoolItem>? withoutSchools,
-    List<SchoolItem>? withSchools,
-    List<SchoolYearItem>? withoutSchoolYears,
-    List<SchoolYearItem>? withSchoolYears,
-    List<ServiceItem>? services,
-    List<SectionItem>? sections,
-  }) =>
+  Config? _config;
+  PackageItem copyWith(
+          {num? id,
+          String? title,
+          String? code,
+          dynamic version,
+          bool? appNotShow,
+          List<String>? withBranches,
+          List<String>? withoutBranches,
+          String? dateTo,
+          String? dateFrom,
+          dynamic mongoDBId,
+          num? order,
+          String? createdAt,
+          String? updatedAt,
+          dynamic deletedAt,
+          List<SchoolItem>? withoutSchools,
+          List<SchoolItem>? withSchools,
+          List<SchoolYearItem>? withoutSchoolYears,
+          List<SchoolYearItem>? withSchoolYears,
+          List<ServiceItem>? services,
+          List<SectionItem>? sections,
+          Config? config}) =>
       PackageItem(
         id: id ?? _id,
         title: title ?? _title,
@@ -192,6 +196,7 @@ class PackageItem {
         withSchoolYears: withSchoolYears ?? _withSchoolYears,
         services: services ?? _services,
         sections: sections ?? _sections,
+        config: config ?? _config,
       );
   num? get id => _id;
   String? get title => _title;
@@ -213,6 +218,7 @@ class PackageItem {
   List<SchoolYearItem>? get withSchoolYears => _withSchoolYears;
   List<ServiceItem>? get services => _services;
   List<SectionItem>? get sections => _sections;
+  Config? get config => _config;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -240,6 +246,35 @@ class PackageItem {
     if (_sections != null) {
       map['sections'] = _sections?.map((v) => v.toJson()).toList();
     }
+    map["config"] = _config?.toJson();
+    return map;
+  }
+}
+
+class Config {
+  Config({
+    List<String>? defaultService,
+  }) {
+    _defaultService = defaultService;
+  }
+
+  Config.fromJson(dynamic json) {
+    _defaultService = json['defaultService'] != null
+        ? json['defaultService'].cast<String>()
+        : [];
+  }
+  List<String>? _defaultService;
+  Config copyWith({
+    List<String>? defaultService,
+  }) =>
+      Config(
+        defaultService: defaultService ?? _defaultService,
+      );
+  List<String>? get defaultService => _defaultService;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['defaultService'] = _defaultService;
     return map;
   }
 }
