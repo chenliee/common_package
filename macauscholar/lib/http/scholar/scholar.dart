@@ -51,6 +51,13 @@ abstract class Class {
   Future<TuitionModel> getTuitionData();
 
   @ApiGen(
+    '/scholar/recommend/advert/data',
+    method: ApiGen.GET,
+    target: 'RecommendModel',
+  )
+  Future<RecommendModel> getRecommendData();
+
+  @ApiGen(
     '/scholar/course/data',
     method: ApiGen.GET,
     target: 'CourseModel',

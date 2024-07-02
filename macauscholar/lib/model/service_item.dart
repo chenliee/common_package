@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:macauscholar/macauscholar.dart';
+import 'package:storage/model/file_item.dart';
 
 /// id : 685
 /// title : "K3補習費+下午茶"
@@ -67,7 +68,7 @@ class ServiceItem {
     dynamic permit,
     bool? noDiscount,
     dynamic recordIdCode,
-    dynamic cover,
+    FileItem? cover,
     String? createdAt,
     String? updatedAt,
     dynamic deletedAt,
@@ -165,7 +166,7 @@ class ServiceItem {
     _permit = json['permit'];
     _noDiscount = json['noDiscount'];
     _recordIdCode = json['recordIdCode'];
-    _cover = json['cover'];
+    _cover = json['cover'] != null ? FileItem.fromJson(json['cover']) : null;
     _createdAt = json['createdAt'];
     _updatedAt = json['updatedAt'];
     _deletedAt = json['deletedAt'];
@@ -209,7 +210,7 @@ class ServiceItem {
   dynamic _permit;
   bool? _noDiscount;
   dynamic _recordIdCode;
-  dynamic _cover;
+  FileItem? _cover;
   String? _createdAt;
   String? _updatedAt;
   dynamic _deletedAt;
@@ -243,7 +244,7 @@ class ServiceItem {
     dynamic permit,
     bool? noDiscount,
     dynamic recordIdCode,
-    dynamic cover,
+    FileItem? cover,
     String? createdAt,
     String? updatedAt,
     dynamic deletedAt,
@@ -312,7 +313,7 @@ class ServiceItem {
   dynamic get permit => _permit;
   bool? get noDiscount => _noDiscount;
   dynamic get recordIdCode => _recordIdCode;
-  dynamic get cover => _cover;
+  FileItem? get cover => _cover;
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
   dynamic get deletedAt => _deletedAt;

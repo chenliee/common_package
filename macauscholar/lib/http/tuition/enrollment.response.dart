@@ -56,4 +56,35 @@ class EnrollmentResponse {
       rethrow;
     }
   }
+
+  static Future<List<ServiceItem>> getServiceList(
+      {int? page,
+      Map<dynamic, dynamic>? filter,
+      int? size,
+      String? keyword,
+      bool disablePaging = false}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "size": size,
+        "page": page,
+        "filter": filter,
+        "keyword": keyword,
+        "disablePaging": disablePaging,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      List<ServiceItem> list = [];
+      List<dynamic> jsonLists = await MacauDio.getInstance().get(
+        url: "/tuition/api/service",
+        params: params,
+      );
+      for (var item in jsonLists) {
+        list.add(ServiceItem.fromJson(item));
+      }
+      return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
 }

@@ -94,6 +94,20 @@ class ScholarResponse {
     }
   }
 
+  static Future<RecommendModel> getRecommendData() async {
+    try {
+      RecommendModel? item;
+      Map<String, dynamic> res = await ScholarDio.getInstance().get(
+        url: "/api/scholar/recommend/advert/data",
+      );
+      item = RecommendModel.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
   static Future<CourseModel> getCourseData() async {
     try {
       CourseModel? item;

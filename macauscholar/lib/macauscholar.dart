@@ -22,6 +22,7 @@ export 'model/identity_model.dart';
 export 'model/meal_order_item.dart';
 export 'model/package_item.dart';
 export 'model/parent_item.dart';
+export 'model/recommend_model.dart';
 export 'model/scholar_item.dart';
 export 'model/school_item.dart';
 export 'model/school_year_item.dart';
