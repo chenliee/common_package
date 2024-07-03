@@ -150,4 +150,14 @@ abstract class Class {
   )
   Future<RelationshipItem> unbindParent(
       {required String userToSn, required String userSn});
+
+  @ApiGen(
+    '/scholar/getUserGrade',
+    method: ApiGen.GET,
+    target: 'UserGradeModel',
+    params: {
+      'sn': '@C_sn',
+    },
+  )
+  Future<UserGradeModel> getUserGrade({required String sn});
 }

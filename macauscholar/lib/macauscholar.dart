@@ -33,4 +33,5 @@ export 'model/student_item.dart';
 export 'model/teacher_item.dart';
 export 'model/tuition_enrollment_item.dart';
 export 'model/tuition_model.dart';
+export 'model/user_grade_model.dart';
 export 'model/welfare_model.dart';

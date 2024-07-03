@@ -285,4 +285,24 @@ class ScholarResponse {
       rethrow;
     }
   }
+
+  static Future<UserGradeModel> getUserGrade({required String sn}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "sn": sn,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      UserGradeModel? item;
+      Map<String, dynamic> res = await ScholarDio.getInstance().get(
+        url: "/api/scholar/getUserGrade",
+        params: params,
+      );
+      item = UserGradeModel.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
 }
