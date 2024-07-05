@@ -18,12 +18,13 @@ abstract class Order {
     method: ApiGen.GET,
     target: 'CourseOrderItem',
   )
-  Future<List<CourseOrderItem>> getOrderList({required int page, Map? sort, Map? filter, int? size, String? keyword});
+  Future<List<CourseOrderItem>> getOrderList(
+      {required int page, Map? sort, Map? filter, int? size, String? keyword});
 
   @ApiGen(
     '/api/order/\$id',
     method: ApiGen.GET,
     target: 'CourseOrderItem',
   )
-  Future<CourseOrderItem> getOrderItem({required String id});
+  Future<CourseOrderItem> getOrderDetail({required String id});
 }

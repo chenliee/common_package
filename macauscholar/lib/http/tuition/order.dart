@@ -1,10 +1,8 @@
-
-import 'package:macauscholar/model/tuition_order_model.dart';
+import 'package:macauscholar/model/tuition_order_item.dart';
 import 'package:service_package/api/api_gen.dart';
 
 /// package:service_package/service_package.dart
 /// package:macauscholar/macauscholar.dart
-/// package:macauscholar/model/tuition_order_model.dart
 @ApiGen('/tuition', file: 'TuitionOrderResponse', dio: 'MacauDio')
 abstract class Order {
   @ApiGen(
@@ -17,10 +15,19 @@ abstract class Order {
       'disablePaging': '@C_disablePaging'
     },
     method: ApiGen.GET,
-    target: 'TuitionOrderModel',
+    target: 'TuitionOrderItem',
   )
-  Future<List<TuitionOrderModel>> getOrderList(
-      {int? page, Map? filter, int? size, String? keyword, bool disablePaging = false});
+  Future<List<TuitionOrderItem>> getOrderList(
+      {int? page,
+      Map? filter,
+      int? size,
+      String? keyword,
+      bool disablePaging = false});
 
-
+  @ApiGen(
+    '/api/order/\$id',
+    method: ApiGen.GET,
+    target: 'TuitionOrderItem',
+  )
+  Future<TuitionOrderItem> getOrderDetail({required String id});
 }

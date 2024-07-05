@@ -183,9 +183,9 @@ class BaseDio {
           response = await dio.put(url);
         }
       } else if (method == 'delete') {
-        response = await dio.delete(url, data: params);
+        response = await dio.delete(url, queryParameters: params);
       } else if (method == 'patch') {
-        response = await dio.patch(url, data: params);
+        response = await dio.patch(url, queryParameters: params);
       }
       return response!.data;
     } on SocketException catch (e) {

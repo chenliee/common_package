@@ -123,6 +123,10 @@ class SimpleVisitor extends SimpleElementVisitor {
         requestName = 'get';
         funcInfo['httpSendData'] = false;
         break;
+      case ApiGen.DELETE:
+        requestName = 'delete';
+        funcInfo['httpSendData'] = false;
+        break;
 
       default:
         print('unsupportable method : $method');

@@ -160,4 +160,16 @@ abstract class Class {
     },
   )
   Future<UserGradeModel> getUserGrade({required String sn});
+
+  @ApiGen(
+    '/scholar/getLearnCenterData',
+    method: ApiGen.GET,
+    target: 'LearnCenterModel',
+    params: {
+      'date': '@C_date',
+      'id': '@C_id',
+    },
+  )
+  Future<LearnCenterModel> getLearnCenterData(
+      {required DateTime date, required String id});
 }

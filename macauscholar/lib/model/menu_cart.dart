@@ -408,46 +408,6 @@ class Menu {
   }
 }
 
-/// url : "https://storage.dev.macauscholar.com:20443/scholar/macauscholar_dev/1fa72f8f139f0000afd5a6fd9fdad160d9b7b75dd044d88be8a03b091149759ba7e5a8a08f64d1be6a4b8252642aa4c6c8780a1bd3ee2ad2469eb80d060d6e5e.jpg"
-/// name : "5c2630407105dfccc4140a9c83721a55_5eac9f8d4ce0d840b30fd8273f4f2a1452192eb89b709fb947ab2239414b71f803c91b26955acee1a17593918395b96bc6831a8f9693be701f02d3744e1fe39a.jpg"
-/// __type : "File"
-
-Cover coverFromJson(String str) => Cover.fromJson(json.decode(str));
-String coverToJson(Cover data) => json.encode(data.toJson());
-
-class Cover {
-  Cover({
-    String? url,
-    String? name,
-    String? type,
-  }) {
-    _url = url;
-    _name = name;
-    _type = type;
-  }
-
-  Cover.fromJson(dynamic json) {
-    _url = json['url'];
-    _name = json['name'];
-    _type = json['__type'];
-  }
-  String? _url;
-  String? _name;
-  String? _type;
-
-  String? get url => _url;
-  String? get name => _name;
-  String? get type => _type;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['url'] = _url;
-    map['name'] = _name;
-    map['__type'] = _type;
-    return map;
-  }
-}
-
 /// 0Vrzs1SGbP : "g"
 /// Dq6ApjTGkB : "g"
 /// OTUsqcCRQs : "a"

@@ -27,6 +27,8 @@ dependencies:
     path: ../storage
   member:
     path: ../member
+  rating:
+    path: ../rating
 
 dev_dependencies:
   flutter_test:

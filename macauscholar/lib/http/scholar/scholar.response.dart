@@ -305,4 +305,26 @@ class ScholarResponse {
       rethrow;
     }
   }
+
+  static Future<LearnCenterModel> getLearnCenterData(
+      {required DateTime date, required String id}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "date": date,
+        "id": id,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      LearnCenterModel? item;
+      Map<String, dynamic> res = await ScholarDio.getInstance().get(
+        url: "/api/scholar/getLearnCenterData",
+        params: params,
+      );
+      item = LearnCenterModel.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
 }

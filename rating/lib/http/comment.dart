@@ -7,6 +7,37 @@ class CommentResponse {
   static String relatedUrl =
       '/rating/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/related';
 
+  static Future<List> getCommentList({
+    required String bCode,
+    required int page,
+    int? pageSize,
+    List<num>? date,
+    List<String>? commentTags,
+  }) async {
+    try {
+      List<CommentItem> list = [];
+
+      Map<String, dynamic> params = Map.from({
+        'page': page,
+        'pageSize': pageSize ?? ServiceGlobal.instance.pageSize,
+        'orderBy': 'desc',
+        'date': date,
+        'commentTags': commentTags
+      })
+        ..removeWhere((key, value) => value == null);
+
+      Map<String, dynamic> json = await BaseDio.getInstance()
+          .get(url: '$getCommentUrl/$bCode', params: params);
+      for (var item in json['list']) {
+        list.add(CommentItem.fromJson(item));
+      }
+      return [list, json['total']];
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
   static Future<List> getComment(
       {required String bCode, required int page, String? id}) async {
     try {
