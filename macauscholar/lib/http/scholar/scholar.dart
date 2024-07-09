@@ -172,4 +172,31 @@ abstract class Class {
   )
   Future<LearnCenterModel> getLearnCenterData(
       {required DateTime date, required String id});
+
+  @ApiGen(
+    '/scholar/getStudentLesson',
+    method: ApiGen.GET,
+    target: 'LessonItem',
+    params: {
+      'id': '@C_id',
+    },
+  )
+  Future<List<LessonItem>> getStudentLesson({required String id});
+
+  @ApiGen(
+    '/scholar/getDiscountClass',
+    method: ApiGen.GET,
+    target: 'DiscountClassModel',
+  )
+  Future<List<DiscountClassModel>> getDiscountClass();
+
+  @ApiGen(
+    '/scholar/getClassLesson',
+    method: ApiGen.GET,
+    target: 'LessonItem',
+    params: {
+      'id': '@C_ids',
+    },
+  )
+  Future<List<LessonItem>> getClassLesson({required List<num> ids});
 }

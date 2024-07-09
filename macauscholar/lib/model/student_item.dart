@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:macauscholar/macauscholar.dart';
-import 'package:macauscholar/model/subscription_item.dart';
 import 'package:storage/storage.dart';
 
 /// id : 455
@@ -77,7 +76,7 @@ class StudentItem {
     dynamic deletedAt,
     SchoolItem? school,
     SchoolYearItem? schoolYear,
-    List<Subscription>? subscription,
+    List<SubscriptionItem>? subscription,
   }) {
     _id = id;
     _gender = gender;
@@ -180,7 +179,7 @@ class StudentItem {
     if (json['subscription'] != null) {
       _subscription = [];
       json['subscription'].forEach((v) {
-        _subscription?.add(Subscription.fromJson(v));
+        _subscription?.add(SubscriptionItem.fromJson(v));
       });
     }
   }
@@ -217,7 +216,7 @@ class StudentItem {
   dynamic _deletedAt;
   SchoolItem? _school;
   SchoolYearItem? _schoolYear;
-  List<Subscription>? _subscription;
+  List<SubscriptionItem>? _subscription;
   StudentItem copyWith({
     num? id,
     dynamic gender,
@@ -252,7 +251,7 @@ class StudentItem {
     dynamic deletedAt,
     SchoolItem? school,
     SchoolYearItem? schoolYear,
-    List<Subscription>? subscription,
+    List<SubscriptionItem>? subscription,
   }) =>
       StudentItem(
         id: id ?? _id,
@@ -323,7 +322,7 @@ class StudentItem {
   dynamic get deletedAt => _deletedAt;
   SchoolItem? get school => _school;
   SchoolYearItem? get schoolYear => _schoolYear;
-  List<Subscription>? get subscription => _subscription;
+  List<SubscriptionItem>? get subscription => _subscription;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

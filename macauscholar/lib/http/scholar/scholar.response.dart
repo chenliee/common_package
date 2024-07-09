@@ -4,10 +4,10 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:service_package/service_package.dart';
 import 'package:macauscholar/macauscholar.dart';
-import 'package:storage/storage.dart';
 import 'package:member/member.dart';
+import 'package:service_package/service_package.dart';
+import 'package:storage/storage.dart';
 
 class ScholarResponse {
   static Future<HomeModel> getHomeData() async {
@@ -322,6 +322,67 @@ class ScholarResponse {
       );
       item = LearnCenterModel.fromJson(res);
       return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<List<LessonItem>> getStudentLesson({required String id}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "id": id,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      List<LessonItem> list = [];
+      List<dynamic> jsonLists = await ScholarDio.getInstance().get(
+        url: "/api/scholar/getStudentLesson",
+        params: params,
+      );
+      for (var item in jsonLists) {
+        list.add(LessonItem.fromJson(item));
+      }
+      return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<List<DiscountClassModel>> getDiscountClass() async {
+    try {
+      List<DiscountClassModel> list = [];
+      List<dynamic> jsonLists = await ScholarDio.getInstance().get(
+        url: "/api/scholar/getDiscountClass",
+      );
+      for (var item in jsonLists) {
+        list.add(DiscountClassModel.fromJson(item));
+      }
+      return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<List<LessonItem>> getClassLesson(
+      {required List<num> ids}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "id": ids,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      List<LessonItem> list = [];
+      List<dynamic> jsonLists = await ScholarDio.getInstance().get(
+        url: "/api/scholar/getClassLesson",
+        params: params,
+      );
+      for (var item in jsonLists) {
+        list.add(LessonItem.fromJson(item));
+      }
+      return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

@@ -154,6 +154,17 @@ class ClassItem {
     _cover = cover;
   }
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ClassItem &&
+          runtimeType == other.runtimeType &&
+          _id == other._id &&
+          _sn == other._sn;
+
+  @override
+  int get hashCode => _id.hashCode ^ _sn.hashCode;
+
   ClassItem.fromJson(dynamic json) {
     _id = json['id'];
     _oldObjectId = json['oldObjectId'];

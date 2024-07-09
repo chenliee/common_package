@@ -54,4 +54,36 @@ class TuitionStudentResponse {
       rethrow;
     }
   }
+
+  static Future<List<SubscriptionItem>> getStudentSubscribe(
+      {int? page,
+      Map<dynamic, dynamic>? filter,
+      int? size,
+      String? keyword,
+      bool disablePaging = false,
+      required String studentId}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "size": size,
+        "page": page,
+        "filter": filter,
+        "keyword": keyword,
+        "disablePaging": disablePaging,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      List<SubscriptionItem> list = [];
+      List<dynamic> jsonLists = await MacauDio.getInstance().get(
+        url: "/tuition/api/student/$studentId/subscribe/",
+        params: params,
+      );
+      for (var item in jsonLists) {
+        list.add(SubscriptionItem.fromJson(item));
+      }
+      return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
 }

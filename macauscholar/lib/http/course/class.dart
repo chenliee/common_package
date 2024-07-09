@@ -34,4 +34,13 @@ abstract class Class {
     required String classId,
     String? remark,
   });
+
+  @ApiGen(
+    '/api/class/\$id',
+    method: ApiGen.GET,
+    target: 'ClassItem',
+  )
+  Future<ClassItem> getClassItem({
+    required String id,
+  });
 }

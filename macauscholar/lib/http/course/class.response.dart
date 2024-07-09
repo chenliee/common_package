@@ -62,4 +62,18 @@ class ClassResponse {
       rethrow;
     }
   }
+
+  static Future<ClassItem> getClassItem({required String id}) async {
+    try {
+      ClassItem? item;
+      Map<String, dynamic> res = await MacauDio.getInstance().get(
+        url: "/course/api/class/$id",
+      );
+      item = ClassItem.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
 }
