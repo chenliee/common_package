@@ -4,10 +4,25 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:service_package/service_package.dart';
 import 'package:attendance/attendance.dart';
+import 'package:service_package/service_package.dart';
 
 class RecordResponse {
+  static Future<PunchLogItem> punchLogMember(
+      {required String project, required String rule}) async {
+    try {
+      PunchLogItem? item;
+      Map<String, dynamic> res = await BaseDio.getInstance().post(
+          url: "/attendance/api/project/$project/rule/$rule/punch_log/member",
+          isApi: false);
+      item = PunchLogItem.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
   static Future<List<RecordItem>> getRecordList(
       {Map<dynamic, dynamic>? filter,
       required String project,

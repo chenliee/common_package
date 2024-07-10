@@ -6,6 +6,14 @@ import 'package:service_package/api/api_gen.dart';
 @ApiGen('/attendance', file: 'RecordResponse', dio: 'BaseDio')
 abstract class Record {
   @ApiGen(
+    '/api/project/\$project/rule/\$rule/punch_log/member',
+    method: ApiGen.POST,
+    target: 'PunchLogItem',
+  )
+  Future<PunchLogItem> punchLogMember(
+      {required String project, required String rule});
+
+  @ApiGen(
     '/api/project/\$project/rule/\$rule/record/',
     params: {
       'filter': '@C_filter',

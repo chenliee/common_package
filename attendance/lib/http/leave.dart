@@ -1,3 +1,4 @@
+import 'package:attendance/attendance.dart';
 import 'package:service_package/api/api_gen.dart';
 
 /// package:service_package/service_package.dart
@@ -13,9 +14,10 @@ abstract class Leave {
       'attachment': '@C_attachment',
       'ext': '@C_ext',
     },
+    target: 'LeaveItem',
     method: ApiGen.POST,
   )
-  Future applyLeave({
+  Future<LeaveItem> applyLeave({
     required String project,
     required String rule,
     required String type,

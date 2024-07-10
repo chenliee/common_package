@@ -5,9 +5,10 @@
 // **************************************************************************
 
 import 'package:service_package/service_package.dart';
+import 'package:attendance/attendance.dart';
 
 class LeaveResponse {
-  static Future<dynamic> applyLeave(
+  static Future<LeaveItem> applyLeave(
       {required String project,
       required String rule,
       required String type,
@@ -26,11 +27,13 @@ class LeaveResponse {
       })
         ..removeWhere((key, value) => value == null);
 
+      LeaveItem? item;
       Map<String, dynamic> res = await BaseDio.getInstance().post(
         url: "/attendance/api/project/$project/rule/$rule/type/$type/leave",
         params: params,
       );
-      return res;
+      item = LeaveItem.fromJson(res);
+      return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

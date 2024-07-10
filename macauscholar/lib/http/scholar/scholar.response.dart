@@ -4,10 +4,10 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:macauscholar/macauscholar.dart';
-import 'package:member/member.dart';
 import 'package:service_package/service_package.dart';
+import 'package:macauscholar/macauscholar.dart';
 import 'package:storage/storage.dart';
+import 'package:member/member.dart';
 
 class ScholarResponse {
   static Future<HomeModel> getHomeData() async {
@@ -84,7 +84,7 @@ class ScholarResponse {
     try {
       TuitionModel? item;
       Map<String, dynamic> res = await ScholarDio.getInstance().get(
-        url: "/api/scholar/tuition/advert/data",
+        url: "/api/scholar/tuition/data",
       );
       item = TuitionModel.fromJson(res);
       return item;
@@ -171,7 +171,7 @@ class ScholarResponse {
 
       RelationshipItem? item;
       Map<String, dynamic> res = await ScholarDio.getInstance().post(
-        url: "/api/scholar/add/scholar",
+        url: "/api/scholar/user/scholar",
         params: params,
       );
       item = RelationshipItem.fromJson(res);
@@ -191,7 +191,7 @@ class ScholarResponse {
 
       List<ScholarItem> list = [];
       List<dynamic> jsonLists = await ScholarDio.getInstance().get(
-        url: "/api/scholar/getRelationShip",
+        url: "/api/scholar/user/relationShip",
         params: params,
       );
       for (var item in jsonLists) {
@@ -213,7 +213,7 @@ class ScholarResponse {
 
       List<StudentItem> list = [];
       List<dynamic> jsonLists = await ScholarDio.getInstance().get(
-        url: "/api/scholar/getRelationShip",
+        url: "/api/scholar/user/relationShip",
         params: params,
       );
       for (var item in jsonLists) {
@@ -230,7 +230,7 @@ class ScholarResponse {
     try {
       IdentityModel? item;
       Map<String, dynamic> res = await ScholarDio.getInstance().get(
-        url: "/api/scholar/getUserIdentity",
+        url: "/api/scholar/user/userIdentity",
       );
       item = IdentityModel.fromJson(res);
       return item;
@@ -251,7 +251,7 @@ class ScholarResponse {
 
       List<ParentItem> list = [];
       List<dynamic> jsonLists = await ScholarDio.getInstance().get(
-        url: "/api/scholar/getStudentParent",
+        url: "/api/scholar/user/studentParent",
         params: params,
       );
       for (var item in jsonLists) {
@@ -275,7 +275,7 @@ class ScholarResponse {
 
       RelationshipItem? item;
       Map<String, dynamic> res = await ScholarDio.getInstance().post(
-        url: "/api/scholar/unbind/studentParent",
+        url: "/api/scholar/user/unbindStudentParent",
         params: params,
       );
       item = RelationshipItem.fromJson(res);
@@ -295,7 +295,7 @@ class ScholarResponse {
 
       UserGradeModel? item;
       Map<String, dynamic> res = await ScholarDio.getInstance().get(
-        url: "/api/scholar/getUserGrade",
+        url: "/api/scholar/user/userGrade",
         params: params,
       );
       item = UserGradeModel.fromJson(res);
@@ -317,7 +317,7 @@ class ScholarResponse {
 
       LearnCenterModel? item;
       Map<String, dynamic> res = await ScholarDio.getInstance().get(
-        url: "/api/scholar/getLearnCenterData",
+        url: "/api/scholar/tuition/learnCenterData",
         params: params,
       );
       item = LearnCenterModel.fromJson(res);
@@ -337,7 +337,7 @@ class ScholarResponse {
 
       List<LessonItem> list = [];
       List<dynamic> jsonLists = await ScholarDio.getInstance().get(
-        url: "/api/scholar/getStudentLesson",
+        url: "/api/scholar/course/studentLesson",
         params: params,
       );
       for (var item in jsonLists) {
@@ -354,7 +354,7 @@ class ScholarResponse {
     try {
       List<DiscountClassModel> list = [];
       List<dynamic> jsonLists = await ScholarDio.getInstance().get(
-        url: "/api/scholar/getDiscountClass",
+        url: "/api/scholar/course/discountClass",
       );
       for (var item in jsonLists) {
         list.add(DiscountClassModel.fromJson(item));
@@ -376,7 +376,7 @@ class ScholarResponse {
 
       List<LessonItem> list = [];
       List<dynamic> jsonLists = await ScholarDio.getInstance().get(
-        url: "/api/scholar/getClassLesson",
+        url: "/api/scholar/course/classLesson",
         params: params,
       );
       for (var item in jsonLists) {
