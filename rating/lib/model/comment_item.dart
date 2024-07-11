@@ -1,39 +1,50 @@
-/// id : 66
+import 'dart:convert';
+
+/// id : 12
 /// isanonymous : false
+/// date : "2024-07-04T13:59:40.000Z"
 /// userId : "孙笑川"
-/// userItem : {"name":"孙笑川","touXiang":"https://storage.dev.heyday-catering.com:20443/crop/52085ce87b56a77966b3ebf11b28aeeef49e047df38e5d0be829c075e7bb7f8a_upload_1685590181199.0.8845739583668624.0.jpg"}
-/// description : "好评好评"
-/// satisfied : true
-/// label : "[\"味道很棒\",\"服务很好\"]"
-/// createdAt : "2023-12-16T03:27:10.463Z"
+/// userItem : {}
+/// description : "不錯啊今天"
+/// satisfied : null
+/// label : null
+/// createdAt : "2024-07-04T05:41:15.575Z"
 /// files : []
-/// targetId : 54
+/// targetId : 2
 /// deleted : false
-/// projectId : null
-/// relatedType : "orther"
-/// relatedId : "666666"
-/// Score : [{"id":62,"userId":null,"score":5,"createdAt":"2023-12-16T03:27:10.463Z","deleted":false,"commentId":66}]
+/// projectId : 1
+/// relatedType : "student"
+/// relatedId : "SS220005"
+/// Score : [{"id":12,"userId":null,"score":0,"createdAt":"2024-07-04T05:41:15.575Z","deleted":false,"commentId":12}]
+/// commentTags : [{"id":12,"commentId":12,"title":"老師點評","targetId":"teacher_rate"}]
+
+CommentItem commentItemFromJson(String str) =>
+    CommentItem.fromJson(json.decode(str));
+String commentItemToJson(CommentItem data) => json.encode(data.toJson());
 
 class CommentItem {
   CommentItem({
     num? id,
     bool? isanonymous,
+    String? date,
     String? userId,
-    UserItem? userItem,
+    dynamic userItem,
     String? description,
-    bool? satisfied,
-    String? label,
+    dynamic satisfied,
+    dynamic label,
     String? createdAt,
     List<dynamic>? files,
     num? targetId,
     bool? deleted,
-    dynamic projectId,
+    num? projectId,
     String? relatedType,
     String? relatedId,
     List<Score>? score,
+    List<CommentTags>? commentTags,
   }) {
     _id = id;
     _isanonymous = isanonymous;
+    _date = date;
     _userId = userId;
     _userItem = userItem;
     _description = description;
@@ -47,19 +58,25 @@ class CommentItem {
     _relatedType = relatedType;
     _relatedId = relatedId;
     _score = score;
+    _commentTags = commentTags;
   }
 
   CommentItem.fromJson(dynamic json) {
     _id = json['id'];
     _isanonymous = json['isanonymous'];
+    _date = json['date'];
     _userId = json['userId'];
-    _userItem =
-        json['userItem'] != null ? UserItem.fromJson(json['userItem']) : null;
+    _userItem = json['userItem'];
     _description = json['description'];
     _satisfied = json['satisfied'];
     _label = json['label'];
     _createdAt = json['createdAt'];
-    _files = json['files'];
+    if (json['files'] != null) {
+      _files = [];
+      // json['files'].forEach((v) {
+      //   _files?.add(Dynamic.fromJson(v));
+      // });
+    }
     _targetId = json['targetId'];
     _deleted = json['deleted'];
     _projectId = json['projectId'];
@@ -71,42 +88,53 @@ class CommentItem {
         _score?.add(Score.fromJson(v));
       });
     }
+    if (json['commentTags'] != null) {
+      _commentTags = [];
+      json['commentTags'].forEach((v) {
+        _commentTags?.add(CommentTags.fromJson(v));
+      });
+    }
   }
   num? _id;
   bool? _isanonymous;
+  String? _date;
   String? _userId;
-  UserItem? _userItem;
+  dynamic _userItem;
   String? _description;
-  bool? _satisfied;
-  String? _label;
+  dynamic _satisfied;
+  dynamic _label;
   String? _createdAt;
   List<dynamic>? _files;
   num? _targetId;
   bool? _deleted;
-  dynamic _projectId;
+  num? _projectId;
   String? _relatedType;
   String? _relatedId;
   List<Score>? _score;
+  List<CommentTags>? _commentTags;
   CommentItem copyWith({
     num? id,
     bool? isanonymous,
+    String? date,
     String? userId,
-    UserItem? userItem,
+    dynamic userItem,
     String? description,
-    bool? satisfied,
-    String? label,
+    dynamic satisfied,
+    dynamic label,
     String? createdAt,
     List<dynamic>? files,
     num? targetId,
     bool? deleted,
-    dynamic projectId,
+    num? projectId,
     String? relatedType,
     String? relatedId,
     List<Score>? score,
+    List<CommentTags>? commentTags,
   }) =>
       CommentItem(
         id: id ?? _id,
         isanonymous: isanonymous ?? _isanonymous,
+        date: date ?? _date,
         userId: userId ?? _userId,
         userItem: userItem ?? _userItem,
         description: description ?? _description,
@@ -120,31 +148,33 @@ class CommentItem {
         relatedType: relatedType ?? _relatedType,
         relatedId: relatedId ?? _relatedId,
         score: score ?? _score,
+        commentTags: commentTags ?? _commentTags,
       );
   num? get id => _id;
   bool? get isanonymous => _isanonymous;
+  String? get date => _date;
   String? get userId => _userId;
-  UserItem? get userItem => _userItem;
+  dynamic get userItem => _userItem;
   String? get description => _description;
-  bool? get satisfied => _satisfied;
-  String? get label => _label;
+  dynamic get satisfied => _satisfied;
+  dynamic get label => _label;
   String? get createdAt => _createdAt;
   List<dynamic>? get files => _files;
   num? get targetId => _targetId;
   bool? get deleted => _deleted;
-  dynamic get projectId => _projectId;
+  num? get projectId => _projectId;
   String? get relatedType => _relatedType;
   String? get relatedId => _relatedId;
   List<Score>? get score => _score;
+  List<CommentTags>? get commentTags => _commentTags;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
     map['isanonymous'] = _isanonymous;
+    map['date'] = _date;
     map['userId'] = _userId;
-    if (_userItem != null) {
-      map['userItem'] = _userItem?.toJson();
-    }
+    map['userItem'] = _userItem;
     map['description'] = _description;
     map['satisfied'] = _satisfied;
     map['label'] = _label;
@@ -160,279 +190,81 @@ class CommentItem {
     if (_score != null) {
       map['Score'] = _score?.map((v) => v.toJson()).toList();
     }
+    if (_commentTags != null) {
+      map['commentTags'] = _commentTags?.map((v) => v.toJson()).toList();
+    }
     return map;
   }
 }
 
-/// id : 62
-/// userId : null
-/// score : 5
-/// createdAt : "2023-12-16T03:27:10.463Z"
-/// deleted : false
-/// commentId : 66
+/// id : 12
+/// commentId : 12
+/// title : "老師點評"
+/// targetId : "teacher_rate"
 
-class Score {
-  Score({
+CommentTags commentTagsFromJson(String str) =>
+    CommentTags.fromJson(json.decode(str));
+String commentTagsToJson(CommentTags data) => json.encode(data.toJson());
+
+class CommentTags {
+  CommentTags({
     num? id,
-    dynamic userId,
-    num? score,
-    String? createdAt,
-    bool? deleted,
     num? commentId,
+    String? title,
+    String? targetId,
   }) {
     _id = id;
-    _userId = userId;
-    _score = score;
-    _createdAt = createdAt;
-    _deleted = deleted;
     _commentId = commentId;
-  }
-
-  Score.fromJson(dynamic json) {
-    _id = json['id'];
-    _userId = json['userId'];
-    _score = json['score'];
-    _createdAt = json['createdAt'];
-    _deleted = json['deleted'];
-    _commentId = json['commentId'];
-  }
-  num? _id;
-  dynamic _userId;
-  num? _score;
-  String? _createdAt;
-  bool? _deleted;
-  num? _commentId;
-  Score copyWith({
-    num? id,
-    dynamic userId,
-    num? score,
-    String? createdAt,
-    bool? deleted,
-    num? commentId,
-  }) =>
-      Score(
-        id: id ?? _id,
-        userId: userId ?? _userId,
-        score: score ?? _score,
-        createdAt: createdAt ?? _createdAt,
-        deleted: deleted ?? _deleted,
-        commentId: commentId ?? _commentId,
-      );
-  num? get id => _id;
-  dynamic get userId => _userId;
-  num? get score => _score;
-  String? get createdAt => _createdAt;
-  bool? get deleted => _deleted;
-  num? get commentId => _commentId;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = _id;
-    map['userId'] = _userId;
-    map['score'] = _score;
-    map['createdAt'] = _createdAt;
-    map['deleted'] = _deleted;
-    map['commentId'] = _commentId;
-    return map;
-  }
-}
-
-/// name : "孙笑川"
-/// touXiang : "https://storage.dev.heyday-catering.com:20443/crop/52085ce87b56a77966b3ebf11b28aeeef49e047df38e5d0be829c075e7bb7f8a_upload_1685590181199.0.8845739583668624.0.jpg"
-
-class UserItem {
-  UserItem({
-    String? name,
-    String? touXiang,
-  }) {
-    _name = name;
-    _touXiang = touXiang;
-  }
-
-  UserItem.fromJson(dynamic json) {
-    _name = json['name'];
-    _touXiang = json['touXiang'];
-  }
-  String? _name;
-  String? _touXiang;
-  UserItem copyWith({
-    String? name,
-    String? touXiang,
-  }) =>
-      UserItem(
-        name: name ?? _name,
-        touXiang: touXiang ?? _touXiang,
-      );
-  String? get name => _name;
-  String? get touXiang => _touXiang;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['name'] = _name;
-    map['touXiang'] = _touXiang;
-    return map;
-  }
-}
-
-/*
-/// id : 1
-/// isanonymous : false
-/// userId : "孙笑川"
-/// description : "好评好评"
-/// satisfied : true
-/// label : "['味道很棒','服务很好']"
-/// createdAt : "2023-05-29T03:16:02.866Z"
-/// files : [{"url":"https://storage.dev.macauscholar.com:20443/crop/e919d80c30b7687d5b453260e2bd6362ae4ca11ff0ad3f435fed68490726ec4c_upload_1685330226236.0.40537613251542326.0.png","mime":"image/png","name":"xmmzpc4.png","size":"199339","hash":"e919d80c30b7687d5b453260e2bd6362ae4ca11ff0ad3f435fed68490726ec4c"},{"url":"https://storage.dev.macauscholar.com:20443/crop/00fee26d7daffa358956e7f20c9b726027555e77d58a714ab4224376c96c7fac_upload_1685330232459.0.2640993249370349.0.png","mime":"image/png","name":"xmmzpc5.png","size":"193299","hash":"00fee26d7daffa358956e7f20c9b726027555e77d58a714ab4224376c96c7fac"}]
-/// targetId : 6
-/// deleted : false
-/// projectId : null
-/// relatedType : "orther"
-/// relatedId : "666666"
-/// Score : [{"id":1,"userId":null,"score":5,"createdAt":"2023-05-29T03:16:02.866Z","deleted":false,"commentId":1}]
-
-class CommentItem {
-  CommentItem({
-    num? id,
-    bool? isanonymous,
-    String? userId,
-    String? description,
-    bool? satisfied,
-    String? label,
-    String? createdAt,
-    List<Files>? files,
-    num? targetId,
-    bool? deleted,
-    dynamic projectId,
-    String? relatedType,
-    String? relatedId,
-    List<Score>? score,
-  }) {
-    _id = id;
-    _isanonymous = isanonymous;
-    _userId = userId;
-    _description = description;
-    _satisfied = satisfied;
-    _label = label;
-    _createdAt = createdAt;
-    _files = files;
+    _title = title;
     _targetId = targetId;
-    _deleted = deleted;
-    _projectId = projectId;
-    _relatedType = relatedType;
-    _relatedId = relatedId;
-    _score = score;
   }
 
-  CommentItem.fromJson(dynamic json) {
+  CommentTags.fromJson(dynamic json) {
     _id = json['id'];
-    _isanonymous = json['isanonymous'];
-    _userId = json['userId'];
-    _description = json['description'];
-    _satisfied = json['satisfied'];
-    _label = json['label'];
-    _createdAt = json['createdAt'];
-    if (json['files'] != null) {
-      _files = [];
-      json['files'].forEach((v) {
-        _files?.add(Files.fromJson(v));
-      });
-    }
+    _commentId = json['commentId'];
+    _title = json['title'];
     _targetId = json['targetId'];
-    _deleted = json['deleted'];
-    _projectId = json['projectId'];
-    _relatedType = json['relatedType'];
-    _relatedId = json['relatedId'];
-    if (json['Score'] != null) {
-      _score = [];
-      json['Score'].forEach((v) {
-        _score?.add(Score.fromJson(v));
-      });
-    }
   }
   num? _id;
-  bool? _isanonymous;
-  String? _userId;
-  String? _description;
-  bool? _satisfied;
-  String? _label;
-  String? _createdAt;
-  List<Files>? _files;
-  num? _targetId;
-  bool? _deleted;
-  dynamic _projectId;
-  String? _relatedType;
-  String? _relatedId;
-  List<Score>? _score;
-  CommentItem copyWith({
+  num? _commentId;
+  String? _title;
+  String? _targetId;
+  CommentTags copyWith({
     num? id,
-    bool? isanonymous,
-    String? userId,
-    String? description,
-    bool? satisfied,
-    String? label,
-    String? createdAt,
-    List<Files>? files,
-    num? targetId,
-    bool? deleted,
-    dynamic projectId,
-    String? relatedType,
-    String? relatedId,
-    List<Score>? score,
+    num? commentId,
+    String? title,
+    String? targetId,
   }) =>
-      CommentItem(
+      CommentTags(
         id: id ?? _id,
-        isanonymous: isanonymous ?? _isanonymous,
-        userId: userId ?? _userId,
-        description: description ?? _description,
-        satisfied: satisfied ?? _satisfied,
-        label: label ?? _label,
-        createdAt: createdAt ?? _createdAt,
-        files: files ?? _files,
+        commentId: commentId ?? _commentId,
+        title: title ?? _title,
         targetId: targetId ?? _targetId,
-        deleted: deleted ?? _deleted,
-        projectId: projectId ?? _projectId,
-        relatedType: relatedType ?? _relatedType,
-        relatedId: relatedId ?? _relatedId,
-        score: score ?? _score,
       );
   num? get id => _id;
-  bool? get isanonymous => _isanonymous;
-  String? get userId => _userId;
-  String? get description => _description;
-  bool? get satisfied => _satisfied;
-  String? get label => _label;
-  String? get createdAt => _createdAt;
-  List<Files>? get files => _files;
-  num? get targetId => _targetId;
-  bool? get deleted => _deleted;
-  dynamic get projectId => _projectId;
-  String? get relatedType => _relatedType;
-  String? get relatedId => _relatedId;
-  List<Score>? get score => _score;
+  num? get commentId => _commentId;
+  String? get title => _title;
+  String? get targetId => _targetId;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
-    map['isanonymous'] = _isanonymous;
-    map['userId'] = _userId;
-    map['description'] = _description;
-    map['satisfied'] = _satisfied;
-    map['label'] = _label;
-    map['createdAt'] = _createdAt;
-    if (_files != null) {
-      map['files'] = _files?.map((v) => v.toJson()).toList();
-    }
+    map['commentId'] = _commentId;
+    map['title'] = _title;
     map['targetId'] = _targetId;
-    map['deleted'] = _deleted;
-    map['projectId'] = _projectId;
-    map['relatedType'] = _relatedType;
-    map['relatedId'] = _relatedId;
-    if (_score != null) {
-      map['Score'] = _score?.map((v) => v.toJson()).toList();
-    }
     return map;
   }
 }
+
+/// id : 12
+/// userId : null
+/// score : 0
+/// createdAt : "2024-07-04T05:41:15.575Z"
+/// deleted : false
+/// commentId : 12
+
+Score scoreFromJson(String str) => Score.fromJson(json.decode(str));
+String scoreToJson(Score data) => json.encode(data.toJson());
 
 class Score {
   Score({
@@ -499,62 +331,3 @@ class Score {
     return map;
   }
 }
-
-class Files {
-  Files({
-    String? url,
-    String? mime,
-    String? name,
-    String? size,
-    String? hash,
-  }) {
-    _url = url;
-    _mime = mime;
-    _name = name;
-    _size = size;
-    _hash = hash;
-  }
-
-  Files.fromJson(dynamic json) {
-    _url = json['url'];
-    _mime = json['mime'];
-    _name = json['name'];
-    _size = json['size'];
-    _hash = json['hash'];
-  }
-  String? _url;
-  String? _mime;
-  String? _name;
-  String? _size;
-  String? _hash;
-  Files copyWith({
-    String? url,
-    String? mime,
-    String? name,
-    String? size,
-    String? hash,
-  }) =>
-      Files(
-        url: url ?? _url,
-        mime: mime ?? _mime,
-        name: name ?? _name,
-        size: size ?? _size,
-        hash: hash ?? _hash,
-      );
-  String? get url => _url;
-  String? get mime => _mime;
-  String? get name => _name;
-  String? get size => _size;
-  String? get hash => _hash;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['url'] = _url;
-    map['mime'] = _mime;
-    map['name'] = _name;
-    map['size'] = _size;
-    map['hash'] = _hash;
-    return map;
-  }
-}
-*/

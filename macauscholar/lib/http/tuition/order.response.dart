@@ -6,10 +6,9 @@
 
 import 'package:service_package/service_package.dart';
 import 'package:macauscholar/macauscholar.dart';
-import 'package:macauscholar/model/tuition_order_model.dart';
 
 class TuitionOrderResponse {
-  static Future<List<TuitionOrderModel>> getOrderList(
+  static Future<List<TuitionOrderItem>> getOrderList(
       {int? page,
       Map<dynamic, dynamic>? filter,
       int? size,
@@ -25,15 +24,29 @@ class TuitionOrderResponse {
       })
         ..removeWhere((key, value) => value == null);
 
-      List<TuitionOrderModel> list = [];
+      List<TuitionOrderItem> list = [];
       List<dynamic> jsonLists = await MacauDio.getInstance().get(
         url: "/tuition/api/order/",
         params: params,
       );
       for (var item in jsonLists) {
-        list.add(TuitionOrderModel.fromJson(item));
+        list.add(TuitionOrderItem.fromJson(item));
       }
       return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<TuitionOrderItem> getOrderDetail({required String id}) async {
+    try {
+      TuitionOrderItem? item;
+      Map<String, dynamic> res = await MacauDio.getInstance().get(
+        url: "/tuition/api/order/$id",
+      );
+      item = TuitionOrderItem.fromJson(res);
+      return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

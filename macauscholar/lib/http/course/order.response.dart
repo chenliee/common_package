@@ -40,7 +40,7 @@ class CourseOrderResponse {
     }
   }
 
-  static Future<CourseOrderItem> getOrderItem({required String id}) async {
+  static Future<CourseOrderItem> getOrderDetail({required String id}) async {
     try {
       CourseOrderItem? item;
       Map<String, dynamic> res = await MacauDio.getInstance().get(

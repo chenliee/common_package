@@ -44,11 +44,18 @@ abstract class Class {
   Future<ShopHomeModel> getShopHomeData();
 
   @ApiGen(
-    '/scholar/tuition/advert/data',
+    '/scholar/tuition/data',
     method: ApiGen.GET,
     target: 'TuitionModel',
   )
   Future<TuitionModel> getTuitionData();
+
+  @ApiGen(
+    '/scholar/recommend/advert/data',
+    method: ApiGen.GET,
+    target: 'RecommendModel',
+  )
+  Future<RecommendModel> getRecommendData();
 
   @ApiGen(
     '/scholar/course/data',
@@ -72,7 +79,7 @@ abstract class Class {
       {required String group, required String name, num? page, num? size});
 
   @ApiGen(
-    '/scholar/add/scholar',
+    '/scholar/user/scholar',
     method: ApiGen.POST,
     target: 'RelationshipItem',
     params: {
@@ -94,7 +101,7 @@ abstract class Class {
   });
 
   @ApiGen(
-    '/scholar/getRelationShip',
+    '/scholar/user/relationShip',
     method: ApiGen.GET,
     target: 'ScholarItem',
     params: {
@@ -104,7 +111,7 @@ abstract class Class {
   Future<List<ScholarItem>> getScholarList();
 
   @ApiGen(
-    '/scholar/getRelationShip',
+    '/scholar/user/relationShip',
     method: ApiGen.GET,
     target: 'StudentItem',
     params: {
@@ -114,7 +121,14 @@ abstract class Class {
   Future<List<StudentItem>> getStudentList();
 
   @ApiGen(
-    '/scholar/getStudentParent',
+    '/scholar/user/userIdentity',
+    method: ApiGen.GET,
+    target: 'IdentityModel',
+  )
+  Future<IdentityModel> getUserIdentity();
+
+  @ApiGen(
+    '/scholar/user/studentParent',
     method: ApiGen.GET,
     target: 'ParentItem',
     params: {
@@ -126,7 +140,7 @@ abstract class Class {
       {required String type, required String user});
 
   @ApiGen(
-    '/scholar/unbind/studentParent',
+    '/scholar/user/unbindStudentParent',
     method: ApiGen.POST,
     target: 'RelationshipItem',
     params: {
@@ -136,4 +150,53 @@ abstract class Class {
   )
   Future<RelationshipItem> unbindParent(
       {required String userToSn, required String userSn});
+
+  @ApiGen(
+    '/scholar/user/userGrade',
+    method: ApiGen.GET,
+    target: 'UserGradeModel',
+    params: {
+      'sn': '@C_sn',
+    },
+  )
+  Future<UserGradeModel> getUserGrade({required String sn});
+
+  @ApiGen(
+    '/scholar/tuition/learnCenterData',
+    method: ApiGen.GET,
+    target: 'LearnCenterModel',
+    params: {
+      'date': '@C_date',
+      'id': '@C_id',
+    },
+  )
+  Future<LearnCenterModel> getLearnCenterData(
+      {required DateTime date, required String id});
+
+  @ApiGen(
+    '/scholar/course/studentLesson',
+    method: ApiGen.GET,
+    target: 'LessonItem',
+    params: {
+      'id': '@C_id',
+    },
+  )
+  Future<List<LessonItem>> getStudentLesson({required String id});
+
+  @ApiGen(
+    '/scholar/course/discountClass',
+    method: ApiGen.GET,
+    target: 'DiscountClassModel',
+  )
+  Future<List<DiscountClassModel>> getDiscountClass();
+
+  @ApiGen(
+    '/scholar/course/classLesson',
+    method: ApiGen.GET,
+    target: 'LessonItem',
+    params: {
+      'id': '@C_ids',
+    },
+  )
+  Future<List<LessonItem>> getClassLesson({required List<num> ids});
 }

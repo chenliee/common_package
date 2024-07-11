@@ -1,8 +1,7 @@
-name: macauscholar
-description: "macauscholar api"
+name: attendance
+description: "A new Flutter project."
 version: 0.0.1
 homepage:
-publish_to: none
 
 environment:
   sdk: '>=3.3.4 <4.0.0'
@@ -13,27 +12,11 @@ dependencies:
     sdk: flutter
   service_package:
     path: ../service_package
-  article:
-    path: ../article
-  gold:
-    path: ../gold
-  crop:
-    path: ../crop
-  marketing:
-    path: ../marketing
-  service_hub:
-    path: ../service_hub
-  storage:
-    path: ../storage
-  member:
-    path: ../member
-  rating:
-    path: ../rating
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

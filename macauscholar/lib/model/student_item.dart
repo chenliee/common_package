@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:macauscholar/macauscholar.dart';
-import 'package:macauscholar/model/subscription_item.dart';
 import 'package:storage/storage.dart';
 
 /// id : 455
@@ -68,6 +67,7 @@ class StudentItem {
     String? member,
     dynamic registrationForm,
     String? joinAt,
+    String? birthday,
     String? mongoDBId,
     dynamic referrerId,
     dynamic card,
@@ -76,7 +76,7 @@ class StudentItem {
     dynamic deletedAt,
     SchoolItem? school,
     SchoolYearItem? schoolYear,
-    List<Subscription>? subscription,
+    List<SubscriptionItem>? subscription,
   }) {
     _id = id;
     _gender = gender;
@@ -102,6 +102,7 @@ class StudentItem {
     _member = member;
     _registrationForm = registrationForm;
     _joinAt = joinAt;
+    _birthday = birthday;
     _mongoDBId = mongoDBId;
     _referrerId = referrerId;
     _card = card;
@@ -163,6 +164,7 @@ class StudentItem {
     _member = json['member'];
     _registrationForm = json['registrationForm'];
     _joinAt = json['joinAt'];
+    _birthday = json['birthday'];
     _mongoDBId = json['mongoDBId'];
     _referrerId = json['referrerId'];
     _card = json['card'];
@@ -177,7 +179,7 @@ class StudentItem {
     if (json['subscription'] != null) {
       _subscription = [];
       json['subscription'].forEach((v) {
-        _subscription?.add(Subscription.fromJson(v));
+        _subscription?.add(SubscriptionItem.fromJson(v));
       });
     }
   }
@@ -205,6 +207,7 @@ class StudentItem {
   String? _member;
   dynamic _registrationForm;
   String? _joinAt;
+  String? _birthday;
   String? _mongoDBId;
   dynamic _referrerId;
   dynamic _card;
@@ -213,7 +216,7 @@ class StudentItem {
   dynamic _deletedAt;
   SchoolItem? _school;
   SchoolYearItem? _schoolYear;
-  List<Subscription>? _subscription;
+  List<SubscriptionItem>? _subscription;
   StudentItem copyWith({
     num? id,
     dynamic gender,
@@ -239,6 +242,7 @@ class StudentItem {
     String? member,
     dynamic registrationForm,
     String? joinAt,
+    String? birthday,
     String? mongoDBId,
     dynamic referrerId,
     dynamic card,
@@ -247,7 +251,7 @@ class StudentItem {
     dynamic deletedAt,
     SchoolItem? school,
     SchoolYearItem? schoolYear,
-    List<Subscription>? subscription,
+    List<SubscriptionItem>? subscription,
   }) =>
       StudentItem(
         id: id ?? _id,
@@ -274,6 +278,7 @@ class StudentItem {
         member: member ?? _member,
         registrationForm: registrationForm ?? _registrationForm,
         joinAt: joinAt ?? _joinAt,
+        birthday: birthday ?? _birthday,
         mongoDBId: mongoDBId ?? _mongoDBId,
         referrerId: referrerId ?? _referrerId,
         card: card ?? _card,
@@ -308,6 +313,7 @@ class StudentItem {
   String? get member => _member;
   dynamic get registrationForm => _registrationForm;
   String? get joinAt => _joinAt;
+  String? get birthday => _birthday;
   String? get mongoDBId => _mongoDBId;
   dynamic get referrerId => _referrerId;
   dynamic get card => _card;
@@ -316,7 +322,7 @@ class StudentItem {
   dynamic get deletedAt => _deletedAt;
   SchoolItem? get school => _school;
   SchoolYearItem? get schoolYear => _schoolYear;
-  List<Subscription>? get subscription => _subscription;
+  List<SubscriptionItem>? get subscription => _subscription;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -356,6 +362,7 @@ class StudentItem {
     map['member'] = _member;
     map['registrationForm'] = _registrationForm;
     map['joinAt'] = _joinAt;
+    map['birthday'] = _birthday;
     map['mongoDBId'] = _mongoDBId;
     map['referrerId'] = _referrerId;
     map['card'] = _card;

@@ -6,10 +6,9 @@
 
 import 'package:service_package/service_package.dart';
 import 'package:macauscholar/macauscholar.dart';
-import 'package:macauscholar/model/tuition_student.dart';
 
-class TuitionStudentResponse {
-  static Future<List<TuitionStudent>> getStudentList(
+class MealOrderResponse {
+  static Future<List<MealOrderItem>> getOrderList(
       {int? page,
       Map<dynamic, dynamic>? filter,
       int? size,
@@ -25,13 +24,13 @@ class TuitionStudentResponse {
       })
         ..removeWhere((key, value) => value == null);
 
-      List<TuitionStudent> list = [];
+      List<MealOrderItem> list = [];
       List<dynamic> jsonLists = await MacauDio.getInstance().get(
-        url: "/tuition/api/student/",
+        url: "/meal/api/order/",
         params: params,
       );
       for (var item in jsonLists) {
-        list.add(TuitionStudent.fromJson(item));
+        list.add(MealOrderItem.fromJson(item));
       }
       return list;
     } catch (e) {
@@ -40,14 +39,52 @@ class TuitionStudentResponse {
     }
   }
 
-  static Future<TuitionStudent> getStudentDetail(
-      {required String number}) async {
+  static Future<List<OrderItem>> getOrderItem(
+      {int? page,
+      Map<dynamic, dynamic>? filter,
+      int? size,
+      String? keyword,
+      bool? isDel}) async {
     try {
-      TuitionStudent? item;
-      Map<String, dynamic> res = await MacauDio.getInstance().get(
-        url: "/tuition/api/student/$number/",
+      Map<String, dynamic> params = Map.from({
+        "size": size,
+        "page": page,
+        "filter": filter,
+        "keyword": keyword,
+        "isDel": isDel,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      List<OrderItem> list = [];
+      List<dynamic> jsonLists = await MacauDio.getInstance().get(
+        url: "/meal/api/order/item/",
+        params: params,
       );
-      item = TuitionStudent.fromJson(res);
+      for (var item in jsonLists) {
+        list.add(OrderItem.fromJson(item));
+      }
+      return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<OrderItem> deleteOrderItem(
+      {required num id, bool isDel = true, bool isTrueDel = false}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "isTrueDel": isTrueDel,
+        "isDel": isDel,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      OrderItem? item;
+      Map<String, dynamic> res = await MacauDio.getInstance().delete(
+        url: "/meal/api/order/item/$id",
+        params: params,
+      );
+      item = OrderItem.fromJson(res);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
@@ -55,32 +92,14 @@ class TuitionStudentResponse {
     }
   }
 
-  static Future<List<SubscriptionItem>> getStudentSubscribe(
-      {int? page,
-      Map<dynamic, dynamic>? filter,
-      int? size,
-      String? keyword,
-      bool disablePaging = false,
-      required String studentId}) async {
+  static Future<MealOrderItem> getOrderDetail({required String id}) async {
     try {
-      Map<String, dynamic> params = Map.from({
-        "size": size,
-        "page": page,
-        "filter": filter,
-        "keyword": keyword,
-        "disablePaging": disablePaging,
-      })
-        ..removeWhere((key, value) => value == null);
-
-      List<SubscriptionItem> list = [];
-      List<dynamic> jsonLists = await MacauDio.getInstance().get(
-        url: "/tuition/api/student/$studentId/subscribe/",
-        params: params,
+      MealOrderItem? item;
+      Map<String, dynamic> res = await MacauDio.getInstance().get(
+        url: "/meal/api/order/$id",
       );
-      for (var item in jsonLists) {
-        list.add(SubscriptionItem.fromJson(item));
-      }
-      return list;
+      item = MealOrderItem.fromJson(res);
+      return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

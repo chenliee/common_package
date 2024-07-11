@@ -39,7 +39,7 @@ class ClassResponse {
     }
   }
 
-  static Future<EnrollmentItem> addEnrollmentItem(
+  static Future<CourseEnrollmentItem> addEnrollmentItem(
       {required String scholar,
       required String classId,
       String? remark}) async {
@@ -50,12 +50,26 @@ class ClassResponse {
       })
         ..removeWhere((key, value) => value == null);
 
-      EnrollmentItem? item;
+      CourseEnrollmentItem? item;
       Map<String, dynamic> res = await MacauDio.getInstance().post(
         url: "/course/api/class/$classId/enrollment",
         params: params,
       );
-      item = EnrollmentItem.fromJson(res);
+      item = CourseEnrollmentItem.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<ClassItem> getClassItem({required String id}) async {
+    try {
+      ClassItem? item;
+      Map<String, dynamic> res = await MacauDio.getInstance().get(
+        url: "/course/api/class/$id",
+      );
+      item = ClassItem.fromJson(res);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);

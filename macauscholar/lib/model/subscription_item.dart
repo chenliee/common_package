@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:macauscholar/macauscholar.dart';
+import 'package:macauscholar/model/service_item.dart';
+
 /// id : 319
 /// remark : null
 /// branch : "B100010"
@@ -18,12 +21,12 @@ import 'dart:convert';
 /// updatedAt : "2024-06-14T06:50:54.668Z"
 /// deletedAt : null
 
-Subscription subscriptionFromJson(String str) =>
-    Subscription.fromJson(json.decode(str));
-String subscriptionToJson(Subscription data) => json.encode(data.toJson());
+SubscriptionItem subscriptionFromJson(String str) =>
+    SubscriptionItem.fromJson(json.decode(str));
+String subscriptionToJson(SubscriptionItem data) => json.encode(data.toJson());
 
-class Subscription {
-  Subscription({
+class SubscriptionItem {
+  SubscriptionItem({
     num? id,
     dynamic remark,
     String? branch,
@@ -41,6 +44,7 @@ class Subscription {
     String? createdAt,
     String? updatedAt,
     dynamic deletedAt,
+    ServiceItem? service,
   }) {
     _id = id;
     _remark = remark;
@@ -59,9 +63,10 @@ class Subscription {
     _createdAt = createdAt;
     _updatedAt = updatedAt;
     _deletedAt = deletedAt;
+    _service = service;
   }
 
-  Subscription.fromJson(dynamic json) {
+  SubscriptionItem.fromJson(dynamic json) {
     _id = json['id'];
     _remark = json['remark'];
     _branch = json['branch'];
@@ -82,6 +87,8 @@ class Subscription {
     _mongoDBId = json['mongoDBId'];
     _authInfo =
         json['authInfo'] != null ? AuthInfo.fromJson(json['authInfo']) : null;
+    _service =
+        json['service'] != null ? ServiceItem.fromJson(json['service']) : null;
     _createdAt = json['createdAt'];
     _updatedAt = json['updatedAt'];
     _deletedAt = json['deletedAt'];
@@ -103,7 +110,9 @@ class Subscription {
   String? _createdAt;
   String? _updatedAt;
   dynamic _deletedAt;
-  Subscription copyWith({
+  ServiceItem? _service;
+
+  SubscriptionItem copyWith({
     num? id,
     dynamic remark,
     String? branch,
@@ -121,8 +130,9 @@ class Subscription {
     String? createdAt,
     String? updatedAt,
     dynamic deletedAt,
+    ServiceItem? service,
   }) =>
-      Subscription(
+      SubscriptionItem(
         id: id ?? _id,
         remark: remark ?? _remark,
         branch: branch ?? _branch,
@@ -140,6 +150,7 @@ class Subscription {
         createdAt: createdAt ?? _createdAt,
         updatedAt: updatedAt ?? _updatedAt,
         deletedAt: deletedAt ?? _deletedAt,
+        service: service ?? _service,
       );
   num? get id => _id;
   dynamic get remark => _remark;
@@ -157,6 +168,7 @@ class Subscription {
   AuthInfo? get authInfo => _authInfo;
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
+  ServiceItem? get service => _service;
   dynamic get deletedAt => _deletedAt;
 
   Map<String, dynamic> toJson() {
@@ -337,56 +349,6 @@ class Provider {
     map['uid'] = _uid;
     map['code'] = _code;
     map['driver'] = _driver;
-    return map;
-  }
-}
-
-/// code : "TUIFEE00K3"
-/// label : "K3補習費"
-/// value : 1800
-
-ServicesTable servicesTableFromJson(String str) =>
-    ServicesTable.fromJson(json.decode(str));
-String servicesTableToJson(ServicesTable data) => json.encode(data.toJson());
-
-class ServicesTable {
-  ServicesTable({
-    String? code,
-    String? label,
-    num? value,
-  }) {
-    _code = code;
-    _label = label;
-    _value = value;
-  }
-
-  ServicesTable.fromJson(dynamic json) {
-    _code = json['code'];
-    _label = json['label'];
-    _value = json['value'];
-  }
-  String? _code;
-  String? _label;
-  num? _value;
-  ServicesTable copyWith({
-    String? code,
-    String? label,
-    num? value,
-  }) =>
-      ServicesTable(
-        code: code ?? _code,
-        label: label ?? _label,
-        value: value ?? _value,
-      );
-  String? get code => _code;
-  String? get label => _label;
-  num? get value => _value;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['code'] = _code;
-    map['label'] = _label;
-    map['value'] = _value;
     return map;
   }
 }

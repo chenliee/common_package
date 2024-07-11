@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:macauscholar/macauscholar.dart';
+
 /// id : 19
 /// title : "主菜"
 /// type : "main"
@@ -31,7 +33,7 @@ class MenuSection {
     String? updatedAt,
     String? objectId,
     String? sn,
-    Menu? menu,
+    MenuItem? menu,
     List<Foods>? foods,
   }) {
     _id = id;
@@ -61,7 +63,7 @@ class MenuSection {
     _updatedAt = json['updatedAt'];
     _objectId = json['objectId'];
     _sn = json['sn'];
-    _menu = json['menu'] != null ? Menu.fromJson(json['menu']) : null;
+    _menu = json['menu'] != null ? MenuItem.fromJson(json['menu']) : null;
     if (json['foods'] != null) {
       _foods = [];
       json['foods'].forEach((v) {
@@ -80,7 +82,7 @@ class MenuSection {
   String? _updatedAt;
   String? _objectId;
   String? _sn;
-  Menu? _menu;
+  MenuItem? _menu;
   List<Foods>? _foods;
 
   num? get id => _id;
@@ -94,7 +96,7 @@ class MenuSection {
   String? get updatedAt => _updatedAt;
   String? get objectId => _objectId;
   String? get sn => _sn;
-  Menu? get menu => _menu;
+  MenuItem? get menu => _menu;
   List<Foods>? get foods => _foods;
 
   Map<String, dynamic> toJson() {
@@ -262,46 +264,6 @@ class Foods {
     map['updatedAt'] = _updatedAt;
     map['objectId'] = _objectId;
     map['sn'] = _sn;
-    return map;
-  }
-}
-
-/// id : 1
-/// title : "午膳"
-/// price : 45
-
-Menu menuFromJson(String str) => Menu.fromJson(json.decode(str));
-String menuToJson(Menu data) => json.encode(data.toJson());
-
-class Menu {
-  Menu({
-    num? id,
-    String? title,
-    num? price,
-  }) {
-    _id = id;
-    _title = title;
-    _price = price;
-  }
-
-  Menu.fromJson(dynamic json) {
-    _id = json['id'];
-    _title = json['title'];
-    _price = json['price'];
-  }
-  num? _id;
-  String? _title;
-  num? _price;
-
-  num? get id => _id;
-  String? get title => _title;
-  num? get price => _price;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = _id;
-    map['title'] = _title;
-    map['price'] = _price;
     return map;
   }
 }

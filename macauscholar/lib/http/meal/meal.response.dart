@@ -6,13 +6,9 @@
 
 import 'package:service_package/service_package.dart';
 import 'package:macauscholar/macauscholar.dart';
-import 'package:macauscholar/model/menus_model.dart';
-import 'package:macauscholar/model/menu_section.dart';
-import 'package:macauscholar/model/menu_detail.dart';
-import 'package:macauscholar/model/menu_cart.dart';
 
 class MealResponse {
-  static Future<List<FoodMenus>> getMenuList(
+  static Future<List<MenuItem>> getMenuList(
       {int? page, int? size, Map<dynamic, dynamic>? filter}) async {
     try {
       Map<String, dynamic> params = Map.from({
@@ -22,13 +18,13 @@ class MealResponse {
       })
         ..removeWhere((key, value) => value == null);
 
-      List<FoodMenus> list = [];
+      List<MenuItem> list = [];
       List<dynamic> jsonLists = await MacauDio.getInstance().get(
         url: "/meal/api/menu/",
         params: params,
       );
       for (var item in jsonLists) {
-        list.add(FoodMenus.fromJson(item));
+        list.add(MenuItem.fromJson(item));
       }
       return list;
     } catch (e) {
@@ -84,6 +80,26 @@ class MealResponse {
       );
       item = MenuCart.fromJson(res);
       return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<List<MealOrderItem>> confirmMenuOrder(
+      {required dynamic data}) async {
+    try {
+      dynamic params = data;
+
+      List<MealOrderItem> list = [];
+      List<dynamic> jsonLists = await MacauDio.getInstance().post(
+        url: "/meal/api/order/shoppingMode/",
+        params: params,
+      );
+      for (var item in jsonLists) {
+        list.add(MealOrderItem.fromJson(item));
+      }
+      return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
