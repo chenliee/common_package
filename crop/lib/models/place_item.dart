@@ -20,6 +20,7 @@ String placeItemToJson(PlaceItem data) => json.encode(data.toJson());
 class PlaceItem {
   PlaceItem({
     String? code,
+    int? id,
     String? title,
     String? address,
     dynamic remark,
@@ -33,6 +34,7 @@ class PlaceItem {
     Files? files,
   }) {
     _code = code;
+    _id = id;
     _title = title;
     _address = address;
     _remark = remark;
@@ -59,6 +61,7 @@ class PlaceItem {
 
   PlaceItem.fromJson(dynamic json) {
     _code = json['code'];
+    _id = json['id'];
     _title = json['title'];
     _address = json['address'];
     _remark = json['remark'];
@@ -82,6 +85,7 @@ class PlaceItem {
     _files = json['files'] != null ? Files.fromJson(json['files']) : null;
   }
   String? _code;
+  int? _id;
   String? _title;
   String? _address;
   dynamic _remark;
@@ -95,6 +99,7 @@ class PlaceItem {
   Files? _files;
   PlaceItem copyWith({
     String? code,
+    int? id,
     String? title,
     String? address,
     dynamic remark,
@@ -109,6 +114,7 @@ class PlaceItem {
   }) =>
       PlaceItem(
         code: code ?? _code,
+        id: id ?? _id,
         title: title ?? _title,
         address: address ?? _address,
         remark: remark ?? _remark,
@@ -122,6 +128,7 @@ class PlaceItem {
         files: files ?? _files,
       );
   String? get code => _code;
+  int? get id => _id;
   String? get title => _title;
   String? get address => _address;
   dynamic get remark => _remark;
@@ -137,6 +144,7 @@ class PlaceItem {
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['code'] = _code;
+    map['id'] = _id;
     map['title'] = _title;
     map['address'] = _address;
     map['remark'] = _remark;

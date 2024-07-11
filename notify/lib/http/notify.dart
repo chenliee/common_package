@@ -74,13 +74,13 @@ class NotifyRequest {
   }
 
   static Future<List<NotifyModel>> notifyList(
-      {required num page, required num size, List<String>? uid}) async {
+      {required num page, required num size, Map? filter}) async {
     try {
       List<NotifyModel> list = [];
       Map<String, dynamic>? params = {
         "page": page,
         "size": size,
-        'uid': uid,
+        'filter': filter,
       };
       final res =
           await BaseDio.getInstance().get(url: notifyUrl, params: params);

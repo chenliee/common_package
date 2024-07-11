@@ -123,7 +123,10 @@ class SimpleVisitor extends SimpleElementVisitor {
         requestName = 'get';
         funcInfo['httpSendData'] = false;
         break;
-
+      case ApiGen.PUT:
+        requestName = 'put';
+        funcInfo['httpSendData'] = true;
+        break;
       default:
         print('unsupportable method : $method');
         return;
