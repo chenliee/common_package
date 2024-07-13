@@ -9,7 +9,7 @@ import 'package:storage/storage.dart';
 import 'package:article/article.dart';
 import 'package:storage/model/tag_item.dart';
 import 'package:storage/model/catalog_key.dart';
-import 'package:storage/model/upload_image.dart';
+import 'package:storage/model/del_file.dart';
 
 class StorageResponse {
   static Future<List<FileItem>?> getFileList(
@@ -266,22 +266,14 @@ class StorageResponse {
     }
   }
 
-  static Future<UploadImage?> putUpload(
-      {required String? catalog, Stream<List<int>>? file, String? path}) async {
+  static Future<DelFile?> delFile({required String? id}) async {
     try {
-      Map<String, dynamic> params = Map.from({
-        "catalog": catalog,
-        "file": file,
-      })
-        ..removeWhere((key, value) => value == null);
-
-      UploadImage? item;
-      Map<String, dynamic> res = await MerchantDio.getInstance().put(
+      DelFile? item;
+      Map<String, dynamic> res = await MerchantDio.getInstance().delete(
         url:
-            "/storage/api/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/",
-        params: params,
+            "/storage/api/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/$id/",
       );
-      item = UploadImage.fromJson(res);
+      item = DelFile.fromJson(res);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);

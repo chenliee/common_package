@@ -44,4 +44,43 @@ abstract class Group {
   )
   Future<TuitionGroupItem> addGroup(
       {String? description, required String branch, String? user, int? userId, required String name});
+
+  @ApiGen(
+    '/api/group/\$id/',
+    method: ApiGen.PUT,
+    params: {
+      'description': '@C_description',
+      'branch': '@C_branch',
+      'user': '@C_user',
+      'userId': '@C_userId',
+      'name': '@C_name'
+    },
+    target: 'TuitionGroupDetail',
+  )
+  Future<TuitionGroupDetail> editGroup(
+      {required String? id,
+      String? description,
+       String? branch,
+      String? user,
+      int? userId,
+      required String name});
+
+  @ApiGen(
+    '/api/group/\$id/',
+    method: ApiGen.DELETE,
+    target: 'TuitionGroupDetail',
+  )
+  Future<TuitionGroupDetail> delGroup({required String? id});
+
+  @ApiGen(
+    '/api/group/\$id/student',
+    method: ApiGen.PUT,
+    params: {
+      'student': '@C_student',
+      'studentId': '@C_studentId',
+      'operate': '@C_operate',
+    },
+    target: 'TuitionGroupDetail',
+  )
+  Future<TuitionGroupDetail> groupStudent({required String? id,List<String>? student, List<num>? studentId, required String? operate});
 }

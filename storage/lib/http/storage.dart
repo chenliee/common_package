@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:service_package/api/api_gen.dart';
 import 'package:storage/model/catalog_key.dart';
+import 'package:storage/model/del_file.dart';
 import 'package:storage/model/tag_item.dart';
-import 'package:storage/model/upload_image.dart';
 import 'package:storage/storage.dart';
 
 /// package:service_package/service_package.dart
@@ -11,7 +11,7 @@ import 'package:storage/storage.dart';
 /// package:article/article.dart
 /// package:storage/model/tag_item.dart
 /// package:storage/model/catalog_key.dart
-/// package:storage/model/upload_image.dart
+/// package:storage/model/del_file.dart
 @ApiGen('/storage', file: 'StorageResponse', dio: 'MerchantDio')
 abstract class Storage {
   @ApiGen(
@@ -137,15 +137,9 @@ abstract class Storage {
       {required int? catalog, int? file, required String operate, required String group, required String name});
 
   @ApiGen(
-    '/api/merchant/\${ServiceGlobal.instance.merchantId}/project/\${ServiceGlobal.instance.projectId}/',
-    method: ApiGen.PUT,
-    params: {
-      'catalog': '@C_catalog',
-      'file': '@C_file',
-    },
-    target: 'UploadImage',
+    '/api/merchant/\${ServiceGlobal.instance.merchantId}/project/\${ServiceGlobal.instance.projectId}/\$id/',
+    method: ApiGen.DELETE,
+    target: 'DelFile',
   )
-  Future<UploadImage?> putUpload({required String? catalog, Stream<List<int>>? file, String? path});
-
-
+  Future<DelFile?> delFile({required String? id});
 }

@@ -1,4 +1,5 @@
 import 'package:macauscholar/macauscholar.dart';
+import 'package:macauscholar/model/employee_item.dart';
 
 import 'package:macauscholar/model/tuition_student.dart';
 import 'package:service_package/api/api_gen.dart';
@@ -6,6 +7,7 @@ import 'package:service_package/api/api_gen.dart';
 /// package:service_package/service_package.dart
 /// package:macauscholar/macauscholar.dart
 /// package:macauscholar/model/tuition_student.dart
+/// package:macauscholar/model/employee_item.dart
 @ApiGen('/tuition', file: 'TuitionStudentResponse', dio: 'MacauDio')
 abstract class Student {
   @ApiGen(
@@ -21,11 +23,7 @@ abstract class Student {
     target: 'TuitionStudent',
   )
   Future<List<TuitionStudent>> getStudentList(
-      {int? page,
-      Map? filter,
-      int? size,
-      String? keyword,
-      bool disablePaging = false});
+      {int? page, Map? filter, int? size, String? keyword, bool disablePaging = false});
 
   @ApiGen(
     '/api/student/\$number/',
@@ -47,10 +45,17 @@ abstract class Student {
     target: 'SubscriptionItem',
   )
   Future<List<SubscriptionItem>> getStudentSubscribe(
-      {int? page,
-      Map? filter,
-      int? size,
-      String? keyword,
-      bool disablePaging = false,
-      required String studentId});
+      {int? page, Map? filter, int? size, String? keyword, bool disablePaging = false, required String studentId});
+
+  @ApiGen(
+    '/api/me/user/student',
+    method: ApiGen.POST,
+    params: {
+      'student': '@C_student',
+      'studentId': '@C_studentId',
+      'operate': '@C_operate',
+    },
+    target: 'EmployeeItem',
+  )
+  Future<EmployeeItem?> connectStudent({List<String>? student, List<num>? studentId, required String? operate});
 }

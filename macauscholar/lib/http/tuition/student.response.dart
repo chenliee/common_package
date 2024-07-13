@@ -7,6 +7,7 @@
 import 'package:service_package/service_package.dart';
 import 'package:macauscholar/macauscholar.dart';
 import 'package:macauscholar/model/tuition_student.dart';
+import 'package:macauscholar/model/employee_item.dart';
 
 class TuitionStudentResponse {
   static Future<List<TuitionStudent>> getStudentList(
@@ -81,6 +82,31 @@ class TuitionStudentResponse {
         list.add(SubscriptionItem.fromJson(item));
       }
       return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<EmployeeItem?> connectStudent(
+      {List<String>? student,
+      List<num>? studentId,
+      required String? operate}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "student": student,
+        "studentId": studentId,
+        "operate": operate,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      EmployeeItem? item;
+      Map<String, dynamic> res = await MacauDio.getInstance().post(
+        url: "/tuition/api/me/user/student",
+        params: params,
+      );
+      item = EmployeeItem.fromJson(res);
+      return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

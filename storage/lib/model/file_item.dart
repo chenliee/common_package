@@ -1,11 +1,12 @@
 import 'dart:convert';
-/// id : 286
-/// url : "https://storage.dev.heyday-catering.com:20443/scholar/eliteshop/photo/macauscholar/e2bab8a9bdfb0275f0435a6e1b849b31f755475d8dd01ebaaa5c074ec6779173_ca07916bb170d4d7aaa87ea56f3b692a0ab8bcc98a9b299002b2904bd0597c56_ca07916bb170d4d7aaa87ea56f3b692a0ab8bcc98a9b299002b2904bd0597c56_222_%E5%89%AF%E6%9C%AC.png"
-/// mime : "image/png"
-/// name : "ca07916bb170d4d7aaa87ea56f3b692a0ab8bcc98a9b299002b2904bd0597c56_ca07916bb170d4d7aaa87ea56f3b692a0ab8bcc98a9b299002b2904bd0597c56_222_副本.png"
-/// size : "1345301"
-/// hash : "e2bab8a9bdfb0275f0435a6e1b849b31f755475d8dd01ebaaa5c074ec6779173"
-/// path : "macauscholar/e2bab8a9bdfb0275f0435a6e1b849b31f755475d8dd01ebaaa5c074ec6779173_ca07916bb170d4d7aaa87ea56f3b692a0ab8bcc98a9b299002b2904bd0597c56_ca07916bb170d4d7aaa87ea56f3b692a0ab8bcc98a9b299002b2904bd0597c56_222_副本.png"
+/// id : 367
+/// url : "https://storage.dev.heyday-catering.com:20443/scholar/eliteshop/%E6%A0%A1%E5%9C%92/a20268b0f482089e25863fca32e588f424dab2305405610289262b33360f0cde_234fc892-a816-4a0a-9ab8-a675a1e42f292053500049482733944.jpg"
+/// mime : "application/octet-stream"
+/// name : "234fc892-a816-4a0a-9ab8-a675a1e42f292053500049482733944.jpg"
+/// size : "5717970"
+/// checked : false
+/// hash : "a20268b0f482089e25863fca32e588f424dab2305405610289262b33360f0cde"
+/// path : "a20268b0f482089e25863fca32e588f424dab2305405610289262b33360f0cde_234fc892-a816-4a0a-9ab8-a675a1e42f292053500049482733944.jpg"
 
 FileItem fileItemFromJson(String str) => FileItem.fromJson(json.decode(str));
 String fileItemToJson(FileItem data) => json.encode(data.toJson());
@@ -16,6 +17,7 @@ class FileItem {
       String? mime, 
       String? name, 
       String? size, 
+      bool? checked, 
       String? hash, 
       String? path,}){
     _id = id;
@@ -23,6 +25,7 @@ class FileItem {
     _mime = mime;
     _name = name;
     _size = size;
+    _checked = checked;
     _hash = hash;
     _path = path;
 }
@@ -33,6 +36,7 @@ class FileItem {
     _mime = json['mime'];
     _name = json['name'];
     _size = json['size'];
+    _checked = json['checked'];
     _hash = json['hash'];
     _path = json['path'];
   }
@@ -41,28 +45,16 @@ class FileItem {
   String? _mime;
   String? _name;
   String? _size;
+  bool? _checked;
   String? _hash;
   String? _path;
-FileItem copyWith({  num? id,
-  String? url,
-  String? mime,
-  String? name,
-  String? size,
-  String? hash,
-  String? path,
-}) => FileItem(  id: id ?? _id,
-  url: url ?? _url,
-  mime: mime ?? _mime,
-  name: name ?? _name,
-  size: size ?? _size,
-  hash: hash ?? _hash,
-  path: path ?? _path,
-);
+
   num? get id => _id;
   String? get url => _url;
   String? get mime => _mime;
   String? get name => _name;
   String? get size => _size;
+  bool? get checked => _checked;
   String? get hash => _hash;
   String? get path => _path;
 
@@ -73,6 +65,7 @@ FileItem copyWith({  num? id,
     map['mime'] = _mime;
     map['name'] = _name;
     map['size'] = _size;
+    map['checked'] = _checked;
     map['hash'] = _hash;
     map['path'] = _path;
     return map;

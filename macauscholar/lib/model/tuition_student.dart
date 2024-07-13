@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:macauscholar/model/employee_item.dart';
 import 'package:macauscholar/model/subscription_item.dart';
 
 /// id : 455
@@ -37,8 +38,7 @@ import 'package:macauscholar/model/subscription_item.dart';
 /// schoolYear : {"id":20,"code":"p4","type":"primary","order":0,"displayName":"小四","createdAt":"2021-11-19T10:35:53.799Z","updatedAt":"2024-05-10T09:37:51.984Z","deletedAt":null,"mongoDBId":"mmp7sFlK4B"}
 /// subscription : [{"id":319,"remark":null,"branch":"B100010","noDiscount":false,"servicesTable":[{"code":"TUIFEE00K3","label":"K3補習費","value":1800},{"code":"TUIMEAL200","label":"下午茶","value":280}],"price":2080,"realPrice":2080,"dateTo":null,"dateFrom":null,"serviceId":685,"title":"K3補習費+下午茶","studentId":455,"mongoDBId":null,"authInfo":{"exp":1718673530,"iat":1718068730,"iss":"scholar","mid":"scholar","sub":"user.dev240600100519","uid":"9e0e456f-3013-464c-8be7-cfe27704a988","rules":["employee"],"device":null,"provider":{"uid":"ZH1551","code":"wxwork","driver":"wxwork"}},"createdAt":"2024-06-14T06:50:54.668Z","updatedAt":"2024-06-14T06:50:54.668Z","deletedAt":null},{"id":320,"remark":null,"branch":"B100010","noDiscount":false,"servicesTable":[{"code":"TUIFEE00P2","label":"小二補習費","value":1960},{"code":"TUIFEE00K2","label":"K2補習費","value":1720}],"price":3680,"realPrice":3680,"dateTo":null,"dateFrom":null,"serviceId":687,"title":"K2補習費+小二補習費","studentId":455,"mongoDBId":null,"authInfo":{"exp":1718673530,"iat":1718068730,"iss":"scholar","mid":"scholar","sub":"user.dev240600100519","uid":"9e0e456f-3013-464c-8be7-cfe27704a988","rules":["employee"],"device":null,"provider":{"uid":"ZH1551","code":"wxwork","driver":"wxwork"}},"createdAt":"2024-06-14T06:57:51.528Z","updatedAt":"2024-06-15T03:17:50.586Z","deletedAt":null},{"id":321,"remark":null,"branch":"B100010","noDiscount":false,"servicesTable":[{"code":"TUIFEE00P2","label":"小二補習費","value":1960},{"code":"TUIFEE00K2","label":"K2補習費","value":1720}],"price":3680,"realPrice":3680,"dateTo":null,"dateFrom":null,"serviceId":687,"title":"K2補習費+小二補習費","studentId":455,"mongoDBId":null,"authInfo":{"exp":1718673530,"iat":1718068730,"iss":"scholar","mid":"scholar","sub":"user.dev240600100519","uid":"9e0e456f-3013-464c-8be7-cfe27704a988","rules":["employee"],"device":null,"provider":{"uid":"ZH1551","code":"wxwork","driver":"wxwork"}},"createdAt":"2024-06-15T06:54:28.549Z","updatedAt":"2024-06-15T06:54:28.549Z","deletedAt":null},{"id":322,"remark":null,"branch":"B100010","noDiscount":false,"servicesTable":[{"code":"TUIMEAL200","label":"下午茶","value":280}],"price":280,"realPrice":280,"dateTo":null,"dateFrom":null,"serviceId":659,"title":"下午茶","studentId":455,"mongoDBId":null,"authInfo":{"exp":1718673530,"iat":1718068730,"iss":"scholar","mid":"scholar","sub":"user.dev240600100519","uid":"9e0e456f-3013-464c-8be7-cfe27704a988","rules":["employee"],"device":null,"provider":{"uid":"ZH1551","code":"wxwork","driver":"wxwork"}},"createdAt":"2024-06-15T09:09:07.882Z","updatedAt":"2024-06-15T09:09:19.132Z","deletedAt":null},{"id":323,"remark":null,"branch":"B100010","noDiscount":false,"servicesTable":[{"code":"TUIFEE00P2","label":"小二補習費","value":1960}],"price":1960,"realPrice":1960,"dateTo":null,"dateFrom":null,"serviceId":653,"title":"小二補習費","studentId":455,"mongoDBId":null,"authInfo":{"exp":1718673530,"iat":1718068730,"iss":"scholar","mid":"scholar","sub":"user.dev240600100519","uid":"9e0e456f-3013-464c-8be7-cfe27704a988","rules":["employee"],"device":null,"provider":{"uid":"ZH1551","code":"wxwork","driver":"wxwork"}},"createdAt":"2024-06-15T09:15:26.499Z","updatedAt":"2024-06-25T03:49:55.043Z","deletedAt":null},{"id":324,"remark":null,"branch":"B100010","noDiscount":false,"servicesTable":[{"code":"1wEKrwZuv5:00100","label":"0125","value":1},{"code":"TUIMEAL200","label":"下午茶","value":281}],"price":281,"realPrice":281,"dateTo":"2024-06-24T00:00:00.000Z","dateFrom":null,"serviceId":686,"title":"0125+下午茶","studentId":455,"mongoDBId":null,"authInfo":{"exp":1719278978,"iat":1718674178,"iss":"scholar","mid":"scholar","sub":"user.dev240600100519","uid":"9e0e456f-3013-464c-8be7-cfe27704a988","rules":["employee"],"device":null,"provider":{"uid":"ZH1551","code":"wxwork","driver":"wxwork"}},"createdAt":"2024-06-19T05:20:41.452Z","updatedAt":"2024-06-25T03:44:33.136Z","deletedAt":null},{"id":325,"remark":null,"branch":"B100010","noDiscount":false,"servicesTable":[{"code":"TUIFEE00K3","label":"K3補習費","value":1800},{"code":"TUIMEAL200","label":"下午茶","value":281}],"price":2080,"realPrice":2081,"dateTo":"2024-06-22T00:00:00.000Z","dateFrom":null,"serviceId":685,"title":"K3補習費+下午茶","studentId":455,"mongoDBId":null,"authInfo":{"exp":1719278978,"iat":1718674178,"iss":"scholar","mid":"scholar","sub":"user.dev240600100519","uid":"9e0e456f-3013-464c-8be7-cfe27704a988","rules":["employee"],"device":null,"provider":{"uid":"ZH1551","code":"wxwork","driver":"wxwork"}},"createdAt":"2024-06-24T09:39:53.183Z","updatedAt":"2024-06-25T03:05:29.593Z","deletedAt":null}]
 
-TuitionStudent tuitionStudentFromJson(String str) =>
-    TuitionStudent.fromJson(json.decode(str));
+TuitionStudent tuitionStudentFromJson(String str) => TuitionStudent.fromJson(json.decode(str));
 String tuitionStudentToJson(TuitionStudent data) => json.encode(data.toJson());
 
 class TuitionStudent {
@@ -77,6 +77,7 @@ class TuitionStudent {
     School? school,
     SchoolYear? schoolYear,
     List<SubscriptionItem>? subscription,
+    List<EmployeeItem>? employee,
     dynamic latestSigns,
   }) {
     _id = id;
@@ -113,6 +114,7 @@ class TuitionStudent {
     _school = school;
     _schoolYear = schoolYear;
     _subscription = subscription;
+    _employee = employee;
     _latestSigns = latestSigns;
   }
 
@@ -154,13 +156,17 @@ class TuitionStudent {
     _deletedAt = json['deletedAt'];
     _latestSigns = json['latestSigns'];
     _school = json['school'] != null ? School.fromJson(json['school']) : null;
-    _schoolYear = json['schoolYear'] != null
-        ? SchoolYear.fromJson(json['schoolYear'])
-        : null;
+    _schoolYear = json['schoolYear'] != null ? SchoolYear.fromJson(json['schoolYear']) : null;
     if (json['subscription'] != null) {
       _subscription = [];
       json['subscription'].forEach((v) {
         _subscription?.add(SubscriptionItem.fromJson(v));
+      });
+    }
+    if (json['employee'] != null) {
+      _employee = [];
+      json['employee'].forEach((v) {
+        _employee?.add(EmployeeItem.fromJson(v));
       });
     }
   }
@@ -199,6 +205,7 @@ class TuitionStudent {
   School? _school;
   SchoolYear? _schoolYear;
   List<SubscriptionItem>? _subscription;
+  List<EmployeeItem>? _employee;
 
   num? get id => _id;
   dynamic get gender => _gender;
@@ -235,6 +242,7 @@ class TuitionStudent {
   School? get school => _school;
   SchoolYear? get schoolYear => _schoolYear;
   List<SubscriptionItem>? get subscription => _subscription;
+  List<EmployeeItem>? get employee => _employee;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -267,8 +275,7 @@ class TuitionStudent {
     }
     map['avatar'] = _avatar;
     if (_parentRequirements != null) {
-      map['parentRequirements'] =
-          _parentRequirements?.map((v) => v.toJson()).toList();
+      map['parentRequirements'] = _parentRequirements?.map((v) => v.toJson()).toList();
     }
     map['member'] = _member;
     map['registrationForm'] = _registrationForm;
@@ -289,6 +296,9 @@ class TuitionStudent {
     }
     if (_subscription != null) {
       map['subscription'] = _subscription?.map((v) => v.toJson()).toList();
+    }
+    if (_employee != null) {
+      map['employee'] = _employee?.map((v) => v.toJson()).toList();
     }
     return map;
   }
@@ -339,8 +349,7 @@ class AuthInfo {
     _uid = json['uid'];
     _rules = json['rules'] != null ? json['rules'].cast<String>() : [];
     _device = json['device'];
-    _provider =
-        json['provider'] != null ? Provider.fromJson(json['provider']) : null;
+    _provider = json['provider'] != null ? Provider.fromJson(json['provider']) : null;
   }
   num? _exp;
   num? _iat;
@@ -423,8 +432,7 @@ class Provider {
 /// label : "K3補習費"
 /// value : 1800
 
-ServicesTable servicesTableFromJson(String str) =>
-    ServicesTable.fromJson(json.decode(str));
+ServicesTable servicesTableFromJson(String str) => ServicesTable.fromJson(json.decode(str));
 String servicesTableToJson(ServicesTable data) => json.encode(data.toJson());
 
 class ServicesTable {
@@ -470,8 +478,7 @@ class ServicesTable {
 /// deletedAt : null
 /// mongoDBId : "mmp7sFlK4B"
 
-SchoolYear schoolYearFromJson(String str) =>
-    SchoolYear.fromJson(json.decode(str));
+SchoolYear schoolYearFromJson(String str) => SchoolYear.fromJson(json.decode(str));
 String schoolYearToJson(SchoolYear data) => json.encode(data.toJson());
 
 class SchoolYear {
