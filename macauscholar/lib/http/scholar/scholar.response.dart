@@ -4,19 +4,33 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:service_package/service_package.dart';
 import 'package:macauscholar/macauscholar.dart';
-import 'package:storage/storage.dart';
 import 'package:member/member.dart';
+import 'package:service_package/service_package.dart';
+import 'package:storage/storage.dart';
 
 class ScholarResponse {
   static Future<HomeModel> getHomeData() async {
     try {
       HomeModel? item;
       Map<String, dynamic> res = await ScholarDio.getInstance().get(
-        url: "/api/scholar/get_home_data",
+        url: "/api/scholar/home",
       );
       item = HomeModel.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<StudyModel> getStudyData() async {
+    try {
+      StudyModel? item;
+      Map<String, dynamic> res = await ScholarDio.getInstance().get(
+        url: "/api/scholar/study",
+      );
+      item = StudyModel.fromJson(res);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
@@ -28,7 +42,7 @@ class ScholarResponse {
     try {
       WelfareModel? item;
       Map<String, dynamic> res = await ScholarDio.getInstance().get(
-        url: "/api/scholar/welfare/data",
+        url: "/api/scholar/welfare",
       );
       item = WelfareModel.fromJson(res);
       return item;
@@ -54,7 +68,7 @@ class ScholarResponse {
 
       AdvertModel? item;
       Map<String, dynamic> res = await ScholarDio.getInstance().get(
-        url: "/api/scholar/place/advert/",
+        url: "/api/scholar/advert",
         params: params,
         data: data,
       );
@@ -70,7 +84,7 @@ class ScholarResponse {
     try {
       ShopHomeModel? item;
       Map<String, dynamic> res = await ScholarDio.getInstance().get(
-        url: "/api/scholar/shop/home/data",
+        url: "/api/scholar/shop/home",
       );
       item = ShopHomeModel.fromJson(res);
       return item;
@@ -84,7 +98,7 @@ class ScholarResponse {
     try {
       TuitionModel? item;
       Map<String, dynamic> res = await ScholarDio.getInstance().get(
-        url: "/api/scholar/tuition/data",
+        url: "/api/scholar/tuition",
       );
       item = TuitionModel.fromJson(res);
       return item;
@@ -98,7 +112,7 @@ class ScholarResponse {
     try {
       RecommendModel? item;
       Map<String, dynamic> res = await ScholarDio.getInstance().get(
-        url: "/api/scholar/recommend/advert/data",
+        url: "/api/scholar/recommend",
       );
       item = RecommendModel.fromJson(res);
       return item;
@@ -112,7 +126,7 @@ class ScholarResponse {
     try {
       CourseModel? item;
       Map<String, dynamic> res = await ScholarDio.getInstance().get(
-        url: "/api/scholar/course/data",
+        url: "/api/scholar/course",
       );
       item = CourseModel.fromJson(res);
       return item;
@@ -138,7 +152,7 @@ class ScholarResponse {
 
       List<CatalogItem> list = [];
       List<dynamic> jsonLists = await ScholarDio.getInstance().get(
-        url: "/api/scholar/photo/list",
+        url: "/api/scholar/photoList",
         params: params,
       );
       for (var item in jsonLists) {
@@ -328,10 +342,37 @@ class ScholarResponse {
     }
   }
 
-  static Future<List<LessonItem>> getStudentLesson({required String id}) async {
+  static Future<RelationshipItem> parentBind(
+      {required String userId,
+      required num typeId,
+      required String userToSn}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "userId": userId,
+        "typeId": typeId,
+        "userToSn": userToSn,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      RelationshipItem? item;
+      Map<String, dynamic> res = await ScholarDio.getInstance().post(
+        url: "/api/scholar/tuition/parentBind",
+        params: params,
+      );
+      item = RelationshipItem.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<List<LessonItem>> getStudentLesson(
+      {required String id, DateTime? date}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "id": id,
+        "date": date,
       })
         ..removeWhere((key, value) => value == null);
 
@@ -383,6 +424,28 @@ class ScholarResponse {
         list.add(LessonItem.fromJson(item));
       }
       return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<VideoCourseModel> getVideoCourse(
+      {required num id, required num scholarId}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "id": id,
+        "scholarId": scholarId,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      VideoCourseModel? item;
+      Map<String, dynamic> res = await ScholarDio.getInstance().get(
+        url: "/api/scholar/course/videoCourse",
+        params: params,
+      );
+      item = VideoCourseModel.fromJson(res);
+      return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

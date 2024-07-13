@@ -1,5 +1,9 @@
 import 'dart:convert';
 
+import 'package:storage/storage.dart';
+
+import 'file_item.dart';
+
 /// id : 6
 /// projectId : 1
 /// name : "探访历史古迹"
@@ -27,6 +31,7 @@ class CatalogItem {
     String? description,
     List<Children>? children,
     Files? files,
+    List<FileItem>? fileItems,
   }) {
     _id = id;
     _projectId = projectId;
@@ -38,6 +43,7 @@ class CatalogItem {
     _description = description;
     _children = children;
     _files = files;
+    _fileItems = fileItems;
   }
 
   CatalogItem.fromJson(dynamic json) {
@@ -55,6 +61,12 @@ class CatalogItem {
         _children?.add(Children.fromJson(v));
       });
     }
+    if (json['fileItems'] != null) {
+      _fileItems = [];
+      json['fileItems'].forEach((v) {
+        _fileItems?.add(FileItem.fromJson(v));
+      });
+    }
     _files = json['files'] != null ? Files.fromJson(json['files']) : null;
   }
   num? _id;
@@ -67,6 +79,7 @@ class CatalogItem {
   String? _description;
   List<Children>? _children;
   Files? _files;
+  List<FileItem>? _fileItems;
   CatalogItem copyWith({
     num? id,
     num? projectId,
@@ -78,6 +91,7 @@ class CatalogItem {
     String? description,
     List<Children>? children,
     Files? files,
+    List<FileItem>? fileItems,
   }) =>
       CatalogItem(
         id: id ?? _id,
@@ -90,6 +104,7 @@ class CatalogItem {
         description: description ?? _description,
         children: children ?? _children,
         files: files ?? _files,
+        fileItems: fileItems ?? _fileItems,
       );
   num? get id => _id;
   num? get projectId => _projectId;
@@ -101,6 +116,7 @@ class CatalogItem {
   String? get description => _description;
   List<Children>? get children => _children;
   Files? get files => _files;
+  List<FileItem>? get fileItems => _fileItems;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -116,6 +132,9 @@ class CatalogItem {
     map['description'] = _description;
     if (_children != null) {
       map['children'] = _children?.map((v) => v.toJson()).toList();
+    }
+    if (_fileItems != null) {
+      map['fileItems'] = _fileItems?.map((v) => v.toJson()).toList();
     }
     if (_files != null) {
       map['files'] = _files?.toJson();

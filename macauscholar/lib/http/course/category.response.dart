@@ -8,7 +8,7 @@ import 'package:service_package/service_package.dart';
 import 'package:macauscholar/macauscholar.dart';
 
 class CategoryResponse {
-  static Future<List<CategoryItem>> getClassList(
+  static Future<List<CategoryItem>> getCategoryList(
       {Map<dynamic, dynamic>? sort,
       Map<dynamic, dynamic>? filter,
       String? keyword}) async {
