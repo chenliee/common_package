@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:crop/models/place_item.dart';
 import 'package:macauscholar/macauscholar.dart';
 
 /// id : 913
@@ -42,6 +43,7 @@ class LessonItem {
     ClassItem? classItem,
     TeacherItem? teacherItem,
     PointSnObject? pointSnObject,
+    PlaceItem? branchObject,
   }) {
     _id = id;
     _oldObjectId = oldObjectId;
@@ -60,6 +62,7 @@ class LessonItem {
     _classItem = classItem;
     _teacherItem = teacherItem;
     _pointSnObject = pointSnObject;
+    _branchObject = branchObject;
   }
 
   LessonItem.fromJson(dynamic json) {
@@ -84,6 +87,9 @@ class LessonItem {
     _pointSnObject = json['pointSnObject'] != null
         ? PointSnObject.fromJson(json['pointSnObject'])
         : null;
+    _branchObject = json['branchObject'] != null
+        ? PlaceItem.fromJson(json['branchObject'])
+        : null;
   }
   num? _id;
   String? _oldObjectId;
@@ -102,6 +108,7 @@ class LessonItem {
   ClassItem? _classItem;
   TeacherItem? _teacherItem;
   PointSnObject? _pointSnObject;
+  PlaceItem? _branchObject;
   LessonItem copyWith({
     num? id,
     String? oldObjectId,
@@ -120,6 +127,7 @@ class LessonItem {
     ClassItem? classItem,
     TeacherItem? teacherItem,
     PointSnObject? pointSnObject,
+    PlaceItem? branchObject,
   }) =>
       LessonItem(
         id: id ?? _id,
@@ -139,6 +147,7 @@ class LessonItem {
         classItem: classItem ?? _classItem,
         teacherItem: teacherItem ?? _teacherItem,
         pointSnObject: pointSnObject ?? _pointSnObject,
+        branchObject: branchObject ?? _branchObject,
       );
   num? get id => _id;
   String? get oldObjectId => _oldObjectId;
@@ -157,6 +166,7 @@ class LessonItem {
   ClassItem? get classItem => _classItem;
   TeacherItem? get teacherItem => _teacherItem;
   PointSnObject? get pointSnObject => _pointSnObject;
+  PlaceItem? get branchObject => _branchObject;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -182,6 +192,9 @@ class LessonItem {
     }
     if (_pointSnObject != null) {
       map['pointSnObject'] = _pointSnObject?.toJson();
+    }
+    if (_branchObject != null) {
+      map['branchObject'] = _branchObject?.toJson();
     }
     return map;
   }

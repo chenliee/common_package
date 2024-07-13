@@ -10,20 +10,27 @@ import 'package:storage/storage.dart';
 @ApiGen('/api', file: 'ScholarResponse', dio: 'ScholarDio')
 abstract class Class {
   @ApiGen(
-    '/scholar/get_home_data',
+    '/scholar/home',
     method: ApiGen.GET,
     target: 'HomeModel',
   )
   Future<HomeModel> getHomeData();
 
   @ApiGen(
-    '/scholar/welfare/data',
+    '/scholar/study',
+    method: ApiGen.GET,
+    target: 'StudyModel',
+  )
+  Future<StudyModel> getStudyData();
+
+  @ApiGen(
+    '/scholar/welfare',
     method: ApiGen.GET,
     target: 'WelfareModel',
   )
   Future<WelfareModel> getWelfareData();
 
-  @ApiGen('/scholar/place/advert/',
+  @ApiGen('/scholar/advert',
       method: ApiGen.GET,
       target: 'AdvertModel',
       params: {
@@ -37,35 +44,35 @@ abstract class Class {
       {required String position, String? brand, String? xLocation});
 
   @ApiGen(
-    '/scholar/shop/home/data',
+    '/scholar/shop/home',
     method: ApiGen.GET,
     target: 'ShopHomeModel',
   )
   Future<ShopHomeModel> getShopHomeData();
 
   @ApiGen(
-    '/scholar/tuition/data',
+    '/scholar/tuition',
     method: ApiGen.GET,
     target: 'TuitionModel',
   )
   Future<TuitionModel> getTuitionData();
 
   @ApiGen(
-    '/scholar/recommend/advert/data',
+    '/scholar/recommend',
     method: ApiGen.GET,
     target: 'RecommendModel',
   )
   Future<RecommendModel> getRecommendData();
 
   @ApiGen(
-    '/scholar/course/data',
+    '/scholar/course',
     method: ApiGen.GET,
     target: 'CourseModel',
   )
   Future<CourseModel> getCourseData();
 
   @ApiGen(
-    '/scholar/photo/list',
+    '/scholar/photoList',
     method: ApiGen.GET,
     target: 'CatalogItem',
     params: {
@@ -174,14 +181,32 @@ abstract class Class {
       {required DateTime date, required String id});
 
   @ApiGen(
+    '/scholar/tuition/parentBind',
+    method: ApiGen.POST,
+    target: 'RelationshipItem',
+    params: {
+      'userId': '@C_userId',
+      'typeId': '@C_typeId',
+      'userToSn': '@C_userToSn',
+    },
+  )
+  Future<RelationshipItem> parentBind({
+    required String userId,
+    required num typeId,
+    required String userToSn,
+  });
+
+  @ApiGen(
     '/scholar/course/studentLesson',
     method: ApiGen.GET,
     target: 'LessonItem',
     params: {
       'id': '@C_id',
+      'date': '@C_date',
     },
   )
-  Future<List<LessonItem>> getStudentLesson({required String id});
+  Future<List<LessonItem>> getStudentLesson(
+      {required String id, DateTime? date});
 
   @ApiGen(
     '/scholar/course/discountClass',
@@ -199,4 +224,13 @@ abstract class Class {
     },
   )
   Future<List<LessonItem>> getClassLesson({required List<num> ids});
+
+  @ApiGen(
+    '/scholar/course/videoCourse',
+    method: ApiGen.GET,
+    target: 'VideoCourseModel',
+    params: {'id': '@C_id', 'scholarId': '@C_scholarId'},
+  )
+  Future<VideoCourseModel> getVideoCourse(
+      {required num id, required num scholarId});
 }

@@ -37,11 +37,13 @@ export 'model/section_item.dart';
 export 'model/service_item.dart';
 export 'model/shop_home_model.dart';
 export 'model/student_item.dart';
+export 'model/study_model.dart';
 export 'model/subscription_item.dart';
 export 'model/teacher_item.dart';
 export 'model/tuition_enrollment_item.dart';
 export 'model/tuition_model.dart';
 export 'model/tuition_order_item.dart';
 export 'model/user_grade_model.dart';
+export 'model/video_course_model.dart';
 export 'model/welfare_model.dart';
 

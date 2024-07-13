@@ -50,11 +50,13 @@ class DateTimeUtil {
     return str;
   }
 
-  static String convertDayTime(int cancelTime) {
+  static String convertDayTime(int cancelTime, {bool second = true}) {
     // 这里实现将秒数转换为特定格式的时间字符串的逻辑
     int hours = cancelTime ~/ 3600;
     int minutes = (cancelTime % 3600) ~/ 60;
     int seconds = cancelTime % 60;
-    return '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+    return second
+        ? '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}'
+        : '$hours:${minutes.toString().padLeft(2, '0')}';
   }
 }

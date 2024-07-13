@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 /// id : 1019
 /// projectId : 3
 /// uid : "666164d1-3d65-4ed6-aa50-7ff569fe587f"
@@ -9,19 +10,22 @@ import 'dart:convert';
 /// createdAt : "2024-05-22T03:49:33.992Z"
 /// updatedAt : "2024-05-22T03:49:33.992Z"
 
-NotifyModel notifyModelFromJson(String str) => NotifyModel.fromJson(json.decode(str));
+NotifyModel notifyModelFromJson(String str) =>
+    NotifyModel.fromJson(json.decode(str));
 String notifyModelToJson(NotifyModel data) => json.encode(data.toJson());
+
 class NotifyModel {
   NotifyModel({
-      num? id, 
-      num? projectId, 
-      String? uid, 
-      dynamic memberId, 
-      String? title, 
-      String? message, 
-      Params? params, 
-      String? createdAt, 
-      String? updatedAt,}){
+    num? id,
+    num? projectId,
+    String? uid,
+    dynamic memberId,
+    String? title,
+    String? message,
+    Params? params,
+    String? createdAt,
+    String? updatedAt,
+  }) {
     _id = id;
     _projectId = projectId;
     _uid = uid;
@@ -31,7 +35,7 @@ class NotifyModel {
     _params = params;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
-}
+  }
 
   NotifyModel.fromJson(dynamic json) {
     _id = json['id'];
@@ -79,7 +83,6 @@ class NotifyModel {
     map['updatedAt'] = _updatedAt;
     return map;
   }
-
 }
 
 /// title : "團購訂單提醒"
@@ -90,26 +93,30 @@ class NotifyModel {
 
 Params paramsFromJson(String str) => Params.fromJson(json.decode(str));
 String paramsToJson(Params data) => json.encode(data.toJson());
+
 class Params {
   Params({
-      String? title, 
-      String? token, 
-      String? package, 
-      String? project, 
-      ExtraData? extraData,}){
+    String? title,
+    String? token,
+    String? package,
+    String? project,
+    ExtraData? extraData,
+  }) {
     _title = title;
     _token = token;
     _package = package;
     _project = project;
     _extraData = extraData;
-}
+  }
 
   Params.fromJson(dynamic json) {
     _title = json['title'];
-    _token = json['token'];
+    _token = json['token'].toString();
     _package = json['package'];
     _project = json['project'];
-    _extraData = json['extraData'] != null ? ExtraData.fromJson(json['extraData']) : null;
+    _extraData = json['extraData'] != null
+        ? ExtraData.fromJson(json['extraData'])
+        : null;
   }
   String? _title;
   String? _token;
@@ -134,18 +141,19 @@ class Params {
     }
     return map;
   }
-
 }
 
 /// link : "/group_order_detail/74"
 
 ExtraData extraDataFromJson(String str) => ExtraData.fromJson(json.decode(str));
 String extraDataToJson(ExtraData data) => json.encode(data.toJson());
+
 class ExtraData {
   ExtraData({
-      String? link,}){
+    String? link,
+  }) {
     _link = link;
-}
+  }
 
   ExtraData.fromJson(dynamic json) {
     _link = json['link'];
@@ -159,5 +167,4 @@ class ExtraData {
     map['link'] = _link;
     return map;
   }
-
 }

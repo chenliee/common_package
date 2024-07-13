@@ -16,6 +16,6 @@ abstract class Class {
     method: ApiGen.GET,
     target: 'CategoryItem',
   )
-  Future<List<CategoryItem>> getClassList(
+  Future<List<CategoryItem>> getCategoryList(
       {Map? sort, Map? filter, String? keyword});
 }
