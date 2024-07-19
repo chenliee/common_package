@@ -9,7 +9,7 @@ abstract class Class {
   @ApiGen(
     '/api/category',
     params: {
-      'sort': '@C_sort ?? {"createdAt": "desc"}',
+      'sort': '@C_sort ?? \'{"createdAt": "desc"}\'',
       'filter': '@C_filter',
       'keyword': '@C_keyword'
     },
@@ -17,5 +17,5 @@ abstract class Class {
     target: 'CategoryItem',
   )
   Future<List<CategoryItem>> getCategoryList(
-      {Map? sort, Map? filter, String? keyword});
+      {String? sort, Map? filter, String? keyword});
 }

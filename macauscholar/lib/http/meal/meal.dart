@@ -34,4 +34,7 @@ abstract class MenuClass {
   @ApiGen('/api/order/shoppingMode/',
       params: '@C_data', method: ApiGen.POST, target: 'MealOrderItem')
   Future<List<MealOrderItem>> confirmMenuOrder({required dynamic data});
+
+  @ApiGen('/api/order/\$order/pay', method: ApiGen.POST, target: 'PayModel')
+  Future<PayModel> payMenuOrder({required String order});
 }

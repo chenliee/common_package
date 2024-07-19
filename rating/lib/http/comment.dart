@@ -2,21 +2,16 @@ import 'package:rating/model/comment_item.dart';
 import 'package:service_package/service_package.dart';
 
 class CommentResponse {
-  static String getCommentUrl =
-      '/rating/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/branch';
-  static String relatedUrl =
-      '/rating/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/related';
-
-  static Future<List> getCommentList({
-    required String bCode,
-    required int page,
-    int? pageSize,
-    List<num>? date,
-    List<String>? commentTags,
-  }) async {
+  static Future<List> getCommentList(
+      {required String bCode,
+      required int page,
+      int? pageSize,
+      List<num>? date,
+      List<String>? commentTags,
+      String? projectId}) async {
     try {
       List<CommentItem> list = [];
-
+      String project = projectId ?? ServiceGlobal.instance.projectId;
       Map<String, dynamic> params = Map.from({
         'page': page,
         'pageSize': pageSize ?? ServiceGlobal.instance.pageSize,
@@ -26,8 +21,10 @@ class CommentResponse {
       })
         ..removeWhere((key, value) => value == null);
 
-      Map<String, dynamic> json = await BaseDio.getInstance()
-          .get(url: '$getCommentUrl/$bCode', params: params);
+      Map<String, dynamic> json = await BaseDio.getInstance().get(
+          url:
+              '/rating/app/merchant/${ServiceGlobal.instance.merchantId}/project/$project/branch/$bCode',
+          params: params);
       for (var item in json['list']) {
         list.add(CommentItem.fromJson(item));
       }
@@ -39,14 +36,20 @@ class CommentResponse {
   }
 
   static Future<List> getComment(
-      {required String bCode, required int page, String? id}) async {
+      {required String bCode,
+      required int page,
+      String? id,
+      String? projectId}) async {
     try {
       List<CommentItem> list = [];
       String url = '';
+      String project = projectId ?? ServiceGlobal.instance.projectId;
       if (id != null) {
-        url = '$getCommentUrl/$bCode/$id';
+        url =
+            '/rating/app/merchant/${ServiceGlobal.instance.merchantId}/project/$project/branch/$bCode/$id';
       } else {
-        url = '$getCommentUrl/$bCode';
+        url =
+            '/rating/app/merchant/${ServiceGlobal.instance.merchantId}/project/$project/branch/$bCode';
       }
       Map<String, dynamic> params = {
         'page': page,
@@ -79,8 +82,11 @@ class CommentResponse {
     required String? relatedId,
     num? score,
     required List? commentTags,
+    required String projectId,
   }) async {
     try {
+      String project = projectId ?? ServiceGlobal.instance.projectId;
+
       Map<String, dynamic> params = {
         "isanonymous": isAnonymous ?? false,
         "userId": userId,
@@ -94,8 +100,10 @@ class CommentResponse {
         "Score": score ?? 5,
         "commentTags": commentTags
       };
-      Map<String, dynamic> res = await BaseDio.getInstance()
-          .post(url: '$relatedUrl/$bCode', params: params);
+      Map<String, dynamic> res = await BaseDio.getInstance().post(
+          url:
+              '/rating/app/merchant/${ServiceGlobal.instance.merchantId}/project/$project/related/$bCode',
+          params: params);
       ToastInfo.toastInfo(msg: '${res['message'] ?? "評論成功"}');
       return true;
     } catch (e) {

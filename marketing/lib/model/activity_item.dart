@@ -55,6 +55,8 @@ class ActivityItem {
     String? createdAt,
     String? updatedAt,
     Files? files,
+    List<ActivityItem>? children,
+    bool? vaild,
   }) {
     _id = id;
     _merchantId = merchantId;
@@ -80,7 +82,20 @@ class ActivityItem {
     _createdAt = createdAt;
     _updatedAt = updatedAt;
     _files = files;
+    _children = children;
+    _vaild = vaild;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ActivityItem &&
+          runtimeType == other.runtimeType &&
+          _id == other._id &&
+          _code == other._code;
+
+  @override
+  int get hashCode => _id.hashCode ^ _code.hashCode;
 
   ActivityItem.fromJson(dynamic json) {
     _id = json['id'];
@@ -107,6 +122,13 @@ class ActivityItem {
     _createdAt = json['createdAt'];
     _updatedAt = json['updatedAt'];
     _files = json['files'] != null ? Files.fromJson(json['files']) : null;
+    if (json['children'] != null) {
+      _children = [];
+      json['children'].forEach((v) {
+        _children?.add(ActivityItem.fromJson(v));
+      });
+    }
+    _vaild = json['vaild'];
   }
   num? _id;
   num? _merchantId;
@@ -132,58 +154,62 @@ class ActivityItem {
   String? _createdAt;
   String? _updatedAt;
   Files? _files;
-  ActivityItem copyWith({
-    num? id,
-    num? merchantId,
-    String? name,
-    String? type,
-    dynamic targetType,
-    dynamic targetId,
-    String? code,
-    String? status,
-    String? description,
-    String? detail,
-    dynamic settledAt,
-    dynamic expiredAt,
-    Map? custom,
-    dynamic meta,
-    dynamic match,
-    dynamic act,
-    dynamic childrenMatch,
-    dynamic childrenAct,
-    dynamic path,
-    dynamic refId,
-    dynamic deletedAt,
-    String? createdAt,
-    String? updatedAt,
-    Files? files,
-  }) =>
+  List<ActivityItem>? _children;
+  bool? _vaild;
+  ActivityItem copyWith(
+          {num? id,
+          num? merchantId,
+          String? name,
+          String? type,
+          dynamic targetType,
+          dynamic targetId,
+          String? code,
+          String? status,
+          String? description,
+          String? detail,
+          dynamic settledAt,
+          dynamic expiredAt,
+          Map? custom,
+          dynamic meta,
+          dynamic match,
+          dynamic act,
+          dynamic childrenMatch,
+          dynamic childrenAct,
+          dynamic path,
+          dynamic refId,
+          dynamic deletedAt,
+          String? createdAt,
+          String? updatedAt,
+          Files? files,
+          List<ActivityItem>? children,
+          bool? vaild}) =>
       ActivityItem(
-        id: id ?? _id,
-        merchantId: merchantId ?? _merchantId,
-        name: name ?? _name,
-        type: type ?? _type,
-        targetType: targetType ?? _targetType,
-        targetId: targetId ?? _targetId,
-        code: code ?? _code,
-        status: status ?? _status,
-        description: description ?? _description,
-        detail: detail ?? _detail,
-        settledAt: settledAt ?? _settledAt,
-        expiredAt: expiredAt ?? _expiredAt,
-        custom: custom ?? _custom,
-        meta: meta ?? _meta,
-        match: match ?? _match,
-        act: act ?? _act,
-        childrenMatch: childrenMatch ?? _childrenMatch,
-        childrenAct: childrenAct ?? _childrenAct,
-        path: path ?? _path,
-        refId: refId ?? _refId,
-        deletedAt: deletedAt ?? _deletedAt,
-        createdAt: createdAt ?? _createdAt,
-        updatedAt: updatedAt ?? _updatedAt,
-        files: files ?? _files,
-      );
+          id: id ?? _id,
+          merchantId: merchantId ?? _merchantId,
+          name: name ?? _name,
+          type: type ?? _type,
+          targetType: targetType ?? _targetType,
+          targetId: targetId ?? _targetId,
+          code: code ?? _code,
+          status: status ?? _status,
+          description: description ?? _description,
+          detail: detail ?? _detail,
+          settledAt: settledAt ?? _settledAt,
+          expiredAt: expiredAt ?? _expiredAt,
+          custom: custom ?? _custom,
+          meta: meta ?? _meta,
+          match: match ?? _match,
+          act: act ?? _act,
+          childrenMatch: childrenMatch ?? _childrenMatch,
+          childrenAct: childrenAct ?? _childrenAct,
+          path: path ?? _path,
+          refId: refId ?? _refId,
+          deletedAt: deletedAt ?? _deletedAt,
+          createdAt: createdAt ?? _createdAt,
+          updatedAt: updatedAt ?? _updatedAt,
+          files: files ?? _files,
+          children: children ?? _children,
+          vaild: vaild ?? _vaild);
   num? get id => _id;
   num? get merchantId => _merchantId;
   String? get name => _name;
@@ -208,7 +234,8 @@ class ActivityItem {
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
   Files? get files => _files;
-
+  List<ActivityItem>? get children => _children;
+  bool? get vaild => _vaild;
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
@@ -237,6 +264,10 @@ class ActivityItem {
     if (_files != null) {
       map['files'] = _files?.toJson();
     }
+    if (_children != null) {
+      map['children'] = _children?.map((v) => v.toJson()).toList();
+    }
+    map['vaild'] = _vaild;
     return map;
   }
 }

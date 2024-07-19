@@ -10,7 +10,7 @@ import 'package:macauscholar/macauscholar.dart';
 class ClassResponse {
   static Future<List<ClassItem>> getClassList(
       {required int page,
-      Map<dynamic, dynamic>? sort,
+      String? sort,
       Map<dynamic, dynamic>? filter,
       int? size,
       String? keyword}) async {
@@ -18,7 +18,7 @@ class ClassResponse {
       Map<String, dynamic> params = Map.from({
         "size": size,
         "page": page,
-        "sort": sort ?? {"createdAt": "desc"},
+        "sort": sort ?? '{"createdAt": "desc"}',
         "filter": filter,
         "keyword": keyword,
       })

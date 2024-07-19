@@ -11,7 +11,7 @@ abstract class Order {
     params: {
       'size': '@C_size',
       'page': '@C_page',
-      'sort': '@C_sort ?? {"createdAt": "desc"}',
+      'sort': '@C_sort ?? \'{"createdAt": "desc"}\'',
       'filter': '@C_filter',
       'keyword': '@C_keyword'
     },
@@ -19,7 +19,11 @@ abstract class Order {
     target: 'CourseOrderItem',
   )
   Future<List<CourseOrderItem>> getOrderList(
-      {required int page, Map? sort, Map? filter, int? size, String? keyword});
+      {required int page,
+      String? sort,
+      Map? filter,
+      int? size,
+      String? keyword});
 
   @ApiGen(
     '/api/order/\$id',
