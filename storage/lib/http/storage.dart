@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:service_package/api/api_gen.dart';
 import 'package:storage/model/catalog_key.dart';
 import 'package:storage/model/del_file.dart';
+import 'package:storage/model/file_key.dart';
 import 'package:storage/model/tag_item.dart';
 import 'package:storage/storage.dart';
 
@@ -12,6 +13,7 @@ import 'package:storage/storage.dart';
 /// package:storage/model/tag_item.dart
 /// package:storage/model/catalog_key.dart
 /// package:storage/model/del_file.dart
+/// package:storage/model/file_key.dart
 @ApiGen('/storage', file: 'StorageResponse', dio: 'MerchantDio')
 abstract class Storage {
   @ApiGen(
@@ -142,4 +144,14 @@ abstract class Storage {
     target: 'DelFile',
   )
   Future<DelFile?> delFile({required String? id});
+
+  @ApiGen(
+    '/api/merchant/\${ServiceGlobal.instance.merchantId}/project/\${ServiceGlobal.instance.projectId}/\$file/key/\$key',
+    params: {
+      'value': '@C_value'
+    },
+    method: ApiGen.PUT,
+    target: 'FileKey',
+  )
+  Future<FileKey?> editFileKey({required String? file,required String? key,required String? value});
 }

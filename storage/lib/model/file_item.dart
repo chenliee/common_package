@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 /// id : 367
 /// url : "https://storage.dev.heyday-catering.com:20443/scholar/eliteshop/%E6%A0%A1%E5%9C%92/a20268b0f482089e25863fca32e588f424dab2305405610289262b33360f0cde_234fc892-a816-4a0a-9ab8-a675a1e42f292053500049482733944.jpg"
 /// mime : "application/octet-stream"
@@ -10,16 +11,19 @@ import 'dart:convert';
 
 FileItem fileItemFromJson(String str) => FileItem.fromJson(json.decode(str));
 String fileItemToJson(FileItem data) => json.encode(data.toJson());
+
 class FileItem {
   FileItem({
-      num? id, 
-      String? url, 
-      String? mime, 
-      String? name, 
-      String? size, 
-      bool? checked, 
-      String? hash, 
-      String? path,}){
+    num? id,
+    String? url,
+    String? mime,
+    String? name,
+    String? size,
+    bool? checked,
+    String? hash,
+    String? path,
+    String? createdAt,
+  }) {
     _id = id;
     _url = url;
     _mime = mime;
@@ -28,7 +32,8 @@ class FileItem {
     _checked = checked;
     _hash = hash;
     _path = path;
-}
+    _createdAt = createdAt;
+  }
 
   FileItem.fromJson(dynamic json) {
     _id = json['id'];
@@ -39,6 +44,7 @@ class FileItem {
     _checked = json['checked'];
     _hash = json['hash'];
     _path = json['path'];
+    _createdAt = json['createdAt'];
   }
   num? _id;
   String? _url;
@@ -48,6 +54,7 @@ class FileItem {
   bool? _checked;
   String? _hash;
   String? _path;
+  String? _createdAt;
 
   num? get id => _id;
   String? get url => _url;
@@ -57,6 +64,7 @@ class FileItem {
   bool? get checked => _checked;
   String? get hash => _hash;
   String? get path => _path;
+  String? get createdAt => _createdAt;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -68,7 +76,7 @@ class FileItem {
     map['checked'] = _checked;
     map['hash'] = _hash;
     map['path'] = _path;
+    map['createdAt'] = _createdAt;
     return map;
   }
-
 }

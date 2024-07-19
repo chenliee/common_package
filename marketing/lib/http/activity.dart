@@ -14,7 +14,7 @@ class ActivityResponse {
       required num size,
       String? status,
       String? type,
-      Map<dynamic, dynamic>? custom}) async {
+      String? custom}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "page": page,

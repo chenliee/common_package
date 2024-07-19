@@ -10,6 +10,7 @@ import 'package:article/article.dart';
 import 'package:storage/model/tag_item.dart';
 import 'package:storage/model/catalog_key.dart';
 import 'package:storage/model/del_file.dart';
+import 'package:storage/model/file_key.dart';
 
 class StorageResponse {
   static Future<List<FileItem>?> getFileList(
@@ -274,6 +275,30 @@ class StorageResponse {
             "/storage/api/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/$id/",
       );
       item = DelFile.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<FileKey?> editFileKey(
+      {required String? file,
+      required String? key,
+      required String? value}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "value": value,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      FileKey? item;
+      Map<String, dynamic> res = await MerchantDio.getInstance().put(
+        url:
+            "/storage/api/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/$file/key/$key",
+        params: params,
+      );
+      item = FileKey.fromJson(res);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
