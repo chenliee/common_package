@@ -9,12 +9,10 @@ import 'package:macauscholar/macauscholar.dart';
 
 class CategoryResponse {
   static Future<List<CategoryItem>> getCategoryList(
-      {Map<dynamic, dynamic>? sort,
-      Map<dynamic, dynamic>? filter,
-      String? keyword}) async {
+      {String? sort, Map<dynamic, dynamic>? filter, String? keyword}) async {
     try {
       Map<String, dynamic> params = Map.from({
-        "sort": sort ?? {"createdAt": "desc"},
+        "sort": sort ?? '{"createdAt": "desc"}',
         "filter": filter,
         "keyword": keyword,
       })

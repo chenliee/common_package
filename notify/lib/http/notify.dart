@@ -77,11 +77,12 @@ class NotifyRequest {
       {required num page, required num size, Map? filter}) async {
     try {
       List<NotifyModel> list = [];
-      Map<String, dynamic>? params = {
+      Map<String, dynamic>? params = Map.from({
         "page": page,
         "size": size,
         'filter': filter,
-      };
+      })
+        ..removeWhere((key, value) => value == null);
       final res =
           await BaseDio.getInstance().get(url: notifyUrl, params: params);
       for (var item in res) {

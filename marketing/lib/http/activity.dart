@@ -41,7 +41,7 @@ class ActivityResponse {
     }
   }
 
-  static Future<List<ActivityLogItem>?> getActivityLog(
+  static Future<List<ActivityLogItem>> getActivityLog(
       {required num page,
       required num size,
       String? status,
@@ -86,6 +86,27 @@ class ActivityResponse {
         url: "/marketing2/api/user/$code",
       );
       return jsonLists;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<ActivityItem> getActivityDetail(
+      {required String code, bool allChildren = true}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "allChildren": allChildren,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      ActivityItem? item;
+      Map<String, dynamic> jsonLists = await BaseDio.getInstance().get(
+        url: "/marketing2/api/user/$code",
+        params: params,
+      );
+      item = ActivityItem.fromJson(jsonLists);
+      return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

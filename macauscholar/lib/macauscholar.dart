@@ -29,6 +29,7 @@ export 'model/menu_item.dart';
 export 'model/menu_section.dart';
 export 'model/package_item.dart';
 export 'model/parent_item.dart';
+export 'model/pay_model.dart';
 export 'model/recommend_model.dart';
 export 'model/scholar_item.dart';
 export 'model/school_item.dart';
@@ -46,4 +47,3 @@ export 'model/tuition_order_item.dart';
 export 'model/user_grade_model.dart';
 export 'model/video_course_model.dart';
 export 'model/welfare_model.dart';
-

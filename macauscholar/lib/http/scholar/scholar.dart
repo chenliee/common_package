@@ -1,4 +1,5 @@
 import 'package:macauscholar/macauscholar.dart';
+import 'package:marketing/marketing.dart';
 import 'package:member/member.dart';
 import 'package:service_package/api/api_gen.dart';
 import 'package:storage/storage.dart';
@@ -7,6 +8,7 @@ import 'package:storage/storage.dart';
 /// package:macauscholar/macauscholar.dart
 /// package:storage/storage.dart
 /// package:member/member.dart
+/// package:marketing/marketing.dart
 @ApiGen('/api', file: 'ScholarResponse', dio: 'ScholarDio')
 abstract class Class {
   @ApiGen(
@@ -169,6 +171,26 @@ abstract class Class {
   Future<UserGradeModel> getUserGrade({required String sn});
 
   @ApiGen(
+    '/scholar/user/badge',
+    method: ApiGen.GET,
+    target: 'ActivityItem',
+    params: {
+      'sn': '@C_sn',
+    },
+  )
+  Future<List<ActivityItem>> getUserBadge({required String sn});
+
+  @ApiGen(
+    '/scholar/user/raffle',
+    method: ApiGen.POST,
+    target: 'ActivityItem',
+    params: {
+      'userId': '@C_userId',
+    },
+  )
+  Future<ActivityItem> raffle({required String userId});
+
+  @ApiGen(
     '/scholar/tuition/learnCenterData',
     method: ApiGen.GET,
     target: 'LearnCenterModel',
@@ -233,4 +255,72 @@ abstract class Class {
   )
   Future<VideoCourseModel> getVideoCourse(
       {required num id, required num scholarId});
+
+  @ApiGen(
+    '/scholar/course/pay',
+    method: ApiGen.POST,
+    target: 'PayModel',
+    params: {
+      'classId': '@C_classId',
+      'orderDate': '@C_orderDate',
+      'lessons': '@C_lessons',
+      'uid': '@C_uid',
+      'pid': '@C_pid',
+      'shopId': '@C_shopId',
+      'orderType': '@C_orderType',
+      'priceKey': '@C_priceKey',
+      'packingKey': '@C_packingKey',
+      'singleLimitKey': '@C_singleLimitKey',
+      'receiverInfo': '@C_receiverInfo',
+      'goods': '@C_goods',
+      'adjs': '@C_adjs',
+    },
+  )
+  Future<PayModel> payCourse({
+    required String classId,
+    required String orderDate,
+    required num lessons,
+    required String uid,
+    required String pid,
+    required String shopId,
+    required String orderType,
+    required String priceKey,
+    required String packingKey,
+    required String singleLimitKey,
+    required Map<String, dynamic> receiverInfo,
+    required List<Map<String, dynamic>> goods,
+    required List<Map<String, dynamic>> adjs,
+  });
+
+  @ApiGen(
+    '/scholar/meal/pay',
+    method: ApiGen.POST,
+    target: 'PayModel',
+    params: {
+      'orderId': '@C_orderId',
+      'uid': '@C_uid',
+      'pid': '@C_pid',
+      'shopId': '@C_shopId',
+      'orderType': '@C_orderType',
+      'priceKey': '@C_priceKey',
+      'packingKey': '@C_packingKey',
+      'singleLimitKey': '@C_singleLimitKey',
+      'receiverInfo': '@C_receiverInfo',
+      'goods': '@C_goods',
+      'adjs': '@C_adjs',
+    },
+  )
+  Future<PayModel> payMeal({
+    required String orderId,
+    required String uid,
+    required String pid,
+    required String shopId,
+    required String orderType,
+    required String priceKey,
+    required String packingKey,
+    required String singleLimitKey,
+    required Map<String, dynamic> receiverInfo,
+    required List<Map<String, dynamic>> goods,
+    required List<Map<String, dynamic>> adjs,
+  });
 }

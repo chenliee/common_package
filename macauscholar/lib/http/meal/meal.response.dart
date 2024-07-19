@@ -105,4 +105,18 @@ class MealResponse {
       rethrow;
     }
   }
+
+  static Future<PayModel> payMenuOrder({required String order}) async {
+    try {
+      PayModel? item;
+      Map<String, dynamic> res = await MacauDio.getInstance().post(
+        url: "/meal/api/order/$order/pay",
+      );
+      item = PayModel.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
 }

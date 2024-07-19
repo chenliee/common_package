@@ -149,11 +149,9 @@ class BaseDio {
     }
     Map<String, dynamic> headers =
         Map<String, dynamic>.from(dio.options.headers);
-
     headers['Authorization'] = ServiceGlobal.instance.token.isNotEmpty
         ? 'Bearer ${ServiceGlobal.instance.token}'
         : null;
-
     if (ServiceGlobal.instance.deviceAccessToken.isNotEmpty) {
       headers['DEVICE-ACCESS-TOKEN'] =
           ServiceGlobal.instance.deviceAccessToken.isNotEmpty
@@ -161,7 +159,6 @@ class BaseDio {
               : null;
     }
     dio.options.headers = headers;
-
     try {
       if (method == 'get') {
         if (params != null && params.isNotEmpty) {
@@ -226,6 +223,8 @@ class BaseDio {
                   error.response?.data.toString() ?? error.message.toString()
             }
           : message;
+    } on Exception catch (eror) {
+      ToastInfo.toastInfo(msg: eror.toString(), isApi: isApi);
     }
   }
 

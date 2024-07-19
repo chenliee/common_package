@@ -10,7 +10,7 @@ class ScholarDio extends BaseDio {
   static final EnvConfig _devConfig = EnvConfig(
     appTitle: "DEV",
     // appDomain: "http://10.100.202.100:7001",
-    appDomain: "http://10.100.203.171:7001/",
+    appDomain: "http://10.100.203.171:1696/",
   );
   // 测试环境
   static final EnvConfig _uatConfig = EnvConfig(
