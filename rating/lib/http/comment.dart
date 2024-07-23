@@ -81,6 +81,7 @@ class CommentResponse {
     required String? relatedType,
     required String? relatedId,
     num? score,
+    String? date,
     required List? commentTags,
     required String projectId,
   }) async {
@@ -98,6 +99,7 @@ class CommentResponse {
         "relatedType": relatedType,
         "relatedId": relatedId,
         "Score": score ?? 5,
+        "date":date,
         "commentTags": commentTags
       };
       Map<String, dynamic> res = await BaseDio.getInstance().post(

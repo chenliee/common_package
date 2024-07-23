@@ -10,11 +10,7 @@ import 'package:service_package/service_package.dart';
 
 class ActivityResponse {
   static Future<List<ActivityItem>?> getActivityList(
-      {required num page,
-      required num size,
-      String? status,
-      String? type,
-      String? custom}) async {
+      {required num page, required num size, String? status, String? type, String? custom}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "page": page,
@@ -27,8 +23,7 @@ class ActivityResponse {
 
       List<ActivityItem> list = [];
       Map<String, dynamic> jsonLists = await BaseDio.getInstance().get(
-        url:
-            "/marketing2/api/merchant/${ServiceGlobal.instance.merchantId}/activity",
+        url: "/marketing2/api/merchant/${ServiceGlobal.instance.merchantId}/activity",
         params: params,
       );
       for (var item in jsonLists['list']) {
@@ -92,8 +87,7 @@ class ActivityResponse {
     }
   }
 
-  static Future<ActivityItem> getActivityDetail(
-      {required String code, bool allChildren = true}) async {
+  static Future<ActivityItem> getActivityDetail({required String code, bool allChildren = true}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "allChildren": allChildren,
@@ -103,6 +97,33 @@ class ActivityResponse {
       ActivityItem? item;
       Map<String, dynamic> jsonLists = await BaseDio.getInstance().get(
         url: "/marketing2/api/user/$code",
+        params: params,
+      );
+      item = ActivityItem.fromJson(jsonLists);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<ActivityItem> sendActivity({
+    required String uid,
+    required String targetType,
+    required String code,
+    Map? custom,
+  }) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "uid": uid,
+        "targetType": targetType,
+        "custom": custom,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      ActivityItem? item;
+      Map<String, dynamic> jsonLists = await BaseDio.getInstance().post(
+        url: "/marketing2/api/merchant/${ServiceGlobal.instance.merchantId}/activity/$code",
         params: params,
       );
       item = ActivityItem.fromJson(jsonLists);
