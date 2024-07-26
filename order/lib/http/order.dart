@@ -3,6 +3,7 @@ import 'package:service_package/service_package.dart';
 
 import '../model/order_count.dart';
 import '../model/order_item.dart';
+import '../model/pay_model.dart';
 
 class OrderResponse {
   static final String _baseUrl =
@@ -145,15 +146,18 @@ class OrderResponse {
     }
   }
 
-  static Future payOrder({required String orderId, String? redirectUrl}) async {
+  static Future<PayModel> payOrder(
+      {required String orderId, String? redirectUrl}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "orderId": orderId,
         'redirectUrl': redirectUrl,
       }..removeWhere((key, value) => value == null));
+      PayModel? payModel;
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: payUrl, params: params);
-      return res;
+      payModel = PayModel.fromJson(res);
+      return payModel;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

@@ -4,6 +4,7 @@
 // ApiGenerator
 // **************************************************************************
 
+import 'package:article/article.dart';
 import 'package:marketing/marketing.dart';
 import 'package:marketing/model/activity_log_item.dart';
 import 'package:service_package/service_package.dart';
@@ -107,6 +108,39 @@ class ActivityResponse {
       );
       item = ActivityItem.fromJson(jsonLists);
       return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<List<ActivityItem>> getCodeLog({
+    required String code,
+    required String uid,
+    String? type,
+    String? targetType,
+    required num page,
+    num? size,
+  }) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "page": page,
+        "size": size ?? ServiceGlobal.instance.pageSize,
+        "status": "processed",
+        "type": type,
+        "targetType": targetType
+      })
+        ..removeWhere((key, value) => value == null);
+
+      List<ActivityItem> list = [];
+      Map<String, dynamic> jsonLists = await MerchantDio.getInstance().get(
+        url: "/marketing2/api/merchant/scholar/target/$uid/market/$code/",
+        params: params,
+      );
+      for (var item in jsonLists['list']) {
+        list.add(ActivityItem.fromJson(item));
+      }
+      return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

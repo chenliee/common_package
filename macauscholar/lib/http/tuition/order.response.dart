@@ -4,8 +4,9 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:service_package/service_package.dart';
 import 'package:macauscholar/macauscholar.dart';
+import 'package:order/model/pay_model.dart';
+import 'package:service_package/service_package.dart';
 
 class TuitionOrderResponse {
   static Future<List<TuitionOrderItem>> getOrderList(
@@ -46,6 +47,24 @@ class TuitionOrderResponse {
         url: "/tuition/api/order/$id",
       );
       item = TuitionOrderItem.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<PayModel> pay({required String orderCode}) async {
+    try {
+      Map<String, dynamic> params = Map.from({})
+        ..removeWhere((key, value) => value == null);
+
+      PayModel? item;
+      Map<String, dynamic> res = await MacauDio.getInstance().post(
+        url: "/tuition/api/order/$orderCode/pay",
+        params: params,
+      );
+      item = PayModel.fromJson(res);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);

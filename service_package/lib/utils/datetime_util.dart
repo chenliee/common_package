@@ -59,4 +59,25 @@ class DateTimeUtil {
         ? '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}'
         : '$hours:${minutes.toString().padLeft(2, '0')}';
   }
+
+  static bool areDateTimesEqualFunction(String dt1Str, String dt2Str) {
+    DateTime dt1 = DateTime.parse(dt1Str);
+    DateTime dt2 = DateTime.parse(dt2Str);
+
+    return (dt1.year == dt2.year &&
+        dt1.month == dt2.month &&
+        dt1.day == dt2.day &&
+        dt1.hour == dt2.hour &&
+        dt1.minute == dt2.minute &&
+        dt1.second == dt2.second);
+  }
+
+  static bool isWithinTenSeconds(String dt1Str, String dt2Str, num second) {
+    DateTime dt1 = DateTime.parse(dt1Str);
+    DateTime dt2 = DateTime.parse(dt2Str);
+
+    Duration difference = dt1.difference(dt2).abs();
+
+    return difference.inSeconds <= second;
+  }
 }

@@ -34,6 +34,13 @@ abstract class Enrollment {
       {required Map<String, dynamic> arg});
 
   @ApiGen(
+    '/api/apply/\$apply',
+    method: ApiGen.GET,
+    target: 'TuitionEnrollmentItem',
+  )
+  Future<TuitionEnrollmentItem> enrollmentDetail({required String apply});
+
+  @ApiGen(
     '/api/service',
     params: {
       'size': '@C_size',

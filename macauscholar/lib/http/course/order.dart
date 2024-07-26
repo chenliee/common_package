@@ -1,9 +1,11 @@
 import 'package:macauscholar/model/course_order_item.dart';
+import 'package:order/model/pay_model.dart';
 import 'package:service_package/api/api_gen.dart';
 
 /// package:service_package/service_package.dart
 /// package:macauscholar/model/course_order_item.dart
 /// package:macauscholar/macauscholar.dart
+/// package:order/model/pay_model.dart
 @ApiGen('/course', file: 'CourseOrderResponse', dio: 'MacauDio')
 abstract class Order {
   @ApiGen(
@@ -31,4 +33,12 @@ abstract class Order {
     target: 'CourseOrderItem',
   )
   Future<CourseOrderItem> getOrderDetail({required String id});
+
+  @ApiGen(
+    '/api/pay_basic/',
+    method: ApiGen.POST,
+    target: 'PayModel',
+    params: {"orderCode": "@C_orderCode"},
+  )
+  Future<PayModel> pay({required String orderCode});
 }

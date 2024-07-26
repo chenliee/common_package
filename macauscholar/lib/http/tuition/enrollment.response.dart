@@ -57,6 +57,21 @@ class EnrollmentResponse {
     }
   }
 
+  static Future<TuitionEnrollmentItem> enrollmentDetail(
+      {required String apply}) async {
+    try {
+      TuitionEnrollmentItem? item;
+      Map<String, dynamic> res = await MacauDio.getInstance().get(
+        url: "/tuition/api/apply/$apply",
+      );
+      item = TuitionEnrollmentItem.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
   static Future<List<ServiceItem>> getServiceList(
       {int? page,
       Map<dynamic, dynamic>? filter,

@@ -1,9 +1,11 @@
 import 'package:macauscholar/macauscholar.dart';
+import 'package:order/model/pay_model.dart';
 import 'package:service_package/api/api_gen.dart';
 import 'package:service_package/service_package.dart';
 
 /// package:service_package/service_package.dart
 /// package:macauscholar/macauscholar.dart
+/// package:order/model/pay_model.dart
 @ApiGen('/meal', file: 'MealResponse', dio: 'MacauDio')
 abstract class MenuClass {
   @ApiGen('/api/menu/',

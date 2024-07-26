@@ -5,7 +5,6 @@ import 'package:storage/model/upload_image.dart';
 
 class UploadResponse {
   static Future upload({required File file}) async {
-    print(file);
     String url =
         '/storage/api/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/file/';
 
@@ -21,7 +20,8 @@ class UploadResponse {
       options: Options(
         contentType: 'image/jpg',
         headers: {
-          HttpHeaders.contentLengthHeader: imageBytes.length.toString(), // 添加Content-Length头
+          HttpHeaders.contentLengthHeader:
+              imageBytes.length.toString(), // 添加Content-Length头
         }, // 设置Content-Type为图片类型，根据实际情况修改
       ),
     );

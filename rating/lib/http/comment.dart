@@ -82,7 +82,7 @@ class CommentResponse {
     required String? relatedId,
     num? score,
     required List? commentTags,
-    required String projectId,
+    String? projectId,
   }) async {
     try {
       String project = projectId ?? ServiceGlobal.instance.projectId;

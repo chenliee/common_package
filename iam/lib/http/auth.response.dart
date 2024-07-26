@@ -4,8 +4,8 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:service_package/service_package.dart';
 import 'package:iam/iam.dart';
+import 'package:service_package/service_package.dart';
 
 class AuthResponse {
   static Future<AuthModel> auth(

@@ -1,67 +1,84 @@
 import 'dart:convert';
-/// id : 182
+
+import 'package:macauscholar/macauscholar.dart';
+
+/// id : 211
 /// gender : "f"
-/// branch : "B1000022"
-/// readTime : "2024-06-29T00:00:00.000Z"
+/// branch : "B0000822"
+/// readTime : "2024-07-19T00:00:00.000Z"
 /// form : null
 /// studentName : "IT測試使用"
-/// number : "1"
+/// number : "d012ca09-f9aa-4e76-8fd7-69c956023a41"
 /// handler : null
 /// consult : null
-/// phone : "26569852"
+/// phone : "25635159"
 /// orderId : null
 /// clause : null
-/// way : "mobile"
+/// way : "moblie"
 /// state : "init"
 /// guardianId : null
 /// schoolYearId : 23
-/// schoolId : 107
+/// schoolId : 15
 /// studentId : 24
-/// parentName : "测试使用家长"
-/// member : "be285115-c48a-4bf5-bd6e-17c6b837fcc2"
+/// parentName : "jj"
+/// member : "SS220005"
 /// relationId : null
 /// birthday : null
-/// referrer : "nihso"
+/// referrer : null
 /// mongoDBId : null
 /// payMessage : null
-/// enableTransfer : true
-/// createdAt : "2024-06-29T06:31:35.470Z"
-/// updatedAt : "2024-06-29T06:31:35.470Z"
+/// enableTransfer : false
+/// createdAt : "2024-07-19T02:53:13.478Z"
+/// updatedAt : "2024-07-19T02:53:13.478Z"
 /// deletedAt : null
+/// school : {"id":15,"code":"S001","displayName":"聖公會(澳門)蔡高中學","order":0,"location":null,"mongoDBId":"6UPCW14kTs","createdAt":"2021-11-19T10:35:52.615Z","updatedAt":"2024-05-10T09:36:23.117Z","deletedAt":null}
+/// needService : [{"id":387,"title":"K2一條龍","packageId":2,"price":2810,"common":false,"code":"T2ZhXXfkND:TUICHG0001+TUIFEE00K2+TUIMEAL001+TUIMEAL200","categoryId":null,"order":0,"detailLog":null,"description":null,"servicesTable":[{"code":"TUIFEE00K2","label":"K2補習費","value":1720},{"code":"TUIMEAL200","label":"下午茶","value":280},{"code":"TUIMEAL001","label":"星期一至五午膳","value":670},{"code":"TUICHG0001","label":"清潔／影印雜費","value":140}],"withBranches":null,"withoutBranches":null,"tags":null,"color":null,"licence":null,"images":null,"appShow":false,"userEndNotDisplay":false,"permit":null,"noDiscount":false,"recordIdCode":null,"cover":null,"createdAt":"2023-05-23T05:33:06.985Z","updatedAt":"2024-06-04T02:33:50.881Z","deletedAt":null,"mongoDBId":"XGpPdC5tGy"}]
+/// schoolYear : {"id":23,"code":"k2","type":"nursery","order":0,"displayName":"K2","createdAt":"2021-11-19T10:35:53.799Z","updatedAt":"2024-05-17T05:07:28.956Z","deletedAt":null,"mongoDBId":"wvWZyIGkLe"}
+/// student : {"id":24,"gender":null,"branch":"B0000017","specialNeeds":null,"number":"SS220005","appetite":1,"favourites":[],"characters":[],"phone":"25635159","state":"active","displayName":"IT測試使用","resultRecord":null,"schoolYearId":23,"balanceAccount":null,"allergyDrugs":[],"autoTransferAccount":null,"enName":null,"schoolId":15,"allergyFoods":[],"avatar":{"url":"https://storage.dev.heyday-catering.com:20443/scholar/macauscholar_dev/3cd5984812da9432f624ab760fb793465ec674650bb603f51d7c009247d9ec2096455a1c3fbb755fa67b56247c7727d7003df95d2b0c1abd966c6551b52c5a02.png","name":"454382f58acfd8f3534c3b872063e332_logo -儒林 (1).png","__type":"File"},"parentRequirements":[],"member":"SS220005","registrationForm":null,"joinAt":"2022-08-31T16:00:00.000Z","mongoDBId":"5lAYfSj5cy","birthday":null,"referrerId":null,"card":null,"createdAt":"2022-09-01T06:39:25.073Z","updatedAt":"2024-05-10T09:56:48.607Z","deletedAt":null}
+/// guardian : null
 
-TuitionEnrollmentItem tuitionEnrollmentItemFromJson(String str) => TuitionEnrollmentItem.fromJson(json.decode(str));
-String tuitionEnrollmentItemToJson(TuitionEnrollmentItem data) => json.encode(data.toJson());
+TuitionEnrollmentItem tuitionEnrollmentItemFromJson(String str) =>
+    TuitionEnrollmentItem.fromJson(json.decode(str));
+String tuitionEnrollmentItemToJson(TuitionEnrollmentItem data) =>
+    json.encode(data.toJson());
+
 class TuitionEnrollmentItem {
   TuitionEnrollmentItem({
-      num? id, 
-      String? gender, 
-      String? branch, 
-      String? readTime, 
-      dynamic form, 
-      String? studentName, 
-      String? number, 
-      dynamic handler, 
-      dynamic consult, 
-      String? phone, 
-      dynamic orderId, 
-      dynamic clause, 
-      String? way, 
-      String? state, 
-      dynamic guardianId, 
-      num? schoolYearId, 
-      num? schoolId, 
-      num? studentId, 
-      String? parentName, 
-      String? member, 
-      dynamic relationId, 
-      dynamic birthday, 
-      String? referrer, 
-      dynamic mongoDBId, 
-      dynamic payMessage, 
-      bool? enableTransfer, 
-      String? createdAt, 
-      String? updatedAt, 
-      dynamic deletedAt,}){
+    num? id,
+    String? gender,
+    String? branch,
+    String? readTime,
+    dynamic form,
+    String? studentName,
+    String? number,
+    dynamic handler,
+    dynamic consult,
+    String? phone,
+    dynamic orderId,
+    dynamic clause,
+    String? way,
+    String? state,
+    dynamic guardianId,
+    num? schoolYearId,
+    num? schoolId,
+    num? studentId,
+    String? parentName,
+    String? member,
+    dynamic relationId,
+    dynamic birthday,
+    dynamic referrer,
+    dynamic mongoDBId,
+    dynamic payMessage,
+    bool? enableTransfer,
+    String? createdAt,
+    String? updatedAt,
+    dynamic deletedAt,
+    SchoolItem? school,
+    List<ServiceItem>? needService,
+    SchoolYearItem? schoolYear,
+    StudentItem? student,
+    dynamic guardian,
+  }) {
     _id = id;
     _gender = gender;
     _branch = branch;
@@ -91,7 +108,12 @@ class TuitionEnrollmentItem {
     _createdAt = createdAt;
     _updatedAt = updatedAt;
     _deletedAt = deletedAt;
-}
+    _school = school;
+    _needService = needService;
+    _schoolYear = schoolYear;
+    _student = student;
+    _guardian = guardian;
+  }
 
   TuitionEnrollmentItem.fromJson(dynamic json) {
     _id = json['id'];
@@ -123,6 +145,20 @@ class TuitionEnrollmentItem {
     _createdAt = json['createdAt'];
     _updatedAt = json['updatedAt'];
     _deletedAt = json['deletedAt'];
+    _school =
+        json['school'] != null ? SchoolItem.fromJson(json['school']) : null;
+    if (json['needService'] != null) {
+      _needService = [];
+      json['needService'].forEach((v) {
+        _needService?.add(ServiceItem.fromJson(v));
+      });
+    }
+    _schoolYear = json['schoolYear'] != null
+        ? SchoolYearItem.fromJson(json['schoolYear'])
+        : null;
+    _student =
+        json['student'] != null ? StudentItem.fromJson(json['student']) : null;
+    _guardian = json['guardian'];
   }
   num? _id;
   String? _gender;
@@ -146,72 +182,90 @@ class TuitionEnrollmentItem {
   String? _member;
   dynamic _relationId;
   dynamic _birthday;
-  String? _referrer;
+  dynamic _referrer;
   dynamic _mongoDBId;
   dynamic _payMessage;
   bool? _enableTransfer;
   String? _createdAt;
   String? _updatedAt;
   dynamic _deletedAt;
-TuitionEnrollmentItem copyWith({  num? id,
-  String? gender,
-  String? branch,
-  String? readTime,
-  dynamic form,
-  String? studentName,
-  String? number,
-  dynamic handler,
-  dynamic consult,
-  String? phone,
-  dynamic orderId,
-  dynamic clause,
-  String? way,
-  String? state,
-  dynamic guardianId,
-  num? schoolYearId,
-  num? schoolId,
-  num? studentId,
-  String? parentName,
-  String? member,
-  dynamic relationId,
-  dynamic birthday,
-  String? referrer,
-  dynamic mongoDBId,
-  dynamic payMessage,
-  bool? enableTransfer,
-  String? createdAt,
-  String? updatedAt,
-  dynamic deletedAt,
-}) => TuitionEnrollmentItem(  id: id ?? _id,
-  gender: gender ?? _gender,
-  branch: branch ?? _branch,
-  readTime: readTime ?? _readTime,
-  form: form ?? _form,
-  studentName: studentName ?? _studentName,
-  number: number ?? _number,
-  handler: handler ?? _handler,
-  consult: consult ?? _consult,
-  phone: phone ?? _phone,
-  orderId: orderId ?? _orderId,
-  clause: clause ?? _clause,
-  way: way ?? _way,
-  state: state ?? _state,
-  guardianId: guardianId ?? _guardianId,
-  schoolYearId: schoolYearId ?? _schoolYearId,
-  schoolId: schoolId ?? _schoolId,
-  studentId: studentId ?? _studentId,
-  parentName: parentName ?? _parentName,
-  member: member ?? _member,
-  relationId: relationId ?? _relationId,
-  birthday: birthday ?? _birthday,
-  referrer: referrer ?? _referrer,
-  mongoDBId: mongoDBId ?? _mongoDBId,
-  payMessage: payMessage ?? _payMessage,
-  enableTransfer: enableTransfer ?? _enableTransfer,
-  createdAt: createdAt ?? _createdAt,
-  updatedAt: updatedAt ?? _updatedAt,
-  deletedAt: deletedAt ?? _deletedAt,
-);
+  SchoolItem? _school;
+  List<ServiceItem>? _needService;
+  SchoolYearItem? _schoolYear;
+  StudentItem? _student;
+  dynamic _guardian;
+  TuitionEnrollmentItem copyWith({
+    num? id,
+    String? gender,
+    String? branch,
+    String? readTime,
+    dynamic form,
+    String? studentName,
+    String? number,
+    dynamic handler,
+    dynamic consult,
+    String? phone,
+    dynamic orderId,
+    dynamic clause,
+    String? way,
+    String? state,
+    dynamic guardianId,
+    num? schoolYearId,
+    num? schoolId,
+    num? studentId,
+    String? parentName,
+    String? member,
+    dynamic relationId,
+    dynamic birthday,
+    dynamic referrer,
+    dynamic mongoDBId,
+    dynamic payMessage,
+    bool? enableTransfer,
+    String? createdAt,
+    String? updatedAt,
+    dynamic deletedAt,
+    SchoolItem? school,
+    List<ServiceItem>? needService,
+    SchoolYearItem? schoolYear,
+    StudentItem? student,
+    dynamic guardian,
+  }) =>
+      TuitionEnrollmentItem(
+        id: id ?? _id,
+        gender: gender ?? _gender,
+        branch: branch ?? _branch,
+        readTime: readTime ?? _readTime,
+        form: form ?? _form,
+        studentName: studentName ?? _studentName,
+        number: number ?? _number,
+        handler: handler ?? _handler,
+        consult: consult ?? _consult,
+        phone: phone ?? _phone,
+        orderId: orderId ?? _orderId,
+        clause: clause ?? _clause,
+        way: way ?? _way,
+        state: state ?? _state,
+        guardianId: guardianId ?? _guardianId,
+        schoolYearId: schoolYearId ?? _schoolYearId,
+        schoolId: schoolId ?? _schoolId,
+        studentId: studentId ?? _studentId,
+        parentName: parentName ?? _parentName,
+        member: member ?? _member,
+        relationId: relationId ?? _relationId,
+        birthday: birthday ?? _birthday,
+        referrer: referrer ?? _referrer,
+        mongoDBId: mongoDBId ?? _mongoDBId,
+        payMessage: payMessage ?? _payMessage,
+        enableTransfer: enableTransfer ?? _enableTransfer,
+        createdAt: createdAt ?? _createdAt,
+        updatedAt: updatedAt ?? _updatedAt,
+        deletedAt: deletedAt ?? _deletedAt,
+        school: school ?? _school,
+        needService: needService ?? _needService,
+        schoolYear: schoolYear ?? _schoolYear,
+        student: student ?? _student,
+        guardian: guardian ?? _guardian,
+      );
   num? get id => _id;
   String? get gender => _gender;
   String? get branch => _branch;
@@ -234,13 +288,18 @@ TuitionEnrollmentItem copyWith({  num? id,
   String? get member => _member;
   dynamic get relationId => _relationId;
   dynamic get birthday => _birthday;
-  String? get referrer => _referrer;
+  dynamic get referrer => _referrer;
   dynamic get mongoDBId => _mongoDBId;
   dynamic get payMessage => _payMessage;
   bool? get enableTransfer => _enableTransfer;
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
   dynamic get deletedAt => _deletedAt;
+  SchoolItem? get school => _school;
+  List<ServiceItem>? get needService => _needService;
+  SchoolYearItem? get schoolYear => _schoolYear;
+  StudentItem? get student => _student;
+  dynamic get guardian => _guardian;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -273,7 +332,19 @@ TuitionEnrollmentItem copyWith({  num? id,
     map['createdAt'] = _createdAt;
     map['updatedAt'] = _updatedAt;
     map['deletedAt'] = _deletedAt;
+    if (_school != null) {
+      map['school'] = _school?.toJson();
+    }
+    if (_needService != null) {
+      map['needService'] = _needService?.map((v) => v.toJson()).toList();
+    }
+    if (_schoolYear != null) {
+      map['schoolYear'] = _schoolYear?.toJson();
+    }
+    if (_student != null) {
+      map['student'] = _student?.toJson();
+    }
+    map['guardian'] = _guardian;
     return map;
   }
-
 }

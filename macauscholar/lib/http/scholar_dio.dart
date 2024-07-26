@@ -11,6 +11,7 @@ class ScholarDio extends BaseDio {
     appTitle: "DEV",
     // appDomain: "http://10.100.202.100:7001",
     appDomain: "http://10.100.203.171:1696/",
+    //appDomain: "https://member.dev.macauscholar.com:20443",
   );
   // 测试环境
   static final EnvConfig _uatConfig = EnvConfig(

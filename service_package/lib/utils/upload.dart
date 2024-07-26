@@ -16,13 +16,17 @@ class UpLoad {
   static Future<File?> picFileCompressAndGetFile(File file) async {
     if (file.readAsBytesSync().lengthInBytes / 1024 < 2 * 1024) return file;
     final filePath = file.absolute.path;
-    final lastIndex = filePath.lastIndexOf(RegExp(r'.jp'));
+    final lastIndex = filePath.lastIndexOf(RegExp(r'.jp|.png'));
+
     final splitter = filePath.substring(0, (lastIndex));
     final outPath = "${splitter}_out${filePath.substring(lastIndex)}";
 
     return File(
       (await FlutterImageCompress.compressAndGetFile(filePath, outPath,
-              quality: 50))!
+              quality: 50,
+              format: filePath.contains('.png')
+                  ? CompressFormat.png
+                  : CompressFormat.jpeg))!
           .path,
     );
   }

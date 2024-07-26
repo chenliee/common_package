@@ -4,8 +4,9 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:service_package/service_package.dart';
 import 'package:macauscholar/macauscholar.dart';
+import 'package:order/model/pay_model.dart';
+import 'package:service_package/service_package.dart';
 
 class MealResponse {
   static Future<List<MenuItem>> getMenuList(

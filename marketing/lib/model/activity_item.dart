@@ -56,6 +56,7 @@ class ActivityItem {
     String? updatedAt,
     Files? files,
     List<ActivityItem>? children,
+    ActivityItem? ref,
     bool? vaild,
   }) {
     _id = id;
@@ -83,6 +84,7 @@ class ActivityItem {
     _updatedAt = updatedAt;
     _files = files;
     _children = children;
+    _ref = ref;
     _vaild = vaild;
   }
 
@@ -128,6 +130,7 @@ class ActivityItem {
         _children?.add(ActivityItem.fromJson(v));
       });
     }
+    _ref = json['ref'] != null ? ActivityItem.fromJson(json['ref']) : null;
     _vaild = json['vaild'];
   }
   num? _id;
@@ -155,6 +158,7 @@ class ActivityItem {
   String? _updatedAt;
   Files? _files;
   List<ActivityItem>? _children;
+  ActivityItem? _ref;
   bool? _vaild;
   ActivityItem copyWith(
           {num? id,
@@ -182,6 +186,7 @@ class ActivityItem {
           String? updatedAt,
           Files? files,
           List<ActivityItem>? children,
+          ActivityItem? ref,
           bool? vaild}) =>
       ActivityItem(
           id: id ?? _id,
@@ -209,6 +214,7 @@ class ActivityItem {
           updatedAt: updatedAt ?? _updatedAt,
           files: files ?? _files,
           children: children ?? _children,
+          ref: ref ?? _ref,
           vaild: vaild ?? _vaild);
   num? get id => _id;
   num? get merchantId => _merchantId;
@@ -235,6 +241,7 @@ class ActivityItem {
   String? get updatedAt => _updatedAt;
   Files? get files => _files;
   List<ActivityItem>? get children => _children;
+  ActivityItem? get ref => _ref;
   bool? get vaild => _vaild;
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

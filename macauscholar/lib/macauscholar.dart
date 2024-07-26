@@ -29,7 +29,7 @@ export 'model/menu_item.dart';
 export 'model/menu_section.dart';
 export 'model/package_item.dart';
 export 'model/parent_item.dart';
-export 'model/pay_model.dart';
+export 'model/raffle_model.dart';
 export 'model/recommend_model.dart';
 export 'model/scholar_item.dart';
 export 'model/school_item.dart';

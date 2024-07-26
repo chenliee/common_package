@@ -149,6 +149,9 @@ class BaseDio {
     }
     Map<String, dynamic> headers =
         Map<String, dynamic>.from(dio.options.headers);
+    if (headers['content-type'] != 'application/json') {
+      headers['content-type'] = 'application/json';
+    }
     headers['Authorization'] = ServiceGlobal.instance.token.isNotEmpty
         ? 'Bearer ${ServiceGlobal.instance.token}'
         : null;
@@ -158,6 +161,7 @@ class BaseDio {
               ? ServiceGlobal.instance.deviceAccessToken
               : null;
     }
+    headers.removeWhere((key, value) => value == null);
     dio.options.headers = headers;
     try {
       if (method == 'get') {
