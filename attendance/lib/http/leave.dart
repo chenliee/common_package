@@ -63,12 +63,12 @@ abstract class Leave {
   @ApiGen(
     '/api/project/\$project/rule/\$rule/punch_log/',
     params: {'date': '@C_date', 'uid': '@C_uid', 'ext': '@C_ext'},
-    target: 'LeaveDetail',
+    target: 'PunchLogItem',
     method: ApiGen.POST,
   )
-  Future<LeaveDetail> addPunchLog({
+  Future<PunchLogItem> addPunchLog({
     required String? project,
-    required String? $rule,
+    required String? rule,
     required String? date,
     required String? uid,
     required Map? ext,

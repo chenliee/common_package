@@ -6,6 +6,7 @@
 
 import 'package:service_package/service_package.dart';
 import 'package:attendance/attendance.dart';
+import 'package:attendance/model/record_add_item.dart';
 
 class RecordResponse {
   static Future<PunchLogItem> punchLogMember(
@@ -42,6 +43,35 @@ class RecordResponse {
         list.add(RecordItem.fromJson(item));
       }
       return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<RecordAddItem> addRecord(
+      {required String project,
+      required String rule,
+      required String uid,
+      required String leave,
+      required num from,
+      required num to}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "uid": uid,
+        "leave": leave,
+        "from": from,
+        "to": to,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      RecordAddItem? item;
+      Map<String, dynamic> res = await BaseDio.getInstance().post(
+        url: "/attendance/api/project/$project/rule/$rule/record",
+        params: params,
+      );
+      item = RecordAddItem.fromJson(res);
+      return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

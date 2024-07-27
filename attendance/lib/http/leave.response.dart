@@ -104,4 +104,31 @@ class LeaveResponse {
       rethrow;
     }
   }
+
+  static Future<PunchLogItem> addPunchLog(
+      {required String? project,
+      required String? rule,
+      required String? date,
+      required String? uid,
+      required Map<dynamic, dynamic>? ext}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "date": date,
+        "uid": uid,
+        "ext": ext,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      PunchLogItem? item;
+      Map<String, dynamic> res = await BaseDio.getInstance().post(
+        url: "/attendance/api/project/$project/rule/$rule/punch_log/",
+        params: params,
+      );
+      item = PunchLogItem.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
 }
