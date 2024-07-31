@@ -1,8 +1,10 @@
 import 'package:macauscholar/macauscholar.dart';
+import 'package:order/order.dart';
 import 'package:service_package/api/api_gen.dart';
 
 /// package:service_package/service_package.dart
 /// package:macauscholar/macauscholar.dart
+/// package:order/order.dart
 @ApiGen('/tuition', file: 'EnrollmentResponse', dio: 'MacauDio')
 abstract class Enrollment {
   @ApiGen(
@@ -58,4 +60,15 @@ abstract class Enrollment {
       int? size,
       String? keyword,
       bool disablePaging = false});
+
+  @ApiGen(
+    '/api/apply/\$pay/pay',
+    params: {
+      'adjs': '@C_adjs',
+    },
+    method: ApiGen.POST,
+    target: 'PayModel',
+  )
+  Future<PayModel> payEnrollment(
+      {List<Map<String, dynamic>>? adjs, required String pay});
 }

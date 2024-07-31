@@ -4,10 +4,10 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:macauscholar/macauscholar.dart';
-import 'package:macauscholar/model/course_order_item.dart';
-import 'package:order/model/pay_model.dart';
 import 'package:service_package/service_package.dart';
+import 'package:macauscholar/model/course_order_item.dart';
+import 'package:macauscholar/macauscholar.dart';
+import 'package:order/model/pay_model.dart';
 
 class CourseOrderResponse {
   static Future<List<CourseOrderItem>> getOrderList(
