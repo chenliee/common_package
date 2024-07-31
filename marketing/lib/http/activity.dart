@@ -12,10 +12,10 @@ import 'package:service_package/service_package.dart';
 class ActivityResponse {
   static Future<List<ActivityItem>?> getActivityList(
       {required num page,
-      required num size,
-      String? status,
-      String? type,
-      String? custom}) async {
+        required num size,
+        String? status,
+        String? type,
+        String? custom}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "page": page,
@@ -29,7 +29,7 @@ class ActivityResponse {
       List<ActivityItem> list = [];
       Map<String, dynamic> jsonLists = await BaseDio.getInstance().get(
         url:
-            "/marketing2/api/merchant/${ServiceGlobal.instance.merchantId}/activity",
+        "/marketing2/api/merchant/${ServiceGlobal.instance.merchantId}/activity",
         params: params,
       );
       for (var item in jsonLists['list']) {
@@ -44,13 +44,13 @@ class ActivityResponse {
 
   static Future<List<ActivityLogItem>> getActivityLog(
       {required num page,
-      required num size,
-      String? status,
-      String? type,
-      String? startAt,
-      String? endAt,
-      List? refTargetId,
-      Map<dynamic, dynamic>? custom}) async {
+        required num size,
+        String? status,
+        String? type,
+        String? startAt,
+        String? endAt,
+        List? refTargetId,
+        Map<dynamic, dynamic>? custom}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "page": page,

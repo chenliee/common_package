@@ -1,3 +1,4 @@
+import 'package:member/model/user_item.dart';
 import 'package:service_package/service_package.dart';
 
 import '../member.dart';
@@ -146,6 +147,17 @@ class UserResponse {
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
+    }
+  }
+
+  static Future<UserItem> findMemberUser({required String uid}) async {
+    String url = '/member/api/merchant/${ServiceGlobal.instance.merchantId}/user/$uid';
+    try {
+      Map<String, dynamic> res = await BaseDio.getInstance().get(url: url);
+      UserItem userItem = UserItem.fromJson(res);
+      return userItem;
+    } catch (e) {
+      throw Debug.printMsg(e, StackTrace.current);
     }
   }
 }

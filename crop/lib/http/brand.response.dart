@@ -4,14 +4,15 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:crop/crop.dart';
 import 'package:service_package/service_package.dart';
+import 'package:crop/crop.dart';
+import 'package:crop/models/mer_online.dart';
 
 class BrandResponse {
   static Future<List<BrandItem>> getBrandItem() async {
     try {
       List<BrandItem> list = [];
-      var jsonLists = await BaseDio.getInstance().get(
+      List<dynamic> jsonLists = await BaseDio.getInstance().get(
         url: "/crop/api/merchant/${ServiceGlobal.instance.merchantId}/brand",
       );
       for (var item in jsonLists) {
@@ -25,7 +26,7 @@ class BrandResponse {
   }
 
   static Future<List<PlaceItem>?> getPlaceItem(
-      {List? brand, String? xLocation, String? keyword}) async {
+      {List<String>? brand, String? xLocation, String? keyword}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "brand": brand,
@@ -69,6 +70,30 @@ class BrandResponse {
         params: params,
       );
       item = PlaceItem.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<MerOnline> editMerOnline(
+      {required String? brand,
+      required String key,
+      required String? value}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "value": value,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      MerOnline? item;
+      Map<String, dynamic> res = await BaseDio.getInstance().put(
+        url:
+            "/crop/api/merchant/${ServiceGlobal.instance.merchantId}/brand/$brand/key/$key",
+        params: params,
+      );
+      item = MerOnline.fromJson(res);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
