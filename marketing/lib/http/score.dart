@@ -115,4 +115,14 @@ class ScoreResponse {
       rethrow;
     }
   }
+
+  static Future getCredit({required String uid}) async {
+    String url = '/marketing/api/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/scoreRule/balance/$uid';
+    try {
+      Map<String, dynamic> res = await BaseDio.getInstance().get(url: url);
+      return res;
+    } catch (e) {
+      throw Debug.printMsg(e, StackTrace.current);
+    }
+  }
 }
