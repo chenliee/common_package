@@ -15,6 +15,7 @@ export 'model/advert_model.dart';
 export 'model/app_info_model.dart';
 export 'model/category_item.dart';
 export 'model/class_item.dart';
+export 'model/course_detail_model.dart';
 export 'model/course_enrollment_item.dart';
 export 'model/course_item.dart';
 export 'model/course_model.dart';

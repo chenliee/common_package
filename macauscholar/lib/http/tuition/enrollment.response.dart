@@ -4,9 +4,9 @@
 // ApiGenerator
 // **************************************************************************
 
+import 'package:service_package/service_package.dart';
 import 'package:macauscholar/macauscholar.dart';
 import 'package:order/order.dart';
-import 'package:service_package/service_package.dart';
 
 class EnrollmentResponse {
   static Future<List<PackageItem>> getPackageList(

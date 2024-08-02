@@ -5,8 +5,6 @@ import 'package:order/model/pay_model.dart';
 import 'package:service_package/api/api_gen.dart';
 import 'package:storage/storage.dart';
 
-import '../../model/app_info_model.dart';
-
 /// package:service_package/service_package.dart
 /// package:macauscholar/macauscholar.dart
 /// package:storage/storage.dart
@@ -76,6 +74,13 @@ abstract class Class {
     target: 'CourseModel',
   )
   Future<CourseModel> getCourseData();
+
+  @ApiGen(
+    '/scholar/course/\$id',
+    method: ApiGen.GET,
+    target: 'CourseDetailModel',
+  )
+  Future<CourseDetailModel> getCourseDetail({required String id});
 
   @ApiGen(
     '/scholar/photoList',

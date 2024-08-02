@@ -45,6 +45,7 @@ class CourseItem {
     String? updatedAt,
     CategoryItem? category,
     String? marketing,
+    List<FileItem?>? covers,
   }) {
     _id = id;
     _oldObjectId = oldObjectId;
@@ -64,6 +65,7 @@ class CourseItem {
     _updatedAt = updatedAt;
     _category = category;
     _marketing = marketing;
+    _covers = covers;
   }
 
   CourseItem.fromJson(dynamic json) {
@@ -87,6 +89,12 @@ class CourseItem {
     _category = json['category'] != null
         ? CategoryItem.fromJson(json['category'])
         : null;
+    if (json['covers'] != null) {
+      _covers = [];
+      json['covers']?.forEach((v) {
+        _covers?.add(FileItem.fromJson(v));
+      });
+    }
   }
   num? _id;
   String? _oldObjectId;
@@ -106,7 +114,7 @@ class CourseItem {
   String? _updatedAt;
   String? _marketing;
   CategoryItem? _category;
-
+  List<FileItem?>? _covers;
   CourseItem copyWith({
     num? id,
     String? oldObjectId,
@@ -126,6 +134,7 @@ class CourseItem {
     String? updatedAt,
     String? marketing,
     CategoryItem? category,
+    List<FileItem?>? covers,
   }) =>
       CourseItem(
         id: id ?? _id,
@@ -146,6 +155,7 @@ class CourseItem {
         updatedAt: updatedAt ?? _updatedAt,
         category: category ?? _category,
         marketing: marketing ?? _marketing,
+        covers: covers ?? _covers,
       );
 
   num? get id => _id;
@@ -166,6 +176,7 @@ class CourseItem {
   String? get updatedAt => _updatedAt;
   String? get marketing => _marketing;
   CategoryItem? get category => _category;
+  List<FileItem?>? get covers => _covers;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

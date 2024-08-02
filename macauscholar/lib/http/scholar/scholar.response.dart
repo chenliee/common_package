@@ -138,6 +138,20 @@ class ScholarResponse {
     }
   }
 
+  static Future<CourseDetailModel> getCourseDetail({required String id}) async {
+    try {
+      CourseDetailModel? item;
+      Map<String, dynamic> res = await ScholarDio.getInstance().get(
+        url: "/api/scholar/course/$id",
+      );
+      item = CourseDetailModel.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
   static Future<List<CatalogItem>> getPhotoList(
       {required String group,
       required String name,

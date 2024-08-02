@@ -4,9 +4,9 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:service_package/service_package.dart';
 import 'package:attendance/attendance.dart';
 import 'package:attendance/model/record_add_item.dart';
+import 'package:service_package/service_package.dart';
 
 class RecordResponse {
   static Future<PunchLogItem> punchLogMember(
@@ -15,6 +15,7 @@ class RecordResponse {
       PunchLogItem? item;
       Map<String, dynamic> res = await BaseDio.getInstance().post(
         url: "/attendance/api/project/$project/rule/$rule/punch_log/member",
+        isApi: false,
       );
       item = PunchLogItem.fromJson(res);
       return item;
