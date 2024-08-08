@@ -34,11 +34,16 @@ abstract class Leave {
 
   @ApiGen(
     '/api/project/\$project/leave',
-    params: {'filter': '@C_filter'},
+    params: {
+      'page': '@C_page',
+      'size': '@C_size',
+      'sort': '@C_sort ?? \'{"createdAt":"desc"}\'',
+      'filter': '@C_filter',
+    },
     target: 'LeaveListItem',
     method: ApiGen.GET,
   )
-  Future<List<LeaveListItem>?> leaveList({Map? filter, required String? project});
+  Future<List<LeaveListItem>?> leaveList({Map? filter, required String? project, num? page, num? size, Map? sort});
 
   @ApiGen(
     '/api/project/\$project/leave/\$id',

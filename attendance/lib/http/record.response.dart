@@ -4,9 +4,10 @@
 // ApiGenerator
 // **************************************************************************
 
+import 'package:service_package/service_package.dart';
 import 'package:attendance/attendance.dart';
 import 'package:attendance/model/record_add_item.dart';
-import 'package:service_package/service_package.dart';
+import 'package:attendance/model/update_recoed.dart';
 
 class RecordResponse {
   static Future<PunchLogItem> punchLogMember(
@@ -15,7 +16,6 @@ class RecordResponse {
       PunchLogItem? item;
       Map<String, dynamic> res = await BaseDio.getInstance().post(
         url: "/attendance/api/project/$project/rule/$rule/punch_log/member",
-        isApi: false,
       );
       item = PunchLogItem.fromJson(res);
       return item;
@@ -72,6 +72,31 @@ class RecordResponse {
         params: params,
       );
       item = RecordAddItem.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<UpdateRecoed> updateRecord(
+      {required String project,
+      required String record,
+      required String leave,
+      Map<dynamic, dynamic>? ext}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "leave": leave,
+        "ext": ext,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      UpdateRecoed? item;
+      Map<String, dynamic> res = await BaseDio.getInstance().put(
+        url: "/attendance/api/project/$project/record/$record",
+        params: params,
+      );
+      item = UpdateRecoed.fromJson(res);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);

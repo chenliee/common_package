@@ -9,6 +9,7 @@ import 'package:macauscholar/model/course_order_item.dart';
 import 'package:macauscholar/macauscholar.dart';
 import 'package:order/model/pay_model.dart';
 import 'package:macauscholar/model/voucher_item.dart';
+import 'package:macauscholar/model/attendance_student.dart';
 
 class CourseOrderResponse {
   static Future<List<CourseOrderItem>> getOrderList(
@@ -100,6 +101,37 @@ class CourseOrderResponse {
         params: params,
       );
       item = PayModel.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<AttendanceStudent> attendance(
+      {required String student,
+      required String lesson,
+      required String status,
+      String? classId,
+      String? voucher,
+      String? OaRecord}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "student": student,
+        "lesson": lesson,
+        "status": status,
+        "class_": classId,
+        "voucher": voucher,
+        "OaRecord": OaRecord,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      AttendanceStudent? item;
+      Map<String, dynamic> res = await MacauDio.getInstance().put(
+        url: "/course/api/voucher/attendance",
+        params: params,
+      );
+      item = AttendanceStudent.fromJson(res);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);

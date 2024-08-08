@@ -1,10 +1,12 @@
 import 'package:attendance/attendance.dart';
 import 'package:attendance/model/record_add_item.dart';
+import 'package:attendance/model/update_recoed.dart';
 import 'package:service_package/api/api_gen.dart';
 
 /// package:service_package/service_package.dart
 /// package:attendance/attendance.dart
 /// package:attendance/model/record_add_item.dart
+/// package:attendance/model/update_recoed.dart
 @ApiGen('/attendance', file: 'RecordResponse', dio: 'BaseDio')
 abstract class Record {
   @ApiGen(
@@ -42,5 +44,21 @@ abstract class Record {
     required String leave,
     required num from,
     required num to,
+  });
+
+  @ApiGen(
+    '/api/project/\$project/record/\$record',
+    params: {
+      'leave': '@C_leave',
+      'ext': '@C_ext',
+    },
+    method: ApiGen.PUT,
+    target: 'UpdateRecoed',
+  )
+  Future<UpdateRecoed> updateRecord({
+    required String project,
+    required String record,
+    required String leave,
+    Map? ext,
   });
 }

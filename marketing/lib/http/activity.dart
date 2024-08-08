@@ -146,4 +146,31 @@ class ActivityResponse {
       rethrow;
     }
   }
+
+  static Future<ActivityItem> sendActivity({
+    required String uid,
+    required String targetType,
+    required String code,
+    Map? custom,
+  }) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "uid": uid,
+        "targetType": targetType,
+        "custom": custom,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      ActivityItem? item;
+      Map<String, dynamic> jsonLists = await BaseDio.getInstance().post(
+        url: "/marketing2/api/merchant/${ServiceGlobal.instance.merchantId}/activity/$code",
+        params: params,
+      );
+      item = ActivityItem.fromJson(jsonLists);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
 }

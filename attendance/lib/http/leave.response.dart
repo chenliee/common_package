@@ -43,9 +43,16 @@ class LeaveResponse {
   }
 
   static Future<List<LeaveListItem>?> leaveList(
-      {Map<dynamic, dynamic>? filter, required String? project}) async {
+      {Map<dynamic, dynamic>? filter,
+      required String? project,
+      num? page,
+      num? size,
+      Map<dynamic, dynamic>? sort}) async {
     try {
       Map<String, dynamic> params = Map.from({
+        "page": page,
+        "size": size,
+        "sort": sort ?? '{"createdAt":"desc"}',
         "filter": filter,
       })
         ..removeWhere((key, value) => value == null);
