@@ -10,18 +10,18 @@ class ScholarDio extends BaseDio {
   static final EnvConfig _devConfig = EnvConfig(
     appTitle: "DEV",
     // appDomain: "http://10.100.202.100:7001",
-    appDomain: "http://10.100.203.171:1696/",
-    //appDomain: "https://member.dev.macauscholar.com:20443",
+    //appDomain: "http://10.100.203.171:20252/",
+    appDomain: "https://member.dev.macauscholar.com:20443",
   );
   // 测试环境
   static final EnvConfig _uatConfig = EnvConfig(
     appTitle: "UAT",
-    appDomain: "https://saas.uat.macauscholar.com",
+    appDomain: "https://member.uat.macauscholar.com",
   );
   // 发布环境
   static final EnvConfig _proConfig = EnvConfig(
     appTitle: "PRO",
-    appDomain: "https://saas.macauscholar.com",
+    appDomain: "https://member.macauscholar.com",
   );
 
   static EnvConfig _getEnvConfig() {
