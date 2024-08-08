@@ -10,3 +10,4 @@
 */LICENSE
 */.gitignore
 */.dart_tool
+/employee/analysis_options.yaml

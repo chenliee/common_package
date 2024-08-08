@@ -4,12 +4,12 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:service_package/service_package.dart';
 import 'package:macauscholar/macauscholar.dart';
-import 'package:storage/storage.dart';
-import 'package:member/member.dart';
 import 'package:marketing/marketing.dart';
+import 'package:member/member.dart';
 import 'package:order/model/pay_model.dart';
+import 'package:service_package/service_package.dart';
+import 'package:storage/storage.dart';
 
 class ScholarResponse {
   static Future<HomeModel> getHomeData() async {
@@ -525,7 +525,8 @@ class ScholarResponse {
   }
 
   static Future<PayModel> payCourse(
-      {required String classId,
+      {required num enrollmentId,
+      required String classId,
       required String orderDate,
       required num lessons,
       required String uid,
@@ -540,6 +541,7 @@ class ScholarResponse {
       required List<Map<String, dynamic>> adjs}) async {
     try {
       Map<String, dynamic> params = Map.from({
+        "enrollmentId": enrollmentId,
         "classId": classId,
         "orderDate": orderDate,
         "lessons": lessons,
