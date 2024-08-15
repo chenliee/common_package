@@ -30,6 +30,7 @@ class ScholarItem {
     dynamic oldObjectId,
     String? displayName,
     String? number,
+    String? userId,
     FileItem? avatar,
     String? gender,
     String? phone,
@@ -48,6 +49,7 @@ class ScholarItem {
     _oldObjectId = oldObjectId;
     _displayName = displayName;
     _number = number;
+    _userId = userId;
     _avatar = avatar;
     _gender = gender;
     _phone = phone;
@@ -68,6 +70,7 @@ class ScholarItem {
     _oldObjectId = json['oldObjectId'];
     _displayName = json['displayName'];
     _number = json['number'];
+    _userId = json['userId'];
     _avatar = json['avatar'] != null ? FileItem.fromJson(json['avatar']) : null;
     _gender = json['gender'];
     _phone = json['phone'];
@@ -86,6 +89,7 @@ class ScholarItem {
   dynamic _oldObjectId;
   String? _displayName;
   String? _number;
+  String? _userId;
   FileItem? _avatar;
   String? _gender;
   String? _phone;
@@ -104,6 +108,7 @@ class ScholarItem {
     dynamic oldObjectId,
     String? displayName,
     String? number,
+    String? userId,
     FileItem? avatar,
     String? gender,
     String? phone,
@@ -123,6 +128,7 @@ class ScholarItem {
         oldObjectId: oldObjectId ?? _oldObjectId,
         displayName: displayName ?? _displayName,
         number: number ?? _number,
+        userId: userId ?? _userId,
         avatar: avatar ?? _avatar,
         gender: gender ?? _gender,
         phone: phone ?? _phone,
@@ -141,6 +147,7 @@ class ScholarItem {
   dynamic get oldObjectId => _oldObjectId;
   String? get displayName => _displayName;
   String? get number => _number;
+  String? get userId => _userId;
   FileItem? get avatar => _avatar;
   String? get gender => _gender;
   String? get phone => _phone;
@@ -161,6 +168,7 @@ class ScholarItem {
     map['oldObjectId'] = _oldObjectId;
     map['displayName'] = _displayName;
     map['number'] = _number;
+    map['userId'] = _userId;
     map['avatar'] = _avatar?.toJson();
     map['gender'] = _gender;
     map['phone'] = _phone;

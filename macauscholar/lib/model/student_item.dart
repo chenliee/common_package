@@ -48,6 +48,7 @@ class StudentItem {
     String? branch,
     dynamic specialNeeds,
     String? number,
+    String? userId,
     num? appetite,
     List<dynamic>? favourites,
     List<dynamic>? characters,
@@ -83,6 +84,7 @@ class StudentItem {
     _branch = branch;
     _specialNeeds = specialNeeds;
     _number = number;
+    _userId = userId;
     _appetite = appetite;
     _favourites = favourites;
     _characters = characters;
@@ -120,6 +122,7 @@ class StudentItem {
     _branch = json['branch'];
     _specialNeeds = json['specialNeeds'];
     _number = json['number'];
+    _userId = json['userId'];
     _appetite = json['appetite'];
     if (json['favourites'] != null) {
       _favourites = json['favourites'];
@@ -188,6 +191,7 @@ class StudentItem {
   String? _branch;
   dynamic _specialNeeds;
   String? _number;
+  String? _userId;
   num? _appetite;
   List<dynamic>? _favourites;
   List<dynamic>? _characters;
@@ -223,6 +227,7 @@ class StudentItem {
     String? branch,
     dynamic specialNeeds,
     String? number,
+    String? userId,
     num? appetite,
     List<dynamic>? favourites,
     List<dynamic>? characters,
@@ -259,6 +264,7 @@ class StudentItem {
         branch: branch ?? _branch,
         specialNeeds: specialNeeds ?? _specialNeeds,
         number: number ?? _number,
+        userId: userId ?? _userId,
         appetite: appetite ?? _appetite,
         favourites: favourites ?? _favourites,
         characters: characters ?? _characters,
@@ -294,6 +300,7 @@ class StudentItem {
   String? get branch => _branch;
   dynamic get specialNeeds => _specialNeeds;
   String? get number => _number;
+  String? get userId => _userId;
   num? get appetite => _appetite;
   List<dynamic>? get favourites => _favourites;
   List<dynamic>? get characters => _characters;
@@ -331,6 +338,7 @@ class StudentItem {
     map['branch'] = _branch;
     map['specialNeeds'] = _specialNeeds;
     map['number'] = _number;
+    map['userId'] = _userId;
     map['appetite'] = _appetite;
     if (_favourites != null) {
       map['favourites'] = _favourites?.map((v) => v.toJson()).toList();

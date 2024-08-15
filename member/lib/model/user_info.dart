@@ -26,6 +26,7 @@ class UserInfo {
     String? email,
     String? birthday,
     String? habbit,
+    String? sn,
     List<String>? rules,
   }) {
     id = id;
@@ -40,6 +41,7 @@ class UserInfo {
     email = email;
     birthday = birthday;
     habbit = habbit;
+    sn = sn;
     rules = rules;
   }
 
@@ -56,6 +58,7 @@ class UserInfo {
     email = json['email'];
     birthday = json['birthday'];
     habbit = json['habbit'];
+    sn = json['sn'];
     rules = json['rules'] != null ? json['rules'].cast<String>() : [];
   }
   num? id;
@@ -70,6 +73,7 @@ class UserInfo {
   String? email;
   String? birthday;
   String? habbit;
+  String? sn;
   List<String>? rules;
 
   UserInfo copyWith({
@@ -85,6 +89,7 @@ class UserInfo {
     String? email,
     String? birthday,
     String? habbit,
+    String? sn,
     List<String>? rules,
   }) =>
       UserInfo(
@@ -100,6 +105,7 @@ class UserInfo {
         email: email ?? email,
         birthday: birthday ?? birthday,
         habbit: habbit ?? habbit,
+        sn: sn ?? sn,
         rules: rules ?? rules,
       );
 
@@ -117,6 +123,7 @@ class UserInfo {
     map['email'] = email;
     map['birthday'] = birthday;
     map['habbit'] = habbit;
+    map['sn'] = sn;
     map['rules'] = rules;
     return map;
   }

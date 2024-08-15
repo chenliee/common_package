@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:service_package/env/env.dart';
+import 'package:service_package/utils/platform_util.dart';
 
 class Debug {
   static printMsg(Object message, StackTrace current) {
-    if (Env.appEnv != '！PRO') {
+    if (!PlatformUtil().isWeb && Env.appEnv != '！PRO') {
       if (kDebugMode) {
         CustomTrace trace = CustomTrace(current);
         print(

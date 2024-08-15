@@ -212,44 +212,14 @@ class ScholarResponse {
     }
   }
 
-  static Future<List<ScholarItem>> getScholarList() async {
+  static Future<RelationModel> getRelations() async {
     try {
-      Map<String, dynamic> params = Map.from({
-        "type": "scholar",
-      })
-        ..removeWhere((key, value) => value == null);
-
-      List<ScholarItem> list = [];
-      List<dynamic> jsonLists = await ScholarDio.getInstance().get(
+      RelationModel? item;
+      Map<String, dynamic> res = await ScholarDio.getInstance().get(
         url: "/api/scholar/user/relationShip",
-        params: params,
       );
-      for (var item in jsonLists) {
-        list.add(ScholarItem.fromJson(item));
-      }
-      return list;
-    } catch (e) {
-      Debug.printMsg(e, StackTrace.current);
-      rethrow;
-    }
-  }
-
-  static Future<List<StudentItem>> getStudentList() async {
-    try {
-      Map<String, dynamic> params = Map.from({
-        "type": "student",
-      })
-        ..removeWhere((key, value) => value == null);
-
-      List<StudentItem> list = [];
-      List<dynamic> jsonLists = await ScholarDio.getInstance().get(
-        url: "/api/scholar/user/relationShip",
-        params: params,
-      );
-      for (var item in jsonLists) {
-        list.add(StudentItem.fromJson(item));
-      }
-      return list;
+      item = RelationModel.fromJson(res);
+      return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
@@ -330,6 +300,29 @@ class ScholarResponse {
       );
       item = UserGradeModel.fromJson(res);
       return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<List<User>> getUserListGrade(
+      {required List<String> sns}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "sns": sns,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      List<User> list = [];
+      List<dynamic> jsonLists = await ScholarDio.getInstance().get(
+        url: "/api/scholar/user/userListGrade",
+        params: params,
+      );
+      for (var item in jsonLists) {
+        list.add(User.fromJson(item));
+      }
+      return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
@@ -541,8 +534,8 @@ class ScholarResponse {
       required List<Map<String, dynamic>> adjs}) async {
     try {
       Map<String, dynamic> params = Map.from({
-        "enrollmentId": enrollmentId,
         "classId": classId,
+        "enrollmentId": enrollmentId,
         "orderDate": orderDate,
         "lessons": lessons,
         "uid": uid,
@@ -561,6 +554,51 @@ class ScholarResponse {
       PayModel? item;
       Map<String, dynamic> res = await ScholarDio.getInstance().post(
         url: "/api/scholar/course/pay",
+        params: params,
+      );
+      item = PayModel.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<PayModel> payCourseEnrollment(
+      {required num enrollmentId,
+      required String classId,
+      required String orderDate,
+      required num lessons,
+      required String pid,
+      required String shopId,
+      required String orderType,
+      required String priceKey,
+      required String packingKey,
+      required String singleLimitKey,
+      required Map<String, dynamic> receiverInfo,
+      required List<Map<String, dynamic>> goods,
+      required List<Map<String, dynamic>> adjs}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "classId": classId,
+        "enrollmentId": enrollmentId,
+        "orderDate": orderDate,
+        "lessons": lessons,
+        "pid": pid,
+        "shopId": shopId,
+        "orderType": orderType,
+        "priceKey": priceKey,
+        "packingKey": packingKey,
+        "singleLimitKey": singleLimitKey,
+        "receiverInfo": receiverInfo,
+        "goods": goods,
+        "adjs": adjs,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      PayModel? item;
+      Map<String, dynamic> res = await ScholarDio.getInstance().post(
+        url: "/api/scholar/course/payEnrollment",
         params: params,
       );
       item = PayModel.fromJson(res);

@@ -18,6 +18,8 @@ class BaseDio {
     return _instance!;
   }
 
+  Function get onUnauthorizedCallback => _instance?.onUnauthorized ?? () {};
+
   BaseOptions options = BaseOptions(
     baseUrl: baseUrl,
     connectTimeout: const Duration(milliseconds: 30000),
@@ -42,7 +44,7 @@ class BaseDio {
                 (responseData['message'] == 'Unauthorized' ||
                     responseData['message'] ==
                         'DeviceAccessToken Unauthorized')) {
-              if (onUnauthorized != null) onUnauthorized!();
+              onUnauthorizedCallback();
             }
           }
         }
@@ -57,7 +59,7 @@ class BaseDio {
                 (responseData['message'] == 'Unauthorized' ||
                     responseData['message'] ==
                         'DeviceAccessToken Unauthorized')) {
-              if (onUnauthorized != null) onUnauthorized!();
+              onUnauthorizedCallback();
             }
           }
         }
@@ -218,7 +220,6 @@ class BaseDio {
       Debug.printMsg(
           error.response?.data.toString() ?? error.message.toString(),
           StackTrace.current);
-
       throw Env.appEnv != 'PRO'
           ? {
               'code': error.response?.statusCode ?? 0,
@@ -227,8 +228,8 @@ class BaseDio {
                   error.response?.data.toString() ?? error.message.toString()
             }
           : message;
-    } on Exception catch (eror) {
-      ToastInfo.toastInfo(msg: eror.toString(), isApi: isApi);
+    } on Exception catch (err) {
+      ToastInfo.toastInfo(msg: err.toString(), isApi: isApi);
     }
   }
 

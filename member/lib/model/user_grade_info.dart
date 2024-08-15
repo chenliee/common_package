@@ -40,6 +40,17 @@ class UserGradeInfo {
     _grades = grades;
   }
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UserGradeInfo &&
+          runtimeType == other.runtimeType &&
+          _id == other._id &&
+          _projectId == other._projectId;
+
+  @override
+  int get hashCode => _id.hashCode ^ _projectId.hashCode;
+
   UserGradeInfo.fromJson(dynamic json) {
     _id = json['id'];
     _projectId = json['projectId'];

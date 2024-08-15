@@ -39,17 +39,19 @@ class EnrollmentResponse {
     }
   }
 
-  static Future<CourseEnrollmentItem> enrollment(
-      {String? student,
-      required String studentName,
-      String? phone,
-      required String gender,
-      String? birthday,
-      required String clases,
-      String way = 'app',
-      required num lessons,
-      required num lessonAmount,
-      required num lessonRealAmount}) async {
+  static Future<CourseEnrollmentItem> enrollment({
+    String? student,
+    required String studentName,
+    String? phone,
+    required String gender,
+    String? birthday,
+    required String clases,
+    String way = 'app',
+    required num lessons,
+    required num lessonAmount,
+    required num lessonRealAmount,
+    required bool pdac,
+  }) async {
     try {
       Map<String, dynamic> params = Map.from({
         "student": student,
@@ -62,6 +64,7 @@ class EnrollmentResponse {
         "lessons": lessons,
         "lessonAmount": lessonAmount,
         "lessonRealAmount": lessonRealAmount,
+        "pdac": pdac,
       })
         ..removeWhere((key, value) => value == null);
 

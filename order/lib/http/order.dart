@@ -1,3 +1,4 @@
+import 'package:article/http/merchant_dio.dart';
 import 'package:order/model/compute_order.dart';
 import 'package:service_package/service_package.dart';
 
@@ -10,6 +11,8 @@ class OrderResponse {
       '/order/app/merchant/${ServiceGlobal.instance.merchantId}/project/${ServiceGlobal.instance.projectId}/order';
   static String computedUrl = '$_baseUrl/computed';
   static String createUrl = '$_baseUrl/create';
+  static String createMerchantUrl =
+      '/order/api/merchant/${ServiceGlobal.instance.merchantId}/order/create';
   static String payUrl = '$_baseUrl/pay';
   static String cancelUrl = '$_baseUrl/cancel';
   static String completeUrl = '$_baseUrl/complete';
@@ -90,7 +93,7 @@ class OrderResponse {
     String? memberCard,
   }) async {
     try {
-      Map<String, dynamic> params = {
+      Map<String, dynamic> params = Map.from({
         "goods": goods,
         "priceKey": "sell_price",
         "instockKey": "instock",
@@ -99,7 +102,8 @@ class OrderResponse {
         "memberCard": memberCard,
         "condition": condition,
         "adjs": adjs
-      };
+      })
+        ..removeWhere((key, value) => value == null);
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: computedUrl, params: params);
       ComputeOrder item = ComputeOrder.fromJson(res);
@@ -138,6 +142,41 @@ class OrderResponse {
       }..removeWhere((key, value) => value == null));
       Map<String, dynamic> res =
           await BaseDio.getInstance().post(url: createUrl, params: params);
+      OrderItem item = OrderItem.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future createOrderMerchant(
+      {required List goods,
+      required String place,
+      required List adjs,
+      required bool isShop,
+      required Map condition,
+      required Map receiverInfo,
+      required Map branch,
+      String? remark,
+      String? uid,
+      String? orderId}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "orderId": orderId,
+        "goods": goods,
+        "uid": uid,
+        "priceKey": "sell_price",
+        "singleLimitKey": "single_limit",
+        "adjs": adjs,
+        "shopId": place,
+        "orderType": !isShop ? 'TAKE_OUT' : "SHOP",
+        "receiverInfo": receiverInfo,
+        "remark": remark,
+        "pid": ServiceGlobal.instance.projectId,
+      }..removeWhere((key, value) => value == null));
+      Map<String, dynamic> res = await MerchantDio.getInstance()
+          .post(url: createMerchantUrl, params: params);
       OrderItem item = OrderItem.fromJson(res);
       return item;
     } catch (e) {

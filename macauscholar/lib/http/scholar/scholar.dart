@@ -121,22 +121,28 @@ abstract class Class {
   @ApiGen(
     '/scholar/user/relationShip',
     method: ApiGen.GET,
-    target: 'ScholarItem',
-    params: {
-      'type': 'scholar',
-    },
+    target: 'RelationModel',
   )
-  Future<List<ScholarItem>> getScholarList();
-
-  @ApiGen(
-    '/scholar/user/relationShip',
-    method: ApiGen.GET,
-    target: 'StudentItem',
-    params: {
-      'type': 'student',
-    },
-  )
-  Future<List<StudentItem>> getStudentList();
+  Future<RelationModel> getRelations();
+  // @ApiGen(
+  //   '/scholar/user/relationShip',
+  //   method: ApiGen.GET,
+  //   target: 'ScholarItem',
+  //   params: {
+  //     'type': 'scholar',
+  //   },
+  // )
+  // Future<List<ScholarItem>> getScholarList();
+  //
+  // @ApiGen(
+  //   '/scholar/user/relationShip',
+  //   method: ApiGen.GET,
+  //   target: 'StudentItem',
+  //   params: {
+  //     'type': 'student',
+  //   },
+  // )
+  // Future<List<StudentItem>> getStudentList();
 
   @ApiGen(
     '/scholar/user/userIdentity',
@@ -178,6 +184,16 @@ abstract class Class {
     },
   )
   Future<UserGradeModel> getUserGrade({required String sn});
+
+  @ApiGen(
+    '/scholar/user/userListGrade',
+    method: ApiGen.GET,
+    target: 'User',
+    params: {
+      'sns': '@C_sns',
+    },
+  )
+  Future<List<User>> getUserListGrade({required List<String> sns});
 
   @ApiGen(
     '/scholar/user/badge/\$sn',
@@ -277,6 +293,7 @@ abstract class Class {
     target: 'PayModel',
     params: {
       'classId': '@C_classId',
+      'enrollmentId': '@C_enrollmentId',
       'orderDate': '@C_orderDate',
       'lessons': '@C_lessons',
       'uid': '@C_uid',
@@ -292,10 +309,47 @@ abstract class Class {
     },
   )
   Future<PayModel> payCourse({
+    required num enrollmentId,
     required String classId,
     required String orderDate,
     required num lessons,
     required String uid,
+    required String pid,
+    required String shopId,
+    required String orderType,
+    required String priceKey,
+    required String packingKey,
+    required String singleLimitKey,
+    required Map<String, dynamic> receiverInfo,
+    required List<Map<String, dynamic>> goods,
+    required List<Map<String, dynamic>> adjs,
+  });
+
+  @ApiGen(
+    '/scholar/course/payEnrollment',
+    method: ApiGen.POST,
+    target: 'PayModel',
+    params: {
+      'classId': '@C_classId',
+      'enrollmentId': '@C_enrollmentId',
+      'orderDate': '@C_orderDate',
+      'lessons': '@C_lessons',
+      'pid': '@C_pid',
+      'shopId': '@C_shopId',
+      'orderType': '@C_orderType',
+      'priceKey': '@C_priceKey',
+      'packingKey': '@C_packingKey',
+      'singleLimitKey': '@C_singleLimitKey',
+      'receiverInfo': '@C_receiverInfo',
+      'goods': '@C_goods',
+      'adjs': '@C_adjs',
+    },
+  )
+  Future<PayModel> payCourseEnrollment({
+    required num enrollmentId,
+    required String classId,
+    required String orderDate,
+    required num lessons,
     required String pid,
     required String shopId,
     required String orderType,

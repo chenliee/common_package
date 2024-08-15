@@ -411,6 +411,7 @@ class Rule {
     String? beginDate,
     String? goodsIds,
     List<String>? shopIds,
+    Map<String, dynamic>? extra,
   }) {
     _cost = cost;
     _endDate = endDate;
@@ -420,6 +421,7 @@ class Rule {
     _beginDate = beginDate;
     _goodsIds = goodsIds;
     _shopIds = shopIds;
+    _extra = extra;
   }
 
   Rule.fromJson(dynamic json) {
@@ -431,6 +433,7 @@ class Rule {
     _beginDate = json['beginDate'];
     _goodsIds = json['goodsIds'];
     _shopIds = json['shopIds'] != null ? json['shopIds'].cast<String>() : [];
+    _extra = json['extra'];
   }
   String? _cost;
   String? _endDate;
@@ -440,6 +443,8 @@ class Rule {
   String? _beginDate;
   String? _goodsIds;
   List<String>? _shopIds;
+  Map<String, dynamic>? _extra;
+
   Rule copyWith(
           {String? cost,
           String? endDate,
@@ -448,7 +453,8 @@ class Rule {
           bool? upCoupon,
           String? beginDate,
           String? goodsIds,
-          List<String>? shopIds}) =>
+          List<String>? shopIds,
+          Map<String, dynamic>? extra}) =>
       Rule(
         cost: cost ?? _cost,
         endDate: endDate ?? _endDate,
@@ -458,6 +464,7 @@ class Rule {
         beginDate: beginDate ?? _beginDate,
         goodsIds: goodsIds ?? _goodsIds,
         shopIds: shopIds ?? _shopIds,
+        extra: extra ?? _extra,
       );
   String? get cost => _cost;
   String? get endDate => _endDate;
@@ -467,6 +474,8 @@ class Rule {
   String? get beginDate => _beginDate;
   String? get goodsIds => _goodsIds;
   List<String>? get shopIds => _shopIds;
+  Map<String, dynamic>? get extra => _extra;
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['cost'] = _cost;
@@ -476,6 +485,7 @@ class Rule {
     map['upCoupon'] = _upCoupon;
     map['beginDate'] = _beginDate;
     map['goodsIds'] = _goodsIds;
+    map['extra'] = _extra;
     return map;
   }
 }

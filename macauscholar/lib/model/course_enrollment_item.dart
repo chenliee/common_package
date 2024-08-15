@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:macauscholar/macauscholar.dart';
+
 /// id : 587
 /// oldObjectId : "PMzzySANWT"
 /// studentName : "張芯淇"
@@ -64,6 +66,7 @@ class CourseEnrollmentItem {
     String? updatedAt,
     Order? order,
     Student? student,
+    ClassItem? classItem,
   }) {
     _id = id;
     _oldObjectId = oldObjectId;
@@ -93,6 +96,7 @@ class CourseEnrollmentItem {
     _updatedAt = updatedAt;
     _order = order;
     _student = student;
+    _classItem = classItem;
   }
 
   CourseEnrollmentItem.fromJson(dynamic json) {
@@ -125,6 +129,8 @@ class CourseEnrollmentItem {
     _order = json['order'] != null ? Order.fromJson(json['order']) : null;
     _student =
         json['student'] != null ? Student.fromJson(json['student']) : null;
+    _classItem =
+        json['class'] != null ? ClassItem.fromJson(json['class']) : null;
   }
   num? _id;
   String? _oldObjectId;
@@ -154,6 +160,7 @@ class CourseEnrollmentItem {
   String? _updatedAt;
   Order? _order;
   Student? _student;
+  ClassItem? _classItem;
   CourseEnrollmentItem copyWith({
     num? id,
     String? oldObjectId,
@@ -183,6 +190,7 @@ class CourseEnrollmentItem {
     String? updatedAt,
     Order? order,
     Student? student,
+    ClassItem? classItem,
   }) =>
       CourseEnrollmentItem(
         id: id ?? _id,
@@ -213,6 +221,7 @@ class CourseEnrollmentItem {
         updatedAt: updatedAt ?? _updatedAt,
         order: order ?? _order,
         student: student ?? _student,
+        classItem: classItem ?? _classItem,
       );
   num? get id => _id;
   String? get oldObjectId => _oldObjectId;
@@ -242,7 +251,7 @@ class CourseEnrollmentItem {
   String? get updatedAt => _updatedAt;
   Order? get order => _order;
   Student? get student => _student;
-
+  ClassItem? get classItem => _classItem;
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
@@ -276,6 +285,9 @@ class CourseEnrollmentItem {
     }
     if (_student != null) {
       map['student'] = _student?.toJson();
+    }
+    if (_classItem != null) {
+      map['class'] = _classItem?.toJson();
     }
     return map;
   }
