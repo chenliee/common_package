@@ -67,6 +67,18 @@ abstract class Leave {
 
   @ApiGen(
     '/api/project/\$project/rule/\$rule/punch_log/',
+    params: {'filter': '@C_filter'},
+    target: 'PunchLogItem',
+    method: ApiGen.GET,
+  )
+  Future<List<PunchLogItem>?> getPunchLog({
+    required String? project,
+    required String? rule,
+     Map? filter,
+  });
+
+  @ApiGen(
+    '/api/project/\$project/rule/\$rule/punch_log/',
     params: {'date': '@C_date', 'uid': '@C_uid', 'ext': '@C_ext'},
     target: 'PunchLogItem',
     method: ApiGen.POST,

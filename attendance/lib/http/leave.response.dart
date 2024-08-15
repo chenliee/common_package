@@ -112,6 +112,31 @@ class LeaveResponse {
     }
   }
 
+  static Future<List<PunchLogItem>?> getPunchLog(
+      {required String? project,
+      required String? rule,
+      Map<dynamic, dynamic>? filter}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "filter": filter,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      List<PunchLogItem> list = [];
+      List<dynamic> jsonLists = await BaseDio.getInstance().get(
+        url: "/attendance/api/project/$project/rule/$rule/punch_log/",
+        params: params,
+      );
+      for (var item in jsonLists) {
+        list.add(PunchLogItem.fromJson(item));
+      }
+      return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
   static Future<PunchLogItem> addPunchLog(
       {required String? project,
       required String? rule,

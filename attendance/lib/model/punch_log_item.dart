@@ -1,39 +1,36 @@
 import 'dart:convert';
 
-import 'package:attendance/attendance.dart';
+import 'package:attendance/model/record_item.dart';
 
-/// id : 46
-/// sn : "e6734c9f-320b-4845-b47a-5e06a334986c"
-/// memberId : 55
-/// recordId : 276
-/// grpcUid : null
+/// id : 207
+/// sn : "ba3a546e-cd89-46eb-96c5-9e71206d721a"
+/// memberId : 77
+/// recordId : 426
+/// grpcUid : "B10000090010"
 /// deviceSN : null
-/// time : 1720593643
-/// ext : null
-/// createdAt : "2024-07-10T06:40:43.617Z"
-/// updatedAt : "2024-07-10T06:40:43.617Z"
-/// record : {"id":276,"sn":"73e6ddfc-bc64-4ac2-9a5b-269f8894d277","timeId":708,"memberId":55,"leaveId":null,"ext":null,"createdAt":"2024-07-10T05:37:16.224Z","updatedAt":"2024-07-10T05:37:16.224Z","leave":null}
-/// member : {"id":55,"projectId":2,"uid":"dev231200100349","title":null,"info":null,"createdAt":"2024-07-10T05:22:00.115Z","updatedAt":"2024-07-10T05:22:00.115Z"}
+/// time : 1723195688
+/// ext : {"state":"arrived"}
+/// createdAt : "2024-08-09T09:32:00.463Z"
+/// updatedAt : "2024-08-09T09:32:00.463Z"
+/// record : {"id":426,"sn":"a250d8c6-de0a-4a92-a2e2-786daa54e328","timeId":772,"memberId":77,"leaveId":null,"ext":null,"createdAt":"2024-08-09T09:32:00.394Z","updatedAt":"2024-08-09T09:32:00.394Z"}
+/// member : {"id":77,"projectId":3,"uid":"B10000090010","title":null,"info":null,"createdAt":"2024-08-09T09:32:00.175Z","updatedAt":"2024-08-09T09:32:00.175Z"}
 
-PunchLogItem punchLogItemFromJson(String str) =>
-    PunchLogItem.fromJson(json.decode(str));
+PunchLogItem punchLogItemFromJson(String str) => PunchLogItem.fromJson(json.decode(str));
 String punchLogItemToJson(PunchLogItem data) => json.encode(data.toJson());
-
 class PunchLogItem {
   PunchLogItem({
-    num? id,
-    String? sn,
-    num? memberId,
-    num? recordId,
-    dynamic grpcUid,
-    dynamic deviceSN,
-    num? time,
-    dynamic ext,
-    String? createdAt,
-    String? updatedAt,
-    RecordItem? record,
-    Member? member,
-  }) {
+      num? id, 
+      String? sn, 
+      num? memberId, 
+      num? recordId, 
+      String? grpcUid, 
+      dynamic deviceSN, 
+      num? time, 
+      Ext? ext, 
+      String? createdAt, 
+      String? updatedAt, 
+      Record? record, 
+      Member? member,}){
     _id = id;
     _sn = sn;
     _memberId = memberId;
@@ -46,7 +43,7 @@ class PunchLogItem {
     _updatedAt = updatedAt;
     _record = record;
     _member = member;
-  }
+}
 
   PunchLogItem.fromJson(dynamic json) {
     _id = json['id'];
@@ -56,64 +53,36 @@ class PunchLogItem {
     _grpcUid = json['grpcUid'];
     _deviceSN = json['deviceSN'];
     _time = json['time'];
-    _ext = json['ext'];
+    _ext = json['ext'] != null ? Ext.fromJson(json['ext']) : null;
     _createdAt = json['createdAt'];
     _updatedAt = json['updatedAt'];
-    _record =
-        json['record'] != null ? RecordItem.fromJson(json['record']) : null;
+    _record = json['record'] != null ? Record.fromJson(json['record']) : null;
     _member = json['member'] != null ? Member.fromJson(json['member']) : null;
   }
   num? _id;
   String? _sn;
   num? _memberId;
   num? _recordId;
-  dynamic _grpcUid;
+  String? _grpcUid;
   dynamic _deviceSN;
   num? _time;
-  dynamic _ext;
+  Ext? _ext;
   String? _createdAt;
   String? _updatedAt;
-  RecordItem? _record;
+  Record? _record;
   Member? _member;
-  PunchLogItem copyWith({
-    num? id,
-    String? sn,
-    num? memberId,
-    num? recordId,
-    dynamic grpcUid,
-    dynamic deviceSN,
-    num? time,
-    dynamic ext,
-    String? createdAt,
-    String? updatedAt,
-    RecordItem? record,
-    Member? member,
-  }) =>
-      PunchLogItem(
-        id: id ?? _id,
-        sn: sn ?? _sn,
-        memberId: memberId ?? _memberId,
-        recordId: recordId ?? _recordId,
-        grpcUid: grpcUid ?? _grpcUid,
-        deviceSN: deviceSN ?? _deviceSN,
-        time: time ?? _time,
-        ext: ext ?? _ext,
-        createdAt: createdAt ?? _createdAt,
-        updatedAt: updatedAt ?? _updatedAt,
-        record: record ?? _record,
-        member: member ?? _member,
-      );
+
   num? get id => _id;
   String? get sn => _sn;
   num? get memberId => _memberId;
   num? get recordId => _recordId;
-  dynamic get grpcUid => _grpcUid;
+  String? get grpcUid => _grpcUid;
   dynamic get deviceSN => _deviceSN;
   num? get time => _time;
-  dynamic get ext => _ext;
+  Ext? get ext => _ext;
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
-  RecordItem? get record => _record;
+  Record? get record => _record;
   Member? get member => _member;
 
   Map<String, dynamic> toJson() {
@@ -125,7 +94,9 @@ class PunchLogItem {
     map['grpcUid'] = _grpcUid;
     map['deviceSN'] = _deviceSN;
     map['time'] = _time;
-    map['ext'] = _ext;
+    if (_ext != null) {
+      map['ext'] = _ext?.toJson();
+    }
     map['createdAt'] = _createdAt;
     map['updatedAt'] = _updatedAt;
     if (_record != null) {
@@ -136,4 +107,81 @@ class PunchLogItem {
     }
     return map;
   }
+
 }
+
+
+/// id : 426
+/// sn : "a250d8c6-de0a-4a92-a2e2-786daa54e328"
+/// timeId : 772
+/// memberId : 77
+/// leaveId : null
+/// ext : null
+/// createdAt : "2024-08-09T09:32:00.394Z"
+/// updatedAt : "2024-08-09T09:32:00.394Z"
+
+Record recordFromJson(String str) => Record.fromJson(json.decode(str));
+String recordToJson(Record data) => json.encode(data.toJson());
+class Record {
+  Record({
+      num? id,
+      String? sn,
+      num? timeId,
+      num? memberId,
+      dynamic leaveId,
+      dynamic ext,
+      String? createdAt,
+      String? updatedAt,}){
+    _id = id;
+    _sn = sn;
+    _timeId = timeId;
+    _memberId = memberId;
+    _leaveId = leaveId;
+    _ext = ext;
+    _createdAt = createdAt;
+    _updatedAt = updatedAt;
+}
+
+  Record.fromJson(dynamic json) {
+    _id = json['id'];
+    _sn = json['sn'];
+    _timeId = json['timeId'];
+    _memberId = json['memberId'];
+    _leaveId = json['leaveId'];
+    _ext = json['ext'];
+    _createdAt = json['createdAt'];
+    _updatedAt = json['updatedAt'];
+  }
+  num? _id;
+  String? _sn;
+  num? _timeId;
+  num? _memberId;
+  dynamic _leaveId;
+  dynamic _ext;
+  String? _createdAt;
+  String? _updatedAt;
+
+  num? get id => _id;
+  String? get sn => _sn;
+  num? get timeId => _timeId;
+  num? get memberId => _memberId;
+  dynamic get leaveId => _leaveId;
+  dynamic get ext => _ext;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = _id;
+    map['sn'] = _sn;
+    map['timeId'] = _timeId;
+    map['memberId'] = _memberId;
+    map['leaveId'] = _leaveId;
+    map['ext'] = _ext;
+    map['createdAt'] = _createdAt;
+    map['updatedAt'] = _updatedAt;
+    return map;
+  }
+
+}
+
