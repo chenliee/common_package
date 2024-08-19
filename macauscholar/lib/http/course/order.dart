@@ -14,11 +14,22 @@ import 'package:service_package/api/api_gen.dart';
 abstract class Order {
   @ApiGen(
     '/api/order/',
-    params: {'size': '@C_size', 'page': '@C_page', 'sort': '@C_sort ?? \'{"createdAt": "desc"}\'', 'filter': '@C_filter', 'keyword': '@C_keyword'},
+    params: {
+      'size': '@C_size',
+      'page': '@C_page',
+      'sort': '@C_sort ?? \'{"createdAt": "desc"}\'',
+      'filter': '@C_filter',
+      'keyword': '@C_keyword'
+    },
     method: ApiGen.GET,
     target: 'CourseOrderItem',
   )
-  Future<List<CourseOrderItem>> getOrderList({required int page, String? sort, Map? filter, int? size, String? keyword});
+  Future<List<CourseOrderItem>> getOrderList(
+      {required int page,
+      String? sort,
+      Map? filter,
+      int? size,
+      String? keyword});
 
   @ApiGen(
     '/api/order/\$id',
@@ -29,19 +40,33 @@ abstract class Order {
 
   @ApiGen(
     '/api/voucher/',
-    params: {'size': '@C_size', 'page': '@C_page', 'sort': '@C_sort ?? \'{"createdAt": "desc"}\'', 'filter': '@C_filter', 'keyword': '@C_keyword'},
+    params: {
+      'size': '@C_size',
+      'page': '@C_page',
+      'sort': '@C_sort ?? \'{"createdAt": "desc"}\'',
+      'filter': '@C_filter',
+      'keyword': '@C_keyword'
+    },
     method: ApiGen.GET,
     target: 'VoucherItem',
   )
-  Future<List<VoucherItem>> getVoucherList({required int page, String? sort, Map? filter, int? size, String? keyword});
+  Future<List<VoucherItem>> getVoucherList(
+      {required int page,
+      String? sort,
+      Map? filter,
+      int? size,
+      String? keyword});
 
   @ApiGen(
     '/api/pay_basic/',
     method: ApiGen.POST,
     target: 'PayModel',
-    params: {"orderCode": "@C_orderCode"},
+    params: {
+      "orderCode": "@C_orderCode",
+      "type": "@C_type",
+    },
   )
-  Future<PayModel> pay({required String orderCode});
+  Future<PayModel> pay({required String orderCode, required String type});
 
   @ApiGen(
     '/api/voucher/attendance',
@@ -60,8 +85,8 @@ abstract class Order {
     required String student,
     required String lesson,
     required String status,
-     String? classId,
-     String? voucher,
-     String? OaRecord,
+    String? classId,
+    String? voucher,
+    String? OaRecord,
   });
 }

@@ -5,14 +5,11 @@
 // **************************************************************************
 
 import 'package:macauscholar/macauscholar.dart';
+import 'package:macauscholar/model/attendance_student.dart';
 import 'package:macauscholar/model/course_order_item.dart';
 import 'package:macauscholar/model/voucher_item.dart';
-<<<<<<< Updated upstream
-import 'package:macauscholar/model/attendance_student.dart';
-=======
 import 'package:order/model/pay_model.dart';
 import 'package:service_package/service_package.dart';
->>>>>>> Stashed changes
 
 class CourseOrderResponse {
   static Future<List<CourseOrderItem>> getOrderList(
@@ -94,9 +91,11 @@ class CourseOrderResponse {
   static Future<PayModel> pay(
       {required String orderCode, required String type}) async {
     try {
-      Map<String, dynamic> params =
-          Map.from({"orderCode": orderCode, "type": type})
-            ..removeWhere((key, value) => value == null);
+      Map<String, dynamic> params = Map.from({
+        "orderCode": orderCode,
+        "type": type,
+      })
+        ..removeWhere((key, value) => value == null);
 
       PayModel? item;
       Map<String, dynamic> res = await MacauDio.getInstance().post(

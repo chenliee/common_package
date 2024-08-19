@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:attendance/model/update_recoed.dart';
+
 /// id : 244
 /// sn : "9dd30774-2ac6-443b-be28-bc36259c5b9f"
 /// timeId : 683
@@ -271,10 +273,10 @@ class LogExt {
     _state = json['state'];
   }
   String? _state;
-  Ext copyWith({
+  LogExt copyWith({
     String? state,
   }) =>
-      Ext(
+      LogExt(
         state: state ?? _state,
       );
   String? get state => _state;
@@ -631,167 +633,6 @@ class Slot {
     map['remark'] = _remark;
     map['createdAt'] = _createdAt;
     map['updatedAt'] = _updatedAt;
-    return map;
-  }
-}
-
-/// id : 48
-/// projectId : 3
-/// uid : "ZH1334"
-/// title : "小明同学"
-/// info : null
-/// createdAt : "2024-07-08T07:11:37.459Z"
-/// updatedAt : "2024-07-08T07:11:37.459Z"
-
-Member memberFromJson(String str) => Member.fromJson(json.decode(str));
-String memberToJson(Member data) => json.encode(data.toJson());
-
-class Member {
-  Member({
-    num? id,
-    num? projectId,
-    String? uid,
-    String? title,
-    dynamic info,
-    String? createdAt,
-    String? updatedAt,
-  }) {
-    _id = id;
-    _projectId = projectId;
-    _uid = uid;
-    _title = title;
-    _info = info;
-    _createdAt = createdAt;
-    _updatedAt = updatedAt;
-  }
-
-  Member.fromJson(dynamic json) {
-    _id = json['id'];
-    _projectId = json['projectId'];
-    _uid = json['uid'];
-    _title = json['title'];
-    _info = json['info'];
-    _createdAt = json['createdAt'];
-    _updatedAt = json['updatedAt'];
-  }
-  num? _id;
-  num? _projectId;
-  String? _uid;
-  String? _title;
-  dynamic _info;
-  String? _createdAt;
-  String? _updatedAt;
-  Member copyWith({
-    num? id,
-    num? projectId,
-    String? uid,
-    String? title,
-    dynamic info,
-    String? createdAt,
-    String? updatedAt,
-  }) =>
-      Member(
-        id: id ?? _id,
-        projectId: projectId ?? _projectId,
-        uid: uid ?? _uid,
-        title: title ?? _title,
-        info: info ?? _info,
-        createdAt: createdAt ?? _createdAt,
-        updatedAt: updatedAt ?? _updatedAt,
-      );
-  num? get id => _id;
-  num? get projectId => _projectId;
-  String? get uid => _uid;
-  String? get title => _title;
-  dynamic get info => _info;
-  String? get createdAt => _createdAt;
-  String? get updatedAt => _updatedAt;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = _id;
-    map['projectId'] = _projectId;
-    map['uid'] = _uid;
-    map['title'] = _title;
-    map['info'] = _info;
-    map['createdAt'] = _createdAt;
-    map['updatedAt'] = _updatedAt;
-    return map;
-  }
-}
-
-/// state : "arrived"
-/// branch : "B0000879"
-/// student : "ZH1334"
-/// beatCard : "app打卡"
-/// checkInAt : "2023-12-18T05:20:08.208Z"
-/// oldObjectId : "3l0db9K01I"
-
-Ext extFromJson(String str) => Ext.fromJson(json.decode(str));
-String extToJson(Ext data) => json.encode(data.toJson());
-
-class Ext {
-  Ext({
-    String? state,
-    String? branch,
-    String? student,
-    String? beatCard,
-    String? checkInAt,
-    String? oldObjectId,
-  }) {
-    _state = state;
-    _branch = branch;
-    _student = student;
-    _beatCard = beatCard;
-    _checkInAt = checkInAt;
-    _oldObjectId = oldObjectId;
-  }
-
-  Ext.fromJson(dynamic json) {
-    _state = json['state'];
-    _branch = json['branch'];
-    _student = json['student'];
-    _beatCard = json['beatCard'];
-    _checkInAt = json['checkInAt'];
-    _oldObjectId = json['oldObjectId'];
-  }
-  String? _state;
-  String? _branch;
-  String? _student;
-  String? _beatCard;
-  String? _checkInAt;
-  String? _oldObjectId;
-  Ext copyWith({
-    String? state,
-    String? branch,
-    String? student,
-    String? beatCard,
-    String? checkInAt,
-    String? oldObjectId,
-  }) =>
-      Ext(
-        state: state ?? _state,
-        branch: branch ?? _branch,
-        student: student ?? _student,
-        beatCard: beatCard ?? _beatCard,
-        checkInAt: checkInAt ?? _checkInAt,
-        oldObjectId: oldObjectId ?? _oldObjectId,
-      );
-  String? get state => _state;
-  String? get branch => _branch;
-  String? get student => _student;
-  String? get beatCard => _beatCard;
-  String? get checkInAt => _checkInAt;
-  String? get oldObjectId => _oldObjectId;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['state'] = _state;
-    map['branch'] = _branch;
-    map['student'] = _student;
-    map['beatCard'] = _beatCard;
-    map['checkInAt'] = _checkInAt;
-    map['oldObjectId'] = _oldObjectId;
     return map;
   }
 }

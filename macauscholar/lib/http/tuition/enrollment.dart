@@ -36,6 +36,25 @@ abstract class Enrollment {
       {required Map<String, dynamic> arg});
 
   @ApiGen(
+    '/api/apply',
+    params: {
+      'size': '@C_size',
+      'page': '@C_page',
+      'filter': '@C_filter',
+      'keyword': '@C_keyword',
+      'disablePaging': '@C_disablePaging'
+    },
+    method: ApiGen.GET,
+    target: 'TuitionEnrollmentItem',
+  )
+  Future<List<TuitionEnrollmentItem>> enrollmentList(
+      {int? page,
+      Map? filter,
+      int? size,
+      String? keyword,
+      bool disablePaging = false});
+
+  @ApiGen(
     '/api/apply/\$apply',
     method: ApiGen.GET,
     target: 'TuitionEnrollmentItem',
