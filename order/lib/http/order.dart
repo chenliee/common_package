@@ -13,6 +13,8 @@ class OrderResponse {
   static String createUrl = '$_baseUrl/create';
   static String createMerchantUrl =
       '/order/api/merchant/${ServiceGlobal.instance.merchantId}/order/create';
+  static String orderMerchantUrl =
+      '/order/api/merchant/${ServiceGlobal.instance.merchantId}/order';
   static String payUrl = '$_baseUrl/pay';
   static String cancelUrl = '$_baseUrl/cancel';
   static String completeUrl = '$_baseUrl/complete';
@@ -40,6 +42,18 @@ class OrderResponse {
     try {
       Map<String, dynamic> res =
           await BaseDio.getInstance().get(url: '$_baseUrl/$id');
+      OrderItem item = OrderItem.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<OrderItem> getDetailOrderMerchant({required String id}) async {
+    try {
+      Map<String, dynamic> res =
+          await MerchantDio.getInstance().get(url: '$orderMerchantUrl/$id');
       OrderItem item = OrderItem.fromJson(res);
       return item;
     } catch (e) {

@@ -39,6 +39,7 @@ abstract class Course {
       'lessonAmount': '@C_lessonAmount',
       'lessonRealAmount': '@C_lessonRealAmount',
       'pdac': '@C_pdac',
+      'uid': '@C_uid',
     },
     method: ApiGen.POST,
     target: 'CourseEnrollmentItem',
@@ -55,5 +56,6 @@ abstract class Course {
     required num lessonAmount,
     required num lessonRealAmount,
     required bool pdac,
+    required String uid,
   });
 }

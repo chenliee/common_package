@@ -18,7 +18,6 @@ class PushRequest {
               '/notify/api/merchant/${ServiceGlobal.instance.merchantId}/channel/${GlobalNotify.cid}/device-registration',
           params: params);
       GlobalNotify.uuid = res['uuid'];
-      print("object$res");
     } catch (e) {
       rethrow;
     }

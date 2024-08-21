@@ -67,6 +67,7 @@ class CourseEnrollmentItem {
     Order? order,
     Student? student,
     ClassItem? classItem,
+    Map<String, dynamic>? ext,
   }) {
     _id = id;
     _oldObjectId = oldObjectId;
@@ -97,6 +98,7 @@ class CourseEnrollmentItem {
     _order = order;
     _student = student;
     _classItem = classItem;
+    _ext = ext;
   }
 
   CourseEnrollmentItem.fromJson(dynamic json) {
@@ -131,6 +133,7 @@ class CourseEnrollmentItem {
         json['student'] != null ? Student.fromJson(json['student']) : null;
     _classItem =
         json['class'] != null ? ClassItem.fromJson(json['class']) : null;
+    _ext = json['ext'];
   }
   num? _id;
   String? _oldObjectId;
@@ -161,6 +164,7 @@ class CourseEnrollmentItem {
   Order? _order;
   Student? _student;
   ClassItem? _classItem;
+  Map<String, dynamic>? _ext;
   CourseEnrollmentItem copyWith({
     num? id,
     String? oldObjectId,
@@ -191,6 +195,7 @@ class CourseEnrollmentItem {
     Order? order,
     Student? student,
     ClassItem? classItem,
+    Map<String, dynamic>? ext,
   }) =>
       CourseEnrollmentItem(
         id: id ?? _id,
@@ -222,6 +227,7 @@ class CourseEnrollmentItem {
         order: order ?? _order,
         student: student ?? _student,
         classItem: classItem ?? _classItem,
+        ext: ext ?? _ext,
       );
   num? get id => _id;
   String? get oldObjectId => _oldObjectId;
@@ -252,6 +258,7 @@ class CourseEnrollmentItem {
   Order? get order => _order;
   Student? get student => _student;
   ClassItem? get classItem => _classItem;
+  Map<String, dynamic>? get ext => _ext;
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
@@ -289,6 +296,7 @@ class CourseEnrollmentItem {
     if (_classItem != null) {
       map['class'] = _classItem?.toJson();
     }
+    map['ext'] = _ext;
     return map;
   }
 }
