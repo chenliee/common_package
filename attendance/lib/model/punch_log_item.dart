@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:attendance/model/record_item.dart';
+import 'package:attendance/model/update_recoed.dart';
 
 /// id : 207
 /// sn : "ba3a546e-cd89-46eb-96c5-9e71206d721a"
@@ -15,22 +15,25 @@ import 'package:attendance/model/record_item.dart';
 /// record : {"id":426,"sn":"a250d8c6-de0a-4a92-a2e2-786daa54e328","timeId":772,"memberId":77,"leaveId":null,"ext":null,"createdAt":"2024-08-09T09:32:00.394Z","updatedAt":"2024-08-09T09:32:00.394Z"}
 /// member : {"id":77,"projectId":3,"uid":"B10000090010","title":null,"info":null,"createdAt":"2024-08-09T09:32:00.175Z","updatedAt":"2024-08-09T09:32:00.175Z"}
 
-PunchLogItem punchLogItemFromJson(String str) => PunchLogItem.fromJson(json.decode(str));
+PunchLogItem punchLogItemFromJson(String str) =>
+    PunchLogItem.fromJson(json.decode(str));
 String punchLogItemToJson(PunchLogItem data) => json.encode(data.toJson());
+
 class PunchLogItem {
   PunchLogItem({
-      num? id, 
-      String? sn, 
-      num? memberId, 
-      num? recordId, 
-      String? grpcUid, 
-      dynamic deviceSN, 
-      num? time, 
-      Ext? ext, 
-      String? createdAt, 
-      String? updatedAt, 
-      Record? record, 
-      Member? member,}){
+    num? id,
+    String? sn,
+    num? memberId,
+    num? recordId,
+    String? grpcUid,
+    dynamic deviceSN,
+    num? time,
+    Ext? ext,
+    String? createdAt,
+    String? updatedAt,
+    Record? record,
+    Member? member,
+  }) {
     _id = id;
     _sn = sn;
     _memberId = memberId;
@@ -43,7 +46,7 @@ class PunchLogItem {
     _updatedAt = updatedAt;
     _record = record;
     _member = member;
-}
+  }
 
   PunchLogItem.fromJson(dynamic json) {
     _id = json['id'];
@@ -107,9 +110,7 @@ class PunchLogItem {
     }
     return map;
   }
-
 }
-
 
 /// id : 426
 /// sn : "a250d8c6-de0a-4a92-a2e2-786daa54e328"
@@ -122,16 +123,18 @@ class PunchLogItem {
 
 Record recordFromJson(String str) => Record.fromJson(json.decode(str));
 String recordToJson(Record data) => json.encode(data.toJson());
+
 class Record {
   Record({
-      num? id,
-      String? sn,
-      num? timeId,
-      num? memberId,
-      dynamic leaveId,
-      dynamic ext,
-      String? createdAt,
-      String? updatedAt,}){
+    num? id,
+    String? sn,
+    num? timeId,
+    num? memberId,
+    dynamic leaveId,
+    dynamic ext,
+    String? createdAt,
+    String? updatedAt,
+  }) {
     _id = id;
     _sn = sn;
     _timeId = timeId;
@@ -140,7 +143,7 @@ class Record {
     _ext = ext;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
-}
+  }
 
   Record.fromJson(dynamic json) {
     _id = json['id'];
@@ -182,6 +185,4 @@ class Record {
     map['updatedAt'] = _updatedAt;
     return map;
   }
-
 }
-

@@ -4,10 +4,8 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:service_package/service_package.dart';
 import 'package:attendance/attendance.dart';
-import 'package:attendance/model/leave_list_item.dart';
-import 'package:attendance/model/leave_detail.dart';
+import 'package:service_package/service_package.dart';
 
 class LeaveResponse {
   static Future<LeaveItem> applyLeave(
@@ -42,7 +40,7 @@ class LeaveResponse {
     }
   }
 
-  static Future<List<LeaveListItem>?> leaveList(
+  static Future<List<LeaveItem>?> leaveList(
       {Map<dynamic, dynamic>? filter,
       required String? project,
       num? page,
@@ -57,13 +55,13 @@ class LeaveResponse {
       })
         ..removeWhere((key, value) => value == null);
 
-      List<LeaveListItem> list = [];
+      List<LeaveItem> list = [];
       List<dynamic> jsonLists = await BaseDio.getInstance().get(
         url: "/attendance/api/project/$project/leave",
         params: params,
       );
       for (var item in jsonLists) {
-        list.add(LeaveListItem.fromJson(item));
+        list.add(LeaveItem.fromJson(item));
       }
       return list;
     } catch (e) {
@@ -72,14 +70,14 @@ class LeaveResponse {
     }
   }
 
-  static Future<LeaveDetail> leaveDetail(
+  static Future<LeaveItem> leaveDetail(
       {required String? project, required String? id}) async {
     try {
-      LeaveDetail? item;
+      LeaveItem? item;
       Map<String, dynamic> res = await BaseDio.getInstance().get(
         url: "/attendance/api/project/$project/leave/$id",
       );
-      item = LeaveDetail.fromJson(res);
+      item = LeaveItem.fromJson(res);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
@@ -87,7 +85,7 @@ class LeaveResponse {
     }
   }
 
-  static Future<LeaveDetail> approvalLeave(
+  static Future<LeaveItem> approvalLeave(
       {required String? project,
       required String? sn,
       required String? status,
@@ -99,12 +97,12 @@ class LeaveResponse {
       })
         ..removeWhere((key, value) => value == null);
 
-      LeaveDetail? item;
+      LeaveItem? item;
       Map<String, dynamic> res = await BaseDio.getInstance().put(
         url: "/attendance/api/project/$project/$sn",
         params: params,
       );
-      item = LeaveDetail.fromJson(res);
+      item = LeaveItem.fromJson(res);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);

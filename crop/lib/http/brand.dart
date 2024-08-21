@@ -15,6 +15,13 @@ abstract class BrandApi {
   Future<List<BrandItem>> getBrandItem();
 
   @ApiGen(
+    '/api/merchant/\${ServiceGlobal.instance.merchantId}/brand/\$code',
+    method: ApiGen.GET,
+    target: 'BrandItem',
+  )
+  Future<BrandItem> getBrandDetail({required String code});
+
+  @ApiGen(
     '/api/merchant/\${ServiceGlobal.instance.merchantId}/places',
     method: ApiGen.GET,
     params: {
@@ -26,7 +33,8 @@ abstract class BrandApi {
     },
     target: 'PlaceItem',
   )
-  Future<List<PlaceItem>?> getPlaceItem({List<String>? brand, String? xLocation, String? keyword});
+  Future<List<PlaceItem>?> getPlaceItem(
+      {List<String>? brand, String? xLocation, String? keyword});
 
   @ApiGen(
     '/api/merchant/\${ServiceGlobal.instance.merchantId}/place/\$place',
@@ -42,5 +50,6 @@ abstract class BrandApi {
     params: {"value": "@C_value"},
     target: 'MerOnline',
   )
-  Future<MerOnline> editMerOnline({required String? brand, required String key, required String? value});
+  Future<MerOnline> editMerOnline(
+      {required String? brand, required String key, required String? value});
 }

@@ -1,6 +1,4 @@
 import 'package:attendance/attendance.dart';
-import 'package:attendance/model/leave_detail.dart';
-import 'package:attendance/model/leave_list_item.dart';
 import 'package:service_package/api/api_gen.dart';
 
 /// package:service_package/service_package.dart
@@ -40,25 +38,27 @@ abstract class Leave {
       'sort': '@C_sort ?? \'{"createdAt":"desc"}\'',
       'filter': '@C_filter',
     },
-    target: 'LeaveListItem',
+    target: 'LeaveItem',
     method: ApiGen.GET,
   )
-  Future<List<LeaveListItem>?> leaveList({Map? filter, required String? project, num? page, num? size, Map? sort});
+  Future<List<LeaveItem>?> leaveList(
+      {Map? filter, required String? project, num? page, num? size, Map? sort});
 
   @ApiGen(
     '/api/project/\$project/leave/\$id',
-    target: 'LeaveDetail',
+    target: 'LeaveItem',
     method: ApiGen.GET,
   )
-  Future<LeaveDetail> leaveDetail({required String? project, required String? id});
+  Future<LeaveItem> leaveDetail(
+      {required String? project, required String? id});
 
   @ApiGen(
     '/api/project/\$project/\$sn',
     params: {'status': '@C_status', 'ext': '@C_ext'},
-    target: 'LeaveDetail',
+    target: 'LeaveItem',
     method: ApiGen.PUT,
   )
-  Future<LeaveDetail> approvalLeave({
+  Future<LeaveItem> approvalLeave({
     required String? project,
     required String? sn,
     required String? status,
@@ -74,7 +74,7 @@ abstract class Leave {
   Future<List<PunchLogItem>?> getPunchLog({
     required String? project,
     required String? rule,
-     Map? filter,
+    Map? filter,
   });
 
   @ApiGen(

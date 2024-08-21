@@ -4,9 +4,9 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:service_package/service_package.dart';
 import 'package:crop/crop.dart';
 import 'package:crop/models/mer_online.dart';
+import 'package:service_package/service_package.dart';
 
 class BrandResponse {
   static Future<List<BrandItem>> getBrandItem() async {
@@ -19,6 +19,21 @@ class BrandResponse {
         list.add(BrandItem.fromJson(item));
       }
       return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<BrandItem> getBrandDetail({required String code}) async {
+    try {
+      BrandItem? item;
+      Map<String, dynamic> res = await BaseDio.getInstance().get(
+        url:
+            "/crop/api/merchant/${ServiceGlobal.instance.merchantId}/brand/$code",
+      );
+      item = BrandItem.fromJson(res);
+      return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;
