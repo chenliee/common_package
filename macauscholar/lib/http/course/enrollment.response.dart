@@ -4,8 +4,8 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:macauscholar/macauscholar.dart';
 import 'package:service_package/service_package.dart';
+import 'package:macauscholar/macauscholar.dart';
 
 class EnrollmentResponse {
   static Future<List<CourseEnrollmentItem>> getEnrollmentList(
@@ -39,20 +39,19 @@ class EnrollmentResponse {
     }
   }
 
-  static Future<CourseEnrollmentItem> enrollment({
-    String? student,
-    required String studentName,
-    String? phone,
-    required String gender,
-    String? birthday,
-    required String clases,
-    String way = 'app',
-    required num lessons,
-    required num lessonAmount,
-    required num lessonRealAmount,
-    required bool pdac,
-    required String uid,
-  }) async {
+  static Future<CourseEnrollmentItem> enrollment(
+      {String? student,
+      required String studentName,
+      String? phone,
+      required String gender,
+      String? birthday,
+      required String clases,
+      String way = 'app',
+      required num lessons,
+      required num lessonAmount,
+      required num lessonRealAmount,
+      required bool pdac,
+      required String uid}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "student": student,

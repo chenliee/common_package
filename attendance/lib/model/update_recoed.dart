@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 /// id : 236
 /// sn : "b09491d5-5bec-46bb-bd8e-4de680441957"
 /// timeId : 354
@@ -13,23 +14,26 @@ import 'dart:convert';
 /// leaveRelation : null
 /// logs : null
 
-UpdateRecoed updateRecoedFromJson(String str) => UpdateRecoed.fromJson(json.decode(str));
+UpdateRecoed updateRecoedFromJson(String str) =>
+    UpdateRecoed.fromJson(json.decode(str));
 String updateRecoedToJson(UpdateRecoed data) => json.encode(data.toJson());
+
 class UpdateRecoed {
   UpdateRecoed({
-      num? id, 
-      String? sn, 
-      num? timeId, 
-      num? memberId, 
-      num? leaveId, 
-      Ext? ext, 
-      String? createdAt, 
-      String? updatedAt, 
-      Leave? leave, 
-      Member? member, 
-      Time? time, 
-      dynamic leaveRelation, 
-      dynamic logs,}){
+    num? id,
+    String? sn,
+    num? timeId,
+    num? memberId,
+    num? leaveId,
+    Ext? ext,
+    String? createdAt,
+    String? updatedAt,
+    Leave? leave,
+    Member? member,
+    Time? time,
+    dynamic leaveRelation,
+    dynamic logs,
+  }) {
     _id = id;
     _sn = sn;
     _timeId = timeId;
@@ -43,7 +47,7 @@ class UpdateRecoed {
     _time = time;
     _leaveRelation = leaveRelation;
     _logs = logs;
-}
+  }
 
   UpdateRecoed.fromJson(dynamic json) {
     _id = json['id'];
@@ -113,7 +117,6 @@ class UpdateRecoed {
     map['logs'] = _logs;
     return map;
   }
-
 }
 
 /// id : 354
@@ -132,21 +135,23 @@ class UpdateRecoed {
 
 Time timeFromJson(String str) => Time.fromJson(json.decode(str));
 String timeToJson(Time data) => json.encode(data.toJson());
+
 class Time {
   Time({
-      num? id, 
-      num? ruleId, 
-      String? sn, 
-      String? date, 
-      num? periodId, 
-      dynamic slotId, 
-      num? from, 
-      num? to, 
-      String? createdAt, 
-      String? updatedAt, 
-      Rule? rule, 
-      Period? period, 
-      dynamic slot,}){
+    num? id,
+    num? ruleId,
+    String? sn,
+    String? date,
+    num? periodId,
+    dynamic slotId,
+    num? from,
+    num? to,
+    String? createdAt,
+    String? updatedAt,
+    Rule? rule,
+    Period? period,
+    dynamic slot,
+  }) {
     _id = id;
     _ruleId = ruleId;
     _sn = sn;
@@ -160,7 +165,7 @@ class Time {
     _rule = rule;
     _period = period;
     _slot = slot;
-}
+  }
 
   Time.fromJson(dynamic json) {
     _id = json['id'];
@@ -226,7 +231,6 @@ class Time {
     map['slot'] = _slot;
     return map;
   }
-
 }
 
 /// id : 155
@@ -243,19 +247,21 @@ class Time {
 
 Period periodFromJson(String str) => Period.fromJson(json.decode(str));
 String periodToJson(Period data) => json.encode(data.toJson());
+
 class Period {
   Period({
-      num? id, 
-      num? ruleId, 
-      String? code, 
-      String? type, 
-      List<num>? day, 
-      dynamic from, 
-      dynamic to, 
-      dynamic whitelist, 
-      String? remark, 
-      String? createdAt, 
-      String? updatedAt,}){
+    num? id,
+    num? ruleId,
+    String? code,
+    String? type,
+    List<num>? day,
+    dynamic from,
+    dynamic to,
+    dynamic whitelist,
+    String? remark,
+    String? createdAt,
+    String? updatedAt,
+  }) {
     _id = id;
     _ruleId = ruleId;
     _code = code;
@@ -267,7 +273,7 @@ class Period {
     _remark = remark;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
-}
+  }
 
   Period.fromJson(dynamic json) {
     _id = json['id'];
@@ -321,7 +327,6 @@ class Period {
     map['updatedAt'] = _updatedAt;
     return map;
   }
-
 }
 
 /// id : 103
@@ -335,16 +340,18 @@ class Period {
 
 Rule ruleFromJson(String str) => Rule.fromJson(json.decode(str));
 String ruleToJson(Rule data) => json.encode(data.toJson());
+
 class Rule {
   Rule({
-      num? id, 
-      num? projectId, 
-      String? code, 
-      String? title, 
-      dynamic authInfo, 
-      dynamic config, 
-      String? createdAt, 
-      String? updatedAt,}){
+    num? id,
+    num? projectId,
+    String? code,
+    String? title,
+    dynamic authInfo,
+    dynamic config,
+    String? createdAt,
+    String? updatedAt,
+  }) {
     _id = id;
     _projectId = projectId;
     _code = code;
@@ -353,7 +360,7 @@ class Rule {
     _config = config;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
-}
+  }
 
   Rule.fromJson(dynamic json) {
     _id = json['id'];
@@ -395,7 +402,6 @@ class Rule {
     map['updatedAt'] = _updatedAt;
     return map;
   }
-
 }
 
 /// id : 18
@@ -408,15 +414,17 @@ class Rule {
 
 Member memberFromJson(String str) => Member.fromJson(json.decode(str));
 String memberToJson(Member data) => json.encode(data.toJson());
+
 class Member {
   Member({
-      num? id, 
-      num? projectId, 
-      String? uid, 
-      String? title, 
-      dynamic info, 
-      String? createdAt, 
-      String? updatedAt,}){
+    num? id,
+    num? projectId,
+    String? uid,
+    String? title,
+    dynamic info,
+    String? createdAt,
+    String? updatedAt,
+  }) {
     _id = id;
     _projectId = projectId;
     _uid = uid;
@@ -424,7 +432,7 @@ class Member {
     _info = info;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
-}
+  }
 
   Member.fromJson(dynamic json) {
     _id = json['id'];
@@ -462,7 +470,6 @@ class Member {
     map['updatedAt'] = _updatedAt;
     return map;
   }
-
 }
 
 /// id : 13
@@ -474,21 +481,23 @@ class Member {
 
 Leave leaveFromJson(String str) => Leave.fromJson(json.decode(str));
 String leaveToJson(Leave data) => json.encode(data.toJson());
+
 class Leave {
   Leave({
-      num? id, 
-      num? projectId, 
-      String? code, 
-      String? title, 
-      String? createdAt, 
-      String? updatedAt,}){
+    num? id,
+    num? projectId,
+    String? code,
+    String? title,
+    String? createdAt,
+    String? updatedAt,
+  }) {
     _id = id;
     _projectId = projectId;
     _code = code;
     _title = title;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
-}
+  }
 
   Leave.fromJson(dynamic json) {
     _id = json['id'];
@@ -522,30 +531,36 @@ class Leave {
     map['updatedAt'] = _updatedAt;
     return map;
   }
-
 }
 
 /// remark : "修改自定义字段数据"
 
 Ext extFromJson(String str) => Ext.fromJson(json.decode(str));
 String extToJson(Ext data) => json.encode(data.toJson());
+
 class Ext {
   Ext({
-      String? remark,}){
+    String? remark,
+    String? state,
+  }) {
     _remark = remark;
-}
+    _state = state;
+  }
 
   Ext.fromJson(dynamic json) {
     _remark = json['remark'];
+    _state = json['state'];
   }
   String? _remark;
+  String? _state;
 
   String? get remark => _remark;
+  String? get state => _state;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['remark'] = _remark;
+    map['state'] = _state;
     return map;
   }
-
 }
