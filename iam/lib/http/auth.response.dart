@@ -4,10 +4,10 @@
 // ApiGenerator
 // **************************************************************************
 
+import 'package:service_package/service_package.dart';
 import 'package:iam/iam.dart';
 import 'package:iam/model/captcha_model.dart';
 import 'package:iam/model/mer_login.dart';
-import 'package:service_package/service_package.dart';
 
 class AuthResponse {
   static Future<AuthModel> auth(

@@ -223,6 +223,15 @@ abstract class Class {
   Future<RaffleModel> getRaffle({required String userId});
 
   @ApiGen(
+    '/scholar/user/shareRaffle',
+    method: ApiGen.POST,
+    params: {
+      'userId': '@C_userId',
+    },
+  )
+  Future<dynamic> shareRaffle({String? userId});
+
+  @ApiGen(
     '/scholar/tuition/learnCenterData',
     method: ApiGen.GET,
     target: 'LearnCenterModel',
