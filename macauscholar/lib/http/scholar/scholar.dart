@@ -431,4 +431,7 @@ abstract class Class {
     target: 'AppInfoModel',
   )
   Future<AppInfoModel> getAppVersion();
+
+
+
 }
