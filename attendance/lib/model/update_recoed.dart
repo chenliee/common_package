@@ -542,25 +542,31 @@ class Ext {
   Ext({
     String? remark,
     String? state,
+    String? createdType,
   }) {
     _remark = remark;
     _state = state;
+    _createdType = createdType;
   }
 
   Ext.fromJson(dynamic json) {
     _remark = json['remark'];
     _state = json['state'];
+    _createdType = json['createdType'];
   }
   String? _remark;
   String? _state;
+  String? _createdType;
 
   String? get remark => _remark;
   String? get state => _state;
+  String? get createdType => _createdType;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['remark'] = _remark;
     map['state'] = _state;
+    map['createdType'] = _createdType;
     return map;
   }
 }
