@@ -38,6 +38,7 @@ class {{fileName}} {
         return list;
         {{/isList}}
         {{^isList}}
+        {{#hasClassName}}
         {{className}}? item;
         Map<String, dynamic> res =
           await {{{dio}}}.getInstance().{{requestName}}(
@@ -45,9 +46,20 @@ class {{fileName}} {
             {{#hasParams}}params: params,{{/hasParams}}
             {{#hasData}}data: data,{{/hasData}}
             {{#hasApi}}isApi: false,{{/hasApi}}
-          );
+          );   
         item = {{className}}.fromJson(res);
         return item;
+        {{/hasClassName}}
+        {{^hasClassName}}
+          dynamic res =
+          await {{{dio}}}.getInstance().{{requestName}}(
+            url: "{{{url}}}", 
+            {{#hasParams}}params: params,{{/hasParams}}
+            {{#hasData}}data: data,{{/hasData}}
+            {{#hasApi}}isApi: false,{{/hasApi}}
+          );   
+        return res;
+        {{/hasClassName}}
         {{/isList}}
       } catch (e) {
         Debug.printMsg(e, StackTrace.current);

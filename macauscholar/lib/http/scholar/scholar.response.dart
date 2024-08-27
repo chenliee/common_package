@@ -385,6 +385,24 @@ class ScholarResponse {
     }
   }
 
+  static Future<dynamic> shareRaffle({String? userId}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "userId": userId,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      dynamic res = await ScholarDio.getInstance().post(
+        url: "/api/scholar/user/shareRaffle",
+        params: params,
+      );
+      return res;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
   static Future<LearnCenterModel> getLearnCenterData(
       {required DateTime date, required String id}) async {
     try {
