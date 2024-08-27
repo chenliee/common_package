@@ -15,6 +15,7 @@ class NotifyRequest {
       {required String cid,
       String? uuid,
       String? code,
+      String? project,
       required String token,
       required String package}) async {
     try {
@@ -22,7 +23,8 @@ class NotifyRequest {
         'package': package,
         'token': token,
         'uuid': uuid,
-        'code': code
+        'code': code,
+        'project': project,
       }..removeWhere((key, value) => value == null));
       final res = await BaseDio.getInstance()
           .post(url: '$url/$cid/device-registration', params: params);
@@ -39,6 +41,7 @@ class NotifyRequest {
       required String uuid,
       required String code,
       required String package,
+        String? project,
       required token}) async {
     try {
       Map<String, dynamic>? params = {
@@ -46,6 +49,7 @@ class NotifyRequest {
         'token': token,
         'uuid': uuid,
         'code': code,
+        'project': project,
       };
       final res = await BaseDio.getInstance()
           .post(url: '$url/$cid/device-binding', params: params);
