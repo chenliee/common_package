@@ -8,6 +8,7 @@ import 'package:service_package/service_package.dart';
 import 'package:attendance/attendance.dart';
 import 'package:attendance/model/record_add_item.dart';
 import 'package:attendance/model/update_recoed.dart';
+import 'package:attendance/model/rule_item.dart';
 
 class RecordResponse {
   static Future<PunchLogItem> punchLogMember(
@@ -97,6 +98,21 @@ class RecordResponse {
         params: params,
       );
       item = UpdateRecoed.fromJson(res);
+      return item;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<RuleItem> getRule(
+      {required String project, required String rule}) async {
+    try {
+      RuleItem? item;
+      Map<String, dynamic> res = await BaseDio.getInstance().get(
+        url: "/attendance/api/project/$project/rule/$rule/",
+      );
+      item = RuleItem.fromJson(res);
       return item;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);

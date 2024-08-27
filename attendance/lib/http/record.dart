@@ -1,5 +1,6 @@
 import 'package:attendance/attendance.dart';
 import 'package:attendance/model/record_add_item.dart';
+import 'package:attendance/model/rule_item.dart';
 import 'package:attendance/model/update_recoed.dart';
 import 'package:service_package/api/api_gen.dart';
 
@@ -7,6 +8,7 @@ import 'package:service_package/api/api_gen.dart';
 /// package:attendance/attendance.dart
 /// package:attendance/model/record_add_item.dart
 /// package:attendance/model/update_recoed.dart
+/// package:attendance/model/rule_item.dart
 @ApiGen('/attendance', file: 'RecordResponse', dio: 'BaseDio')
 abstract class Record {
   @ApiGen(
@@ -60,5 +62,15 @@ abstract class Record {
     required String record,
     required String leave,
     Map? ext,
+  });
+
+  @ApiGen(
+    '/api/project/\$project/rule/\$rule/',
+    method: ApiGen.GET,
+    target: 'RuleItem',
+  )
+  Future<RuleItem> getRule({
+    required String project,
+    required String rule,
   });
 }

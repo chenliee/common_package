@@ -4,8 +4,8 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:attendance/attendance.dart';
 import 'package:service_package/service_package.dart';
+import 'package:attendance/attendance.dart';
 
 class LeaveResponse {
   static Future<LeaveItem> applyLeave(
@@ -140,12 +140,16 @@ class LeaveResponse {
       required String? rule,
       required String? date,
       required String? uid,
-      required Map<dynamic, dynamic>? ext}) async {
+      required Map<dynamic, dynamic>? ext,
+      Map<dynamic, dynamic>? point,
+      String? deviceSN}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "date": date,
         "uid": uid,
         "ext": ext,
+        "point": point,
+        "deviceSN": deviceSN,
       })
         ..removeWhere((key, value) => value == null);
 

@@ -3,8 +3,6 @@ import 'package:service_package/api/api_gen.dart';
 
 /// package:service_package/service_package.dart
 /// package:attendance/attendance.dart
-/// package:attendance/model/leave_list_item.dart
-/// package:attendance/model/leave_detail.dart
 @ApiGen('/attendance', file: 'LeaveResponse', dio: 'BaseDio')
 abstract class Leave {
   @ApiGen(
@@ -41,16 +39,14 @@ abstract class Leave {
     target: 'LeaveItem',
     method: ApiGen.GET,
   )
-  Future<List<LeaveItem>?> leaveList(
-      {Map? filter, required String? project, num? page, num? size, Map? sort});
+  Future<List<LeaveItem>?> leaveList({Map? filter, required String? project, num? page, num? size, Map? sort});
 
   @ApiGen(
     '/api/project/\$project/leave/\$id',
     target: 'LeaveItem',
     method: ApiGen.GET,
   )
-  Future<LeaveItem> leaveDetail(
-      {required String? project, required String? id});
+  Future<LeaveItem> leaveDetail({required String? project, required String? id});
 
   @ApiGen(
     '/api/project/\$project/\$sn',
@@ -79,7 +75,13 @@ abstract class Leave {
 
   @ApiGen(
     '/api/project/\$project/rule/\$rule/punch_log/',
-    params: {'date': '@C_date', 'uid': '@C_uid', 'ext': '@C_ext'},
+    params: {
+      'date': '@C_date',
+      'uid': '@C_uid',
+      'ext': '@C_ext',
+      'point': '@C_point',
+      'deviceSN': '@C_deviceSN',
+    },
     target: 'PunchLogItem',
     method: ApiGen.POST,
   )
@@ -89,5 +91,7 @@ abstract class Leave {
     required String? date,
     required String? uid,
     required Map? ext,
+    Map? point,
+    String? deviceSN,
   });
 }
