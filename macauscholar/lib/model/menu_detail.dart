@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:storage/model/file_item.dart';
+
 import 'menu_cart.dart';
 import 'menu_section.dart';
 
@@ -40,7 +42,7 @@ class MenuDetail {
     String? period,
     List<num>? days,
     bool? package,
-    dynamic cover,
+    FileItem? cover,
     dynamic description,
     dynamic withArea,
     dynamic withBranches,
@@ -90,7 +92,7 @@ class MenuDetail {
     _period = json['period'];
     _days = json['days'] != null ? json['days'].cast<num>() : [];
     _package = json['package'];
-    _cover = json['cover'];
+    _cover = json['cover'] != null ? FileItem.fromJson(json['cover']) : null;
     _description = json['description'];
     _withArea = json['withArea'];
     _withBranches = json['withBranches'];
@@ -127,7 +129,7 @@ class MenuDetail {
   String? _period;
   List<num>? _days;
   bool? _package;
-  dynamic _cover;
+  FileItem? _cover;
   dynamic _description;
   dynamic _withArea;
   dynamic _withBranches;
@@ -151,7 +153,7 @@ class MenuDetail {
   String? get period => _period;
   List<num>? get days => _days;
   bool? get package => _package;
-  dynamic get cover => _cover;
+  FileItem? get cover => _cover;
   dynamic get description => _description;
   dynamic get withArea => _withArea;
   dynamic get withBranches => _withBranches;
@@ -177,7 +179,7 @@ class MenuDetail {
     map['period'] = _period;
     map['days'] = _days;
     map['package'] = _package;
-    map['cover'] = _cover;
+    map['cover'] = _cover?.toJson();
     map['description'] = _description;
     map['withArea'] = _withArea;
     map['withBranches'] = _withBranches;

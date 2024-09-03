@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:macauscholar/macauscholar.dart';
+import 'package:storage/model/file_item.dart';
 
 /// id : 19
 /// title : "主菜"
@@ -150,7 +151,7 @@ class Foods {
     String? title,
     num? weight,
     String? unit,
-    dynamic cover,
+    FileItem? cover,
     num? kcal,
     num? carbohydrate,
     num? protein,
@@ -190,7 +191,7 @@ class Foods {
     _title = json['title'];
     _weight = json['weight'];
     _unit = json['unit'];
-    _cover = json['cover'];
+    _cover = json['cover'] != null ? FileItem.fromJson(json['cover']) : null;
     _kcal = json['kcal'];
     _carbohydrate = json['carbohydrate'];
     _protein = json['protein'];
@@ -210,7 +211,7 @@ class Foods {
   String? _title;
   num? _weight;
   String? _unit;
-  dynamic _cover;
+  FileItem? _cover;
   num? _kcal;
   num? _carbohydrate;
   num? _protein;
@@ -229,7 +230,7 @@ class Foods {
   String? get title => _title;
   num? get weight => _weight;
   String? get unit => _unit;
-  dynamic get cover => _cover;
+  FileItem? get cover => _cover;
   num? get kcal => _kcal;
   num? get carbohydrate => _carbohydrate;
   num? get protein => _protein;
@@ -250,7 +251,7 @@ class Foods {
     map['title'] = _title;
     map['weight'] = _weight;
     map['unit'] = _unit;
-    map['cover'] = _cover;
+    map['cover'] = _cover?.toJson();
     map['kcal'] = _kcal;
     map['carbohydrate'] = _carbohydrate;
     map['protein'] = _protein;
