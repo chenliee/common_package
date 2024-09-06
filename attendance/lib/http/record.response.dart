@@ -119,4 +119,27 @@ class RecordResponse {
       rethrow;
     }
   }
+
+  static Future<List<RecordItem>> ProjectRecordList(
+      {Map<dynamic, dynamic>? filter, required String project}) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "filter": filter,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      List<RecordItem> list = [];
+      List<dynamic> jsonLists = await BaseDio.getInstance().get(
+        url: "/attendance/api/project/$project/record/",
+        params: params,
+      );
+      for (var item in jsonLists) {
+        list.add(RecordItem.fromJson(item));
+      }
+      return list;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
 }

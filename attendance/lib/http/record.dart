@@ -73,4 +73,15 @@ abstract class Record {
     required String project,
     required String rule,
   });
+
+
+  @ApiGen(
+    '/api/project/\$project/record/',
+    params: {
+      'filter': '@C_filter',
+    },
+    method: ApiGen.GET,
+    target: 'RecordItem',
+  )
+  Future<List<RecordItem>> ProjectRecordList({Map? filter, required String project});
 }
