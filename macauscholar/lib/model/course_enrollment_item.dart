@@ -259,7 +259,6 @@ class CourseEnrollmentItem {
   Student? get student => _student;
   ClassItem? get classItem => _classItem;
   Map<String, dynamic>? get ext => _ext;
-
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
