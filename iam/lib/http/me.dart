@@ -25,4 +25,12 @@ abstract class MeApi {
     required String code,
     required String provider,
   });
+
+  @ApiGen(
+    '/api/me/link/\$provider/',
+    method: ApiGen.DELETE,
+  )
+  Future<dynamic> deleteLink({
+    required String provider,
+  });
 }

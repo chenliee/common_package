@@ -41,16 +41,17 @@ class NotifyRequest {
       required String uuid,
       required String code,
       required String package,
-        String? project,
+      String? project,
       required token}) async {
     try {
-      Map<String, dynamic>? params = {
+      Map<String, dynamic>? params = Map.from({
         'package': package,
         'token': token,
         'uuid': uuid,
         'code': code,
         'project': project,
-      };
+      })
+        ..removeWhere((key, value) => value == null);
       final res = await BaseDio.getInstance()
           .post(url: '$url/$cid/device-binding', params: params);
       BindModel bindModel = BindModel.fromJson(res);

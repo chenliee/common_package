@@ -15,6 +15,7 @@ class MeResponse {
       List<LinkModel> list = [];
       List<dynamic> jsonLists = await BaseDio.getInstance().get(
         url: "/iam/api/me/link",
+        isApi:false
       );
       for (var item in jsonLists) {
         list.add(LinkModel.fromJson(item));
@@ -37,6 +38,18 @@ class MeResponse {
       dynamic res = await BaseDio.getInstance().post(
         url: "/iam/api/me/link/$provider/",
         params: params,
+      );
+      return res;
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  static Future<dynamic> deleteLink({required String provider}) async {
+    try {
+      dynamic res = await BaseDio.getInstance().delete(
+        url: "/iam/api/me/link/$provider/",
       );
       return res;
     } catch (e) {
