@@ -45,6 +45,9 @@ flutter:
         pluginClass: ServicePackagePlugin
       ios:
         pluginClass: ServicePackagePlugin
+      web:
+        pluginClass: ServicePackagePlugin
+        fileName: service_web.dart
   # To add assets to your package, add an assets section, like this:
   assets:
     - .env
