@@ -287,7 +287,24 @@ class ServiceItem {
         bindServices: bindServices ?? _bindServices,
         selectServices: selectServices ?? _selectServices,
       );
+
+  @override
+  String toString() {
+    return 'ServiceItem{_code: $_code}';
+  }
+
   num? get id => _id;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ServiceItem &&
+          runtimeType == other.runtimeType &&
+          _code == other._code;
+
+  @override
+  int get hashCode => _code.hashCode;
+
   String? get title => _title;
   num? get packageId => _packageId;
   num? get price => _price;
