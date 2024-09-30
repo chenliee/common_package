@@ -43,13 +43,18 @@ class MerchantResponse {
     }
   }
 
-  static Future<ArticleMap?> getCategoryArtList(
-      {required String id,
-      required String project,
-      List<String>? fkeys}) async {
+  static Future<ArticleMap?> getCategoryArtList({
+    required String id,
+    required String project,
+    int? page,
+    int? size,
+    List<String>? fkeys,
+  }) async {
     try {
       Map<String, dynamic> params = Map.from({
         "fkeys": fkeys,
+        "page": page,
+        "size": size,
       })
         ..removeWhere((key, value) => value == null);
 
