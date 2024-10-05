@@ -181,11 +181,13 @@ class Infos {
     Info? desc,
     Info? about,
     Info? nearSchool,
+    Info? showInApp,
   }) {
     _isPick = isPick;
     _desc = desc;
     _about = about;
     _nearSchool = nearSchool;
+    _showInApp = showInApp;
   }
 
   Infos.fromJson(dynamic json) {
@@ -194,27 +196,33 @@ class Infos {
     _about = json['about'] != null ? Info.fromJson(json['about']) : null;
     _nearSchool =
         json['nearSchool'] != null ? Info.fromJson(json['nearSchool']) : null;
+    _showInApp =
+        json['showInApp'] != null ? Info.fromJson(json['showInApp']) : null;
   }
   Info? _isPick;
   Info? _desc;
   Info? _about;
   Info? _nearSchool;
+  Info? _showInApp;
   Infos copyWith({
     Info? isPick,
     Info? desc,
     Info? about,
     Info? nearSchool,
+    Info? showInApp,
   }) =>
       Infos(
         isPick: isPick ?? _isPick,
         desc: desc ?? _desc,
         about: about ?? _about,
         nearSchool: nearSchool ?? _nearSchool,
+        showInApp: showInApp ?? _showInApp,
       );
   Info? get isPick => _isPick;
   Info? get desc => _desc;
   Info? get about => _about;
   Info? get nearSchool => _nearSchool;
+  Info? get showInApp => _showInApp;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -229,6 +237,9 @@ class Infos {
     }
     if (_nearSchool != null) {
       map['nearSchool'] = _nearSchool?.toJson();
+    }
+    if (_showInApp != null) {
+      map['showInApp'] = _showInApp?.toJson();
     }
     return map;
   }
