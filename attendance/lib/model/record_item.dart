@@ -169,7 +169,7 @@ class Logs {
     dynamic grpcUid,
     dynamic deviceSN,
     num? time,
-    LogExt? ext,
+    Ext? ext,
     String? createdAt,
     String? updatedAt,
   }) {
@@ -193,7 +193,7 @@ class Logs {
     _grpcUid = json['grpcUid'];
     _deviceSN = json['deviceSN'];
     _time = json['time'];
-    _ext = json['ext'] != null ? LogExt.fromJson(json['ext']) : null;
+    _ext = json['ext'] != null ? Ext.fromJson(json['ext']) : null;
     _createdAt = json['createdAt'];
     _updatedAt = json['updatedAt'];
   }
@@ -204,7 +204,7 @@ class Logs {
   dynamic _grpcUid;
   dynamic _deviceSN;
   num? _time;
-  LogExt? _ext;
+  Ext? _ext;
   String? _createdAt;
   String? _updatedAt;
   Logs copyWith({
@@ -215,7 +215,7 @@ class Logs {
     dynamic grpcUid,
     dynamic deviceSN,
     num? time,
-    LogExt? ext,
+    Ext? ext,
     String? createdAt,
     String? updatedAt,
   }) =>
@@ -238,7 +238,7 @@ class Logs {
   dynamic get grpcUid => _grpcUid;
   dynamic get deviceSN => _deviceSN;
   num? get time => _time;
-  LogExt? get ext => _ext;
+  Ext? get ext => _ext;
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
 
@@ -260,33 +260,7 @@ class Logs {
   }
 }
 
-/// state : "arrived"
 
-class LogExt {
-  LogExt({
-    String? state,
-  }) {
-    _state = state;
-  }
-
-  LogExt.fromJson(dynamic json) {
-    _state = json['state'];
-  }
-  String? _state;
-  LogExt copyWith({
-    String? state,
-  }) =>
-      LogExt(
-        state: state ?? _state,
-      );
-  String? get state => _state;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['state'] = _state;
-    return map;
-  }
-}
 
 /// id : 683
 /// ruleId : 9

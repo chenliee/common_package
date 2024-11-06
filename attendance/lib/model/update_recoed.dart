@@ -543,30 +543,54 @@ class Ext {
     String? remark,
     String? state,
     String? createdType,
+    String? site,
+    String? route,
+    String? displayName,
+    String? beatCard,
   }) {
     _remark = remark;
     _state = state;
     _createdType = createdType;
+    _site = site;
+    _route = route;
+    _displayName = displayName;
+    _beatCard = beatCard;
   }
 
   Ext.fromJson(dynamic json) {
     _remark = json['remark'];
     _state = json['state'];
     _createdType = json['createdType'];
+    _site = json['site'];
+    _route = json['route'];
+    _displayName = json['displayName'];
+    _beatCard = json['beatCard'];
   }
   String? _remark;
   String? _state;
   String? _createdType;
+  String? _site;
+  String? _route;
+  String? _displayName;
+  String? _beatCard;
 
   String? get remark => _remark;
   String? get state => _state;
   String? get createdType => _createdType;
+  String? get site => _site;
+  String? get route => _route;
+  String? get displayName => _displayName;
+  String? get beatCard => _beatCard;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['remark'] = _remark;
     map['state'] = _state;
     map['createdType'] = _createdType;
+    map['site'] = _site;
+    map['route'] = _route;
+    map['displayName'] = _displayName;
+    map['beatCard'] = _beatCard;
     return map;
   }
 }

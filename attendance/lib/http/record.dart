@@ -60,7 +60,7 @@ abstract class Record {
   Future<UpdateRecoed> updateRecord({
     required String project,
     required String record,
-    required String leave,
+     String? leave,
     Map? ext,
   });
 
@@ -74,7 +74,6 @@ abstract class Record {
     required String rule,
   });
 
-
   @ApiGen(
     '/api/project/\$project/record/',
     params: {
@@ -83,5 +82,20 @@ abstract class Record {
     method: ApiGen.GET,
     target: 'RecordItem',
   )
-  Future<List<RecordItem>> ProjectRecordList({Map? filter, required String project});
+  Future<List<RecordItem>> projectRecordList({Map? filter, required String project});
+
+  @ApiGen(
+    '/api/project/\$project/punch_log/',
+    params: {
+      'filter': '@C_filter',
+      'sort': '@C_sort ?? \'{"createdAt":"desc"}\'',
+    },
+    target: 'PunchLogItem',
+    method: ApiGen.GET,
+  )
+  Future<List<PunchLogItem>?> projectPunchLog({
+    required String? project,
+    Map? filter,
+    Map? sort
+  });
 }

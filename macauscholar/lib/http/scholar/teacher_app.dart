@@ -3,7 +3,6 @@ import 'package:macauscholar/model/bus_default_route.dart';
 import 'package:macauscholar/model/lesson_item_model.dart';
 import 'package:service_package/api/api_gen.dart';
 
-
 /// package:service_package/service_package.dart
 /// package:macauscholar/macauscholar.dart
 /// package:macauscholar/model/lesson_item_model.dart
@@ -24,18 +23,10 @@ abstract class Class {
 
   @ApiGen(
     '/lbs/bus/\$id',
+    params: {"code": "@C_code"},
     method: ApiGen.GET,
     target: 'BusDefaultRoute',
   )
-  Future<BusDefaultRoute?> getBusDefaultRoute({required String? id});
+  Future<BusDefaultRoute?> getBusDefaultRoute({required String? id,required String? code});
 
-  @ApiGen(
-    '/lbs/bus/\$id',
-    params: {
-      "code":"@C_code"
-    },
-    method: ApiGen.POST,
-    target: '',
-  )
-  Future setBusDefaultRoute({required String? id,required String? code});
 }

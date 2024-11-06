@@ -9,14 +9,25 @@ import 'package:employee/http/hrms.dart';
 import 'package:employee/model/employee_item.dart';
 
 class EmployeeResponse {
-  static Future<EmployeeItem> employeeInfo({required String id}) async {
+  static Future<List<EmployeeItem>> employeeInfo(
+      {String? page, String? size, Map<dynamic, dynamic>? filter}) async {
     try {
-      EmployeeItem? item;
-      Map<String, dynamic> res = await HrmsDio.getInstance().get(
-        url: "/api/employee/$id/",
+      Map<String, dynamic> params = Map.from({
+        "page": page,
+        "size": size,
+        "filter": filter,
+      })
+        ..removeWhere((key, value) => value == null);
+
+      List<EmployeeItem> list = [];
+      List<dynamic> jsonLists = await HrmsDio.getInstance().get(
+        url: "/api/employee/",
+        params: params,
       );
-      item = EmployeeItem.fromJson(res);
-      return item;
+      for (var item in jsonLists) {
+        list.add(EmployeeItem.fromJson(item));
+      }
+      return list;
     } catch (e) {
       Debug.printMsg(e, StackTrace.current);
       rethrow;

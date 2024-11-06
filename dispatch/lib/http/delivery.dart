@@ -4,12 +4,9 @@ import 'package:dispatch/model/slots_item.dart';
 import 'package:service_package/service_package.dart';
 
 class DeliveryResponse {
-  static String configUrl =
-      '/dispatch/api/merchant/${ServiceGlobal.instance.merchantId}/delivery/config';
-  static String policyUrl =
-      '/dispatch/api/merchant/${ServiceGlobal.instance.merchantId}/delivery/policy';
-  static String slotsUrl =
-      '/dispatch/api/merchant/${ServiceGlobal.instance.merchantId}/delivery/slots';
+  static String configUrl = '/dispatch/api/merchant/${ServiceGlobal.instance.merchantId}/delivery/config';
+  static String policyUrl = '/dispatch/api/merchant/${ServiceGlobal.instance.merchantId}/delivery/policy';
+  static String slotsUrl = '/dispatch/api/merchant/${ServiceGlobal.instance.merchantId}/delivery/slots';
 
   static Future<DeliveryItem?> getDelivery({
     required String to,
@@ -20,8 +17,7 @@ class DeliveryResponse {
         'to': to,
         'from': from,
       };
-      final res =
-          await BaseDio.getInstance().get(url: configUrl, params: params);
+      final res = await BaseDio.getInstance().get(url: configUrl, params: params);
       DeliveryItem deliveryItem = DeliveryItem.fromJson(res);
       return deliveryItem;
     } catch (e) {
@@ -51,6 +47,28 @@ class DeliveryResponse {
       }
       return slotsItem;
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future updateStatus({
+    required String order,
+    required String status,
+    String? riderNo,
+    num? riderMid,
+    String? desc,
+  }) async {
+    try {
+      Map<String, dynamic> params = Map.from({
+        "status": status,
+        "riderNo": riderNo,
+        "riderMid": riderMid,
+        "desc": desc,
+      }..removeWhere((key, value) => value == null));
+      final res = await BaseDio.getInstance().post(
+          url: '/dispatch/api/merchant/${ServiceGlobal.instance.merchantId}/order/$order/status', params: params);
+    } catch (e) {
+      Debug.printMsg(e, StackTrace.current);
       rethrow;
     }
   }

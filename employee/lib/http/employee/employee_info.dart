@@ -7,10 +7,14 @@ import 'package:service_package/api/api_gen.dart';
 @ApiGen('/api', file: 'EmployeeResponse', dio: 'HrmsDio')
 abstract class Leave {
   @ApiGen(
-    '/employee/\$id/',
+    '/employee/',
+    params: {
+      "page": '@C_page',
+      "size": "@C_size",
+      "filter": "@C_filter",
+    },
     target: 'EmployeeItem',
     method: ApiGen.GET,
   )
-  Future<EmployeeItem> employeeInfo({required String id});
-
+  Future<List<EmployeeItem>> employeeInfo({String? page, String? size, Map? filter});
 }

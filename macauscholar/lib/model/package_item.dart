@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:macauscholar/macauscholar.dart';
+import 'package:macauscholar/model/package_config.dart';
 
 /// id : 5
 /// title : "611测试套餐"
@@ -49,7 +50,7 @@ class PackageItem {
     List<SchoolYearItem>? withSchoolYears,
     List<ServiceItem>? services,
     List<SectionItem>? sections,
-    Config? config,
+    PackageConfig? config,
   }) {
     _id = id;
     _title = title;
@@ -130,7 +131,7 @@ class PackageItem {
         _sections?.add(SectionItem.fromJson(v));
       });
     }
-    _config = json['config'] != null ? Config.fromJson(json['config']) : null;
+    _config = json['config'] != null ? PackageConfig.fromJson(json['config']) : null;
   }
   num? _id;
   String? _title;
@@ -152,7 +153,7 @@ class PackageItem {
   List<SchoolYearItem>? _withSchoolYears;
   List<ServiceItem>? _services;
   List<SectionItem>? _sections;
-  Config? _config;
+  PackageConfig? _config;
   PackageItem copyWith(
           {num? id,
           String? title,
@@ -174,7 +175,7 @@ class PackageItem {
           List<SchoolYearItem>? withSchoolYears,
           List<ServiceItem>? services,
           List<SectionItem>? sections,
-          Config? config}) =>
+            PackageConfig? config}) =>
       PackageItem(
         id: id ?? _id,
         title: title ?? _title,
@@ -218,7 +219,7 @@ class PackageItem {
   List<SchoolYearItem>? get withSchoolYears => _withSchoolYears;
   List<ServiceItem>? get services => _services;
   List<SectionItem>? get sections => _sections;
-  Config? get config => _config;
+  PackageConfig? get config => _config;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -251,30 +252,3 @@ class PackageItem {
   }
 }
 
-class Config {
-  Config({
-    List<String>? defaultService,
-  }) {
-    _defaultService = defaultService;
-  }
-
-  Config.fromJson(dynamic json) {
-    _defaultService = json['defaultService'] != null
-        ? json['defaultService'].cast<String>()
-        : [];
-  }
-  List<String>? _defaultService;
-  Config copyWith({
-    List<String>? defaultService,
-  }) =>
-      Config(
-        defaultService: defaultService ?? _defaultService,
-      );
-  List<String>? get defaultService => _defaultService;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['defaultService'] = _defaultService;
-    return map;
-  }
-}

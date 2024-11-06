@@ -35,11 +35,17 @@ class TeacherAppResponse {
     }
   }
 
-  static Future<BusDefaultRoute?> getBusDefaultRoute({required String? id}) async {
+  static Future<BusDefaultRoute?> getBusDefaultRoute({required String? id, required String? code}) async {
     try {
+      Map<String, dynamic> params = Map.from({
+        "code": code,
+      })
+        ..removeWhere((key, value) => value == null);
+
       BusDefaultRoute? item;
       Map<String, dynamic> res = await ScholarDio.getInstance().get(
         url: "/api/lbs/bus/$id",
+        params: params,
       );
       item = BusDefaultRoute.fromJson(res);
       return item;
