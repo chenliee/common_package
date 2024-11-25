@@ -4,8 +4,8 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:service_package/service_package.dart';
 import 'package:service_hub/service_hub.dart';
+import 'package:service_package/service_package.dart';
 
 class GoodResponse {
   static Future<List<GoodItem>?> getGoods(
@@ -141,17 +141,19 @@ class GoodResponse {
   }
 
   static Future<GoodItem?> getGood(
-      {required String id, Map<dynamic, dynamic>? condition}) async {
+      {required String id,
+      Map<dynamic, dynamic>? condition,
+      String? merchant}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "condition": condition,
+        "merchant": ServiceGlobal.instance.merchantId,
       })
         ..removeWhere((key, value) => value == null);
 
       GoodItem? item;
       Map<String, dynamic> res = await BaseDio.getInstance().get(
-        url:
-            "/service-hub/api/merchant/${ServiceGlobal.instance.merchantId}/good/$id",
+        url: "/service-hub/api/merchant/$merchant/good/$id",
         params: params,
       );
       item = GoodItem.fromJson(res);

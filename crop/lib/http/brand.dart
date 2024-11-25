@@ -27,6 +27,7 @@ abstract class BrandApi {
     params: {
       "brand": '@C_brand',
       "keyword": "@C_keyword",
+      "place": "@C_place",
     },
     data: {
       "x-location": "@C_xLocation",
@@ -34,15 +35,20 @@ abstract class BrandApi {
     target: 'PlaceItem',
   )
   Future<List<PlaceItem>?> getPlaceItem(
-      {List<String>? brand, String? xLocation, String? keyword});
+      {List<String>? brand,
+      List<String>? place,
+      String? xLocation,
+      String? keyword,
+      String? merchant});
 
   @ApiGen(
-    '/api/merchant/\${ServiceGlobal.instance.merchantId}/place/\$place',
+    '/api/merchant/\${merchant ?? ServiceGlobal.instance.merchantId}/place/\$place',
     method: ApiGen.GET,
     params: {"brand": "@C_brand"},
     target: 'PlaceItem',
   )
-  Future<PlaceItem> getPlaceInfo({String? brand, required String place});
+  Future<PlaceItem> getPlaceInfo(
+      {String? brand, required String place, String? merchant});
 
   @ApiGen(
     '/api/merchant/\${ServiceGlobal.instance.merchantId}/brand/\$brand/key/\$key',

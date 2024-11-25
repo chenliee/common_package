@@ -237,10 +237,20 @@ class PackageItem {
     map['createdAt'] = _createdAt;
     map['updatedAt'] = _updatedAt;
     map['deletedAt'] = _deletedAt;
-    map['withoutSchools'] = _withoutSchools;
-    map['withSchools'] = _withSchools;
-    map['withoutSchoolYears'] = _withoutSchoolYears;
-    map['withSchoolYears'] = _withSchoolYears;
+    if (_withSchools != null) {
+      map['withSchools'] = _withSchools?.map((v) => v.toJson()).toList();
+    }
+    if (_withoutSchools != null) {
+      map['withoutSchools'] = _withoutSchools?.map((v) => v.toJson()).toList();
+    }
+    if (_withoutSchoolYears != null) {
+      map['withoutSchoolYears'] =
+          _withoutSchoolYears?.map((v) => v.toJson()).toList();
+    }
+    if (_withSchoolYears != null) {
+      map['withSchoolYears'] =
+          _withSchoolYears?.map((v) => v.toJson()).toList();
+    }
     if (_services != null) {
       map['services'] = _services?.map((v) => v.toJson()).toList();
     }

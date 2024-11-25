@@ -248,6 +248,7 @@ class GroupAct {
     String? desc,
     dynamic deletedAt,
     Project? project,
+    Merchant? merchant,
   }) {
     _id = id;
     _projectId = projectId;
@@ -270,6 +271,7 @@ class GroupAct {
     _desc = desc;
     _deletedAt = deletedAt;
     _project = project;
+    _merchant = merchant;
   }
 
   GroupAct.fromJson(dynamic json) {
@@ -300,6 +302,8 @@ class GroupAct {
     _deletedAt = json['deletedAt'];
     _project =
         json['project'] != null ? Project.fromJson(json['project']) : null;
+    _merchant =
+        json['merchant'] != null ? Merchant.fromJson(json['merchant']) : null;
   }
   num? _id;
   num? _projectId;
@@ -322,6 +326,7 @@ class GroupAct {
   String? _desc;
   dynamic _deletedAt;
   Project? _project;
+  Merchant? _merchant;
   GroupAct copyWith({
     num? id,
     num? projectId,
@@ -344,6 +349,7 @@ class GroupAct {
     String? desc,
     dynamic deletedAt,
     Project? project,
+    Merchant? merchant,
   }) =>
       GroupAct(
         id: id ?? _id,
@@ -367,6 +373,7 @@ class GroupAct {
         desc: desc ?? _desc,
         deletedAt: deletedAt ?? _deletedAt,
         project: project ?? _project,
+        merchant: merchant ?? _merchant,
       );
   num? get id => _id;
   num? get projectId => _projectId;
@@ -389,6 +396,7 @@ class GroupAct {
   String? get desc => _desc;
   dynamic get deletedAt => _deletedAt;
   Project? get project => _project;
+  Merchant? get merchant => _merchant;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -418,6 +426,9 @@ class GroupAct {
     map['deletedAt'] = _deletedAt;
     if (_project != null) {
       map['project'] = _project?.toJson();
+    }
+    if (_merchant != null) {
+      map['merchant'] = _merchant?.toJson();
     }
     return map;
   }

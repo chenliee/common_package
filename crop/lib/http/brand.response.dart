@@ -41,11 +41,16 @@ class BrandResponse {
   }
 
   static Future<List<PlaceItem>?> getPlaceItem(
-      {List<String>? brand, String? xLocation, String? keyword}) async {
+      {List<String>? brand,
+      List<String>? place,
+      String? xLocation,
+      String? keyword,
+      String? merchant}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "brand": brand,
         "keyword": keyword,
+        "place": place,
       })
         ..removeWhere((key, value) => value == null);
 
@@ -56,7 +61,8 @@ class BrandResponse {
 
       List<PlaceItem> list = [];
       List<dynamic> jsonLists = await BaseDio.getInstance().get(
-        url: "/crop/api/merchant/${ServiceGlobal.instance.merchantId}/places",
+        url:
+            "/crop/api/merchant/${merchant ?? ServiceGlobal.instance.merchantId}/places",
         params: params,
         data: data,
       );
@@ -71,7 +77,7 @@ class BrandResponse {
   }
 
   static Future<PlaceItem> getPlaceInfo(
-      {String? brand, required String place}) async {
+      {String? brand, required String place, String? merchant}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "brand": brand,
@@ -81,7 +87,7 @@ class BrandResponse {
       PlaceItem? item;
       Map<String, dynamic> res = await BaseDio.getInstance().get(
         url:
-            "/crop/api/merchant/${ServiceGlobal.instance.merchantId}/place/$place",
+            "/crop/api/merchant/${merchant ?? ServiceGlobal.instance.merchantId}/place/$place",
         params: params,
       );
       item = PlaceItem.fromJson(res);

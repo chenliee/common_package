@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import '../marketing.dart';
+
 /// id : 84
 /// goodsId : "238505737886347931"
 /// nativePrice : 770
@@ -29,6 +31,7 @@ class GoodsItem {
     SeckillTime? seckillTime,
     String? shopId,
     String? imgUrl,
+    Merchant? merchant,
   }) {
     _id = id;
     _goodsId = goodsId;
@@ -42,6 +45,7 @@ class GoodsItem {
     _seckillTime = seckillTime;
     _shopId = shopId;
     _imgUrl = imgUrl;
+    _merchant = merchant;
   }
 
   GoodsItem.fromJson(dynamic json) {
@@ -59,6 +63,8 @@ class GoodsItem {
         : null;
     _shopId = json['shopId'];
     _imgUrl = json['imgUrl'];
+    _merchant =
+        json['merchant'] != null ? Merchant.fromJson(json['merchant']) : null;
   }
   num? _id;
   String? _goodsId;
@@ -72,6 +78,9 @@ class GoodsItem {
   SeckillTime? _seckillTime;
   String? _shopId;
   String? _imgUrl;
+  Merchant? _merchant;
+
+  Merchant? get merchant => _merchant;
   GoodsItem copyWith({
     num? id,
     String? goodsId,
@@ -85,6 +94,7 @@ class GoodsItem {
     SeckillTime? seckillTime,
     String? shopId,
     String? imgUrl,
+    Merchant? merchant,
   }) =>
       GoodsItem(
         id: id ?? _id,
@@ -99,6 +109,7 @@ class GoodsItem {
         seckillTime: seckillTime ?? _seckillTime,
         shopId: shopId ?? _shopId,
         imgUrl: imgUrl ?? _imgUrl,
+        merchant: merchant ?? _merchant,
       );
   num? get id => _id;
   String? get goodsId => _goodsId;
@@ -129,6 +140,9 @@ class GoodsItem {
     }
     map['shopId'] = _shopId;
     map['imgUrl'] = _imgUrl;
+    if (_merchant != null) {
+      map['merchant'] = _merchant?.toJson();
+    }
     return map;
   }
 }

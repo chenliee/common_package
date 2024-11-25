@@ -79,14 +79,16 @@ abstract class Good {
   });
 
   @ApiGen(
-    '$url/good/\$id',
+    '/api/merchant/\$merchant/good/\$id',
     method: ApiGen.GET,
     target: 'GoodItem',
     params: {
       'condition': "@C_condition",
+      "merchant": "\${ServiceGlobal.instance.merchantId}",
     },
   )
-  Future<GoodItem?> getGood({required String id, Map? condition});
+  Future<GoodItem?> getGood(
+      {required String id, Map? condition, required String merchant});
 
   @ApiGen('$url/key/\$key/goods',
       method: ApiGen.GET,

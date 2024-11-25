@@ -4,14 +4,15 @@
 // ApiGenerator
 // **************************************************************************
 
-import 'package:service_package/service_package.dart';
 import 'package:attendance/attendance.dart';
 import 'package:attendance/model/record_add_item.dart';
-import 'package:attendance/model/update_recoed.dart';
 import 'package:attendance/model/rule_item.dart';
+import 'package:attendance/model/update_recoed.dart';
+import 'package:service_package/service_package.dart';
 
 class RecordResponse {
-  static Future<PunchLogItem> punchLogMember({required String project, required String rule}) async {
+  static Future<PunchLogItem> punchLogMember(
+      {required String project, required String rule}) async {
     try {
       PunchLogItem? item;
       Map<String, dynamic> res = await BaseDio.getInstance().post(
@@ -26,7 +27,9 @@ class RecordResponse {
   }
 
   static Future<List<RecordItem>> getRecordList(
-      {Map<dynamic, dynamic>? filter, required String project, required String rule}) async {
+      {Map<dynamic, dynamic>? filter,
+      required String project,
+      required String rule}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "filter": filter,
@@ -78,7 +81,10 @@ class RecordResponse {
   }
 
   static Future<UpdateRecoed> updateRecord(
-      {required String project, required String record, String? leave, Map<dynamic, dynamic>? ext}) async {
+      {required String project,
+      required String record,
+      String? leave,
+      Map<dynamic, dynamic>? ext}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "leave": leave,
@@ -99,7 +105,8 @@ class RecordResponse {
     }
   }
 
-  static Future<RuleItem> getRule({required String project, required String rule}) async {
+  static Future<RuleItem> getRule(
+      {required String project, required String rule}) async {
     try {
       RuleItem? item;
       Map<String, dynamic> res = await BaseDio.getInstance().get(
@@ -113,7 +120,8 @@ class RecordResponse {
     }
   }
 
-  static Future<List<RecordItem>> projectRecordList({Map<dynamic, dynamic>? filter, required String project}) async {
+  static Future<List<RecordItem>> projectRecordList(
+      {Map<dynamic, dynamic>? filter, required String project}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "filter": filter,
@@ -136,7 +144,9 @@ class RecordResponse {
   }
 
   static Future<List<PunchLogItem>?> projectPunchLog(
-      {required String? project, Map<dynamic, dynamic>? filter, Map<dynamic, dynamic>? sort}) async {
+      {required String? project,
+      Map<dynamic, dynamic>? filter,
+      Map<dynamic, dynamic>? sort}) async {
     try {
       Map<String, dynamic> params = Map.from({
         "filter": filter,

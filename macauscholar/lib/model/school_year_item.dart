@@ -79,6 +79,12 @@ class SchoolYearItem {
       });
     }
   }
+
+  @override
+  String toString() {
+    return 'SchoolYearItem{_id: $_id, _code: $_code, _displayName: $_displayName}';
+  }
+
   num? _id;
   String? _code;
   String? _type;

@@ -23,6 +23,7 @@ class GoodItem {
     Infos? infos,
     Files? files,
     List<Attrs>? attrs,
+    Merchant? merchant,
   }) {
     _id = id;
     _merchantId = merchantId;
@@ -34,6 +35,7 @@ class GoodItem {
     _infos = infos;
     _files = files;
     _attrs = attrs;
+    _merchant = merchant;
   }
 
   @override
@@ -51,6 +53,8 @@ class GoodItem {
     _links = json['links'] != null ? Links.fromJson(json['links']) : null;
     _infos = json['infos'] != null ? Infos.fromJson(json['infos']) : null;
     _files = json['files'] != null ? Files.fromJson(json['files']) : null;
+    _merchant =
+        json['merchant'] != null ? Merchant.fromJson(json['merchant']) : null;
     if (json['attrs'] != null) {
       _attrs = [];
       json['attrs'].forEach((v) {
@@ -68,6 +72,7 @@ class GoodItem {
   Infos? _infos;
   Files? _files;
   List<Attrs>? _attrs;
+  Merchant? _merchant;
   GoodItem copyWith({
     num? id,
     num? merchantId,
@@ -79,19 +84,20 @@ class GoodItem {
     Infos? infos,
     Files? files,
     List<Attrs>? attrs,
+    Merchant? merchant,
   }) =>
       GoodItem(
-        id: id ?? _id,
-        merchantId: merchantId ?? _merchantId,
-        uid: uid ?? _uid,
-        name: name ?? _name,
-        barcode: barcode ?? _barcode,
-        desc: desc ?? _desc,
-        links: links ?? _links,
-        infos: infos ?? _infos,
-        files: files ?? _files,
-        attrs: attrs ?? _attrs,
-      );
+          id: id ?? _id,
+          merchantId: merchantId ?? _merchantId,
+          uid: uid ?? _uid,
+          name: name ?? _name,
+          barcode: barcode ?? _barcode,
+          desc: desc ?? _desc,
+          links: links ?? _links,
+          infos: infos ?? _infos,
+          files: files ?? _files,
+          attrs: attrs ?? _attrs,
+          merchant: merchant ?? _merchant);
   num? get id => _id;
   num? get merchantId => _merchantId;
   String? get uid => _uid;
@@ -102,6 +108,7 @@ class GoodItem {
   Infos? get infos => _infos;
   Files? get files => _files;
   List<Attrs>? get attrs => _attrs;
+  Merchant? get merchant => _merchant;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -120,8 +127,14 @@ class GoodItem {
     if (_files != null) {
       map['files'] = _files?.toJson();
     }
+    if (_merchant != null) {
+      map['merchant'] = _merchant?.toJson();
+    }
     if (_attrs != null) {
       map['attrs'] = _attrs?.map((v) => v.toJson()).toList();
+    }
+    if(_merchant != null){
+      map['merchant'] = _merchant?.toJson();
     }
     return map;
   }
@@ -132,6 +145,53 @@ class GoodItem {
 /// id : 9
 /// desc : null
 /// options : [{"id":21,"code":"1680148323521209458","desc":"抹茶麻糬×2","ext":{"isDefault":0,"attributeValue":"10"},"value":1000},{"id":22,"code":"1680148323521243370","desc":"桂花丸×2","ext":{"isDefault":0,"attributeValue":"10"},"value":1000},{"id":26,"code":"1680148323521275546","desc":"黑糖丸×2","ext":{"isDefault":0,"attributeValue":"10"},"value":1000},{"id":30,"code":"1680148323521338765","desc":"OREO×2","ext":{"isDefault":0,"attributeValue":"6"},"value":600},{"id":43,"code":"1680148323521491772","desc":"嫩仙草×2","ext":{"isDefault":0,"attributeValue":"10"},"value":1000},{"id":46,"code":"1680148323521530285","desc":"寒天×2","ext":{"isDefault":0,"attributeValue":"10"},"value":1000},{"id":48,"code":"1680148323521556814","desc":"QQ小芋圓×2","ext":{"isDefault":0,"attributeValue":"10"},"value":1000},{"id":60,"code":"1680148323521660470","desc":"丸仨×2","ext":{"isDefault":0,"attributeValue":"18"},"value":1800},{"id":62,"code":"1680148323521663143","desc":"季節限定丸×2","ext":{"isDefault":0,"attributeValue":"10"},"value":1000},{"id":66,"code":"1680148323521776630","desc":"可可麻糬×2","ext":{"isDefault":0,"attributeValue":"10"},"value":1000},{"id":77,"code":"1680148323521841817","desc":"白玉丸×2","ext":{"isDefault":0,"attributeValue":"10"},"value":1000},{"id":76,"code":"1680148323521923932","desc":"芝士×2","ext":{"isDefault":0,"attributeValue":"18"},"value":1800},{"id":81,"code":"1680148323521958478","desc":"明治牛乳麻糬×2","ext":{"isDefault":0,"attributeValue":"10"},"value":1000},{"id":84,"code":"1680148323535659877","desc":"麻糬×2","ext":{"isDefault":0,"attributeValue":"10"},"value":1000},{"id":90,"code":"1686551937668595639","desc":"常規","ext":{"isDefault":0,"attributeValue":"0"},"value":0}]
+Merchant merchantFromJson(String str) => Merchant.fromJson(json.decode(str));
+String merchantToJson(Merchant data) => json.encode(data.toJson());
+
+class Merchant {
+  Merchant({
+    num? id,
+    String? code,
+    String? title,
+    String? createdAt,
+    String? updatedAt,
+  }) {
+    _id = id;
+    _code = code;
+    _title = title;
+    _createdAt = createdAt;
+    _updatedAt = updatedAt;
+  }
+
+  Merchant.fromJson(dynamic json) {
+    _id = json['id'];
+    _code = json['code'];
+    _title = json['title'];
+    _createdAt = json['createdAt'];
+    _updatedAt = json['updatedAt'];
+  }
+  num? _id;
+  String? _code;
+  String? _title;
+  String? _createdAt;
+  String? _updatedAt;
+
+  num? get id => _id;
+  String? get code => _code;
+  String? get title => _title;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = _id;
+    map['code'] = _code;
+    map['title'] = _title;
+    map['createdAt'] = _createdAt;
+    map['updatedAt'] = _updatedAt;
+    return map;
+  }
+}
 
 class Attrs {
   Attrs({
@@ -646,6 +706,7 @@ class Infos {
     Info? stock,
     Info? online,
     Info? isRecommend,
+    Info? place,
   }) {
     _sellPrice = sellPrice;
     _instock = instock;
@@ -653,6 +714,7 @@ class Infos {
     _stock = stock;
     _online = online;
     _isRecommend = isRecommend;
+    _place = place;
   }
 
   Infos.fromJson(dynamic json) {
@@ -666,6 +728,7 @@ class Infos {
     _isRecommend = json['is_recommend'] != null
         ? Info.fromJson(json['is_recommend'])
         : null;
+    _place = json['place'] != null ? Info.fromJson(json['place']) : null;
   }
   Info? _sellPrice;
   Info? _instock;
@@ -673,6 +736,7 @@ class Infos {
   Info? _stock;
   Info? _online;
   Info? _isRecommend;
+  Info? _place;
 
   Infos copyWith({
     Info? sellPrice,
@@ -682,6 +746,7 @@ class Infos {
     Info? monthSale,
     Info? online,
     Info? isRecommend,
+    Info? place,
   }) =>
       Infos(
         sellPrice: sellPrice ?? _sellPrice,
@@ -690,6 +755,7 @@ class Infos {
         online: online ?? _online,
         monthSale: monthSale ?? _monthSale,
         isRecommend: isRecommend ?? _isRecommend,
+        place: place ?? _place,
       );
   Info? get sellPrice => _sellPrice;
   Info? get instock => _instock;
@@ -697,6 +763,7 @@ class Infos {
   Info? get monthSale => _monthSale;
   Info? get online => _online;
   Info? get isRecommend => _isRecommend;
+  Info? get place => _place;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -717,6 +784,9 @@ class Infos {
     }
     if (_online != null) {
       map['is_recommend'] = _isRecommend?.toJson();
+    }
+    if (_place != null) {
+      map['place'] = _place?.toJson();
     }
     return map;
   }
@@ -740,7 +810,7 @@ class Info {
   Info.fromJson(dynamic json) {
     _title = json['title'];
     _multiple = json['multiple'];
-    _value = json['value'];
+    _value = json['value'] ?? json['values'];
   }
   String? _title;
   bool? _multiple;

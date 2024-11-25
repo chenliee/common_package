@@ -32,6 +32,7 @@ class OrderItem {
     num? id,
     String? orderId,
     num? projectId,
+    num? merchantId,
     String? userId,
     String? shopId,
     ReceiverInfo? receiverInfo,
@@ -55,6 +56,7 @@ class OrderItem {
     dynamic closeAt,
     String? extra,
     Project? project,
+    Merchant? merchant,
     List<OrderItems>? orderItems,
     List<OrderSubPrices>? orderSubPrices,
     List<OrderStatusChange>? orderStatusChange,
@@ -86,6 +88,8 @@ class OrderItem {
     _closeAt = closeAt;
     _extra = extra;
     _project = project;
+    _merchant = merchant;
+    _merchantId = merchantId;
     _orderItems = orderItems;
     _orderSubPrices = orderSubPrices;
     _orderStatusChange = orderStatusChange;
@@ -96,6 +100,7 @@ class OrderItem {
     _id = json['id'];
     _orderId = json['orderId'];
     _projectId = json['projectId'];
+    _merchantId = json['merchantId'];
     _userId = json['userId'];
     _shopId = json['shopId'];
     _receiverInfo = json['receiverInfo'] != null
@@ -122,6 +127,8 @@ class OrderItem {
     _extra = json['extra'];
     _project =
         json['project'] != null ? Project.fromJson(json['project']) : null;
+    _merchant =
+        json['merchant'] != null ? Merchant.fromJson(json['merchant']) : null;
     if (json['orderItems'] != null) {
       _orderItems = [];
       json['orderItems'].forEach((v) {
@@ -168,6 +175,8 @@ class OrderItem {
   dynamic _closeAt;
   String? _extra;
   Project? _project;
+  Merchant? _merchant;
+  num? _merchantId;
   List<OrderItems>? _orderItems;
   List<OrderSubPrices>? _orderSubPrices;
   List<OrderStatusChange>? _orderStatusChange;
@@ -199,6 +208,8 @@ class OrderItem {
           dynamic closeAt,
           String? extra,
           Project? project,
+          Merchant? merchant,
+          num? merchantId,
           List<OrderItems>? orderItems,
           List<OrderSubPrices>? orderSubPrices,
           List<OrderStatusChange>? orderStatusChange,
@@ -230,6 +241,8 @@ class OrderItem {
           closeAt: closeAt ?? _closeAt,
           extra: extra ?? _extra,
           project: project ?? _project,
+          merchant: merchant ?? _merchant,
+          merchantId: merchantId ?? _merchantId,
           orderItems: orderItems ?? _orderItems,
           orderSubPrices: orderSubPrices ?? _orderSubPrices,
           orderStatusChange: orderStatusChange ?? _orderStatusChange,
@@ -260,6 +273,8 @@ class OrderItem {
   dynamic get closeAt => _closeAt;
   String? get extra => _extra;
   Project? get project => _project;
+  Merchant? get merchant => _merchant;
+  num? get merchantId => _merchantId;
   List<OrderItems>? get orderItems => _orderItems;
   List<OrderSubPrices>? get orderSubPrices => _orderSubPrices;
   List<OrderStatusChange>? get orderStatusChange => _orderStatusChange;
@@ -299,6 +314,10 @@ class OrderItem {
     if (_project != null) {
       map['project'] = _project?.toJson();
     }
+    if (_merchant != null) {
+      map['merchant'] = _merchant?.toJson();
+    }
+    map['merchantId'] = _merchantId;
     if (_orderItems != null) {
       map['orderItems'] = _orderItems?.map((v) => v.toJson()).toList();
     }
@@ -548,7 +567,7 @@ class OrderItems {
   num? get unitPrice => _unitPrice;
   num? get refundPrice => _refundPrice;
   String? get state => _state;
-  
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
@@ -580,6 +599,7 @@ class ItemInfo {
     num? price,
     bool? instock,
     Cover? cover,
+    String? merchant,
   }) {
     _links = links;
     _uid = uid;
@@ -591,6 +611,7 @@ class ItemInfo {
     _instock = instock;
     _cover = cover;
     _cover = cover;
+    _merchant = merchant;
   }
 
   ItemInfo.fromJson(dynamic json) {
@@ -601,6 +622,7 @@ class ItemInfo {
     _price = json['price'];
     _instock = json['instock'];
     _cover = json['cover'] != null ? Cover.fromJson(json['cover']) : null;
+    _merchant = json['merchant'];
   }
   Links? _links;
   String? _uid;
@@ -609,6 +631,7 @@ class ItemInfo {
   num? _price;
   bool? _instock;
   Cover? _cover;
+  String? _merchant;
   ItemInfo copyWith({
     Links? links,
     String? uid,
@@ -617,6 +640,7 @@ class ItemInfo {
     num? price,
     bool? instock,
     Cover? cover,
+    String? merchant,
   }) =>
       ItemInfo(
         links: links ?? _links,
@@ -626,6 +650,7 @@ class ItemInfo {
         price: price ?? _price,
         instock: instock ?? _instock,
         cover: cover ?? _cover,
+        merchant: merchant ?? _merchant,
       );
   Links? get links => _links;
   String? get uid => _uid;
@@ -634,7 +659,7 @@ class ItemInfo {
   num? get price => _price;
   bool? get instock => _instock;
   Cover? get cover => _cover;
-
+  String? get merchant => _merchant;
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     if (_links != null) {
@@ -645,6 +670,7 @@ class ItemInfo {
     map['size'] = _size;
     map['price'] = _price;
     map['instock'] = _instock;
+    map['merchant'] = _merchant;
     if (_cover != null) {
       map['cover'] = _cover?.toJson();
     }

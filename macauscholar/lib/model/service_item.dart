@@ -353,12 +353,25 @@ class ServiceItem {
     if (_servicesTable != null) {
       map['servicesTable'] = _servicesTable?.map((v) => v.toJson()).toList();
     }
+    if (_cover != null) {
+      map['cover'] = _cover?.toJson();
+    }
     map['withBranches'] = _withBranches;
     map['withoutBranches'] = _withoutBranches;
-    map['withSchools'] = _withSchools;
-    map['withoutSchools'] = _withoutSchools;
-    map['withoutSchoolYears'] = _withoutSchoolYears;
-    map['withSchoolYears'] = _withSchoolYears;
+    if (_withSchools != null) {
+      map['withSchools'] = _withSchools?.map((v) => v.toJson()).toList();
+    }
+    if (_withoutSchools != null) {
+      map['withoutSchools'] = _withoutSchools?.map((v) => v.toJson()).toList();
+    }
+    if (_withoutSchoolYears != null) {
+      map['withoutSchoolYears'] =
+          _withoutSchoolYears?.map((v) => v.toJson()).toList();
+    }
+    if (_withSchoolYears != null) {
+      map['withSchoolYears'] =
+          _withSchoolYears?.map((v) => v.toJson()).toList();
+    }
     map['tags'] = _tags;
     map['color'] = _color;
     map['licence'] = _licence;
@@ -368,7 +381,6 @@ class ServiceItem {
     map['permit'] = _permit;
     map['noDiscount'] = _noDiscount;
     map['recordIdCode'] = _recordIdCode;
-    map['cover'] = _cover;
     map['createdAt'] = _createdAt;
     map['updatedAt'] = _updatedAt;
     map['deletedAt'] = _deletedAt;

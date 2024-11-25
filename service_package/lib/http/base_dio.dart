@@ -34,38 +34,40 @@ class BaseDio {
       'content-type': 'application/json',
     };
 
-    dio.interceptors.add(InterceptorsWrapper(
-      onResponse: (Response response, ResponseInterceptorHandler handler) {
-        final responseData = response.data;
-        if (responseData is Map) {
-          if (responseData.containsKey('success') &&
-              responseData['success'] == false) {
-            if (responseData.containsKey('message') &&
-                (responseData['message'] == 'Unauthorized' ||
-                    responseData['message'] ==
-                        'DeviceAccessToken Unauthorized')) {
-              onUnauthorizedCallback();
+    dio.interceptors.addAll([
+      InterceptorsWrapper(
+        onResponse: (Response response, ResponseInterceptorHandler handler) {
+          final responseData = response.data;
+          if (responseData is Map) {
+            if (responseData.containsKey('success') &&
+                responseData['success'] == false) {
+              if (responseData.containsKey('message') &&
+                  (responseData['message'] == 'Unauthorized' ||
+                      responseData['message'] ==
+                          'DeviceAccessToken Unauthorized')) {
+                onUnauthorizedCallback();
+              }
             }
           }
-        }
-        return handler.next(response); // 必须调用handler.next(response)
-      },
-      onError: (DioException error, ErrorInterceptorHandler handler) {
-        final responseData = error.response?.data;
-        if (responseData is Map) {
-          if (responseData.containsKey('success') &&
-              responseData['success'] == false) {
-            if (responseData.containsKey('message') &&
-                (responseData['message'] == 'Unauthorized' ||
-                    responseData['message'] ==
-                        'DeviceAccessToken Unauthorized')) {
-              onUnauthorizedCallback();
+          return handler.next(response); // 必须调用handler.next(response)
+        },
+        onError: (DioException error, ErrorInterceptorHandler handler) {
+          final responseData = error.response?.data;
+          if (responseData is Map) {
+            if (responseData.containsKey('success') &&
+                responseData['success'] == false) {
+              if (responseData.containsKey('message') &&
+                  (responseData['message'] == 'Unauthorized' ||
+                      responseData['message'] ==
+                          'DeviceAccessToken Unauthorized')) {
+                onUnauthorizedCallback();
+              }
             }
           }
-        }
-        return handler.next(error); // 必须调用handler.next(error)
-      },
-    ));
+          return handler.next(error); // 必须调用handler.next(error)
+        },
+      ),
+    ]);
   }
 
   Future<dynamic> get(

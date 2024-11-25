@@ -1,3 +1,5 @@
+import 'package:marketing/marketing.dart';
+
 /// id : 3
 /// name : "飛機飛機飛機"
 /// brandId : "dagu"
@@ -15,20 +17,23 @@
 
 class GroupItem {
   GroupItem({
-      num? id, 
-      String? name, 
-      String? brandId, 
-      num? limit, 
-      String? goodsId, 
-      String? goodsDetId, 
-      num? nativePrice, 
-      num? nowPrice, 
-      num? count, 
-      String? creatTime, 
-      String? closeTime, 
-      String? desc, 
-      num? part, 
-      String? imgUrl,}){
+    num? id,
+    String? name,
+    String? brandId,
+    num? limit,
+    String? goodsId,
+    String? goodsDetId,
+    num? nativePrice,
+    num? nowPrice,
+    num? count,
+    String? creatTime,
+    String? closeTime,
+    String? desc,
+    num? part,
+    String? imgUrl,
+    Merchant? merchant,
+    Project? project,
+  }) {
     _id = id;
     _name = name;
     _brandId = brandId;
@@ -43,7 +48,9 @@ class GroupItem {
     _desc = desc;
     _part = part;
     _imgUrl = imgUrl;
-}
+    _merchant = merchant;
+    _project = project;
+  }
 
   GroupItem.fromJson(dynamic json) {
     _id = json['id'];
@@ -60,6 +67,10 @@ class GroupItem {
     _desc = json['desc'];
     _part = json['part'];
     _imgUrl = json['imgUrl'];
+    _merchant =
+        json['merchant'] != null ? Merchant.fromJson(json['merchant']) : null;
+    _project =
+        json['project'] != null ? Project.fromJson(json['project']) : null;
   }
   num? _id;
   String? _name;
@@ -75,35 +86,44 @@ class GroupItem {
   String? _desc;
   num? _part;
   String? _imgUrl;
-GroupItem copyWith({  num? id,
-  String? name,
-  String? brandId,
-  num? limit,
-  String? goodsId,
-  String? goodsDetId,
-  num? nativePrice,
-  num? nowPrice,
-  num? count,
-  String? creatTime,
-  String? closeTime,
-  String? desc,
-  num? part,
-  String? imgUrl,
-}) => GroupItem(  id: id ?? _id,
-  name: name ?? _name,
-  brandId: brandId ?? _brandId,
-  limit: limit ?? _limit,
-  goodsId: goodsId ?? _goodsId,
-  goodsDetId: goodsDetId ?? _goodsDetId,
-  nativePrice: nativePrice ?? _nativePrice,
-  nowPrice: nowPrice ?? _nowPrice,
-  count: count ?? _count,
-  creatTime: creatTime ?? _creatTime,
-  closeTime: closeTime ?? _closeTime,
-  desc: desc ?? _desc,
-  part: part ?? _part,
-  imgUrl: imgUrl ?? _imgUrl,
-);
+  Merchant? _merchant;
+  Project? _project;
+  GroupItem copyWith({
+    num? id,
+    String? name,
+    String? brandId,
+    num? limit,
+    String? goodsId,
+    String? goodsDetId,
+    num? nativePrice,
+    num? nowPrice,
+    num? count,
+    String? creatTime,
+    String? closeTime,
+    String? desc,
+    num? part,
+    String? imgUrl,
+    Merchant? merchant,
+    Project? project,
+  }) =>
+      GroupItem(
+        id: id ?? _id,
+        name: name ?? _name,
+        brandId: brandId ?? _brandId,
+        limit: limit ?? _limit,
+        goodsId: goodsId ?? _goodsId,
+        goodsDetId: goodsDetId ?? _goodsDetId,
+        nativePrice: nativePrice ?? _nativePrice,
+        nowPrice: nowPrice ?? _nowPrice,
+        count: count ?? _count,
+        creatTime: creatTime ?? _creatTime,
+        closeTime: closeTime ?? _closeTime,
+        desc: desc ?? _desc,
+        part: part ?? _part,
+        imgUrl: imgUrl ?? _imgUrl,
+        merchant: merchant ?? _merchant,
+        project: project ?? _project,
+      );
   num? get id => _id;
   String? get name => _name;
   String? get brandId => _brandId;
@@ -118,6 +138,8 @@ GroupItem copyWith({  num? id,
   String? get desc => _desc;
   num? get part => _part;
   String? get imgUrl => _imgUrl;
+  Merchant? get merchant => _merchant;
+  Project? get project => _project;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -135,7 +157,12 @@ GroupItem copyWith({  num? id,
     map['desc'] = _desc;
     map['part'] = _part;
     map['imgUrl'] = _imgUrl;
+    if (_merchant != null) {
+      map['merchant'] = _merchant?.toJson();
+    }
+    if (_project != null) {
+      map['project'] = _project?.toJson();
+    }
     return map;
   }
-
 }
