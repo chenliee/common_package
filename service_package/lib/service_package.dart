@@ -18,6 +18,6 @@ export 'widget/custom_modal_route.dart';
 export 'widget/custom_tab_indicator.dart';
 export 'widget/easy_refresh_widget.dart';
 
-class ServiceWeb {
+class ServicePackagePlugin {
   static Future<void> openWebPage(String url, {String type = '_blank'}) async {}
 }

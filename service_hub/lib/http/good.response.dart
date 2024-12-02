@@ -153,7 +153,8 @@ class GoodResponse {
 
       GoodItem? item;
       Map<String, dynamic> res = await BaseDio.getInstance().get(
-        url: "/service-hub/api/merchant/$merchant/good/$id",
+        url:
+            "/service-hub/api/merchant/${merchant ?? ServiceGlobal.instance.merchantId}/good/$id",
         params: params,
       );
       item = GoodItem.fromJson(res);

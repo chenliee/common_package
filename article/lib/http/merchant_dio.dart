@@ -32,7 +32,6 @@ class MerchantDio extends BaseDio {
     Map<String, dynamic>? data,
     bool retry = false,
   }) async {
-    print(ServiceGlobal.instance.merchantToken);
     dio.options.headers = {
       'content-type': 'application/json',
       'Authorization': ServiceGlobal.instance.merchantToken.isNotEmpty

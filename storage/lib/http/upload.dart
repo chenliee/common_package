@@ -17,7 +17,7 @@ class UploadResponse {
     Dio dio = Dio();
     List<int> imageBytes = await file.readAsBytes();
     await dio.put(
-      res['action'],
+      res['action'].replaceAll('http://','https://'),
       data: Stream.fromIterable([imageBytes]),
       options: Options(
         contentType: 'image/jpg',
