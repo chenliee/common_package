@@ -92,7 +92,9 @@ class CourseItem {
     if (json['covers'] != null) {
       _covers = [];
       json['covers']?.forEach((v) {
-        _covers?.add(FileItem.fromJson(v));
+        if (v != null) {
+          _covers?.add(FileItem.fromJson(v));
+        }
       });
     }
   }
